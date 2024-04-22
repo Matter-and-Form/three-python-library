@@ -4,6 +4,8 @@
 SCRIPT_PATH="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 
 
+echo "__version__ = \"0.0.0\"" > ${SCRIPT_PATH}/../three_api/__init__.py
+
 # Activate the virtual environment
 python3 -m venv ${SCRIPT_PATH}/../.venv
 
