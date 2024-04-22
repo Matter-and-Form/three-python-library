@@ -1,6 +1,6 @@
 
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools"]
 
 
 # Package info and dependencies
