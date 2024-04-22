@@ -1,9 +1,9 @@
 
 
 
-from src.settings.camera import Camera
-from src.settings.capture import Capture
-from src.settings.projector import Projector
+from three_api.settings.camera import Camera
+from three_api.settings.capture import Capture
+from three_api.settings.projector import Projector
 
 
 class Scan:

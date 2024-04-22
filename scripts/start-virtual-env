@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Get the absolute script path.
+SCRIPT_PATH="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
+
+
+# Activate the virtual environment
+python3 -m venv ${SCRIPT_PATH}/../.venv
+
+# Install our package
+pip3 install --editable ${SCRIPT_PATH}/..
+
+# Check if our package is present
+echo "********************"
+pip3 list | grep three
+echo "********************"

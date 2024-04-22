@@ -6,8 +6,8 @@ import json
 import threading
 
 
-from src.V3Task import V3Task
-from src.task import Task
+from three_api.V3Task import V3Task
+from three_api.task import Task
 
 
 class Scanner:

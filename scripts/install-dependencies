@@ -2,7 +2,6 @@
 
 # Install all packages required by three API
 
-
 InstallPackages()
 {
     if [ $# -eq 0 ]; then
@@ -34,14 +33,14 @@ InstallPackages()
     fi
 }
 
-
 packages=(
+    # Python 3
+    python3
+    # Python package manager
+    python3-pip
     # Python Virtual Environement
     python3.10-venv
 )
 
-
 InstallPackages ${packages[@]}
-
-
 
