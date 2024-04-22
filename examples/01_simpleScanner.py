@@ -1,4 +1,4 @@
-# client.py
+# simpleScanner.py
 
 # OpenCV
 import cv2
@@ -90,48 +90,53 @@ def OnTrackbarProjectorBrightness(value):
 
 if __name__ == "__main__":
 
-    # Connect to the scanner
-    scanner = Scanner(OnTask=OnTask, OnMessage=OnMessage, OnBuffer=OnBuffer)
-    scanner.Connect("ws://matterandform.local:8081")
+    try:
+        # Connect to the scanner
+        scanner = Scanner(OnTask=OnTask, OnMessage=OnMessage, OnBuffer=OnBuffer)
+        scanner.Connect("ws://matterandform.local:8081")
 
-    # Create the UI
-    cv2.namedWindow(ControlsWindow)
-    cv2.namedWindow(Camera0Window)
-    cv2.namedWindow(Camera1Window)
-    cv2.moveWindow(ControlsWindow,0, 550)
-    cv2.moveWindow(Camera0Window,0,100)
-    cv2.moveWindow(Camera1Window,550,100)
-    cv2.createTrackbar('Exposure', ControlsWindow , exposure, 100000, OnTrackbarExposure)
-    cv2.createTrackbar('Analog Gain', ControlsWindow , analogGain, 1024, OnTrackbarAnalogGain)
-    cv2.createTrackbar('Digital Gain', ControlsWindow , digitalGain, 1024, OnTrackbarDigitalGain)
-    cv2.createTrackbar('Projector Brightness', ControlsWindow , int(100 * projectorBrightness), 100, OnTrackbarProjectorBrightness)
+        # Create the UI
+        cv2.namedWindow(ControlsWindow)
+        cv2.namedWindow(Camera0Window)
+        cv2.namedWindow(Camera1Window)
+        cv2.moveWindow(ControlsWindow,0, 550)
+        cv2.moveWindow(Camera0Window,0,100)
+        cv2.moveWindow(Camera1Window,550,100)
+        cv2.createTrackbar('Exposure', ControlsWindow , exposure, 100000, OnTrackbarExposure)
+        cv2.createTrackbar('Analog Gain', ControlsWindow , analogGain, 1024, OnTrackbarAnalogGain)
+        cv2.createTrackbar('Digital Gain', ControlsWindow , digitalGain, 1024, OnTrackbarDigitalGain)
+        cv2.createTrackbar('Projector Brightness', ControlsWindow , int(100 * projectorBrightness), 100, OnTrackbarProjectorBrightness)
 
-    # User input loop
-    while True:
+        # User input loop
+        while True:
 
-        # If present => Show the frames
-        if frame0.size > 0:
-            cv2.imshow(Camera0Window,frame0)
-        if frame1.size > 0:
-            cv2.imshow(Camera1Window,frame1)
+            # If present => Show the frames
+            if frame0.size > 0:
+                cv2.imshow(Camera0Window,frame0)
+            if frame1.size > 0:
+                cv2.imshow(Camera1Window,frame1)
 
-        # User input
-        key = cv2.waitKey(1)
-        if(key != -1):
+            # User input
+            key = cv2.waitKey(1)
+            if(key != -1):
 
-            if key == 27: # Esc => Break the loop
-                break        
-            
-            elif key == 118 : # Start video and the projector
-                scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projectorBrightness))
-                scanner.SendTask(-1, V3Task.StartVideo)       
-            
-            elif key == 115: # Create a new Test Scan
-                scan = Scan(
-                    Camera(analogGain=analogGain,digitalGain=digitalGain,exposure=exposure),
-                    Capture(), 
-                    Projector(brightness=projectorBrightness))
-                scanner.SendTask(115, V3Task.NewTestScan, scan)
+                if key == 27: # Esc => Break the loop
+                    break        
+                
+                elif key == 118 : # Start video and the projector
+                    scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projectorBrightness))
+                    scanner.SendTask(-1, V3Task.StartVideo)       
+                
+                elif key == 115: # Create a new Test Scan
+                    scan = Scan(
+                        Camera(analogGain=analogGain,digitalGain=digitalGain,exposure=exposure),
+                        Capture(), 
+                        Projector(brightness=projectorBrightness))
+                    scanner.SendTask(115, V3Task.NewTestScan, scan)
+
+    except:
+        print('An error occurred')
+    
 
     scanner.Disconnect()
     cv2.destroyAllWindows()
