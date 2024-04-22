@@ -1,5 +1,5 @@
 ## @package three_api
-# @file 01_scanner.py
+# @file scanner.py
 # @brief Scanner class to wrap websocket connection
 # @date 2024-04-22
 # @copyright © 2024 Matter and Form. All rights reserved.

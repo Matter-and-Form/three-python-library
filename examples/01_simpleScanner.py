@@ -1,4 +1,4 @@
-# simpleScanner.py
+# 01_simpleScanner.py
 
 # OpenCV
 import cv2
