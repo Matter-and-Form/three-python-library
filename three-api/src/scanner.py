@@ -6,8 +6,8 @@ import json
 import threading
 
 
-from maf.V3Task import V3Task
-from maf.task import Task
+from src.V3Task import V3Task
+from src.task import Task
 
 
 class Scanner:

@@ -1,9 +1,9 @@
 
 
 
-from maf.settings.camera import Camera
-from maf.settings.capture import Capture
-from maf.settings.projector import Projector
+from src.settings.camera import Camera
+from src.settings.capture import Capture
+from src.settings.projector import Projector
 
 
 class Scan:

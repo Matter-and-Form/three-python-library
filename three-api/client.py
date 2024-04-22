@@ -5,14 +5,16 @@ import cv2
 import numpy as np
 
 # MF
-from maf.V3Task import V3Task
-from maf.scanner import Scanner
-from maf.settings.capture import Capture
-from maf.settings.scan import Scan
-from maf.task import Task, TaskState
+from src.V3Task import V3Task
+from src.scanner import Scanner
 
-from maf.settings.camera import Camera
-from maf.settings.projector import Projector
+from src.settings.capture import Capture
+from src.settings.scan import Scan
+
+from src.task import Task, TaskState
+
+from src.settings.camera import Camera
+from src.settings.projector import Projector
 
 ControlsWindow = 'Controls'
 Camera0Window = 'Camera0'
