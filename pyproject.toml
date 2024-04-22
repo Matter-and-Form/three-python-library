@@ -1,8 +1,12 @@
 
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+
+
 # Package info and dependencies
 [project]
 name = "three_api"
-version = "0.0.1"
+dynamic = ["version"]
 dependencies = [
     "requests",
     'importlib-metadata; python_version<"3.10"',
@@ -16,3 +20,7 @@ dependencies = [
 include = ["three_api*"]
 #exclude = ["mypackage.tests*"]  # empty by default
 #namespaces = false  # true by default
+
+# Dynamic input
+[tool.setuptools.dynamic]
+version = {attr = "three_api.__version__"}

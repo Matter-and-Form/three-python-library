@@ -11,6 +11,11 @@ git clone https://github.com/Matter-and-Form/three-api.git
 scripts/install-dependencies
 ```
 
+# Build the package
+```
+./scripts/build-package 1.2.3
+```
+
 
 # Start the Virtual Environment
 ```
