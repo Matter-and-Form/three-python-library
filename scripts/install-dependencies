@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Install all packages required by three API
+
+
+InstallPackages()
+{
+    if [ $# -eq 0 ]; then
+        #echo "No arguments, nothing to do."
+        return 0
+    fi
+
+    # Check if running as root
+    if [ ${EUID} -eq 0 ]; then
+        # Running as root, sudo is not available.
+        SUDO=""
+    else
+        # Running as a user, sudo is required.
+        SUDO="sudo"
+    fi
+
+    UPDATE_COMMAND="${SUDO} apt update"
+    INSTALL_COMMAND="${SUDO} apt install -y --no-install-recommends ${@}"
+
+    echo "${UPDATE_COMMAND}"
+    ${UPDATE_COMMAND}
+
+    echo "${INSTALL_COMMAND}"
+    ${INSTALL_COMMAND}
+
+    # Check if install failed
+    if [ $? -ne 0 ]; then 
+        exit 1
+    fi
+}
+
+
+packages=(
+    # Python Virtual Environement
+    python3.10-venv
+)
+
+
+InstallPackages ${packages[@]}
+
+
+

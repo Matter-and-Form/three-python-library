@@ -1,7 +1,7 @@
 
 # Package info and dependencies
 [project]
-name = "three-api"
+name = "three_api"
 version = "0.0.1"
 dependencies = [
     "requests",
@@ -13,6 +13,6 @@ dependencies = [
 # Package source
 [tool.setuptools.packages.find]
 #where = ["src"]  # ["."] by default
-include = ["three-api*"]
+include = ["three_api*"]
 #exclude = ["mypackage.tests*"]  # empty by default
 #namespaces = false  # true by default
