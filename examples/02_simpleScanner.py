@@ -1,4 +1,4 @@
-# 01_simpleScanner.py
+# Simple Scanner
 
 # OpenCV
 import cv2
@@ -31,23 +31,23 @@ analogGain = 256
 projectorBrightness = 0.5
 
 # Message received
-def OnMessage(incoming:str):
-    print('Message : ', incoming)
+def OnMessage(message:str):
+    print('Message : ', message)
 
 # Task update
-def OnTask(incoming:Task):
+def OnTask(task:Task):
 
-    if incoming.State == TaskState.Completed:
+    if task.State == TaskState.Completed:
         # New Test Scan
-        if(incoming.Type == V3Task.NewTestScan):
-            if incoming.Output:
+        if(task.Type == V3Task.NewTestScan):
+            if task.Output:
                 print('Scan Completed -> Requesting the data')
-                index = incoming.Output[0]
+                index = task.Output[0]
                 filePath = f'TestScans/Scan-{index}/Scan-{index}.ply'
                 scanner.SendTask(1, V3Task.DownloadFile, filePath )
     
-    elif incoming.State == TaskState.Failed:
-       print('Failed Task : ', incoming)
+    elif task.State == TaskState.Failed:
+       print('Failed Task : ', task)
 
 # Buffer received
 def OnBuffer(descriptor, buffer:bytes):

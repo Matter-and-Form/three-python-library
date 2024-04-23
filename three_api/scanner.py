@@ -34,7 +34,7 @@ class Scanner:
         self.OnBuffer = OnBuffer
 
 
-    def Connect(self, URI:str, timeout=3) -> bool:
+    def Connect(self, URI:str, timeoutSec=5) -> bool:
 
         print('Connecting to : ', URI)
         self.__URI = URI
@@ -54,7 +54,7 @@ class Scanner:
 
         # Wait for connection
         start = time.time()
-        while time.time() < start + timeout:
+        while time.time() < start + timeoutSec:
             if self.__isConnected: return True
             elif self.__error: raise Exception(self.__error)
             time.sleep(0.1)
@@ -62,7 +62,6 @@ class Scanner:
         raise Exception('Connection timeout')
         
     def Disconnect(self) -> None:
-        print('Disconnecting ...')
         self.websocket.close()
 
     def IsConnected(self)-> bool:

@@ -1,4 +1,4 @@
-# 00_connection.py
+# Connection
 
 from three_api.scanner import Scanner
 
@@ -7,9 +7,9 @@ try:
     scanner.Connect("ws://matterandform.local:8081")
 
 except Exception as error:
-    print('Scanner error : ', error)
+    print('Error : ', error)
 except:
-    print('Scanner error')
+    print('Error')
 
 finally: 
     if scanner.IsConnected():
