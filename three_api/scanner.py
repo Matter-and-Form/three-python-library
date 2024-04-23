@@ -14,6 +14,7 @@ import time
 
 from three_api.V3Task import V3Task
 from three_api.task import Task
+from three_api.buffer import Buffer
 
 
 class Scanner:
@@ -113,7 +114,7 @@ class Scanner:
                     self.OnMessage(obj)
 
     # Send a task to the scanner
-    def SendTask(self, index:int, type:V3Task, input = None) -> None:
+    def SendTask(self, index:int, type:V3Task, input = None) -> Task:
         assert self.__isConnected
         # Create the task
         task = Task(index, type, input)
@@ -128,5 +129,25 @@ class Scanner:
         message = '{"Task":' + message + '}'
         #print('Message : ', message)   
         self.websocket.send(message)
+
+        return task
+
+    def SendBuffer(self, task:Task,data:bytes):
+
+        # Build the buffer descriptor
+        buffer = Buffer(0, len(data), task)
+
+        # Serialize the buffer descriptor
+        message = json.dumps(
+            buffer,
+            default=lambda o: dict((key, value) for key, value in o.__dict__.items() if value != None),
+            allow_nan=False)
+
+        # Send the buffer descriptor
+        message = '{"Buffer":' + message + '}'
+        self.websocket.send(message)
+
+        # Send the data
+        self.websocket.send(data, websocket.ABNF.OPCODE_BINARY)
 
 

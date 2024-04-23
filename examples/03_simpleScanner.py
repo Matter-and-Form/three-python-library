@@ -30,10 +30,6 @@ digitalGain = 256
 analogGain = 256
 projectorBrightness = 0.5
 
-# Message received
-def OnMessage(message:str):
-    print('Message : ', message)
-
 # Task update
 def OnTask(task:Task):
 
@@ -92,7 +88,7 @@ if __name__ == "__main__":
 
     try:
         # Connect to the scanner
-        scanner = Scanner(OnTask=OnTask, OnMessage=OnMessage, OnBuffer=OnBuffer)
+        scanner = Scanner(OnTask=OnTask, OnBuffer=OnBuffer, OnMessage=None)
         scanner.Connect("ws://matterandform.local:8081")
 
         # Create the UI
