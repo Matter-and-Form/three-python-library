@@ -1,6 +1,5 @@
 # Projector
 
-from three_api.buffer import Buffer
 from three_api.scanner import Scanner
 from three_api.settings.projector import Image, Orientation, Pattern, Projector, Rect, Source
 from three_api.settings.video import Format
@@ -8,9 +7,6 @@ from three_api.V3Task import V3Task
 
 import time
 import numpy as np
-
-hasTurntable = None
-rotating = False
 
 try:
     scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)

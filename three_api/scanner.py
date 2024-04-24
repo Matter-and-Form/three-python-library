@@ -11,11 +11,9 @@ import json
 import threading
 import time
 
-
 from three_api.V3Task import V3Task
 from three_api.task import Task
 from three_api.buffer import Buffer
-
 
 class Scanner:
 
@@ -133,6 +131,7 @@ class Scanner:
 
         return task
 
+    # Send a task with its buffer to the scanner
     def SendTaskWithBuffer(self, index:int, type:V3Task, buffer:bytes, input = None):
         assert self.__isConnected
 
