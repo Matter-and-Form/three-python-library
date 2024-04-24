@@ -1,6 +1,6 @@
 # Connection
 
-from three_api.scanner import Scanner
+from maf_three.scanner import Scanner
 
 try:
     scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)

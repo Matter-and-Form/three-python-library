@@ -5,16 +5,17 @@ import cv2
 import numpy as np
 
 # Three API
-from three_api.V3Task import V3Task
-from three_api.scanner import Scanner
+from maf_three.V3Task import V3Task
+from maf_three.scanner import Scanner
 
-from three_api.settings.capture import Capture
-from three_api.settings.scan import Scan
+from maf_three.settings.capture import Capture
+from maf_three.settings.scan import Scan
 
-from three_api.task import Task, TaskState
+from maf_three.settings.turntable import Turntable
+from maf_three.task import Task, TaskState
 
-from three_api.settings.camera import Camera
-from three_api.settings.projector import Projector
+from maf_three.settings.camera import Camera
+from maf_three.settings.projector import Projector
 
 ControlsWindow = 'Controls'
 Camera0Window = 'Camera0'

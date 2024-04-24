@@ -1,9 +1,9 @@
 # Projector
 
-from three_api.scanner import Scanner
-from three_api.settings.projector import Image, Orientation, Pattern, Projector, Rect, Source
-from three_api.settings.video import Format
-from three_api.V3Task import V3Task
+from maf_three.scanner import Scanner
+from maf_three.settings.projector import Image, Orientation, Pattern, Projector, Rect, Source
+from maf_three.settings.video import Format
+from maf_three.V3Task import V3Task
 
 import time
 import numpy as np

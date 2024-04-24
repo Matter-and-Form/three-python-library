@@ -132,7 +132,7 @@ class Scanner:
         return task
 
     # Send a task with its buffer to the scanner
-    def SendTaskWithBuffer(self, index:int, type:V3Task, buffer:bytes, input = None):
+    def SendTaskWithBuffer(self, index:int, type:V3Task, buffer:bytes, input = None) -> Task:
         assert self.__isConnected
 
         # Send the task
@@ -152,7 +152,7 @@ class Scanner:
         bufferMessage = '{"Buffer":' + bufferMessage + '}'
         self.websocket.send(bufferMessage)
 
-        # Send the buffer
+        # The maximum websocket payload size is 32 MB.
         MAX_SIZE = 32000000
         sentSize = 0
 
