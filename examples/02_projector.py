@@ -4,12 +4,10 @@ from three_api.buffer import Buffer
 from three_api.scanner import Scanner
 from three_api.settings.projector import Image, Orientation, Pattern, Projector, Rect, Source
 from three_api.settings.video import Format
-from three_api.task import Task, TaskState
 from three_api.V3Task import V3Task
 
 import time
 import numpy as np
-import cv2
 
 hasTurntable = None
 rotating = False
@@ -43,11 +41,18 @@ try:
     time.sleep(1)
 
     #### Project an image
-    #image = np.zeros([300, 200, 3], np.uint8)
-    image = cv2.imread('image.png')
-    source = Source(format = Format.BGR888, width=image.shape[1], height=image.shape[0])
-    task = scanner.SendTask(6, V3Task.SetProjector, Projector(image=Image(source=source, target=Rect(100,100,600, 400))))
-    scanner.SendBuffer(task, image.tobytes())
+    width = 640
+    height = 480
+    image = np.zeros([height, width, 3], np.uint8)
+    for y in range(height):
+        for x in range(0, width):
+            image[y,x] = (
+                255 * y / height , # Blue
+                255 * x / width , # Green
+                255 - 255 * y / height # Red
+            )
+    source = Source(format = Format.BGR888, width=width, height=height)
+    scanner.SendTaskWithBuffer(6, V3Task.SetProjector, image.tobytes(),Projector(image=Image(source=source, target=Rect(100,100,640, 480))) )
     time.sleep(1)
 
     #### Turn OFF

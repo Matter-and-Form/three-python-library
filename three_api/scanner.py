@@ -116,6 +116,7 @@ class Scanner:
     # Send a task to the scanner
     def SendTask(self, index:int, type:V3Task, input = None) -> Task:
         assert self.__isConnected
+        
         # Create the task
         task = Task(index, type, input)
 
@@ -132,22 +133,39 @@ class Scanner:
 
         return task
 
-    def SendBuffer(self, task:Task,data:bytes):
+    def SendTaskWithBuffer(self, index:int, type:V3Task, buffer:bytes, input = None):
+        assert self.__isConnected
+
+        # Send the task
+        task = self.SendTask(index, type, input)
 
         # Build the buffer descriptor
-        buffer = Buffer(0, len(data), task)
+        bufferSize = len(buffer)
+        bufferDescriptor = Buffer(0, bufferSize, task)
 
         # Serialize the buffer descriptor
-        message = json.dumps(
-            buffer,
+        bufferMessage = json.dumps(
+            bufferDescriptor,
             default=lambda o: dict((key, value) for key, value in o.__dict__.items() if value != None),
             allow_nan=False)
 
         # Send the buffer descriptor
-        message = '{"Buffer":' + message + '}'
-        self.websocket.send(message)
+        bufferMessage = '{"Buffer":' + bufferMessage + '}'
+        self.websocket.send(bufferMessage)
 
-        # Send the data
-        self.websocket.send(data, websocket.ABNF.OPCODE_BINARY)
+        # Send the buffer
+        MAX_SIZE = 32000000
+        sentSize = 0
+
+        # Send all the sub-payloads of the maximum payload size.
+        while sentSize + MAX_SIZE < bufferSize:
+            self.websocket.send(buffer[sentSize:sentSize + MAX_SIZE], websocket.ABNF.OPCODE_BINARY)
+            sentSize += MAX_SIZE
+
+        # Send the remaining data.
+        if sentSize < bufferSize:
+            self.websocket.send(buffer[sentSize:bufferSize], websocket.ABNF.OPCODE_BINARY)
+
+        return task
 
 
