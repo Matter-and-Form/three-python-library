@@ -1,0 +1,5 @@
+
+# Upload
+USER=__token__
+PWD=pypi-AgENdGVzdC5weXBpLm9yZwIkZWRkNjY5YjUtYjExNC00MGZhLThkZGUtN2I0YzIwMTA4YzNlAAIqWzMsIjFhNTRiM2MwLWQ1ZjYtNDE1MC05OGY2LTU2MTdmOWU5OWY2NCJdAAAGIIPugd8KGotNEh3VsQgFXiuS0jz2tRfnws4MMHnbDr-q
+twine upload --repository testpypi ${SCRIPT_PATH}/../dist/* -u${USER} -p${PWD}

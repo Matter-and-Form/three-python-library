@@ -13,19 +13,4 @@ class Project:
         return f'Project : {self.index} - {self.name}\t {self.size} b\t {self.modified}'
     
 
-class Codec(str, Enum):
-    # The frames coming from the Scanner are streaming in RAW format.
-    RAW = 'RAW',
 
-    # The frames coming from the Scanner are encoded in JPEG format.
-    JPEG = 'JPEG',
-
-    # The frames coming from the Scanner are encoded in H264 format.
-    H264 = 'H264'
-
-class Format(str, Enum):
-    # BGR 24-bit.
-    BGR888 = 'RGB888',
-
-    # YUV 420 planar.
-    YUV420 = 'YUV420'
