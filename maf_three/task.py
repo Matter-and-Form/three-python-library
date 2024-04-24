@@ -2,7 +2,7 @@
 
 from enum import Enum
 
-from three_api.V3Task import V3Task
+from maf_three.V3Task import V3Task
 
 
 class TaskState(str, Enum):

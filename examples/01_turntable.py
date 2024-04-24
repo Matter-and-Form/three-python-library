@@ -1,8 +1,8 @@
 # Turntable
 
-from three_api.scanner import Scanner
-from three_api.task import Task, TaskState
-from three_api.V3Task import V3Task
+from maf_three.scanner import Scanner
+from maf_three.task import Task, TaskState
+from maf_three.V3Task import V3Task
 
 import time
 

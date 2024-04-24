@@ -2,8 +2,8 @@
 
 
 
-from three_api.V3Task import V3Task
-from three_api.task import Task
+from maf_three.V3Task import V3Task
+from maf_three.task import Task
 
 
 class Buffer:
