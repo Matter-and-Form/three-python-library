@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+    echo "At least one arguments is required."
+    exit 1
+fi
+
+# Get the absolute script path.
+SCRIPT_PATH="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
+
+# Clear the dist directory
+rm -r ${SCRIPT_PATH}/../dist/*
+
+# Update __init__.py
+VERSION=${1} 
+echo "__version__ = \""${VERSION}\" > ${SCRIPT_PATH}/../three_api/__init__.py
+
+# Build
+python3 -m build ${SCRIPT_PATH}/..
+
+# Upload
+USER=__token__
+PWD=pypi-AgENdGVzdC5weXBpLm9yZwIkZWRkNjY5YjUtYjExNC00MGZhLThkZGUtN2I0YzIwMTA4YzNlAAIqWzMsIjFhNTRiM2MwLWQ1ZjYtNDE1MC05OGY2LTU2MTdmOWU5OWY2NCJdAAAGIIPugd8KGotNEh3VsQgFXiuS0jz2tRfnws4MMHnbDr-q
+twine upload --repository testpypi ${SCRIPT_PATH}/../dist/* -u${USER} -p${PWD}
