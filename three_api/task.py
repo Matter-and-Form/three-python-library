@@ -44,4 +44,4 @@ class Task:
       self.Error = Error
 
    def __str__(self):
-        return f'Task : {self.Index} - {self.Type} ; I: {self.Input} ; O: {self.Output}'
+        return f'"{self.Index} - {self.Type}" State: {self.State}; Input: {self.Input}; Output: {self.Output}'

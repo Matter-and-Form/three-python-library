@@ -40,6 +40,8 @@ packages=(
     python3-pip
     # Python Virtual Environement
     python3.10-venv
+    # Publishing
+    twine
 )
 
 InstallPackages ${packages[@]}

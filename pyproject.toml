@@ -6,6 +6,7 @@ requires = ["setuptools"]
 # Package info and dependencies
 [project]
 name = "three_api"
+description = "Matter and Form - THREE - API"
 dynamic = ["version"]
 dependencies = [
     "requests",
@@ -13,13 +14,14 @@ dependencies = [
     "websocket-client == 1.7.0"
 ]
 
+# URLs
+[project.urls]
+Homepage = "https://matterandform.net"
+Documentation = "https://matterandform.net"
 
 # Package source
 [tool.setuptools.packages.find]
-#where = ["src"]  # ["."] by default
 include = ["three_api*"]
-#exclude = ["mypackage.tests*"]  # empty by default
-#namespaces = false  # true by default
 
 # Dynamic input
 [tool.setuptools.dynamic]

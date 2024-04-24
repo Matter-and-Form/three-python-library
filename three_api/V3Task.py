@@ -58,10 +58,10 @@ class V3Task(str, Enum):
     # Apply projector settings. 
     SetProjector = 'SetProjector',
 
-    # Check if the server can connect to a turntable. 
+    # Check if the server can connect to cameras. 
     HasCameras = 'HasCameras',
 
-    # Check if the server can connect to a turntable. 
+    # Check if the server can connect to a projector. 
     HasProjector = 'HasProjector',
 
     # Check if the server can connect to a turntable. 
