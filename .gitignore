@@ -161,4 +161,4 @@ cython_debug/
 
 
 ## Matter And Form
-three_api/__init__.py
+maf_three/__init__.py

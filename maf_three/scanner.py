@@ -1,4 +1,4 @@
-## @package three_api
+## @package maf_three
 # @file scanner.py
 # @brief Scanner class to wrap websocket connection
 # @date 2024-04-22
@@ -11,9 +11,9 @@ import json
 import threading
 import time
 
-from three_api.V3Task import V3Task
-from three_api.task import Task
-from three_api.buffer import Buffer
+from maf_three.V3Task import V3Task
+from maf_three.task import Task
+from maf_three.buffer import Buffer
 
 class Scanner:
 

@@ -13,7 +13,7 @@ rm -r ${SCRIPT_PATH}/../dist/*
 
 # Update __init__.py
 VERSION=${1} 
-echo "__version__ = \""${VERSION}\" > ${SCRIPT_PATH}/../three_api/__init__.py
+echo "__version__ = \""${VERSION}\" > ${SCRIPT_PATH}/../maf_three/__init__.py
 
 # Build
 python3 -m build ${SCRIPT_PATH}/..
