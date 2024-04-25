@@ -1,6 +1,8 @@
 
 from enum import Enum
 
+from array import *
+
 class CaptureQuality(str, Enum):
     # Low quality.
     Low = 'Low',
@@ -12,11 +14,11 @@ class CaptureQuality(str, Enum):
 class Capture:
     def __init__(
             self,
-            calibrationCard = None, 
-            texture = None,
-            quality = None, 
-            horizontalFrequencies=None,
-            verticalFrequencies=None
+            calibrationCard: bool|None = None, 
+            texture: bool|None = None,
+            quality: CaptureQuality|None = None, 
+            horizontalFrequencies: array|None = None,
+            verticalFrequencies: array|None = None
             ):
         
         self.calibrationCard = calibrationCard

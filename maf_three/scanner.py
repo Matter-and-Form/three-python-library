@@ -12,6 +12,7 @@ import threading
 import time
 
 from maf_three.V3Task import V3Task
+from maf_three.json import TO_JSON
 from maf_three.task import Task
 from maf_three.buffer import Buffer
 
@@ -119,10 +120,7 @@ class Scanner:
         task = Task(index, type, input)
 
         # Serialize the task
-        message = json.dumps(
-            task,
-            default=lambda o: dict((key, value) for key, value in o.__dict__.items() if value != None),
-            allow_nan=False)
+        message = TO_JSON(task)
         
         # Build and send the message
         message = '{"Task":' + message + '}'
@@ -143,10 +141,7 @@ class Scanner:
         bufferDescriptor = Buffer(0, bufferSize, task)
 
         # Serialize the buffer descriptor
-        bufferMessage = json.dumps(
-            bufferDescriptor,
-            default=lambda o: dict((key, value) for key, value in o.__dict__.items() if value != None),
-            allow_nan=False)
+        bufferMessage = TO_JSON(bufferDescriptor)
 
         # Send the buffer descriptor
         bufferMessage = '{"Buffer":' + bufferMessage + '}'
