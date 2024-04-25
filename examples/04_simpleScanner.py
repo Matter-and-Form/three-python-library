@@ -28,6 +28,7 @@ frame1 = np.zeros((0,0,3), np.uint8)
 # Camera/Projector settings
 camera = Camera(exposure=50000, digitalGain=256, analogGain=256)
 projector = Projector(brightness=0.5)
+turntable = Turntable(use=False)
 
 
 # Task update
@@ -83,6 +84,17 @@ def OnTrackbarProjectorBrightness(value):
     projector.brightness = value / 100
     if scanner.IsConnected(): scanner.SendTask(112, V3Task.SetProjector, Projector(brightness=value/100))
 
+def OnTrackbarUseTurntable(value):
+    global turntable
+    turntable.use = value == 1
+
+def OnTrackbarTurntableSweep(value):
+    global turntable
+    turntable.sweep = value
+
+def OnTrackbarTurntableSteps(value):
+    global turntable
+    turntable.steps = value
 
 if __name__ == "__main__":
 
@@ -102,6 +114,9 @@ if __name__ == "__main__":
         cv2.createTrackbar('Analog Gain', ControlsWindow , camera.analogGain, 1024, OnTrackbarAnalogGain)
         cv2.createTrackbar('Digital Gain', ControlsWindow , camera.digitalGain, 1024, OnTrackbarDigitalGain)
         cv2.createTrackbar('Projector Brightness', ControlsWindow , int(100 * projector.brightness), 100, OnTrackbarProjectorBrightness)
+        cv2.createTrackbar('Use Turntable', ControlsWindow , 1 if turntable.use else 0, 1, OnTrackbarUseTurntable)
+        cv2.createTrackbar('Turntable Sweep', ControlsWindow , 180, 360, OnTrackbarTurntableSweep)
+        cv2.createTrackbar('Turntable Steps', ControlsWindow , 0, 32, OnTrackbarTurntableSteps)
 
         # User input loop
         while True:
@@ -128,7 +143,7 @@ if __name__ == "__main__":
                         camera,
                         Capture(), 
                         projector,
-                        None)
+                        turntable)
                     scanner.SendTask(115, V3Task.NewTestScan, scan)
     
     except Exception as error:

@@ -4,7 +4,7 @@
 class Turntable:
     def __init__(
             self,
-            use = None | bool,
+            use : bool| None = None,
             sweep = 0,
             steps = 0):
         self.use = use
