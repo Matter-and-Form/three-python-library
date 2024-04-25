@@ -26,10 +26,9 @@ frame0 = np.zeros((0,0,3), np.uint8)
 frame1 = np.zeros((0,0,3), np.uint8)
 
 # Camera/Projector settings
-exposure = 50000
-digitalGain = 256
-analogGain = 256
-projectorBrightness = 0.5
+camera = Camera(exposure=50000, digitalGain=256, analogGain=256)
+projector = Projector(brightness=0.5)
+
 
 # Task update
 def OnTask(task:Task):
@@ -65,24 +64,24 @@ def OnBuffer(descriptor, buffer:bytes):
 
 
 def OnTrackbarExposure(value):
-    global exposure
-    exposure = value
-    if scanner.IsConnected(): scanner.SendTask(99, V3Task.SetCameras, Camera(exposure=exposure))
+    global camera
+    camera.exposure = value
+    if scanner.IsConnected(): scanner.SendTask(99, V3Task.SetCameras, Camera(exposure=value))
 
 def OnTrackbarAnalogGain(value):
-    global analogGain
-    analogGain = value
-    if scanner.IsConnected(): scanner.SendTask(99, V3Task.SetCameras, Camera(analogGain=analogGain))
+    global camera
+    camera.analogGain = value
+    if scanner.IsConnected(): scanner.SendTask(99, V3Task.SetCameras, Camera(analogGain=value))
 
 def OnTrackbarDigitalGain(value):
-    global digitalGain
-    digitalGain = value
-    if scanner.IsConnected(): scanner.SendTask(99, V3Task.SetCameras, Camera(digitalGain=digitalGain))
+    global camera
+    camera.digitalGain = value
+    if scanner.IsConnected(): scanner.SendTask(99, V3Task.SetCameras, Camera(digitalGain=value))
 
 def OnTrackbarProjectorBrightness(value):
-    global projectorBrightness
-    projectorBrightness = value / 100
-    if scanner.IsConnected(): scanner.SendTask(112, V3Task.SetProjector, Projector(brightness=projectorBrightness))
+    global projector
+    projector.brightness = value / 100
+    if scanner.IsConnected(): scanner.SendTask(112, V3Task.SetProjector, Projector(brightness=value/100))
 
 
 if __name__ == "__main__":
@@ -99,10 +98,10 @@ if __name__ == "__main__":
         cv2.moveWindow(ControlsWindow,0, 550)
         cv2.moveWindow(Camera0Window,0,100)
         cv2.moveWindow(Camera1Window,550,100)
-        cv2.createTrackbar('Exposure', ControlsWindow , exposure, 100000, OnTrackbarExposure)
-        cv2.createTrackbar('Analog Gain', ControlsWindow , analogGain, 1024, OnTrackbarAnalogGain)
-        cv2.createTrackbar('Digital Gain', ControlsWindow , digitalGain, 1024, OnTrackbarDigitalGain)
-        cv2.createTrackbar('Projector Brightness', ControlsWindow , int(100 * projectorBrightness), 100, OnTrackbarProjectorBrightness)
+        cv2.createTrackbar('Exposure', ControlsWindow , camera.exposure, 100000, OnTrackbarExposure)
+        cv2.createTrackbar('Analog Gain', ControlsWindow , camera.analogGain, 1024, OnTrackbarAnalogGain)
+        cv2.createTrackbar('Digital Gain', ControlsWindow , camera.digitalGain, 1024, OnTrackbarDigitalGain)
+        cv2.createTrackbar('Projector Brightness', ControlsWindow , int(100 * projector.brightness), 100, OnTrackbarProjectorBrightness)
 
         # User input loop
         while True:
@@ -120,17 +119,20 @@ if __name__ == "__main__":
                 if key == 27: # Esc => Break the loop
                     break        
                 
-                elif key == 118 : # Start video and the projector
-                    scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projectorBrightness))
+                elif key == 118 : # 'v' => Start video and the projector
+                    scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projector.brightness))
                     scanner.SendTask(-1, V3Task.StartVideo)       
                 
-                elif key == 115: # Create a new Test Scan
+                elif key == 115: # 's' => Create a new Test Scan
                     scan = Scan(
-                        Camera(analogGain=analogGain,digitalGain=digitalGain,exposure=exposure),
+                        camera,
                         Capture(), 
-                        Projector(brightness=projectorBrightness))
+                        projector,
+                        None)
                     scanner.SendTask(115, V3Task.NewTestScan, scan)
-
+    
+    except Exception as error:
+        print('Error : ', error)
     except:
         print('An error occurred')
     
