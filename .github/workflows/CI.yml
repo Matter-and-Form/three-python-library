@@ -1,4 +1,4 @@
-name: CI - Continuous Integration
+name: CI Pipeline
 
 # Triggers of the Action : Push or Pull Request
 on:

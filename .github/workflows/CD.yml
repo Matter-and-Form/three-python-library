@@ -52,6 +52,7 @@ jobs:
     # Install dependencies
     - name: Install dependencies
       run: |
+          sudo apt install -y twine
           pip install --upgrade build
 
     # Set version
@@ -64,11 +65,10 @@ jobs:
      
 
 
-    ############## 3. Update the package to the apt repos. ##############
+    ############## 3. Upload the package. ##############
 
-
-    # Upload deb package to S3
-    - name: Upload to S3
+    # Upload deb package to testpypi
+    - name: Upload to TestPyPi
       run: twine upload --repository testpypi dist/* -u__token__ -p${{ secrets.TESTPYPI_TOKEN }}
 
 
