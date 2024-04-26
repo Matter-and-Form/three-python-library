@@ -34,6 +34,11 @@ jobs:
     - name: Checkout repository and submodules
       uses: actions/checkout@v3
 
+    # Install dependencies
+    - name: Install dependencies
+      run: |
+        pip install --upgrade setuptools
+
     # Set version
     - name: Set Version
       run: echo "__version__ = \"0.0.0\"" > maf_three/__init__.py
