@@ -1,0 +1,74 @@
+name: CD Pipeline
+
+# The pipeline is triggered by tags being pushed.
+on:
+  push:
+    tags:        
+      - 'v*.*.*'   # Library version
+
+jobs:
+  Continuous_Deployment:
+    runs-on: ubuntu-latest
+    
+    # 1. Extract information from the tag (Project, package name, version number, channel).
+    # 2. Build the deb package.
+    # 3. Update the package to the apt repos.
+    steps:
+
+    ############## 1. Extract information from the tag ##############
+
+    # Checkout the source and the submodules
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v3
+
+    # Check tag
+    - name: Check tag
+      run: |
+        echo "Checking tag : ${GITHUB_REF_NAME}"
+        source ./scripts/github-tag
+        CheckTag ${GITHUB_REF_NAME}
+        
+    # Get version number
+    - name: Tag -> Version
+      run: |
+        source scripts/github-tag
+        echo "PACKAGE_VERSION=$(VersionFromTag ${GITHUB_REF_NAME})" >> $GITHUB_ENV
+
+    # Get the release channel : stable vs testing
+    - name: Tag -> Channel
+      run: |
+        source scripts/github-tag
+        echo "PACKAGE_CHANNEL=$(ChannelFromTag ${GITHUB_REF_NAME})" >> $GITHUB_ENV
+
+    # Print out info
+    - name: Package Info
+      run: |
+        echo "Version : $PACKAGE_VERSION"
+        echo "Channel : $PACKAGE_CHANNEL"
+       
+
+    ############## 2. Build the python package. ##############
+
+    # Install dependencies
+    - name: Install dependencies
+      run: |
+          pip install --upgrade build
+
+    # Set version
+    - name: Set Version
+      run: echo "__version__ = \"${{ env.PACKAGE_VERSION }}\"" > maf_three/__init__.py
+
+    # Build
+    - name: Build
+      run: python3 -m build
+     
+
+
+    ############## 3. Update the package to the apt repos. ##############
+
+
+    # Upload deb package to S3
+    - name: Upload to S3
+      run: twine upload --repository testpypi dist/* -u__token__ -p${{ secrets.TESTPYPI_TOKEN }}
+
+
