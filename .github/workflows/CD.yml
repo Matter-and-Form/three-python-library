@@ -10,16 +10,16 @@ jobs:
   Continuous_Deployment:
     runs-on: ubuntu-latest
     
-    # 1. Extract information from the tag (Project, package name, version number, channel).
-    # 2. Build the deb package.
-    # 3. Update the package to the apt repos.
+    # 1. Extract information from the tag (version number, channel).
+    # 2. Build the python package.
+    # 3. Update the package to the repo.
     steps:
-
-    ############## 1. Extract information from the tag ##############
 
     # Checkout the source and the submodules
     - name: Checkout repository and submodules
       uses: actions/checkout@v3
+
+    ############## 1. Extract information from the tag ##############
 
     # Check tag
     - name: Check tag
@@ -62,7 +62,6 @@ jobs:
     # Build
     - name: Build
       run: python3 -m build
-     
 
 
     ############## 3. Upload the package. ##############
@@ -70,5 +69,6 @@ jobs:
     # Upload deb package to testpypi
     - name: Upload to TestPyPi
       run: twine upload --repository testpypi dist/* -u__token__ -p${{ secrets.TESTPYPI_TOKEN }}
+      #run: twine upload dist/* -u__token__ -p${{ secrets.PYPI_TOKEN }}
 
 

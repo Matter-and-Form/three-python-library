@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package MF.V3.Settings;
+
+/// Camera settings.
+message Camera
+{
+    /// Camera selection.  Default is all cameras.
+    repeated int32 selection = 1;
+
+    /// Auto exposure.
+    optional bool autoExposure = 2;
+
+    /// Exposure.
+    optional int32 exposure = 3;
+
+    /// Analog gain.
+    optional float analogGain = 4;
+
+    /// Digital gain.
+    optional int32 digitalGain = 5;
+
+    /// Focus value.
+    optional int32 focus = 6;
+}
