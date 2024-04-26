@@ -1,0 +1,43 @@
+name: CI - Continuous Integration
+
+# Triggers of the Action : Push or Pull Request
+on:
+  pull_request:
+     branches: [ develop ]    
+     types: [opened, review_requested, ready_for_review, synchronize]
+
+  # Allows you to run this workflow manually from the Actions tab (when this yml is in the main branch)
+  workflow_dispatch:
+
+jobs:
+  build:
+    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
+    strategy:
+      fail-fast: false # allow other OS to keep running when one fails
+      matrix: # Linux ; MacOS ; Windows
+        sys:
+          - { os: ubuntu-latest,  shell: bash}
+          #- { os: windows-latest, shell: 'msys2 {0}' }
+          #- { os: macos-latest,   shell: bash}
+    
+    # Set the default shell
+    defaults:
+      run:
+        shell: ${{ matrix.sys.shell }}
+          
+    runs-on: ${{ matrix.sys.os }}
+    
+####################################################################
+    steps:
+    
+    # Checkout the source and the submodules
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v3
+
+    # Set version
+    - name: Set Version
+      run: echo "__version__ = \"0.0.0\"" > maf_three/__init__.py
+
+    # Build
+    - name: Build
+      run: python3 -m build
