@@ -37,7 +37,7 @@ jobs:
     # Install dependencies
     - name: Install dependencies
       run: |
-        pip install --upgrade setuptools
+        pip install --upgrade build
 
     # Set version
     - name: Set Version
