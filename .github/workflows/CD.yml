@@ -69,7 +69,7 @@ jobs:
 
     # Run tests
     - name: Test
-      run: pytest
+      run: python3 -m pytest
 
 
     ############## 3. Upload the package. ##############
