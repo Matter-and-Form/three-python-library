@@ -1,8 +1,6 @@
 
 
 
-
-from maf_three.V3Task import V3Task
 from maf_three.task import Task
 
 

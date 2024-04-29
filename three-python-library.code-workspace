@@ -10,5 +10,6 @@
 			".venv": true,
 			"**/__pycache__": true,
 		},
-	}
+	},
+	"recommendations": ["tamasfe.even-better-toml"]
 }
