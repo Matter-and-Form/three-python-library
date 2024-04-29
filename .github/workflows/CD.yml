@@ -54,6 +54,11 @@ jobs:
       run: |
           sudo apt install -y twine
           pip install --upgrade build
+          pip install pytest
+
+    # Run tests
+    - name: Test
+      run: pytest
 
     # Set version
     - name: Set Version
