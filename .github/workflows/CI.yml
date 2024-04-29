@@ -41,6 +41,10 @@ jobs:
         pip install grpcio-tools --upgrade
         pip install pytest
 
+    # Start virtual environment 
+    - name: Start virtual environment 
+      run: source ./scripts/start-virtual-env      
+
     # Build proto files
     - name: Build proto files
       run: source ./scripts/build-proto

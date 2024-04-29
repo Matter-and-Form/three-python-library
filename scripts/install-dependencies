@@ -47,4 +47,5 @@ packages=(
 InstallPackages ${packages[@]}
 
 
+pip install grpcio-tools --upgrade
 pip install pytest
