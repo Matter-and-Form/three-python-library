@@ -53,20 +53,23 @@ jobs:
     - name: Install dependencies
       run: |
           sudo apt install -y twine
-          pip install --upgrade build
-          pip install pytest
-
-    # Run tests
-    - name: Test
-      run: pytest
+          run: pip install --upgrade build grpcio-tools pytest
 
     # Set version
     - name: Set Version
       run: echo "__version__ = \"${{ env.PACKAGE_VERSION }}\"" > maf_three/__init__.py
 
+    # Build proto files
+    - name: Build proto files
+      run: source ./scripts/build-proto
+      
     # Build
     - name: Build
       run: python3 -m build
+
+    # Run tests
+    - name: Test
+      run: pytest
 
 
     ############## 3. Upload the package. ##############
