@@ -29,8 +29,10 @@ turntable = Turntable(use=False)
 def main():
 
     print('###############################################')
-    print('This example required python3-opencv')
-    print('To install : sudo apt install python3-opencv')
+    print('This example required OpenCV for Python')
+    print('To install (apt or pip):')
+    print('  * sudo apt install python3-opencv')
+    print('  * pip install opencv-python')
     print('###############################################')
 
     ControlsWindow = 'Controls'
