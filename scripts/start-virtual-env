@@ -9,12 +9,9 @@ echo "__version__ = \"0.0.0\"" > ${SCRIPT_PATH}/../maf_three/__init__.py
 python3 -m venv ${SCRIPT_PATH}/../.venv
 
 # Install our package
-pip3 install ${SCRIPT_PATH}/..
+pip3 install --editable ${SCRIPT_PATH}/..
 
 # Check if our package is present
 echo "********************"
-pip3 list
-echo "********************"
 pip3 list | grep three
 echo "********************"
-
