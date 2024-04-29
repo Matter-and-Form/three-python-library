@@ -13,7 +13,7 @@ class Scan:
             camera:Camera, 
             capture:Capture,
             projector:Projector,
-            turntable: Turntable | None
+            turntable: Turntable | None = None
             ):
         
         self.camera = camera

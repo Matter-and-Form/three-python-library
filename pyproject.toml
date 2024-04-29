@@ -32,6 +32,9 @@ include = ["maf_three*"]
 version = {attr = "maf_three.__version__"}
 
 # Command line accessible scripts
-# Usage : python3 -m maf_three.examples 00_connection
+# Usage :
+#    python3 -m maf_three.examples connection
+#    python3 -m maf_three.examples projector
+#    python3 -m maf_three.examples simpleScanner
 [project.scripts]
 examples = "maf_three.examples:main_cli"

@@ -10,8 +10,9 @@ from maf_three.settings.turntable import Turntable
 from maf_three.task import Task, TaskState
 from maf_three.V3Task import V3Task
 
+done = False
+
 def main():
-    done = False
 
     def OnTask(task:Task):
         global done
@@ -53,8 +54,7 @@ def main():
         scan = Scan(
             Camera(analogGain=256,digitalGain=256,exposure=50000),
             Capture(), 
-            Projector(brightness=0.5),
-            Turntable(use=False)
+            Projector(brightness=0.5)
         )
         scanner.SendTask(1, V3Task.NewTestScan, scan)
 
