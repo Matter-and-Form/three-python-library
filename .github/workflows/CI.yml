@@ -36,26 +36,23 @@ jobs:
 
     # Install dependencies
     - name: Install dependencies
-      run: |
-        pip install build --upgrade
-        pip install grpcio-tools --upgrade
-        pip install pytest
+      run: pip install --upgrade build grpcio-tools pytest
         
     # Set version
     - name: Set Version
       run: echo "__version__ = \"0.0.0\"" > maf_three/__init__.py
 
-    # Build
-    - name: Build
-      run: python3 -m build
-
     # Build proto files
     - name: Build proto files
       run: source ./scripts/build-proto
 
+    # Build
+    - name: Build
+      run: python3 -m build
+
     # Start virtual environment 
-    - name: Start virtual environment 
-      run: source ./scripts/start-virtual-env      
+    #- name: Start virtual environment 
+    #  run: source ./scripts/start-virtual-env      
     
     # Run tests
     - name: Test
