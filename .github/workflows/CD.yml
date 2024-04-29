@@ -53,7 +53,7 @@ jobs:
     - name: Install dependencies
       run: |
           sudo apt install -y twine
-          run: pip install --upgrade build grpcio-tools pytest
+          pip install --upgrade build grpcio-tools pytest
 
     # Set version
     - name: Set Version
@@ -62,7 +62,7 @@ jobs:
     # Build proto files
     - name: Build proto files
       run: source ./scripts/build-proto
-      
+
     # Build
     - name: Build
       run: python3 -m build
