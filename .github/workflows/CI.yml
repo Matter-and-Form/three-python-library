@@ -37,7 +37,8 @@ jobs:
     # Install dependencies
     - name: Install dependencies
       run: |
-        pip install --upgrade build
+        pip install build --upgrade
+        pip install grpcio-tools --upgrade
         pip install pytest
 
     # Build proto files
