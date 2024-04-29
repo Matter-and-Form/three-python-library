@@ -17,20 +17,20 @@ from maf_three.task import Task, TaskState
 from maf_three.settings.camera import Camera
 from maf_three.settings.projector import Projector
 
+# Two frames for the video stream
+frame0 = np.zeros((0,0,3), np.uint8)
+frame1 = np.zeros((0,0,3), np.uint8)
+
+# Camera/Projector settings
+camera = Camera(exposure=50000, digitalGain=256, analogGain=256)
+projector = Projector(brightness=0.5)
+turntable = Turntable(use=False)
+
 def main():
+
     ControlsWindow = 'Controls'
     Camera0Window = 'Camera0'
     Camera1Window = 'Camera1'
-
-    # Two frames for the video stream
-    frame0 = np.zeros((0,0,3), np.uint8)
-    frame1 = np.zeros((0,0,3), np.uint8)
-
-    # Camera/Projector settings
-    camera = Camera(exposure=50000, digitalGain=256, analogGain=256)
-    projector = Projector(brightness=0.5)
-    turntable = Turntable(use=False)
-
 
     # Task update
     def OnTask(task:Task):
@@ -97,64 +97,61 @@ def main():
         global turntable
         turntable.steps = value
 
-    if __name__ == "__main__":
+    try:
+        # Connect to the scanner
+        scanner = Scanner(OnTask=OnTask, OnBuffer=OnBuffer, OnMessage=None)
+        scanner.Connect("ws://matterandform.local:8081")
 
-        try:
-            # Connect to the scanner
-            scanner = Scanner(OnTask=OnTask, OnBuffer=OnBuffer, OnMessage=None)
-            scanner.Connect("ws://matterandform.local:8081")
+        # Create the UI
+        cv2.namedWindow(ControlsWindow)
+        cv2.namedWindow(Camera0Window)
+        cv2.namedWindow(Camera1Window)
+        cv2.moveWindow(ControlsWindow,0, 550)
+        cv2.moveWindow(Camera0Window,0,100)
+        cv2.moveWindow(Camera1Window,550,100)
+        cv2.createTrackbar('Exposure', ControlsWindow , camera.exposure, 100000, OnTrackbarExposure)
+        cv2.createTrackbar('Analog Gain', ControlsWindow , camera.analogGain, 1024, OnTrackbarAnalogGain)
+        cv2.createTrackbar('Digital Gain', ControlsWindow , camera.digitalGain, 1024, OnTrackbarDigitalGain)
+        cv2.createTrackbar('Projector Brightness', ControlsWindow , int(100 * projector.brightness), 100, OnTrackbarProjectorBrightness)
+        cv2.createTrackbar('Use Turntable', ControlsWindow , 1 if turntable.use else 0, 1, OnTrackbarUseTurntable)
+        cv2.createTrackbar('Turntable Sweep', ControlsWindow , 180, 360, OnTrackbarTurntableSweep)
+        cv2.createTrackbar('Turntable Steps', ControlsWindow , 0, 32, OnTrackbarTurntableSteps)
 
-            # Create the UI
-            cv2.namedWindow(ControlsWindow)
-            cv2.namedWindow(Camera0Window)
-            cv2.namedWindow(Camera1Window)
-            cv2.moveWindow(ControlsWindow,0, 550)
-            cv2.moveWindow(Camera0Window,0,100)
-            cv2.moveWindow(Camera1Window,550,100)
-            cv2.createTrackbar('Exposure', ControlsWindow , camera.exposure, 100000, OnTrackbarExposure)
-            cv2.createTrackbar('Analog Gain', ControlsWindow , camera.analogGain, 1024, OnTrackbarAnalogGain)
-            cv2.createTrackbar('Digital Gain', ControlsWindow , camera.digitalGain, 1024, OnTrackbarDigitalGain)
-            cv2.createTrackbar('Projector Brightness', ControlsWindow , int(100 * projector.brightness), 100, OnTrackbarProjectorBrightness)
-            cv2.createTrackbar('Use Turntable', ControlsWindow , 1 if turntable.use else 0, 1, OnTrackbarUseTurntable)
-            cv2.createTrackbar('Turntable Sweep', ControlsWindow , 180, 360, OnTrackbarTurntableSweep)
-            cv2.createTrackbar('Turntable Steps', ControlsWindow , 0, 32, OnTrackbarTurntableSteps)
+        # User input loop
+        while True:
 
-            # User input loop
-            while True:
+            # If present => Show the frames
+            if frame0.size > 0:
+                cv2.imshow(Camera0Window,frame0)
+            if frame1.size > 0:
+                cv2.imshow(Camera1Window,frame1)
 
-                # If present => Show the frames
-                if frame0.size > 0:
-                    cv2.imshow(Camera0Window,frame0)
-                if frame1.size > 0:
-                    cv2.imshow(Camera1Window,frame1)
+            # User input
+            key = cv2.waitKey(1)
+            if(key != -1):
 
-                # User input
-                key = cv2.waitKey(1)
-                if(key != -1):
-
-                    if key == 27: # Esc => Break the loop
-                        break        
-                    
-                    elif key == 118 : # 'v' => Start video and the projector
-                        scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projector.brightness))
-                        scanner.SendTask(-1, V3Task.StartVideo)       
-                    
-                    elif key == 115: # 's' => Create a new Test Scan
-                        scan = Scan(
-                            camera,
-                            Capture(), 
-                            projector,
-                            turntable)
-                        scanner.SendTask(115, V3Task.NewTestScan, scan)
-        
-        except Exception as error:
-            print('Error : ', error)
-        except:
-            print('An error occurred')
-        
-
-        scanner.Disconnect()
-        cv2.destroyAllWindows()
+                if key == 27: # Esc => Break the loop
+                    break        
+                
+                elif key == 118 : # 'v' => Start video and the projector
+                    scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projector.brightness))
+                    scanner.SendTask(-1, V3Task.StartVideo)       
+                
+                elif key == 115: # 's' => Create a new Test Scan
+                    scan = Scan(
+                        camera,
+                        Capture(), 
+                        projector,
+                        turntable)
+                    scanner.SendTask(115, V3Task.NewTestScan, scan)
+    
+    except Exception as error:
+        print('Error : ', error)
+    except:
+        print('An error occurred')
+    
+    scanner.Disconnect()
+    cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     main()
