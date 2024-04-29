@@ -50,11 +50,8 @@ jobs:
     - name: Build
       run: python3 -m build
 
-    # Start virtual environment 
-    #- name: Start virtual environment 
-    #  run: source ./scripts/start-virtual-env      
-    
     # Run tests
     - name: Test
-      run: pytest
+      run: python3 -m pytest
+
 
