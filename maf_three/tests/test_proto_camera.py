@@ -2,6 +2,8 @@
 
 import maf_three.Settings.Camera_pb2
 
+from google.protobuf.json_format import MessageToJson, Parse
+
 def test_types():
     camera = maf_three.Settings.Camera_pb2.Camera()
     camera.autoExposure = False
@@ -17,3 +19,26 @@ def test_types():
         raised = True
 
     assert raised == True
+
+def test_serialization():
+    
+    # Create cameraA object
+    cameraA = maf_three.Settings.Camera_pb2.Camera()
+    cameraA.autoExposure = False
+    cameraA.exposure = 50000
+    cameraA.digitalGain = 256
+    cameraA.analogGain = 256
+    
+    # Serialize cameraA to json
+    cameraA_json = MessageToJson(cameraA)
+
+    # Build cameraB from the json
+    cameraB = maf_three.Settings.Camera_pb2.Camera()
+    cameraB = Parse(cameraA_json, cameraB )
+    
+    # Serialize cameraB to json
+    cameraB_json = MessageToJson(cameraB)
+
+    # Compare the two objects and their json serialization
+    assert cameraA == cameraB
+    assert cameraA_json == cameraB_json

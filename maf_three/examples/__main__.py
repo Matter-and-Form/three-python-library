@@ -25,8 +25,6 @@ if len(sys.argv) == 1:
     PrintExampleList()
     exit(1)
 
-
-
 # Get the example from the argument
 arg = sys.argv[1]
 
