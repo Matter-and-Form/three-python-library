@@ -30,3 +30,8 @@ include = ["maf_three*"]
 # Dynamic input
 [tool.setuptools.dynamic]
 version = {attr = "maf_three.__version__"}
+
+# Command line accessible scripts
+# Usage : python3 -m maf_three.examples 00_connection
+[project.scripts]
+examples = "maf_three.examples:main_cli"
