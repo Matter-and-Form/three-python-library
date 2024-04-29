@@ -28,6 +28,11 @@ turntable = Turntable(use=False)
 
 def main():
 
+    print('###############################################')
+    print('This example required python3-opencv')
+    print('To install : sudo apt install python3-opencv')
+    print('###############################################')
+
     ControlsWindow = 'Controls'
     Camera0Window = 'Camera0'
     Camera1Window = 'Camera1'
