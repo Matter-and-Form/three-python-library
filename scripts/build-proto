@@ -4,9 +4,29 @@
 # Get the absolute script path.
 SCRIPT_PATH="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 
-python3 -m  grpc_tools.protoc \
-    ${SCRIPT_PATH}/../Proto/**/*.proto \
-    -I=${SCRIPT_PATH}/../Proto  \
-    --python_out=${SCRIPT_PATH}/../maf_three \
-    --pyi_out=${SCRIPT_PATH}/../maf_three \
-    --experimental_allow_proto3_optional
+# python3 -m  grpc_tools.protoc \
+#     ${SCRIPT_PATH}/../Proto/**/*.proto \
+#     -I=${SCRIPT_PATH}/../Proto  \
+#     --python_out=${SCRIPT_PATH}/../maf_three \
+#     --pyi_out=${SCRIPT_PATH}/../maf_three \
+#     --experimental_allow_proto3_optional
+
+
+PROTO_INPUT_PATH=${SCRIPT_PATH}/../Proto
+PROTO_OUTPUT_PATH=${SCRIPT_PATH}/../maf_three
+
+echo "*****************"
+echo "Build Proto files from : " ${PROTO_INPUT_PATH}
+echo "Output directory :       " ${PROTO_OUTPUT_PATH}
+echo "*****************"
+
+
+# Build the proto files
+find ${PROTO_INPUT_PATH} -name *.proto \
+    -exec echo "Building : " {} \; \
+    -exec python3 -m  grpc_tools.protoc \
+    {} \
+    -I=${PROTO_INPUT_PATH}  \
+    --python_out=${PROTO_OUTPUT_PATH} \
+    --pyi_out=${PROTO_OUTPUT_PATH} \
+    --experimental_allow_proto3_optional \;
