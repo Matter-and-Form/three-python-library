@@ -17,7 +17,7 @@ dependencies = [
     'importlib-metadata; python_version<"3.10"',
     'protobuf >= 3.12.4',
     'websocket-client >= 1.7.0',
-    'numpy >= 1.23'
+    'numpy'
 
 ]
 
