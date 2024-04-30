@@ -1,7 +1,7 @@
 
 from enum import Enum
 
-from maf_three.settings.video import Format
+from maf_three.settings_manual.video import Format
 
 class Orientation(str, Enum):
     # Horizontal pattern.  Image columns are identical.
