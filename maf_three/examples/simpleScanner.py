@@ -4,7 +4,7 @@
 import cv2
 import numpy as np
 
-# Three API
+# Three library
 from maf_three.V3Task import V3Task
 from maf_three.scanner import Scanner
 

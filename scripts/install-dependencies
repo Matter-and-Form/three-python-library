@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install all packages required by three API
+# Install all packages required by three library
 
 InstallPackages()
 {
