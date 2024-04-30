@@ -2,7 +2,7 @@
 
 import sys
 
-from maf_three.examples import  connection, projector, turntable, task, simpleScanner
+from maf_three.examples import  connection, projector, turntable, task#, simpleScanner
 
 
 # Examples dictionary 
@@ -11,7 +11,7 @@ examples = {
     'projector': projector.main,
     'turntable': turntable.main,
     'task': task.main,
-    'simpleScanner': simpleScanner.main
+    #'simpleScanner': simpleScanner.main
 }
 
 def PrintExampleList():
