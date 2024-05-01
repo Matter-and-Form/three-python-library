@@ -15,7 +15,7 @@ message Camera
     optional int32 exposure = 3;
 
     /// Analog gain.
-    optional float analogGain;
+    optional float analogGain = 4;
 
     /// Digital gain.
     optional int32 digitalGain = 5;
