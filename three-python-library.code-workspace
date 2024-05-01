@@ -11,5 +11,10 @@
 			"**/__pycache__": true,
 		},
 	},
-	"recommendations": ["tamasfe.even-better-toml"]
+	"extensions": {
+		"recommendations": [
+			"tamasfe.even-better-toml",
+			"bierner.markdown-preview-github-styles"
+		]
+	}
 }
