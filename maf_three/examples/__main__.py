@@ -4,8 +4,7 @@ import sys
 
 from maf_three.examples import  connection, projector, turntable, task#, simpleScanner
 
-
-# Examples dictionary 
+# Available examples dictionary 
 examples = {
     'connection': connection.main,
     'projector': projector.main,
@@ -14,12 +13,15 @@ examples = {
     #'simpleScanner': simpleScanner.main
 }
 
+
 def PrintExampleList():
-    print('Available examples')
+    print('Available examples:')
     for ex in examples:
         print('  *',ex)
+    print('Run via:')
+    print('python3 -m maf_three.examples {example_name}')
 
-# Argument provided ?
+# No argument provided ?
 if len(sys.argv) == 1:
     print("Please enter an example name")
     PrintExampleList()
@@ -27,6 +29,10 @@ if len(sys.argv) == 1:
 
 # Get the example from the argument
 arg = sys.argv[1]
+
+if arg.lower() == 'list':
+    PrintExampleList()
+    exit(0)
 
 # Example exists ?
 if arg not in examples:
