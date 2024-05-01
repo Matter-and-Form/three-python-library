@@ -32,13 +32,13 @@ def test_serialization():
     # Serialize cameraA to json
     cameraA_json = MessageToJson(cameraA)
 
-    # Build cameraB from the json
+    # Build cameraB from the cameraA json
     cameraB = maf_three.Settings.Camera_pb2.Camera()
     cameraB = Parse(cameraA_json, cameraB )
     
     # Serialize cameraB to json
     cameraB_json = MessageToJson(cameraB)
 
-    # Compare the two objects and their json serialization
+    # Compare the two objects and their json serializations
     assert cameraA == cameraB
     assert cameraA_json == cameraB_json
