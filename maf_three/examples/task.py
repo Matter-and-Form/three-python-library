@@ -2,10 +2,10 @@
 import time
 
 from maf_three.scanner import Scanner
-from maf_three.settings_manual.camera import Camera
-from maf_three.settings_manual.capture import Capture
-from maf_three.settings_manual.projector import Projector
-from maf_three.settings_manual.scan import Scan
+from maf_three.Settings.camera import Camera
+from maf_three.Settings.capture import Capture
+from maf_three.Settings.projector import Projector
+from maf_three.Settings.scan import Scan
 
 from maf_three.task import Task, TaskState
 from maf_three.V3Task import V3Task

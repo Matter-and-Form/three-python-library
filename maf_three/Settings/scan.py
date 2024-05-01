@@ -1,10 +1,10 @@
 
 
 
-from maf_three.settings_manual.camera import Camera
-from maf_three.settings_manual.capture import Capture
-from maf_three.settings_manual.projector import Projector
-from maf_three.settings_manual.turntable import Turntable
+from maf_three.Settings.camera import Camera
+from maf_three.Settings.capture import Capture
+from maf_three.Settings.projector import Projector
+from maf_three.Settings.turntable import Turntable
 
 
 class Scan:

@@ -162,3 +162,5 @@ cython_debug/
 
 ## Matter And Form
 maf_three/__init__.py
+*_pb2.py
+*_pb2.pyi

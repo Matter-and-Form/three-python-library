@@ -1,8 +1,8 @@
 # Projector
 
 from maf_three.scanner import Scanner
-from maf_three.settings_manual.projector import Image, Orientation, Pattern, Projector, Rect, Source
-from maf_three.settings_manual.video import Format
+from maf_three.Settings.projector import Image, Orientation, Pattern, Projector, Rect, Source
+from maf_three.Settings.video import Format
 from maf_three.V3Task import V3Task
 
 import time
