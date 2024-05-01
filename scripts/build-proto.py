@@ -3,18 +3,15 @@
 import os
 import subprocess
 
-
+# Paths
 scriptPath = os.path.dirname(os.path.realpath(__file__))
-
 protoInputPath = scriptPath + "/../Proto"
 protoOutputPath = scriptPath + "/../maf_three"
-
 
 print("*****************")
 print("Building Proto files from : " + protoInputPath)
 print("Output directory :          " + protoOutputPath)
 print("*****************")
-
 
 def BuildProtoFile(protoFile, inputDir, outputDir):
     print("---> Building: " + file)
@@ -41,10 +38,10 @@ ENDC = '\033[0m'
 # Find and build all the proto files
 fileError = 0
 fileCount = 0
-
 import glob
 files = glob.glob(protoInputPath+"/**/*.proto", recursive=True)
 for file in files:
+
     # Build
     result = BuildProtoFile(file, protoInputPath, protoOutputPath) 
 
@@ -54,12 +51,12 @@ for file in files:
         fileError += 1
         print(RED + result.stderr.decode('utf-8') + ENDC)
 
+# Print results
 print("*****************")
-print(GREEN + 'Built: ' + str(fileCount - fileError) + " / " + str(fileCount) + " files." + ENDC)
+print(GREEN + 'Built : ' + str(fileCount - fileError) + " / " + str(fileCount) + " files." + ENDC)
 if fileError > 0:   
-    print(RED + 'Error: ' +  str(fileError) + " / " + str(fileCount) + " files." + ENDC)
+    print(RED + 'Error : ' +  str(fileError) + " / " + str(fileCount) + " files." + ENDC)
 print("*****************")
-    
 
 # Let the caller know if everything was built
 exit(0 if fileError == False else 1)
