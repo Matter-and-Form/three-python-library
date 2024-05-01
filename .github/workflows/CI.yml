@@ -44,7 +44,7 @@ jobs:
 
     # Build proto files
     - name: Build proto files
-      run: source ./scripts/build-proto
+      run: source  python3 ./scripts/build-proto.py 
 
     # Build
     - name: Build
