@@ -1,10 +1,26 @@
 
 # Setup
+```
+sudo apt install python3 python3-pip python3.12-venv
 
-## Clone
 ```
-git clone https://github.com/Matter-and-Form/three-api.git
-```
+
+python3 -m venv path/to/venv
+
+
+pip3 install --extra-index-url https://test.pypi.org/simple/ --no-cache-dir --upgrade maf-three
+
+
+
+pip3 install sphinx
+pip3 install myst-parser
+pip install sphinx-rtd-theme
+
+
+sphinx-build -M html ./source/ ../docs
+
+
+
 
 ## Install required packages
 ```
