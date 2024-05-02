@@ -17,7 +17,15 @@ from maf_three.task import Task
 from maf_three.buffer import Buffer
 
 class Scanner:
+    """
+    Main class to manage and communicate with the Matter and Form THREE 3D Scanner via websocket.
 
+    Attributes:
+        OnTask (Callable[[Task], None]): Function to handle tasks.
+        OnMessage (Callable[[str], None]): Function to handle messages.
+        OnBuffer (Callable[[Any, bytes], None]): Function to handle buffer data.
+    """
+    
     __bufferDescriptor = None
     __error = None
 
@@ -26,7 +34,14 @@ class Scanner:
         OnMessage: Optional[Callable[[str], None]],
         OnBuffer: Optional[Callable[[Any, bytes], None]],
         ):
+        """
+        Initializes the Scanner object.
 
+        Args:
+            OnTask (Optional[Callable[[Task], None]]): Function to handle tasks, default is None.
+            OnMessage (Optional[Callable[[str], None]]): Function to handle messages, default is None.
+            OnBuffer (Optional[Callable[[Any, bytes], None]]): Function to handle buffer data, default is None.
+        """
         self.__isConnected = False
 
         self.OnTask = OnTask
@@ -35,7 +50,19 @@ class Scanner:
 
 
     def Connect(self, URI:str, timeoutSec=5) -> bool:
+        """
+        Attempts to connect to the scanner using the specified URI and timeout.
 
+        Args:
+            URI (str): The URI of the websocket server.
+            timeoutSec (int): Timeout in seconds, default is 5.
+
+        Returns:
+            bool: True if connection is successful, raises Exception otherwise.
+
+        Raises:
+            Exception: If connection fails within the timeout or due to an error.
+        """
         print('Connecting to: ', URI)
         self.__URI = URI
         self.__isConnected = False
@@ -62,9 +89,18 @@ class Scanner:
         raise Exception('Connection timeout')
         
     def Disconnect(self) -> None:
+        """
+        Disconnects the websocket connection.
+        """
         self.websocket.close()
 
     def IsConnected(self)-> bool:
+        """
+        Checks if the scanner is currently connected.
+
+        Returns:
+            bool: True if connected, False otherwise.
+        """
         return self.__isConnected
     
     def __callback(self, callback, *args) -> None:
@@ -73,17 +109,44 @@ class Scanner:
  
     # Called when the connection is opened
     def __OnOpen(self, ws) -> None:
+        """
+        Callback function for when the websocket connection is successfully opened.
+
+        Prints a success message to the console.
+
+        Args:
+            ws: The websocket object.
+        """
         self.__isConnected = True
         print('Connected to: ', self.__URI)
 
     # Called when the connection is closed
     def __OnClose(self, ws, close_status_code, close_msg):
+        """
+        Callback function for when the websocket connection is closed.
+
+        Prints a disconnect message to the console.
+
+        Args:
+            ws: The websocket object.
+            close_status_code: The code indicating why the websocket was closed.
+            close_msg: Additional message about why the websocket was closed.
+        """
         if self.__isConnected:
             print('Disconnected')
         self.__isConnected = False
 
     # Called when an error happens
     def __OnError(self, ws, error) -> None:
+        """
+        Callback function for when an error occurs in the websocket connection.
+
+        Prints an error message to the console and stores the error for reference.
+
+        Args:
+            ws: The websocket object.
+            error: The error that occurred.
+        """
         if self.__isConnected:
             print('Error: ', error)    
         else:
@@ -91,7 +154,16 @@ class Scanner:
         
     # Called when a message arrives on the connection
     def __OnMessage(self, ws, message) -> None:
-        
+        """
+        Callback function for handling messages received via the websocket.
+
+        Determines the type of message received (Task, Buffer, or general Message) and
+        triggers the corresponding handler function if one is set.
+
+        Args:
+            ws: The websocket object.
+            message: The raw message received, which can be either a byte string or a JSON string.
+        """
         # Bytes ?
         if isinstance(message, bytes):
             if self.OnBuffer:
@@ -114,6 +186,23 @@ class Scanner:
 
     # Send a task to the scanner
     def SendTask(self, index:int, type:V3Task, input = None) -> Task:
+        """
+        Sends a task to the scanner.
+        Tasks are general control requests for the scanner. (eg. Camera exposure, or Get Image)
+
+        Creates a task, serializes it, and sends it via the websocket.
+
+        Args:
+            index (int): The index of the task.
+            type (V3Task): The type of the task.
+            input: Additional input for the task, default is None.
+
+        Returns:
+            Task: The task object that was sent.
+
+        Raises:
+            AssertionError: If the connection is not established.
+        """
         assert self.__isConnected
         
         # Create the task
@@ -131,6 +220,25 @@ class Scanner:
 
     # Send a task with its buffer to the scanner
     def SendTaskWithBuffer(self, index:int, type:V3Task, buffer:bytes, input = None) -> Task:
+        """
+        Sends a task along with its associated buffer to the scanner.
+        This call is used to send data to the scanner, like an image to be projected by the projector. 
+        An appropriate task must be sent with the buffer, or the buffer will be ignored.
+        
+        The task is serialized, and sent to the scanner, followed by the buffer
+        
+        Args:
+            index (int): The index of the task.
+            type (V3Task): The type of the task.
+            buffer (bytes): The buffer data to send.
+            input: Additional input for the task, default is None.
+
+        Returns:
+            Task: The task object that was sent.
+
+        Raises:
+            AssertionError: If the connection is not established.
+        """
         assert self.__isConnected
 
         # Send the task
@@ -161,5 +269,4 @@ class Scanner:
             self.websocket.send(buffer[sentSize:bufferSize], websocket.ABNF.OPCODE_BINARY)
 
         return task
-
 
