@@ -36,7 +36,7 @@ jobs:
 
     # Install dependencies
     - name: Install dependencies
-      run: pip install --upgrade build grpcio-tools pytest
+      run: pip install --upgrade build grpcio-tools pytest sphinx myst-parser
         
     # Set version
     - name: Set Version
@@ -53,5 +53,9 @@ jobs:
     # Run the tests
     - name: Test
       run: python3 -m pytest
+
+    # Build the documentation
+    - name: Documentation
+      run: sphinx-build -M html ./doc/source/ ./doc/build/
 
 

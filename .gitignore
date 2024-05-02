@@ -164,7 +164,3 @@ cython_debug/
 maf_three/__init__.py
 *_pb2.py
 *_pb2.pyi
-
-!/doc/build
-/doc/build/doctrees
-!/doc/build/html/**
