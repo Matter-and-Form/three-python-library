@@ -1,11 +1,11 @@
 # test_proto_camera.py
 
-import maf_three.Settings.Camera_pb2
+import maf_three.MF.V3.Settings.Camera_pb2
 
 from google.protobuf.json_format import MessageToJson, Parse
 
 def test_types():
-    camera = maf_three.Settings.Camera_pb2.Camera()
+    camera = maf_three.MF.V3.Settings.Camera_pb2.Camera()
     camera.autoExposure = False
     camera.exposure = 50000
     camera.digitalGain = 256
@@ -23,7 +23,7 @@ def test_types():
 def test_serialization():
     
     # Create cameraA object
-    cameraA = maf_three.Settings.Camera_pb2.Camera()
+    cameraA = maf_three.MF.V3.Settings.Camera_pb2.Camera()
     cameraA.autoExposure = False
     cameraA.exposure = 50000
     cameraA.digitalGain = 256
@@ -33,7 +33,7 @@ def test_serialization():
     cameraA_json = MessageToJson(cameraA)
 
     # Build cameraB from the cameraA json
-    cameraB = maf_three.Settings.Camera_pb2.Camera()
+    cameraB = maf_three.MF.V3.Settings.Camera_pb2.Camera()
     cameraB = Parse(cameraA_json, cameraB )
     
     # Serialize cameraB to json

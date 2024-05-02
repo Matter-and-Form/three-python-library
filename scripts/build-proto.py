@@ -5,7 +5,7 @@ import subprocess
 
 # Paths
 scriptPath = os.path.dirname(os.path.realpath(__file__))
-protoInputPath = scriptPath + "/../Proto"
+protoInputPath = scriptPath + "/../V3Schema"
 protoOutputPath = scriptPath + "/../maf_three"
 
 print("*****************")

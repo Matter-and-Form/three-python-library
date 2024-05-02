@@ -1,9 +1,9 @@
 # test_proto_camera.py
 
-import maf_three.Settings.Turntable_pb2
+import maf_three.MF.V3.Settings.Turntable_pb2
 
 def test_types():
-    turntable = maf_three.Settings.Turntable_pb2.Turntable()
+    turntable = maf_three.MF.V3.Settings.Turntable_pb2.Turntable()
     turntable.use = True
     turntable.steps = 10
     turntable.sweep = 360
