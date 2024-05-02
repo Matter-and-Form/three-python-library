@@ -11,9 +11,7 @@ Welcome to maf_three library's documentation!
    :caption: Contents:
 
    ./pages/quickStart.md
-   ./pages/installation.md
    ./pages/examples.md
-   ./pages/faq.md
 
 
 

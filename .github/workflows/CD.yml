@@ -53,7 +53,7 @@ jobs:
     - name: Install dependencies
       run: |
           sudo apt install -y twine
-          pip install --upgrade build grpcio-tools pytest
+          pip install --upgrade build grpcio-tools pytest sphinx myst-parser sphinx-rtd-theme
 
     # Set version
     - name: Set Version
@@ -71,12 +71,30 @@ jobs:
     - name: Test
       run: python3 -m pytest
 
+    # Build the documentation
+    - name: Documentation
+      run: sphinx-build -M html ./doc/source/ ./doc/build/
 
-    ############## 3. Upload the package. ##############
 
-    # Upload deb package to testpypi
+    ############## 3. Upload the package and the documentation. ##############
+
+    # Upload python package to testpypi
     - name: Upload to TestPyPi
       run: twine upload --repository testpypi dist/* -u__token__ -p${{ secrets.TESTPYPI_TOKEN }}
       #run: twine upload dist/* -u__token__ -p${{ secrets.PYPI_TOKEN }}
+
+
+    # Upload the documentation
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './doc/build/html'
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
 
 

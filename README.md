@@ -14,7 +14,7 @@ pip3 install --extra-index-url https://test.pypi.org/simple/ --no-cache-dir --up
 
 pip3 install sphinx
 pip3 install myst-parser
-pip install sphinx-rtd-theme
+pip3 install sphinx-rtd-theme
 
 
 sphinx-build -M html ./source/ ../docs
