@@ -49,3 +49,7 @@ InstallPackages ${packages[@]}
 
 pip install grpcio-tools --upgrade
 pip install pytest
+
+pip install sphinx
+pip install myst-parser
+pip install sphinx-rtd-theme

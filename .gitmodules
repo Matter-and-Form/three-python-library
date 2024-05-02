@@ -1,0 +1,3 @@
+[submodule "V3Schema"]
+	path = V3Schema
+	url = git@github.com:Matter-and-Form/V3Schema.git
