@@ -33,6 +33,8 @@ jobs:
     # Checkout the source and the submodules
     - name: Checkout repository and submodules
       uses: actions/checkout@v3
+      with:
+        submodules: recursive
 
     # Install dependencies
     - name: Install dependencies
