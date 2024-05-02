@@ -36,12 +36,12 @@ def main():
         time.sleep(1)
 
         #### Project Vertical Pattern
-        print('Project Vertical Pattern')
+        print('Project Vertical Pattern (Identical image columns)')
         scanner.SendTask(4, V3Task.SetProjector, Projector(pattern=Pattern(Orientation.Vertical,frequency=4,phase=1)))
         time.sleep(1)
 
         #### Project Horizontal Pattern
-        print('Project Horizontal Pattern')
+        print('Project Horizontal Pattern (Identical image rows)')
         scanner.SendTask(5, V3Task.SetProjector, Projector(pattern=Pattern(Orientation.Horizontal,frequency=4,phase=1)))
         time.sleep(1)
 

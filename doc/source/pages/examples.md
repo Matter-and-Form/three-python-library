@@ -32,4 +32,9 @@ To run a specific example call:
 ..   literalinclude:: ../../../maf_three/examples/task.py
  :linenos:
 ```
+## turntableCalibration
+```{eval-rst}
+..   literalinclude:: ../../../maf_three/examples/turntableCalibration.py
+ :linenos:
+```
 

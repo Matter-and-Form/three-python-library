@@ -2,7 +2,7 @@
 
 import sys
 
-from maf_three.examples import  connection, projector, turntable, task#, simpleScanner
+from maf_three.examples import  connection, projector, turntable, task, turntableCalibration #, simpleScanner
 
 # Available examples dictionary 
 examples = {
@@ -10,6 +10,7 @@ examples = {
     'projector': projector.main,
     'turntable': turntable.main,
     'task': task.main,
+    'turntableCalibration': turntableCalibration.main,
     #'simpleScanner': simpleScanner.main
 }
 
