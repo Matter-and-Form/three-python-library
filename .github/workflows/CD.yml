@@ -36,7 +36,7 @@ jobs:
     # Check tag
     - name: Check tag
       run: |
-        echo "Checking tag : ${GITHUB_REF_NAME}"
+        echo "Checking tag: ${GITHUB_REF_NAME}"
         source ./scripts/github-tag
         CheckTag ${GITHUB_REF_NAME}
         
@@ -46,7 +46,7 @@ jobs:
         source scripts/github-tag
         echo "PACKAGE_VERSION=$(VersionFromTag ${GITHUB_REF_NAME})" >> $GITHUB_ENV
 
-    # Get the release channel : stable vs testing
+    # Get the release channel: stable vs testing
     - name: Tag -> Channel
       run: |
         source scripts/github-tag
@@ -55,8 +55,8 @@ jobs:
     # Print out info
     - name: Package Info
       run: |
-        echo "Version : $PACKAGE_VERSION"
-        echo "Channel : $PACKAGE_CHANNEL"
+        echo "Version: $PACKAGE_VERSION"
+        echo "Channel: $PACKAGE_CHANNEL"
        
 
     ############## 2. Build the python package. ##############

@@ -64,7 +64,7 @@ def main():
 
 
     except Exception as error:
-        print('Error : ', error)
+        print('Error: ', error)
     except:
         print('Error')
 

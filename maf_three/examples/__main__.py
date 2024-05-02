@@ -36,12 +36,12 @@ if arg.lower() == 'list':
 
 # Example exists ?
 if arg not in examples:
-    print('Unknown example : ', arg)
+    print('Unknown example: ', arg)
     PrintExampleList()
     exit(1)
 
 # Run
-print("Running example : " , arg)
+print("Running example: " , arg)
 examples[arg]()
 
 

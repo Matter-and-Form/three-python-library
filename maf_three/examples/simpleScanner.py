@@ -52,7 +52,7 @@ def main():
                     scanner.SendTask(1, V3Task.DownloadFile, filePath )
         
         elif task.State == TaskState.Failed:
-            print('Failed Task : ', task)
+            print('Failed Task: ', task)
 
     # Buffer received
     def OnBuffer(descriptor, buffer:bytes):
@@ -140,7 +140,7 @@ def main():
                 if key == 27: # Esc => Break the loop
                     break        
                 
-                elif key == 118 : # 'v' => Start video and the projector
+                elif key == 118: # 'v' => Start video and the projector
                     scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projector.brightness))
                     scanner.SendTask(-1, V3Task.StartVideo)       
                 
@@ -153,7 +153,7 @@ def main():
                     scanner.SendTask(115, V3Task.NewTestScan, scan)
     
     except Exception as error:
-        print('Error : ', error)
+        print('Error: ', error)
     except:
         print('An error occurred')
     

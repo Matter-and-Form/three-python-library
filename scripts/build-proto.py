@@ -9,8 +9,8 @@ protoInputPath = scriptPath + "/../Proto"
 protoOutputPath = scriptPath + "/../maf_three"
 
 print("*****************")
-print("Building Proto files from : " + protoInputPath)
-print("Output directory :          " + protoOutputPath)
+print("Building Proto files from: " + protoInputPath)
+print("Output directory:          " + protoOutputPath)
 print("*****************")
 
 def BuildProtoFile(protoFile, inputDir, outputDir):
@@ -53,9 +53,9 @@ for file in files:
 
 # Print results
 print("*****************")
-print(GREEN + 'Built : ' + str(fileCount - fileError) + " / " + str(fileCount) + " files." + ENDC)
+print(GREEN + 'Built: ' + str(fileCount - fileError) + " / " + str(fileCount) + " files." + ENDC)
 if fileError > 0:   
-    print(RED + 'Error : ' +  str(fileError) + " / " + str(fileCount) + " files." + ENDC)
+    print(RED + 'Error: ' +  str(fileError) + " / " + str(fileCount) + " files." + ENDC)
 print("*****************")
 
 # Let the caller know if everything was built

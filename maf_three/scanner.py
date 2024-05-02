@@ -36,7 +36,7 @@ class Scanner:
 
     def Connect(self, URI:str, timeoutSec=5) -> bool:
 
-        print('Connecting to : ', URI)
+        print('Connecting to: ', URI)
         self.__URI = URI
         self.__isConnected = False
         self.__error = None
@@ -74,7 +74,7 @@ class Scanner:
     # Called when the connection is opened
     def __OnOpen(self, ws) -> None:
         self.__isConnected = True
-        print('Connected to  : ', self.__URI)
+        print('Connected to: ', self.__URI)
 
     # Called when the connection is closed
     def __OnClose(self, ws, close_status_code, close_msg):
@@ -85,7 +85,7 @@ class Scanner:
     # Called when an error happens
     def __OnError(self, ws, error) -> None:
         if self.__isConnected:
-            print('Error : ', error)    
+            print('Error: ', error)    
         else:
             self.__error = error
         
@@ -124,7 +124,7 @@ class Scanner:
         
         # Build and send the message
         message = '{"Task":' + message + '}'
-        #print('Message : ', message)   
+        #print('Message: ', message)   
         self.websocket.send(message)
 
         return task

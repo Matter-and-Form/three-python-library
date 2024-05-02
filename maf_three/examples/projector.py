@@ -66,7 +66,7 @@ def main():
         scanner.SendTask(7, V3Task.SetProjector, Projector(on=False))
 
     except Exception as error:
-        print('Error : ', error)
+        print('Error: ', error)
     except:
         print('Error')
 

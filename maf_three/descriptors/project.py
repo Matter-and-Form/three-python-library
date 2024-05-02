@@ -10,7 +10,7 @@ class Project:
         self.size = size
 
     def __str__(self):
-        return f'Project : {self.index} - {self.name}\t {self.size} b\t {self.modified}'
+        return f'Project: {self.index} - {self.name}\t {self.size} b\t {self.modified}'
     
 
 

@@ -8,9 +8,9 @@ def main():
         scanner.Connect("ws://matterandform.local:8081")
 
     except Exception as error:
-        print('Error : ', error)
+        print('Error: ', error)
     except:
-        print('Error')
+        print('Error: Unknown')
 
     finally: 
         if scanner.IsConnected():
