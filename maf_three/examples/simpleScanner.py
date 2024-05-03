@@ -7,22 +7,20 @@ import numpy as np
 # Three library
 from maf_three.V3Task import V3Task
 from maf_three.scanner import Scanner
-
-from maf_three.Settings.capture import Capture
-from maf_three.Settings.scan import Scan
-
-from maf_three.Settings.turntable import Turntable
 from maf_three.task import Task, TaskState
 
-from maf_three.Settings.camera import Camera
-from maf_three.Settings.projector import Projector
+from MF.V3.Settings.Camera_pb2 import Camera
+from MF.V3.Settings.Capture_pb2 import Capture
+from MF.V3.Settings.Projector_pb2 import Projector
+from MF.V3.Settings.Turntable_pb2 import Turntable
+from MF.V3.Settings.Scan_pb2 import Scan
 
 # Two frames for the video stream
 frame0 = np.zeros((0,0,3), np.uint8)
 frame1 = np.zeros((0,0,3), np.uint8)
 
 # Camera/Projector settings
-camera = Camera(exposure=50000, digitalGain=256, analogGain=256)
+camera = Camera(exposure=50000, digitalGain=256, analogGain=256.0)
 projector = Projector(brightness=0.5)
 turntable = Turntable(use=False)
 
@@ -89,7 +87,7 @@ def main():
 
     def OnTrackbarProjectorBrightness(value):
         global projector
-        projector.brightness = value / 100
+        projector.brightness = float(value / 100)
         if scanner.IsConnected(): scanner.SendTask(112, V3Task.SetProjector, Projector(brightness=value/100))
 
     def OnTrackbarUseTurntable(value):
@@ -117,12 +115,16 @@ def main():
         cv2.moveWindow(Camera0Window,0,100)
         cv2.moveWindow(Camera1Window,550,100)
         cv2.createTrackbar('Exposure', ControlsWindow , camera.exposure, 100000, OnTrackbarExposure)
-        cv2.createTrackbar('Analog Gain', ControlsWindow , camera.analogGain, 1024, OnTrackbarAnalogGain)
+        cv2.createTrackbar('Analog Gain', ControlsWindow , int(camera.analogGain), 1024, OnTrackbarAnalogGain)
         cv2.createTrackbar('Digital Gain', ControlsWindow , camera.digitalGain, 1024, OnTrackbarDigitalGain)
         cv2.createTrackbar('Projector Brightness', ControlsWindow , int(100 * projector.brightness), 100, OnTrackbarProjectorBrightness)
         cv2.createTrackbar('Use Turntable', ControlsWindow , 1 if turntable.use else 0, 1, OnTrackbarUseTurntable)
         cv2.createTrackbar('Turntable Sweep', ControlsWindow , 180, 360, OnTrackbarTurntableSweep)
         cv2.createTrackbar('Turntable Steps', ControlsWindow , 0, 32, OnTrackbarTurntableSteps)
+
+        # Turn on the projector and start the video
+        scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projector.brightness))
+        scanner.SendTask(-1, V3Task.StartVideo)  
 
         # User input loop
         while True:
@@ -138,24 +140,19 @@ def main():
             if(key != -1):
 
                 if key == 27: # Esc => Break the loop
-                    break        
-                
-                elif key == 118: # 'v' => Start video and the projector
-                    scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projector.brightness))
-                    scanner.SendTask(-1, V3Task.StartVideo)       
+                    break
                 
                 elif key == 115: # 's' => Create a new Test Scan
                     scan = Scan(
-                        camera,
-                        Capture(), 
-                        projector,
-                        turntable)
+                        camera=camera,
+                        capture=Capture(), 
+                        projector=projector,
+                        turntable=turntable)
                     scanner.SendTask(115, V3Task.NewTestScan, scan)
     
     except Exception as error:
         print('Error: ', error)
-    except:
-        print('An error occurred')
+
     
     scanner.Disconnect()
     cv2.destroyAllWindows()
