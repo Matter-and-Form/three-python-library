@@ -58,6 +58,10 @@ jobs:
     - name: Install
       run: pip3 install .
 
+    # List
+    - name: Install
+      run: pip3 list
+
     # Run the tests
     - name: Test
       run: python3 -m pytest
