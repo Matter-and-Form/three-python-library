@@ -26,8 +26,9 @@ Homepage = "https://matterandform.net"
 Documentation = "https://matterandform.net"
 
 # Package source
-[tool.setuptools.packages.find]
-include = ["maf_three*"]
+[tool.setuptools.package-dir]
+maf_three = "maf_three"
+"MF" = "maf_three/MF"
 
 # Dynamic input
 [tool.setuptools.dynamic]
