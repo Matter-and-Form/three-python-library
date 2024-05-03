@@ -81,6 +81,10 @@ jobs:
     - name: Build
       run: python3 -m build
 
+    # Install our package (required for the tests to find namespace : MF.V3)
+    - name: Install
+      run: pip3 install ./dist/maf_three-${{ env.PACKAGE_VERSION }}-py3-none-any.whl
+
     # Run the tests
     - name: Test
       run: python3 -m pytest
