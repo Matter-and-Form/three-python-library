@@ -161,6 +161,16 @@ cython_debug/
 
 
 ## Matter And Form
-maf_three/__init__.py
 *_pb2.py
 *_pb2.pyi
+
+doc/
+Makefile
+*.rst
+_build
+make.bat
+
+#don't include protobuf generated files. This should be run every build
+maf_three/MF
+
+

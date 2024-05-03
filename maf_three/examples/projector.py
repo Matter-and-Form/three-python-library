@@ -1,13 +1,14 @@
 # Projector
 
-from maf_three.scanner import Scanner
-from maf_three.Settings.projector import Image, Orientation, Pattern, Projector, Rect, Source
-from maf_three.Settings.video import Format
-from maf_three.V3Task import V3Task
-
 import time
 import numpy as np
 
+from maf_three.scanner import Scanner
+from maf_three.V3Task import V3Task
+
+from MF.V3.Settings.Projector_pb2 import Projector
+from MF.V3.Settings.Rectangle_pb2 import Rectangle
+from MF.V3.Settings.Video_pb2 import Video
 
 def main():
 
@@ -37,15 +38,15 @@ def main():
 
         #### Project Vertical Pattern
         print('Project Vertical Pattern (Identical image columns)')
-        scanner.SendTask(4, V3Task.SetProjector, Projector(pattern=Pattern(Orientation.Vertical,frequency=4,phase=1)))
+        scanner.SendTask(4, V3Task.SetProjector, Projector(pattern=Projector.Pattern(orientation=Projector.Orientation.Vertical,frequency=4,phase=1)))
         time.sleep(1)
 
         #### Project Horizontal Pattern
         print('Project Horizontal Pattern (Identical image rows)')
-        scanner.SendTask(5, V3Task.SetProjector, Projector(pattern=Pattern(Orientation.Horizontal,frequency=4,phase=1)))
+        scanner.SendTask(5, V3Task.SetProjector, Projector(pattern=Projector.Pattern(orientation=Projector.Orientation.Horizontal,frequency=4,phase=1)))
         time.sleep(1)
 
-        #### Project an image
+        ### Project an image
         print('Project Image')
         width = 640
         height = 480
@@ -57,8 +58,8 @@ def main():
                     255 * x / width , # Green
                     255 - 255 * y / height # Red
                 )
-        source = Source(format = Format.BGR888, width=width, height=height)
-        scanner.SendTaskWithBuffer(6, V3Task.SetProjector, image.tobytes(),Projector(image=Image(source=source, target=Rect(100,100,640, 480))) )
+        source = Projector.Image.Source(format = Video.Format.BGR888, width=width, height=height, step=3*width, fixAspectRatio=True)
+        scanner.SendTaskWithBuffer(6, V3Task.SetProjector, image.tobytes(), Projector(image=Projector.Image(source=source, target=Rectangle(x=100,y=100,width=640, height=480))) )
         time.sleep(1)
 
         #### Turn OFF

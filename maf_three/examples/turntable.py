@@ -6,16 +6,18 @@ from maf_three.V3Task import V3Task
 
 import time
 
-def main():
+hasTurntable = None
+rotating = False
 
-    hasTurntable = None
-    rotating = False
+def main():
+    global hasTurntable, rotating
 
     def OnTask(task:Task):
         global hasTurntable, rotating
 
         # HasTurntable
         if task.Type == V3Task.HasTurntable and task.State == TaskState.Completed:
+            print('Completed : ', task.Output)
             hasTurntable = task.Output
 
         # RotateTurntable
@@ -32,6 +34,7 @@ def main():
         # Check if a Turntable is connected to the scanner
         scanner.SendTask(0, V3Task.HasTurntable)
         while hasTurntable == None:
+            #print(hasTurntable)
             pass
         if hasTurntable == False:
             raise Exception('There is no turntable connected to the scanner')

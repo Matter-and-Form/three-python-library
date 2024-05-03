@@ -14,7 +14,8 @@
 	"extensions": {
 		"recommendations": [
 			"tamasfe.even-better-toml",
-			"bierner.markdown-preview-github-styles"
+			"bierner.markdown-preview-github-styles",
+			"plex.vscode-protolint"
 		]
 	}
 }
