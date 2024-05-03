@@ -2,17 +2,19 @@
 import time
 
 from maf_three.scanner import Scanner
-from maf_three.Settings.camera import Camera
-from maf_three.Settings.capture import Capture
-from maf_three.Settings.projector import Projector
-from maf_three.Settings.scan import Scan
-
 from maf_three.task import Task, TaskState
 from maf_three.V3Task import V3Task
+
+from MF.V3.Settings.Camera_pb2 import Camera
+from MF.V3.Settings.Capture_pb2 import Capture
+from MF.V3.Settings.Projector_pb2 import Projector
+from MF.V3.Settings.Scan_pb2 import Scan
+
 
 done = False
 
 def main():
+    global done
 
     def OnTask(task:Task):
         global done
@@ -52,9 +54,9 @@ def main():
 
         # Scan
         scan = Scan(
-            Camera(analogGain=256,digitalGain=256,exposure=50000),
-            Capture(), 
-            Projector(brightness=0.5)
+            camera=Camera(analogGain=256,digitalGain=256,exposure=50000),
+            capture=Capture(), 
+            projector=Projector(brightness=0.5)
         )
         scanner.SendTask(1, V3Task.NewTestScan, scan)
 
