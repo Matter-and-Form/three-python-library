@@ -58,7 +58,7 @@ def main():
                     255 * x / width , # Green
                     255 - 255 * y / height # Red
                 )
-        source = Projector.Image.Source(format = Video.Format.BGR888, width=width, height=height)
+        source = Projector.Image.Source(format = Video.Format.BGR888, width=width, height=height, step=3*width, fixAspectRatio=True)
         scanner.SendTaskWithBuffer(6, V3Task.SetProjector, image.tobytes(), Projector(image=Projector.Image(source=source, target=Rectangle(x=100,y=100,width=640, height=480))) )
         time.sleep(1)
 
