@@ -10,16 +10,16 @@ sudo apt install python3 python3-pip python3.12-venv
 ## Start and activate a virtual Python environment
 
 ```
-python -m venv path/to/venv
+python3 -m venv path/to/venv
 path/to/venv/bin/activate
 ```
 
 ## Install build dependencies (building, test and documentation)
 
 ```bash
-pip install build grpcio-tools==1.62.0           # Build proto files and Python
-pip install pytest                               # Testing
-pip install sphinx myst-parser sphinx-rtd-theme  # Documentation
+pip3 install build grpcio-tools==1.62.0           # Build proto files and Python
+pip3 install pytest                               # Testing
+pip3 install sphinx myst-parser sphinx-rtd-theme  # Documentation
 ```
 
 # Build
@@ -31,7 +31,7 @@ python3 -m build
 
 ## Install the package locally in editable mode
 ```
-pip install --editable .
+pip3 install --editable .
 ```
 
 

@@ -67,7 +67,9 @@ jobs:
     - name: Install dependencies
       run: |
           sudo apt install -y twine
-          pip install --upgrade build grpcio-tools==1.62.0 pytest sphinx myst-parser sphinx-rtd-theme
+          pip3 install build grpcio-tools==1.62.0
+          pip3 install pytest 
+          pip3 install sphinx myst-parser sphinx-rtd-theme
 
     # Set version
     - name: Set Version
