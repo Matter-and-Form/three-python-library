@@ -1,4 +1,4 @@
-# json.py
+# serialization.py
 
 from array import *
 import json
@@ -13,7 +13,11 @@ def Serializer(object):
     
     # Protobuf object
     if hasattr(object, "DESCRIPTOR"):
-        dic = MessageToDict(object, preserving_proto_field_name=True)
+        dic = MessageToDict(
+            object, 
+            preserving_proto_field_name=True, 
+            including_default_value_fields=True
+        )
         return dict(filter(lambda tup:tup[1] is not None, dic.items()))
     
     # Our objects

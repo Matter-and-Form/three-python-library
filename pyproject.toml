@@ -15,9 +15,9 @@ classifiers = [
 requires-python = ">=3.10"
 dependencies = [
     'importlib-metadata; python_version<"3.10"',
-    'protobuf >= 3.12.4',
+    'protobuf == 4.25.3',
     'websocket-client >= 1.7.0',
-    'numpy'
+    'numpy >= 1.26.4'
 ]
 
 # URLs
