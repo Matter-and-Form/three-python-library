@@ -16,8 +16,10 @@ path/to/venv/bin/activate
 
 ## Install build dependencies (building, test and documentation)
 
-```
-pip install --upgrade build pytest sphinx myst-parser sphinx-rtd-theme
+```bash
+pip install build grpcio-tools==1.62.0           # Build proto files and Python
+pip install pytest                               # Testing
+pip install sphinx myst-parser sphinx-rtd-theme  # Documentation
 ```
 
 # Build
