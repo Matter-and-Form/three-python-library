@@ -61,7 +61,7 @@ jobs:
       run: |
         echo "Version: $PACKAGE_VERSION"
         echo "Channel: $PACKAGE_CHANNEL"
-       
+
 
     ############## 2. Build the python package. ##############
 
@@ -69,9 +69,7 @@ jobs:
     - name: Install dependencies
       run: |
           sudo apt install -y twine
-          pip3 install build grpcio-tools==1.62.0
-          pip3 install pytest 
-          pip3 install sphinx myst-parser sphinx-rtd-theme
+          pip3 install -r requirements.txt
 
     # Set version
     - name: Set Version
