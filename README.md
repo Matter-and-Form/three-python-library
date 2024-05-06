@@ -40,7 +40,7 @@ pip install --editable .
 python3 -m pytest
 ```
 
-# Build the documentation
+## Build the documentation
 ```
 sphinx-build -M html ./doc/source/ ./doc/build/
 ```
