@@ -38,3 +38,10 @@ To run a specific example call:
  :linenos:
 ```
 
+## simpleScanner
+```{eval-rst}
+..   literalinclude:: ../../../maf_three/examples/simpleScanner.py
+ :linenos:
+```
+
+

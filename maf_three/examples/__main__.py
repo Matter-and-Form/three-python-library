@@ -2,16 +2,16 @@
 
 import sys
 
-from maf_three.examples import  connection, projector, turntable, task, turntableCalibration #, simpleScanner
+from maf_three.examples import  connection, projector, turntable, task, turntableCalibration, simpleScanner
 
 # Available examples dictionary 
 examples = {
-    'connection': connection.main,
-    'projector': projector.main,
-    'turntable': turntable.main,
-    'task': task.main,
-    'turntableCalibration': turntableCalibration.main,
-    #'simpleScanner': simpleScanner.main
+    'connection': connection,
+    'projector': projector,
+    'turntable': turntable,
+    'task': task,
+    'turntableCalibration': turntableCalibration,
+    'simpleScanner': simpleScanner
 }
 
 
@@ -43,7 +43,7 @@ if arg not in examples:
 
 # Run
 print("Running example: " , arg)
-examples[arg]()
+examples[arg].main()
 
 
 

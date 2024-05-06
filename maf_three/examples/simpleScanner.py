@@ -1,7 +1,5 @@
 # Simple Scanner
 
-# OpenCV
-import cv2
 import numpy as np
 
 # Three library
@@ -26,12 +24,17 @@ turntable = Turntable(use=False)
 
 def main():
 
-    print('###############################################')
-    print('This example required OpenCV for Python')
-    print('To install (apt or pip):')
-    print('  * sudo apt install python3-opencv')
-    print('  * pip install opencv-python')
-    print('###############################################')
+    # OpenCV
+    try:
+        import cv2
+    except ModuleNotFoundError as error:
+        print('###############################################')
+        print('This example required OpenCV for Python')
+        print('To install (apt or pip):')
+        print('  * sudo apt install python3-opencv')
+        print('  * pip3 install opencv-python')
+        print('###############################################')
+        exit(1)
 
     ControlsWindow = 'Controls'
     Camera0Window = 'Camera0'
@@ -124,9 +127,10 @@ def main():
 
         # Turn on the projector and start the video
         scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projector.brightness))
-        scanner.SendTask(-1, V3Task.StartVideo)  
+        scanner.SendTask(-1, V3Task.StartVideo)
 
         # User input loop
+        print('Press "Esc" to quit.')  
         while True:
 
             # If present => Show the frames
