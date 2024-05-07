@@ -12,6 +12,7 @@ Welcome to maf_three library's documentation!
 
    ./pages/quickStart.md
    ./pages/examples.md
+   ./pages/modules.rst
 
 
 
@@ -19,6 +20,6 @@ Welcome to maf_three library's documentation!
 .. Indices and tables
 .. ==================
 
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

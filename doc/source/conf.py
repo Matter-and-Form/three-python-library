@@ -10,10 +10,20 @@ project = 'maf_three library'
 copyright = '2024, Matter and Form'
 author = 'Matter and Form'
 
+import os
+import sys
+sys.path.insert(0, os.path.abspath('/../maf_three'))
+
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["myst_parser"]
+extensions = [
+    'myst_parser',
+    'sphinx.ext.doctest',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    #'sphinx.ext.napoleon'
+]
 
 source_suffix = ['.rst', '.md']
 
