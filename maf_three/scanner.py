@@ -12,7 +12,7 @@ import threading
 import time
 
 from maf_three.V3Task import V3Task
-from maf_three.json import TO_JSON
+from maf_three.serialization import TO_JSON
 from maf_three.task import Task
 from maf_three.buffer import Buffer
 

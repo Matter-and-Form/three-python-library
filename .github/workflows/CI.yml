@@ -40,7 +40,7 @@ jobs:
 
     # Install dependencies
     - name: Install dependencies
-      run: pip install --upgrade build grpcio-tools pytest sphinx myst-parser sphinx-rtd-theme
+      run: pip3 install -r requirements.txt
         
     # Set version
     - name: Set Version
@@ -53,6 +53,10 @@ jobs:
     # Build
     - name: Build
       run: python3 -m build
+
+    # Install our package (required for the tests to find the namespace : MF.V3)
+    - name: Install
+      run: pip3 install ./dist/maf_three-0.0.0-py3-none-any.whl
 
     # Run the tests
     - name: Test

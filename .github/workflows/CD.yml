@@ -32,6 +32,8 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: recursive
+        token: ${{ secrets.API_TOKEN_GITHUB }}
+        persist-credentials: true
 
     ############## 1. Extract information from the tag ##############
 
@@ -59,7 +61,7 @@ jobs:
       run: |
         echo "Version: $PACKAGE_VERSION"
         echo "Channel: $PACKAGE_CHANNEL"
-       
+
 
     ############## 2. Build the python package. ##############
 
@@ -67,7 +69,7 @@ jobs:
     - name: Install dependencies
       run: |
           sudo apt install -y twine
-          pip install --upgrade build grpcio-tools pytest sphinx myst-parser sphinx-rtd-theme
+          pip3 install -r requirements.txt
 
     # Set version
     - name: Set Version
@@ -80,6 +82,10 @@ jobs:
     # Build
     - name: Build
       run: python3 -m build
+
+    # Install our package (required for the tests to find the namespace : MF.V3)
+    - name: Install
+      run: pip3 install ./dist/maf_three-${{ env.PACKAGE_VERSION }}-py3-none-any.whl
 
     # Run the tests
     - name: Test
