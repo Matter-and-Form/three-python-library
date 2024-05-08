@@ -68,8 +68,8 @@ jobs:
     # Install dependencies
     - name: Install dependencies
       run: |
-          sudo apt install -y twine
           pip3 install -r requirements.txt
+          pip3 install twine
 
     # Set version
     - name: Set Version
