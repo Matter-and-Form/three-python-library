@@ -25,3 +25,11 @@ Settings
     :members:
     :undoc-members:
 
+---------------
+Descriptors
+---------------
+
+.. automodule:: maf_three.MF.V3.Descriptors
+    :members:
+    :undoc-members:
+
