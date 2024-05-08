@@ -64,6 +64,6 @@ jobs:
 
     # Build the documentation
     - name: Documentation
-      run: sphinx-build -M html ./doc/source/ ./doc/build/
+      run: python3 ./scripts/build-proto-doc.py 
 
 
