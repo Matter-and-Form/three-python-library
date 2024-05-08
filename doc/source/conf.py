@@ -10,9 +10,9 @@ project = 'maf_three library'
 copyright = '2024, Matter and Form'
 author = 'Matter and Form'
 
-#import os
-#import sys
-#sys.path.insert(0, os.path.abspath('./MF'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../..'))
 # sys.path.insert(0, os.path.abspath('./MF/V3/Settings'))
 
 #from MF.V3.Settings import Camera

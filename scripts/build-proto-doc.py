@@ -98,10 +98,10 @@ for file in generatedFiles:
 print("*****************")
 
 # Install the package
-result = subprocess.run(['pip3', 'install' ,'.'])
-if result.returncode != 0:
-    print('Install failed')
-    exit(1)
+# result = subprocess.run(['pip3', 'install' ,'.'])
+# if result.returncode != 0:
+#     print('Install failed')
+#     exit(1)
 
 print("*****************")
 
