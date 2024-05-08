@@ -60,12 +60,18 @@ def CleanUpGeneratedInit(file):
             if badImport and ')' in line:
                 badImport = False
 
+# Save the maf_three/__init__.py
+# It will be overridden by the betterprotoc compiler
+initFilePath = scriptPath + "/../maf_three/__init__.py"
+initFilePathBack = initFilePath+'.back'
+os.rename(initFilePath, initFilePathBack)
 
-# Find all the proto files
+# Find and build all the proto files
 protoFiles = glob.glob(protoInputPath+"/**/*.proto", recursive=True)
-
-# Build the proto files
 result = BuildProtoFiles(protoFiles, protoInputPath, protoOutputPath)
+
+# Restore maf_three/__init__.py
+os.rename(initFilePathBack, initFilePath)
 
 # Inspect the results
 GREEN = '\033[92m'
@@ -89,6 +95,11 @@ for file in generatedFiles:
     print('Clean up: ', file)
     CleanUpGeneratedInit(file)
 
+# Install the package
+result = subprocess.run(['pip3', 'install' ,'.'])
+if result.returncode != 0:
+    print('Install failed')
+    exit(1)
 
 # Build the documentation
 result = subprocess.run(args=[
@@ -108,7 +119,6 @@ else:
     print(GREEN + result.stdout.decode('utf-8') + ENDC)
     print(RED + result.stderr.decode('utf-8') + ENDC)
     exit(result.returncode)
-
 
 # Remove generated files
 for file in generatedFiles:
