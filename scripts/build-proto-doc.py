@@ -95,11 +95,15 @@ for file in generatedFiles:
     print('Clean up: ', file)
     CleanUpGeneratedInit(file)
 
+print("*****************")
+
 # Install the package
 result = subprocess.run(['pip3', 'install' ,'.'])
 if result.returncode != 0:
     print('Install failed')
     exit(1)
+
+print("*****************")
 
 # Build the documentation
 result = subprocess.run(args=[
