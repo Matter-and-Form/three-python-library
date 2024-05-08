@@ -10,9 +10,12 @@ project = 'maf_three library'
 copyright = '2024, Matter and Form'
 author = 'Matter and Form'
 
-import os
-import sys
-sys.path.insert(0, os.path.abspath('/../maf_three'))
+#import os
+#import sys
+#sys.path.insert(0, os.path.abspath('./MF'))
+# sys.path.insert(0, os.path.abspath('./MF/V3/Settings'))
+
+#from MF.V3.Settings import Camera
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -36,4 +39,4 @@ source_suffix = ['.rst', '.md']
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+#html_static_path = ['_static']

@@ -164,9 +164,9 @@ cython_debug/
 *_pb2.py
 *_pb2.pyi
 
-doc/
+#doc/
 Makefile
-*.rst
+#*.rst
 _build
 make.bat
 
