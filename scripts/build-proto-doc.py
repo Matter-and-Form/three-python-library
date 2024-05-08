@@ -7,12 +7,16 @@ import re
 
 # Paths
 scriptPath = os.path.dirname(os.path.realpath(__file__))
-protoInputPath = scriptPath + "/../V3Schema/"
-protoOutputPath = scriptPath + "/../maf_three"
+protoInputPath = scriptPath + '/../V3Schema/'
+protoOutputPath = scriptPath + '/../maf_three'
+docInputPath = scriptPath + '/../doc/source/'
+docOutputPath = scriptPath + '/../doc/build/'
 
 print("*****************")
-print("Building Proto files from: " + protoInputPath)
-print("Output directory:          " + protoOutputPath)
+print("Proto files input         : " + protoInputPath)
+print("Proto files output        : " + protoOutputPath)
+print("Documentation files input : " + docInputPath)
+print("Documentation files output: " + docOutputPath)
 print("*****************")
 
 
@@ -33,29 +37,23 @@ def BuildProtoFiles(protoFiles, inputDir, outputDir):
     return status
 
 def CleanUpGeneratedInit(file):
-
     # Get the content
     with open(file, "r") as f:
         lines = f.readlines()
-
     # Filter output
     with open(file, "w") as f:
         badImport = False
         for line in lines:
-
             # Beginning of the imports ?
             if 'from ....' in line:
                 badImport = True
-
             # Outside of the import section ?
             if not badImport:
                 if 'MfV3' in line:
                     line = re.sub('"[_]{3,}MfV3Settings', '"MF.V3.Settings.', line)
                     line = re.sub('"[_]{3,}MfV3Descriptors', '"MF.V3.Descriptors.', line)
                     line = line.replace('__"', '"')
-
                 f.write(line)
-
             # End of the imports
             if badImport and ')' in line:
                 badImport = False
@@ -94,15 +92,6 @@ generatedFiles = glob.glob(protoOutputPath+"/MF/**/__init__.py", recursive=True)
 for file in generatedFiles:
     print('Clean up: ', file)
     CleanUpGeneratedInit(file)
-
-print("*****************")
-
-# Install the package
-# result = subprocess.run(['pip3', 'install' ,'.'])
-# if result.returncode != 0:
-#     print('Install failed')
-#     exit(1)
-
 print("*****************")
 
 # Build the documentation
@@ -110,8 +99,8 @@ result = subprocess.run(args=[
     'sphinx-build',
     '-M',
     'html',
-    scriptPath + '/../doc/source/',
-    scriptPath + '/../doc/build/',
+    docInputPath,
+    docOutputPath,
     '--write-all'],
     capture_output=True)
 
