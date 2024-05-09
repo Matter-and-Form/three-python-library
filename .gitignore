@@ -163,7 +163,7 @@ cython_debug/
 ## Matter And Form
 doc/
 Makefile
-*.rst
+#*.rst
 _build
 make.bat
 
