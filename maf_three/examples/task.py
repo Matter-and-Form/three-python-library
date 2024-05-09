@@ -5,10 +5,10 @@ from maf_three.scanner import Scanner
 from maf_three.task import Task, TaskState
 from maf_three.V3Task import V3Task
 
-from MF.V3.Settings.Camera_pb2 import Camera
-from MF.V3.Settings.Capture_pb2 import Capture
-from MF.V3.Settings.Projector_pb2 import Projector
-from MF.V3.Settings.Scan_pb2 import Scan
+from MF.V3.Settings.Camera import Camera
+from MF.V3.Settings.Capture import Capture
+from MF.V3.Settings.Projector import Projector
+from MF.V3.Settings.Scan import Scan
 
 
 done = False

@@ -6,9 +6,9 @@ import numpy as np
 from maf_three.scanner import Scanner
 from maf_three.V3Task import V3Task
 
-from MF.V3.Settings.Projector_pb2 import Projector
-from MF.V3.Settings.Rectangle_pb2 import Rectangle
-from MF.V3.Settings.Video_pb2 import Video
+from MF.V3.Settings.Projector import Projector
+from MF.V3.Settings.Rectangle import Rectangle
+from MF.V3.Settings.Video import Video
 
 def main():
 

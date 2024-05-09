@@ -1,6 +1,6 @@
 # test_proto_turntable.py
 
-from MF.V3.Settings.Turntable_pb2 import Turntable
+from MF.V3.Settings.Turntable import Turntable
 
 def test_types():
     turntable = Turntable()

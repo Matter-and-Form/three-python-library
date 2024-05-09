@@ -1,6 +1,6 @@
 # test_proto_camera.py
 
-from MF.V3.Settings.Camera_pb2 import Camera
+from MF.V3.Settings.Camera import Camera
 
 from google.protobuf.json_format import MessageToJson, Parse
 

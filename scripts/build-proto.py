@@ -59,4 +59,23 @@ if fileError > 0:
 print("*****************")
 
 # Let the caller know if everything was built
-exit(0 if fileError == False else 1)
+if fileError > 0:
+    exit(1)
+
+# Remove the _pb2 at the end of the generated files
+generatedFiles = glob.glob(protoOutputPath+"/MF/**/*_pb2.*", recursive=True)
+for file in generatedFiles:
+    print('Updating generated file:', file)    
+
+    # Get the content
+    with open(file, "r") as f:
+        lines = f.readlines()
+
+    # Remove '_pb2'
+    with open(file, "w") as f:
+        for line in lines:
+            line = line.replace('_pb2', '')
+            f.write(line)
+    
+    # Rename the file
+    os.rename(file, file.replace('_pb2', ''))

@@ -161,9 +161,6 @@ cython_debug/
 
 
 ## Matter And Form
-*_pb2.py
-*_pb2.pyi
-
 doc/
 Makefile
 *.rst
