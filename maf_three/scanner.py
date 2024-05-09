@@ -21,9 +21,9 @@ class Scanner:
     Main class to manage and communicate with the Matter and Form THREE 3D Scanner via websocket.
 
     Attributes:
-        OnTask (Callable[[Task], None]): Function to handle tasks.
-        OnMessage (Callable[[str], None]): Function to handle messages.
-        OnBuffer (Callable[[Any, bytes], None]): Function to handle buffer data.
+        * OnTask (Callable[[Task], None]): Function to handle tasks.
+        * OnMessage (Callable[[str], None]): Function to handle messages.
+        * OnBuffer (Callable[[Any, bytes], None]): Function to handle buffer data.
     """
     
     __bufferDescriptor = None
@@ -193,9 +193,9 @@ class Scanner:
         Creates a task, serializes it, and sends it via the websocket.
 
         Args:
-            index (int): The index of the task.
-            type (V3Task): The type of the task.
-            input: Additional input for the task, default is None.
+            * index (int): The index of the task.
+            * type (V3Task): The type of the task.
+            * input: Additional input for the task, default is None.
 
         Returns:
             Task: The task object that was sent.
@@ -228,10 +228,10 @@ class Scanner:
         The task is serialized, and sent to the scanner, followed by the buffer
         
         Args:
-            index (int): The index of the task.
-            type (V3Task): The type of the task.
-            buffer (bytes): The buffer data to send.
-            input: Additional input for the task, default is None.
+            * index (int): The index of the task.
+            * type (V3Task): The type of the task.
+            * buffer (bytes): The buffer data to send.
+            * input: Additional input for the task, default is None.
 
         Returns:
             Task: The task object that was sent.

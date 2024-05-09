@@ -11,7 +11,15 @@ Modules
     :members:
     :undoc-members:
 
+.. automodule:: maf_three.V3Task
+    :members:
+    :undoc-members:
+
 .. automodule:: maf_three.task
+    :members:
+    :undoc-members:
+
+.. automodule:: maf_three.buffer
     :members:
     :undoc-members:
 

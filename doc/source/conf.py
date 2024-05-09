@@ -22,6 +22,9 @@ extensions = [
     #'sphinx.ext.napoleon'
 ]
 
+# Keep the member order as defined in the source 
+autodoc_member_order='bysource'
+
 source_suffix = ['.rst', '.md']
 
 
