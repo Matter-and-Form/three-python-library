@@ -39,3 +39,11 @@ MF.V3.Descriptors
     :members:
     :undoc-members:
 
+.. automodule:: maf_three.MF.V3.Descriptors.Calibration
+    :members:
+    :undoc-members:
+
+.. automodule:: maf_three.MF.V3.Descriptors.Network
+    :members:
+    :undoc-members:
+
