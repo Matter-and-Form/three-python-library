@@ -64,6 +64,6 @@ jobs:
 
     # Build the documentation
     - name: Documentation
-      run: python3 ./scripts/build-proto-doc.py 
+      run: python3 ./scripts/build-doc.py 
 
 
