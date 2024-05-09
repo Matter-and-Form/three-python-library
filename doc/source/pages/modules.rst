@@ -1,13 +1,12 @@
 
-
+=============================================
 Modules
 =============================================
 
 
----------------
+-----------------------
  maf_three
----------------
-
+-----------------------
 .. automodule:: maf_three.scanner
     :members:
     :undoc-members:
@@ -17,18 +16,17 @@ Modules
     :undoc-members:
 
 
----------------
-Settings
----------------
-
+-----------------------
+MF.V3.Settings
+-----------------------
 .. automodule:: maf_three.MF.V3.Settings
     :members:
     :undoc-members:
 
----------------
-Descriptors
----------------
 
+-----------------------
+MF.V3.Descriptors
+-----------------------
 .. automodule:: maf_three.MF.V3.Descriptors
     :members:
     :undoc-members:

@@ -160,14 +160,9 @@ cython_debug/
 #.idea/
 
 
-## Matter And Form
-doc/
-Makefile
-#*.rst
-_build
-make.bat
+## Matter And Form ##
 
-#don't include protobuf generated files. This should be run every build
+# Don't include protobuf generated files.
 maf_three/MF
 
 
