@@ -23,6 +23,9 @@ Modules
     :members:
     :undoc-members:
 
+.. automodule:: maf_three.serialization
+    :members:
+
 
 ----------------------------
 MF.V3.Settings

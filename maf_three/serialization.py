@@ -25,6 +25,17 @@ def Serializer(object):
 
 
 def TO_JSON(object) -> str:
+    """
+    Serialize an object into a json string.
+    
+    Args: 
+        object: the object to serialize.
+
+    Returns:
+        The string representing the object.
+
+    """
+
     return json.dumps(
     object,
     default=Serializer,
