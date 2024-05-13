@@ -17,6 +17,11 @@ pip3 install -r requirements.txt
 
 # Build
 
+## Build python source from proto files
+```
+python3 ./scripts/build-proto.py
+```
+
 ## Package Build
 ```
 python3 -m build
@@ -27,7 +32,6 @@ python3 -m build
 pip3 install --editable .
 ```
 
-
 ## Run the tests
 ```
 python3 -m pytest
@@ -35,9 +39,8 @@ python3 -m pytest
 
 ## Build the documentation
 ```
-sphinx-build -M html ./doc/source/ ./doc/build/
+python3 ./scripts/build-doc.py
 ```
-
 
 
 
