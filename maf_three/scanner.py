@@ -11,10 +11,14 @@ import json
 import threading
 import time
 
+from maf_three import __version__
 from maf_three.V3Task import V3Task
 from maf_three.serialization import TO_JSON
-from maf_three.task import Task
+from maf_three.task import Task, TaskState
 from maf_three.buffer import Buffer
+
+from MF.V3.Descriptors.Software import Software
+
 
 class Scanner:
     """
@@ -38,9 +42,9 @@ class Scanner:
         Initializes the Scanner object.
 
         Args:
-            OnTask (Optional[Callable[[Task], None]]): Function to handle tasks, default is None.
-            OnMessage (Optional[Callable[[str], None]]): Function to handle messages, default is None.
-            OnBuffer (Optional[Callable[[Any, bytes], None]]): Function to handle buffer data, default is None.
+            * OnTask (Optional[Callable[[Task], None]]): Function to handle tasks, default is None.
+            * OnMessage (Optional[Callable[[str], None]]): Function to handle messages, default is None.
+            * OnBuffer (Optional[Callable[[Any, bytes], None]]): Function to handle buffer data, default is None.
         """
         self.__isConnected = False
 
@@ -49,13 +53,14 @@ class Scanner:
         self.OnBuffer = OnBuffer
 
 
-    def Connect(self, URI:str, timeoutSec=5) -> bool:
+    def Connect(self, URI:str, timeoutSec=5, checkVersionsCompatibility=True) -> bool:
         """
         Attempts to connect to the scanner using the specified URI and timeout.
 
         Args:
-            URI (str): The URI of the websocket server.
-            timeoutSec (int): Timeout in seconds, default is 5.
+            * URI (str): The URI of the websocket server.
+            * timeoutSec (int): Timeout in seconds, default is 5.
+            * checkVersionsCompatibility (bool): If True, right after the client connects to the server, check if the versions are compatible.
 
         Returns:
             bool: True if connection is successful, raises Exception otherwise.
@@ -67,6 +72,9 @@ class Scanner:
         self.__URI = URI
         self.__isConnected = False
         self.__error = None
+
+        self.__serverVersion__= None
+        self.__checkVersionsCompatibility__ = checkVersionsCompatibility
 
         self.websocket = websocket.WebSocketApp(self.__URI,
                               on_open=self.__OnOpen,
@@ -82,17 +90,42 @@ class Scanner:
         # Wait for connection
         start = time.time()
         while time.time() < start + timeoutSec:
-            if self.__isConnected: return True
-            elif self.__error: raise Exception(self.__error)
+            if self.__isConnected:
+                # Not checking versions => return True
+                if not checkVersionsCompatibility:
+                    return True
+                else:
+                    # Request the server version
+                    self.SendTask(0, V3Task.SoftwareVersionInstalled, 'three-server')
+                    # Wait for the reply
+                    while self.__serverVersion__ == None:
+                        time.sleep(0.1)
+                    # Compare the versions
+                    if str(self.__serverVersion__.major) != __version__.split('.')[0]:
+                        raise Exception(
+                            'Major versions of Python library and Server mismatch.\n'+
+                            '* Server:    '+ str(self.__serverVersion__.major)+ '.'+str(self.__serverVersion__.minor)+'.'+str(self.__serverVersion__.patch)+'\n'
+                            '* maf_three: '+ __version__+'\n'+
+                            'Please update your python library: pip3 install --upgrade --no-cache-dir maf_three')            
+                    # Major versions match
+                    return True
+
+            elif self.__error:
+                raise Exception(self.__error)
             time.sleep(0.1)
         
         raise Exception('Connection timeout')
         
     def Disconnect(self) -> None:
         """
-        Disconnects the websocket connection.
+        Close the websocket connection.
         """
-        self.websocket.close()
+        if self.__isConnected:
+            # Close the connection
+            self.websocket.close()
+            # Wait for the connection to be closed.
+            while self.__isConnected:
+                time.sleep(0.1)
 
     def IsConnected(self)-> bool:
         """
@@ -174,8 +207,18 @@ class Scanner:
         
             # Task
             if 'Task' in obj:
-                if self.OnTask:
-                    self.OnTask(Task(**obj['Task']))
+                # Create the task from the message
+                task = Task(**obj['Task'])
+
+                # Are we checking versions compatibility ?
+                if self.__checkVersionsCompatibility__ and task.Type == V3Task.SoftwareVersionInstalled and task.State == TaskState.Completed:
+                    self.__serverVersion__ = Software.Version(**task.Output)
+                    self.__checkVersionsCompatibility__ = False
+
+                # If assigned => Call the handler
+                elif self.OnTask:
+                    self.OnTask(task)
+                    
             # Buffer
             elif 'Buffer' in obj:
                 self.__bufferDescriptor = obj['Buffer']
@@ -225,7 +268,7 @@ class Scanner:
         This call is used to send data to the scanner, like an image to be projected by the projector. 
         An appropriate task must be sent with the buffer, or the buffer will be ignored.
         
-        The task is serialized, and sent to the scanner, followed by the buffer
+        The task is serialized, and sent to the scanner, followed by the buffer.
         
         Args:
             * index (int): The index of the task.
