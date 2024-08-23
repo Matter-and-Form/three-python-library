@@ -2,6 +2,8 @@
 
 import os
 import subprocess
+import glob
+
 
 # Paths
 scriptPath = os.path.dirname(os.path.realpath(__file__))
@@ -38,7 +40,14 @@ ENDC = '\033[0m'
 # Find and build all the proto files
 fileError = 0
 fileCount = 0
-import glob
+
+# Delete previously compiled directory
+previousProtoOutputPath = protoOutputPath + "/MF"
+
+if os.path.exists(previousProtoOutputPath):
+    print("Deleting previously compiled directory: " + previousProtoOutputPath)
+    os.system("rm -rf " + previousProtoOutputPath)
+
 files = glob.glob(protoInputPath+"/**/*.proto", recursive=True)
 for file in files:
 
