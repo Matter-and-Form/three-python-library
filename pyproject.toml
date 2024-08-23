@@ -23,7 +23,7 @@ dependencies = [
 # URLs
 [project.urls]
 Homepage = "https://matterandform.net"
-Documentation = "https://matterandform.net"
+Documentation = "https://github.com/Matter-and-Form/three-python-library/wiki"
 
 # Package source
 [tool.setuptools.package-dir]
