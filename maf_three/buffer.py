@@ -1,7 +1,7 @@
 # buffer.py
 
 
-from maf_three.task import Task
+from MF.V3 import Task
 
 
 class Buffer:
@@ -17,7 +17,7 @@ class Buffer:
     """The related task."""
 
 
-    def __init__(self, bufferIndex:int,totalBufferSize:int, task:Task, Input = None):
+    def __init__(self, bufferIndex:int, totalBufferSize:int, task:Task):
         self.Index = bufferIndex
         self.totalBufferSize = totalBufferSize
         self.Task = task

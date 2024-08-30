@@ -11,13 +11,11 @@ import json
 import threading
 import time
 
-from maf_three import __version__
-from maf_three.V3Task import V3Task
-from maf_three.serialization import TO_JSON
-from maf_three.task import Task, TaskState
-from maf_three.buffer import Buffer
+from MF.V3 import Task
 
-from MF.V3.Descriptors.Software import Software
+from maf_three import __version__
+from maf_three.serialization import TO_JSON
+from maf_three.buffer import Buffer
 
 
 class Scanner:
@@ -53,14 +51,13 @@ class Scanner:
         self.OnBuffer = OnBuffer
 
 
-    def Connect(self, URI:str, timeoutSec=5, checkVersionsCompatibility=True) -> bool:
+    def Connect(self, URI:str, timeoutSec=5) -> bool:
         """
         Attempts to connect to the scanner using the specified URI and timeout.
 
         Args:
             * URI (str): The URI of the websocket server.
             * timeoutSec (int): Timeout in seconds, default is 5.
-            * checkVersionsCompatibility (bool): If True, right after the client connects to the server, check if the versions are compatible.
 
         Returns:
             bool: True if connection is successful, raises Exception otherwise.
@@ -74,7 +71,6 @@ class Scanner:
         self.__error = None
 
         self.__serverVersion__= None
-        self.__checkVersionsCompatibility__ = checkVersionsCompatibility
 
         self.websocket = websocket.WebSocketApp(self.__URI,
                               on_open=self.__OnOpen,
@@ -92,24 +88,7 @@ class Scanner:
         while time.time() < start + timeoutSec:
             if self.__isConnected:
                 # Not checking versions => return True
-                if not checkVersionsCompatibility:
                     return True
-                else:
-                    # Request the server version
-                    self.SendTask(0, V3Task.SoftwareVersionInstalled, 'three-server')
-                    # Wait for the reply
-                    while self.__serverVersion__ == None:
-                        time.sleep(0.1)
-                    # Compare the versions
-                    if str(self.__serverVersion__.major) != __version__.split('.')[0]:
-                        raise Exception(
-                            'Major versions of Python library and Server mismatch.\n'+
-                            '* Server:    '+ str(self.__serverVersion__.major)+ '.'+str(self.__serverVersion__.minor)+'.'+str(self.__serverVersion__.patch)+'\n'
-                            '* maf_three: '+ __version__+'\n'+
-                            'Please update your python library: pip3 install --upgrade --no-cache-dir maf_three')            
-                    # Major versions match
-                    return True
-
             elif self.__error:
                 raise Exception(self.__error)
             time.sleep(0.1)
@@ -210,13 +189,8 @@ class Scanner:
                 # Create the task from the message
                 task = Task(**obj['Task'])
 
-                # Are we checking versions compatibility ?
-                if self.__checkVersionsCompatibility__ and task.Type == V3Task.SoftwareVersionInstalled and task.State == TaskState.Completed:
-                    self.__serverVersion__ = Software.Version(**task.Output)
-                    self.__checkVersionsCompatibility__ = False
-
                 # If assigned => Call the handler
-                elif self.OnTask:
+                if self.OnTask:
                     self.OnTask(task)
                     
             # Buffer
@@ -228,7 +202,7 @@ class Scanner:
                     self.OnMessage(obj)
 
     # Send a task to the scanner
-    def SendTask(self, index:int, type:V3Task, input = None) -> Task:
+    def SendTask(self, task:Task) -> None:
         """
         Sends a task to the scanner.
         Tasks are general control requests for the scanner. (eg. Camera exposure, or Get Image)
@@ -236,21 +210,13 @@ class Scanner:
         Creates a task, serializes it, and sends it via the websocket.
 
         Args:
-            * index (int): The index of the task.
-            * type (V3Task): The type of the task.
-            * input: Additional input for the task, default is None.
-
-        Returns:
-            Task: The task object that was sent.
+            * task (Task): The task to send.
 
         Raises:
             AssertionError: If the connection is not established.
         """
         assert self.__isConnected
         
-        # Create the task
-        task = Task(index, type, input)
-
         # Serialize the task
         message = TO_JSON(task)
         
@@ -262,7 +228,7 @@ class Scanner:
         return task
 
     # Send a task with its buffer to the scanner
-    def SendTaskWithBuffer(self, index:int, type:V3Task, buffer:bytes, input = None) -> Task:
+    def SendTaskWithBuffer(self, task:Task, buffer:bytes) -> Task:
         """
         Sends a task along with its associated buffer to the scanner.
         This call is used to send data to the scanner, like an image to be projected by the projector. 
@@ -271,10 +237,8 @@ class Scanner:
         The task is serialized, and sent to the scanner, followed by the buffer.
         
         Args:
-            * index (int): The index of the task.
-            * type (V3Task): The type of the task.
+            * task (Task): The task to send.
             * buffer (bytes): The buffer data to send.
-            * input: Additional input for the task, default is None.
 
         Returns:
             Task: The task object that was sent.
@@ -285,7 +249,7 @@ class Scanner:
         assert self.__isConnected
 
         # Send the task
-        task = self.SendTask(index, type, input)
+        task = self.SendTask(task)
 
         # Build the buffer descriptor
         bufferSize = len(buffer)

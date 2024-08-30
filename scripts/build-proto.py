@@ -49,22 +49,21 @@ if os.path.exists(previousProtoOutputPath):
     os.system("rm -rf " + previousProtoOutputPath)
 
 files = glob.glob(protoInputPath+"/**/*.proto", recursive=True)
-for file in files:
 
-    # Build
-    result = BuildProtoFile(file, protoInputPath, protoOutputPath) 
-
-    # Inspect result
-    fileCount += 1
-    if result.returncode != 0:
-        fileError += 1
-        print(RED + result.stderr.decode('utf-8') + ENDC)
+status = subprocess.run([
+        'python3',
+        '-m',
+        'grpc_tools.protoc',
+        *files,
+        f'-I={protoInputPath}',
+        f'--python_out={protoOutputPath}',
+        f'--pyi_out={protoOutputPath}',
+        '--experimental_allow_proto3_optional'
+        ], capture_output=True) 
 
 # Print results
 print("*****************")
-print(GREEN + 'Built: ' + str(fileCount - fileError) + " / " + str(fileCount) + " files." + ENDC)
-if fileError > 0:   
-    print(RED + 'Error: ' +  str(fileError) + " / " + str(fileCount) + " files." + ENDC)
+print(GREEN + 'Complete ' + str(status.returncode) + ENDC)
 print("*****************")
 
 # Let the caller know if everything was built
@@ -83,7 +82,8 @@ for file in generatedFiles:
     # Remove '_pb2'
     with open(file, "w") as f:
         for line in lines:
-            line = line.replace('_pb2', '')
+            if "MF.V3" in line:
+                line = line.replace('_pb2', '')
             f.write(line)
     
     # Rename the file
