@@ -1,6 +1,6 @@
 import os
 import argparse
-from interpretProto import create_proto_objects, EnumType, MessageType
+from interpretProto import create_proto_objects, MessageType, parse_proto
 from typing import List, Dict
 
 
@@ -31,7 +31,6 @@ def generate_python_code(proto_objects: List, output_dir: str):
         #namespace = obj['namespace']
         imports = obj['imports']
         messages = obj['messages']
-        enums = obj['enums']
         file_path = obj['filename']
 
         # Get the base path of the file
@@ -47,36 +46,70 @@ def generate_python_code(proto_objects: List, output_dir: str):
         # Generate code for messages
         message_code = ""
         for message in messages:
-            message_code += generate_message_code(message) + "\n\n"
-
-        # Generate code for enums
-        enum_code = ""
-        for enum in enums:
-            enum_code += generate_enum_code(enum) + "\n\n"
+            if message.type == "message":
+                message_code += generate_message_code(message) + "\n\n"
+            elif message.type == "enum":
+                message_code += generate_enum_code(message) + "\n\n"
 
         # Combine imports, message code, and enum code
-        combined_code = import_lines + "\n\n" + message_code + enum_code
+        combined_code = import_lines + "\n\n" + message_code
 
         # Write the combined code to a file with the name from the file_path
         filename = os.path.join(path, f"{filename}.py")
         with open(filename, 'w') as f:
             f.write(combined_code)
 
+# Mapping of special types to Python types
+type_mapping = {
+    "int32": "int",
+    "Int32": "int",
+    "int64": "int",
+    "Int64": "int",
+    "float": "float",
+    "Float": "float",
+    "double": "float",
+    "Double": "float",
+    "string": "str",
+    "String": "str",
+    # Add more mappings as needed
+}
+
 def generate_message_code(message: Dict) -> str:
     comment = message.comment
     name = message.name
     properties = message.properties
-
-    class_code = f'"""{comment}"""\n'
+    nested_messages = message.nested_messages
+    
+    if comment != "":
+        if len(comment.split('\n')) > 1:
+            class_code = f'"""{comment}"""\n'
+        else:
+            class_code = f'# {comment}\n'
+    else:
+        class_code = ''
+    
     class_code += f"class {name}:\n"
-    class_code += "    def __init__(self"
-    for prop in properties:
-        class_code += f", {prop.name}: {prop.type}"
-        if prop.optional:
-            class_code += " = None"
-    class_code += "):\n"
-    for prop in properties:
-        class_code += f"        self.{prop.name} = {prop.name}  # {prop.comment}\n"
+    
+    if properties:
+        class_code += "    def __init__(self"
+        for prop in properties:
+            prop_type = type_mapping.get(prop.type, prop.type)
+            class_code += f", {prop.name}: {prop_type}"
+            if prop.optional:
+                class_code += " = None"
+        class_code += "):\n"
+        for prop in properties:
+            class_code += f"        self.{prop.name} = {prop.name}  # {prop.comment}\n"
+    else:
+        class_code += "    def __init__(self):\n"
+        class_code += "        pass\n"
+    
+    # Generate code for nested messages
+    for nested_message in nested_messages:
+        nested_class_code = generate_message_code(nested_message)
+        nested_class_code = "\n".join([f"    {line}" for line in nested_class_code.split("\n")])
+        class_code += f"\n{nested_class_code}\n"
+    
     return class_code
 
 def generate_enum_code(enum) -> str:
@@ -97,8 +130,28 @@ def main():
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
 
-    proto_objects = load_proto_objects(args.input_dir)
+    # proto_objects = load_proto_objects(args.input_dir)
+    # generate_python_code(proto_objects, args.output_dir)
+
+    imports, messages, namespace = parse_proto("./V3Schema/MF/V3/Task.proto", args.input_dir)
+
+    # Add imports enum and messages to an object
+    proto_objects = [{
+        "imports": imports,
+        "messages": messages,
+        "namespace": namespace,
+        "filename": "AddMergeToProject.proto"
+    }]
     generate_python_code(proto_objects, args.output_dir)
+    # print("Imports:")
+    # print(imports)
+    # print("Enums:")
+    # print(enums)
+    # print("Messages:")
+    # print(messages)
+    # print("Namespace:")
+    # print(namespace)
+    
 
 if __name__ == "__main__":
     main()
