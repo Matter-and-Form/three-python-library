@@ -1,6 +1,7 @@
 import re
 import argparse
-
+import os
+import glob
 from typing import List, Optional, Tuple
 
 class ProtoProperty:
@@ -11,26 +12,28 @@ class ProtoProperty:
         self.comment: str = comment
 
 class EnumType:
-    def __init__(self, name: str, comment: str) -> None:
+    def __init__(self, name: str, comment: str, namespace: str) -> None:
         self.type: str = "enum"
         self.name: str = name
         self.comment: str = comment
+        self.namespace: str = namespace
         self.properties: List[ProtoProperty] = []
 
     def add_property(self, name: str, value: str, comment: str) -> None:
         self.properties.append(ProtoProperty("enum_value", name, False, comment))
 
 class MessageType:
-    def __init__(self, name: str, comment: str) -> None:
+    def __init__(self, name: str, comment: str, namespace: str) -> None:
         self.type: str = "message"
         self.name: str = name
         self.comment: str = comment
+        self.namespace: str = namespace
         self.properties: List[ProtoProperty] = []
 
     def add_property(self, type_: str, name: str, optional: bool, comment: str) -> None:
         self.properties.append(ProtoProperty(type_, name, optional, comment))
 
-def parse_proto(proto_file: str) -> Tuple[List[EnumType], List[MessageType]]:
+def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[EnumType], List[MessageType]]:
     with open(proto_file, 'r') as file:
         lines: List[str] = file.readlines()
 
@@ -42,6 +45,10 @@ def parse_proto(proto_file: str) -> Tuple[List[EnumType], List[MessageType]]:
     in_enum: bool = False
     in_message: bool = False
     comments: List[str] = []
+
+    # Calculate namespace based on the relative path
+    relative_path = os.path.relpath(proto_file, base_dir)
+    namespace = os.path.dirname(relative_path).replace(os.sep, '.')
 
     for line in lines:
         line = line.strip()
@@ -59,12 +66,11 @@ def parse_proto(proto_file: str) -> Tuple[List[EnumType], List[MessageType]]:
         if line == "":
             continue
 
-
         if line.startswith("enum"):
             in_enum = True
             enum_name: str = re.findall(r'enum (\w+)', line)[0]
             comment: str = "\n".join(comments)
-            current_enum = EnumType(enum_name, comment)
+            current_enum = EnumType(enum_name, comment, namespace)
             enums.append(current_enum)
             comments = []
             continue
@@ -73,7 +79,7 @@ def parse_proto(proto_file: str) -> Tuple[List[EnumType], List[MessageType]]:
             in_message = True
             message_name: str = re.findall(r'message (\w+)', line)[0]
             comment: str = "\n".join(comments)
-            current_message = MessageType(message_name, comment)
+            current_message = MessageType(message_name, comment, namespace)
             messages.append(current_message)
             comments = []
             continue
@@ -123,21 +129,25 @@ def print_object(obj: object, indent: int = 0) -> None:
                     print(f"{indent_str}  {key}: {value}")
 
 def main() -> None:
-    # parser = argparse.ArgumentParser(description="Parse a protobuf file and generate Python objects.")
-    # parser.add_argument('proto_file', type=str, help='Path to the protobuf file')
-    # args = parser.parse_args()
+    parser = argparse.ArgumentParser(description="Parse a directory of protobuf files and generate Python objects.")
+    parser.add_argument('directory', type=str, help='Path to the directory containing protobuf files')
+    args = parser.parse_args()
 
-    # enums, messages = parse_proto(args.proto_file)
-    imports, enums, messages = parse_proto("V3Schema/MF/V3/Task.proto")
+    proto_files = glob.glob(os.path.join(args.directory, '**', '*.proto'), recursive=True)
 
-    for imp in imports:
-        print(f"  {imp}")
-        
-    for enum in enums:
-        print_object(enum)
+    for proto_file in proto_files:
+        print(f"Parsing file: {proto_file}")
+        imports, enums, messages = parse_proto(proto_file, args.directory)
 
-    for message in messages:
-        print_object(message)
+        print("Imports:")
+        for imp in imports:
+            print(f"  {imp}")
+
+        for enum in enums:
+            print_object(enum)
+
+        for message in messages:
+            print_object(message)
 
 if __name__ == "__main__":
     main()
