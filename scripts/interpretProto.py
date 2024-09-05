@@ -12,22 +12,20 @@ class ProtoProperty:
         self.comment: str = comment
 
 class EnumType:
-    def __init__(self, name: str, comment: str, namespace: str) -> None:
+    def __init__(self, name: str, comment: str) -> None:
         self.type: str = "enum"
         self.name: str = name
         self.comment: str = comment
-        self.namespace: str = namespace
         self.properties: List[ProtoProperty] = []
 
     def add_property(self, name: str, value: str, comment: str) -> None:
         self.properties.append(ProtoProperty("enum_value", name, False, comment))
 
 class MessageType:
-    def __init__(self, name: str, comment: str, namespace: str) -> None:
+    def __init__(self, name: str, comment: str) -> None:
         self.type: str = "message"
         self.name: str = name
         self.comment: str = comment
-        self.namespace: str = namespace
         self.properties: List[ProtoProperty] = []
 
     def add_property(self, type_: str, name: str, optional: bool, comment: str) -> None:
@@ -45,13 +43,18 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[EnumTyp
     in_enum: bool = False
     in_message: bool = False
     comments: List[str] = []
-
-    # Calculate namespace based on the relative path
-    relative_path = os.path.relpath(proto_file, base_dir)
-    namespace = os.path.dirname(relative_path).replace(os.sep, '.')
+    namespace: str = ""
 
     for line in lines:
         line = line.strip()
+
+        if line.startswith("package"):
+            match = re.findall(r'package\s+([\w\.]+);', line)
+            if match:
+                namespace = match[0]
+            else:
+                namespace = ''
+            continue
 
         if line.startswith("import"):
             match = re.findall(r'import\s+"([^"]+)";', line)
@@ -70,7 +73,7 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[EnumTyp
             in_enum = True
             enum_name: str = re.findall(r'enum (\w+)', line)[0]
             comment: str = "\n".join(comments)
-            current_enum = EnumType(enum_name, comment, namespace)
+            current_enum = EnumType(enum_name, comment)
             enums.append(current_enum)
             comments = []
             continue
@@ -79,7 +82,7 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[EnumTyp
             in_message = True
             message_name: str = re.findall(r'message (\w+)', line)[0]
             comment: str = "\n".join(comments)
-            current_message = MessageType(message_name, comment, namespace)
+            current_message = MessageType(message_name, comment)
             messages.append(current_message)
             comments = []
             continue
@@ -109,7 +112,7 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[EnumTyp
                     current_message.add_property(type_, name, optional, comment)
                     comments = []
 
-    return imports, enums, messages
+    return imports, enums, messages, namespace
 
 def print_object(obj: object, indent: int = 0) -> None:
     indent_str = ' ' * indent
@@ -128,26 +131,46 @@ def print_object(obj: object, indent: int = 0) -> None:
                 else:
                     print(f"{indent_str}  {key}: {value}")
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Parse a directory of protobuf files and generate Python objects.")
-    parser.add_argument('directory', type=str, help='Path to the directory containing protobuf files')
-    args = parser.parse_args()
-
-    proto_files = glob.glob(os.path.join(args.directory, '**', '*.proto'), recursive=True)
+def create_proto_objects(directory: str):
+    proto_files = glob.glob(os.path.join(directory, '**', '*.proto'), recursive=True)
+    all_objs = []
 
     for proto_file in proto_files:
         print(f"Parsing file: {proto_file}")
-        imports, enums, messages = parse_proto(proto_file, args.directory)
+        imports, enums, messages, namespace = parse_proto(proto_file, directory)
+        # Get relative path of the file
+        proto_file = os.path.relpath(proto_file, directory)
 
-        print("Imports:")
-        for imp in imports:
-            print(f"  {imp}")
+        # create object that has imports, enums, and messages, and namespace to keep them together
+        all_objs.append({
+            "imports": imports,
+            "enums": enums,
+            "messages": messages,
+            "namespace": namespace,
+            "filename": proto_file
+        })
+    return all_objs
 
-        for enum in enums:
-            print_object(enum)
-
-        for message in messages:
-            print_object(message)
-
-if __name__ == "__main__":
-    main()
+# def main() -> None:
+#     parser = argparse.ArgumentParser(description="Parse a directory of protobuf files and generate Python objects.")
+#     parser.add_argument('directory', type=str, help='Path to the directory containing protobuf files')
+#     args = parser.parse_args()
+#
+#     proto_files = glob.glob(os.path.join(args.directory, '**', '*.proto'), recursive=True)
+#
+#     for proto_file in proto_files:
+#         print(f"Parsing file: {proto_file}")
+#         imports, enums, messages = parse_proto(proto_file, args.directory)
+#
+#         print("Imports:")
+#         for imp in imports:
+#             print(f"  {imp}")
+#
+#         for enum in enums:
+#             print_object(enum)
+#
+#         for message in messages:
+#             print_object(message)
+#
+# if __name__ == "__main__":
+#     main()
