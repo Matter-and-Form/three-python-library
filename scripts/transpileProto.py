@@ -100,7 +100,7 @@ def parseComment(comment: str) -> str:
         else:
             class_code = f'# {comment}\n'
     else:
-        class_code = ''
+        class_code = '\n'
     return class_code
 
 def add_indents(code: str, indent: int) -> str:
@@ -135,8 +135,8 @@ def generate_message_code(message: Dict) -> str:
         class_code += "):\n"
         for prop in properties:
             # Add comments with parseComment function with spaces
-            class_code += f"{add_indents(parseComment(prop.comment),2)}\n"
-            class_code += f"        self.{prop.name} = {prop.name}\n"
+            class_code += f"\n{add_indents(parseComment(prop.comment),2)}"
+            class_code += f"self.{prop.name} = {prop.name}\n"
     else:
         class_code += "    def __init__(self):\n"
         class_code += "        pass\n"
