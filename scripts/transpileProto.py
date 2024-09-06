@@ -20,7 +20,11 @@ def generate_import_lines(imports: List[str]) -> str:
         if "google" in module_parts:
             import_line = f"from {'.'.join(module_parts[:-1])} import {module_name}_pb2 as _{module_name}_pb2"
         else:
-            import_line = f"import {module_path}"
+            # Check if the import has a namespace
+            if len(module_parts) > 1:
+                import_line = f"from {'.'.join(module_parts[:-1])} import {module_name}"
+            else:
+                import_line = f"import {module_path}"
         import_lines.append(import_line)
     return "\n".join(import_lines)
 
@@ -71,15 +75,10 @@ type_mapping = {
     "Double": "float",
     "string": "str",
     "String": "str",
-    # Add more mappings as needed
+    "google.protobuf.Any": "_any_pb2"
 }
 
-def generate_message_code(message: Dict) -> str:
-    comment = message.comment
-    name = message.name
-    properties = message.properties
-    nested_messages = message.nested_messages
-    
+def parseComment(comment: str) -> str:
     if comment != "":
         if len(comment.split('\n')) > 1:
             class_code = f'"""{comment}"""\n'
@@ -87,6 +86,15 @@ def generate_message_code(message: Dict) -> str:
             class_code = f'# {comment}\n'
     else:
         class_code = ''
+    return class_code
+
+def generate_message_code(message: Dict) -> str:
+    comment = message.comment
+    name = message.name
+    properties = message.properties
+    nested_messages = message.nested_messages
+    
+    class_code = parseComment(comment)
     
     class_code += f"class {name}:\n"
     
@@ -117,8 +125,7 @@ def generate_enum_code(enum) -> str:
     name = enum.name
     values = enum.properties
 
-    enum_code = f'"""{comment}"""\n'
-    enum_code += f"from enum import Enum\n\n"
+    enum_code = parseComment(comment)
     enum_code += f"class {name}(Enum):\n"
     for value in values:
         enum_code += f"    {value.name} = \"{value.name}\"  # {value.comment}\n"
@@ -140,7 +147,7 @@ def main():
         "imports": imports,
         "messages": messages,
         "namespace": namespace,
-        "filename": "AddMergeToProject.proto"
+        "filename": "MF/V3/Task.proto"
     }]
     generate_python_code(proto_objects, args.output_dir)
     # print("Imports:")

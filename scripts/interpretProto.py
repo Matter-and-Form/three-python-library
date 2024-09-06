@@ -69,6 +69,7 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             if line.startswith("enum"):
                 message_name = re.findall(r'enum (\w+)', line)[0]
                 message_type = "enum"
+                imports.append("enum/Enum.py")
             else:
                 message_name: str = re.findall(r'message (\w+)', line)[0]
                 message_type = "message"
