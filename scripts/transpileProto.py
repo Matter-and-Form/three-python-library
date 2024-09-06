@@ -69,6 +69,12 @@ type_mapping = {
     "Int32": "int",
     "int64": "int",
     "Int64": "int",
+    "uint64": "int",
+    "UInt64": "int",
+    "uint32": "int",
+    "UInt32": "int",
+    "bool": "bool",
+    "Bool": "bool",
     "float": "float",
     "Float": "float",
     "double": "float",
@@ -140,14 +146,14 @@ def main():
     # proto_objects = load_proto_objects(args.input_dir)
     # generate_python_code(proto_objects, args.output_dir)
 
-    imports, messages, namespace = parse_proto("./V3Schema/MF/V3/Task.proto", args.input_dir)
+    imports, messages, namespace = parse_proto("./V3Schema/MF/V3/Buffer.proto", args.input_dir)
 
     # Add imports enum and messages to an object
     proto_objects = [{
         "imports": imports,
         "messages": messages,
         "namespace": namespace,
-        "filename": "MF/V3/Task.proto"
+        "filename": "MF/V3/Buffer.proto"
     }]
     generate_python_code(proto_objects, args.output_dir)
     # print("Imports:")

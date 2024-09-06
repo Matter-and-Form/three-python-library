@@ -63,7 +63,7 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             continue
 
         elif line.startswith("message") or line.startswith("enum"):
-            
+            in_message += 1
             comment = "\n".join(comments)
 
             if line.startswith("enum"):
@@ -86,7 +86,6 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             comments = []
             continue
         elif line == "{":
-            in_message += 1
             continue
 
         elif in_message > 0:
