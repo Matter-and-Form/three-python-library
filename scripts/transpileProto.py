@@ -19,6 +19,8 @@ def generate_import_lines(imports: List[str]) -> str:
         # Special consideration for google imports
         if "google" in module_parts:
             import_line = f"from {'.'.join(module_parts[:-1])} import {module_name}_pb2 as _{module_name}_pb2"
+        elif module_path ==  "enum":
+            import_line = f"from enum import Enum"
         else:
             # Check if the import has a namespace
             if len(module_parts) > 1:
@@ -104,7 +106,8 @@ def parseComment(comment: str) -> str:
     return class_code
 
 def add_indents(code: str, indent: int) -> str:
-    return "\n".join([f"{'    ' * indent}{line}" for line in code.split("\n")])
+    # Indent the code by adding spaces if the line is not empty
+    return "\n".join([f"{'    ' * indent}{line}" if line.strip() else line for line in code.split("\n")])
 
 def generate_message_code(message: Dict) -> str:
     comment = message.comment
@@ -125,7 +128,7 @@ def generate_message_code(message: Dict) -> str:
     if properties:
         # sort properties so optionals are last
         properties = sorted(properties, key=lambda x: x.optional)
-        
+
         class_code += "    def __init__(self"
         for prop in properties:
             prop_type = type_mapping.get(prop.type, prop.type)
@@ -138,8 +141,9 @@ def generate_message_code(message: Dict) -> str:
         class_code += "):\n"
         for prop in properties:
             # Add comments with parseComment function with spaces
-            class_code += f"\n{add_indents(parseComment(prop.comment),2)}"
-            class_code += f"self.{prop.name} = {prop.name}\n"
+            if prop.comment:
+                class_code += f"\n{add_indents(parseComment(prop.comment),2)}"
+            class_code += add_indents(f"self.{prop.name} = {prop.name}\n",2)
     else:
         class_code += "    def __init__(self):\n"
         class_code += "        pass\n"
@@ -169,13 +173,13 @@ def main():
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
 
-    if 1:
+    if 0:
         proto_objects = load_proto_objects(args.input_dir)
         paths = generate_python_code(proto_objects, args.output_dir)
         generate_init_files(paths)
 
     else:
-        name = "Settings/Advanced.proto" 
+        name = "Task.proto" 
         imports, messages, namespace = parse_proto(f"./V3Schema/MF/V3/{name}" , args.input_dir)
 
         # Add imports enum and messages to an object
