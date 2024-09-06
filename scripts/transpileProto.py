@@ -16,7 +16,7 @@ def generate_import_lines(imports: List[str]) -> str:
         module_path = os.path.splitext(imp.replace('/', '.'))[0]
         module_parts = module_path.split('.')
         module_name = module_parts[-1]
-        # Special consideration for google imports
+        # Special consideration for google imports and enum
         if "google" in module_parts:
             import_line = f"from {'.'.join(module_parts[:-1])} import {module_name}_pb2 as _{module_name}_pb2"
         elif module_path ==  "enum":
@@ -35,7 +35,6 @@ def generate_python_code(proto_objects: List, output_dir: str) -> set:
     paths = set()
 
     for obj in proto_objects:
-        print(obj)
         # Access namespace, imports, messages, enums from the dictionary obj
         #namespace = obj['namespace']
         imports = obj['imports']
@@ -173,7 +172,7 @@ def main():
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
 
-    if 0:
+    if 1:
         proto_objects = load_proto_objects(args.input_dir)
         paths = generate_python_code(proto_objects, args.output_dir)
         generate_init_files(paths)

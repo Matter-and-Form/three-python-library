@@ -91,7 +91,7 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             
             comments = []
             continue
-        elif line == "{":
+        elif "proto3" in line or "{" in line:
             continue
 
         elif in_message > 0:
@@ -118,6 +118,8 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
                         comments = []
                     else :
                         print(f"Error parsing message: {line}")
+        else:
+            print(f"Error parsing line: {line}")
 
     return imports, messages, namespace
 
