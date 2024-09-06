@@ -104,6 +104,12 @@ def generate_message_code(message: Dict) -> str:
     
     class_code += f"class {name}:\n"
     
+    # Generate code for nested messages
+    for nested_message in nested_messages:
+        nested_class_code = generate_message_code(nested_message)
+        nested_class_code = "\n".join([f"    {line}" for line in nested_class_code.split("\n")])
+        class_code += f"\n{nested_class_code}\n"
+        
     if properties:
         class_code += "    def __init__(self"
         for prop in properties:
@@ -118,11 +124,7 @@ def generate_message_code(message: Dict) -> str:
         class_code += "    def __init__(self):\n"
         class_code += "        pass\n"
     
-    # Generate code for nested messages
-    for nested_message in nested_messages:
-        nested_class_code = generate_message_code(nested_message)
-        nested_class_code = "\n".join([f"    {line}" for line in nested_class_code.split("\n")])
-        class_code += f"\n{nested_class_code}\n"
+    
     
     return class_code
 
@@ -143,19 +145,19 @@ def main():
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
 
-    proto_objects = load_proto_objects(args.input_dir)
-    generate_python_code(proto_objects, args.output_dir)
+    # proto_objects = load_proto_objects(args.input_dir)
+    # generate_python_code(proto_objects, args.output_dir)
 
-    # imports, messages, namespace = parse_proto("./V3Schema/MF/V3/Tasks/AddMergeToProject.proto", args.input_dir)
+    imports, messages, namespace = parse_proto("./V3Schema/MF/V3/Descriptors/Settings/Camera.proto", args.input_dir)
 
     # Add imports enum and messages to an object
-    # proto_objects = [{
-    #     "imports": imports,
-    #     "messages": messages,
-    #     "namespace": namespace,
-    #     "filename": "MF/V3/Tasks/AddMergeToProject.proto"
-    # }]
-    # generate_python_code(proto_objects, args.output_dir)
+    proto_objects = [{
+        "imports": imports,
+        "messages": messages,
+        "namespace": namespace,
+        "filename": "MF/V3/Descriptors/Settings/Camera.proto"
+    }]
+    generate_python_code(proto_objects, args.output_dir)
 
 if __name__ == "__main__":
     main()
