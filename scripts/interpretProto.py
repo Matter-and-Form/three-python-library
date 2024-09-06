@@ -55,7 +55,10 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             continue
 
         elif line.startswith("//") or line.startswith("/*") or line.startswith("*"):
-            cleaned_line = line.lstrip("/*")
+            cleaned_line = line.lstrip()
+            #clean out /* * and // from the comments
+            cleaned_line = re.sub(r'^/\*|\*/|^\*|//', '', cleaned_line)
+            
             comments.append(cleaned_line)
             continue
 

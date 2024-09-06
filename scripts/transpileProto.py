@@ -28,7 +28,10 @@ def generate_import_lines(imports: List[str]) -> str:
         import_lines.append(import_line)
     return "\n".join(import_lines)
 
-def generate_python_code(proto_objects: List, output_dir: str):
+def generate_python_code(proto_objects: List, output_dir: str) -> set:
+    # create a unique set of paths
+    paths = set()
+
     for obj in proto_objects:
         print(obj)
         # Access namespace, imports, messages, enums from the dictionary obj
@@ -41,8 +44,12 @@ def generate_python_code(proto_objects: List, output_dir: str):
         path = os.path.join(output_dir, os.path.dirname(file_path))
         # Get the filename without the extension
         filename = os.path.basename(file_path).replace('.proto', '')
+        
         # Create the directory if it doesn't exist
         os.makedirs(path, exist_ok=True)
+        # Add the path to a unique set
+        paths.add(path)
+        
 
         # Generate imports
         import_lines = generate_import_lines(imports)
@@ -62,6 +69,8 @@ def generate_python_code(proto_objects: List, output_dir: str):
         filename = os.path.join(path, f"{filename}.py")
         with open(filename, 'w') as f:
             f.write(combined_code)
+        
+    return paths
 
 # Mapping of special types to Python types
 type_mapping = {
@@ -94,6 +103,9 @@ def parseComment(comment: str) -> str:
         class_code = ''
     return class_code
 
+def add_indents(code: str, indent: int) -> str:
+    return "\n".join([f"{'    ' * indent}{line}" for line in code.split("\n")])
+
 def generate_message_code(message: Dict) -> str:
     comment = message.comment
     name = message.name
@@ -107,24 +119,27 @@ def generate_message_code(message: Dict) -> str:
     # Generate code for nested messages
     for nested_message in nested_messages:
         nested_class_code = generate_message_code(nested_message)
-        nested_class_code = "\n".join([f"    {line}" for line in nested_class_code.split("\n")])
+        nested_class_code = add_indents(nested_class_code,1)
         class_code += f"\n{nested_class_code}\n"
-        
+
     if properties:
         class_code += "    def __init__(self"
         for prop in properties:
             prop_type = type_mapping.get(prop.type, prop.type)
+            # Extract the last value of the type if it contains dots
+            if '.' in prop_type:
+                prop_type = prop_type.split('.')[-1]
             class_code += f", {prop.name}: {prop_type}"
             if prop.optional:
                 class_code += " = None"
         class_code += "):\n"
         for prop in properties:
-            class_code += f"        self.{prop.name} = {prop.name}  # {prop.comment}\n"
+            # Add comments with parseComment function with spaces
+            class_code += f"{add_indents(parseComment(prop.comment),2)}\n"
+            class_code += f"        self.{prop.name} = {prop.name}\n"
     else:
         class_code += "    def __init__(self):\n"
         class_code += "        pass\n"
-    
-    
     
     return class_code
 
@@ -139,6 +154,12 @@ def generate_enum_code(enum) -> str:
         enum_code += f"    {value.name} = \"{value.name}\"  # {value.comment}\n"
     return enum_code
 
+def generate_init_files(paths: set):
+    for path in paths:
+        init_file = os.path.join(path, "__init__.py")
+        with open(init_file, 'w') as f:
+            f.write("")
+    
 def main():
     parser = argparse.ArgumentParser(description="Generate Python classes and enums from protobuf schema objects.")
     parser.add_argument('input_dir', type=str, nargs='?', default='./V3Schema', help='The input directory containing the protobuf schema objects.')
@@ -146,16 +167,18 @@ def main():
     args = parser.parse_args()
 
     # proto_objects = load_proto_objects(args.input_dir)
-    # generate_python_code(proto_objects, args.output_dir)
+    # paths = generate_python_code(proto_objects, args.output_dir)
+    # generate_init_files(paths)
 
-    imports, messages, namespace = parse_proto("./V3Schema/MF/V3/Descriptors/Settings/Camera.proto", args.input_dir)
+    name = "Settings/Advanced.proto" 
+    imports, messages, namespace = parse_proto(f"./V3Schema/MF/V3/{name}" , args.input_dir)
 
     # Add imports enum and messages to an object
     proto_objects = [{
         "imports": imports,
         "messages": messages,
         "namespace": namespace,
-        "filename": "MF/V3/Descriptors/Settings/Camera.proto"
+        "filename": f"MF/V3/{name}"
     }]
     generate_python_code(proto_objects, args.output_dir)
 
