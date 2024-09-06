@@ -3,7 +3,6 @@ import argparse
 from interpretProto import create_proto_objects, MessageType, parse_proto
 from typing import List, Dict
 
-
 def load_proto_objects(input_dir: str):
     # Call the function from interpretProto.py to create the proto objects
     proto_objects = create_proto_objects(input_dir)
@@ -34,6 +33,18 @@ def generate_python_code(proto_objects: List, output_dir: str) -> set:
     # create a unique set of paths
     paths = set()
 
+    # create a LUT to track the namespaces of each object
+    proto_objects_dict = {}
+    for obj in proto_objects:
+        for msg in obj['messages']:
+            
+            def get_nested_messages(message):
+                proto_objects_dict[message.name] = message.parent
+                for nested in message.nested_messages:
+                    proto_objects_dict[nested.name] = nested.parent
+                    get_nested_messages(nested)
+            get_nested_messages(msg)
+
     for obj in proto_objects:
         # Access namespace, imports, messages, enums from the dictionary obj
         #namespace = obj['namespace']
@@ -59,7 +70,7 @@ def generate_python_code(proto_objects: List, output_dir: str) -> set:
         message_code = ""
         for message in messages:
             if message.type == "message":
-                message_code += generate_message_code(message) + "\n\n"
+                message_code += generate_message_code(message, proto_objects_dict) + "\n\n"
             elif message.type == "enum":
                 message_code += generate_enum_code(message) + "\n\n"
 
@@ -108,7 +119,7 @@ def add_indents(code: str, indent: int) -> str:
     # Indent the code by adding spaces if the line is not empty
     return "\n".join([f"{'    ' * indent}{line}" if line.strip() else line for line in code.split("\n")])
 
-def generate_message_code(message: Dict) -> str:
+def generate_message_code(message: Dict, proto_objects_dict: Dict) -> str:
     comment = message.comment
     name = message.name
     properties = message.properties
@@ -120,7 +131,7 @@ def generate_message_code(message: Dict) -> str:
     
     # Generate code for nested messages
     for nested_message in nested_messages:
-        nested_class_code = generate_message_code(nested_message)
+        nested_class_code = generate_message_code(nested_message, proto_objects_dict)
         nested_class_code = add_indents(nested_class_code,1)
         class_code += f"\n{nested_class_code}\n"
     
@@ -130,7 +141,14 @@ def generate_message_code(message: Dict) -> str:
 
         class_code += "    def __init__(self"
         for prop in properties:
-            prop_type = type_mapping.get(prop.type, prop.type)
+            #Check to see if the type is in the proto_objects_dict
+            if prop.type in proto_objects_dict:
+                # Join proto_objects_dict[prop.type] + prop_type
+                prop_type = f"'{proto_objects_dict[prop.type]}.{prop.type}'"
+            else:
+                prop_type = type_mapping.get(prop.type, prop.type)
+
+            
             # Extract the last value of the type if it contains dots
             # if '.' in prop_type:
             #     prop_type = prop_type.split('.')[-1]
@@ -172,13 +190,13 @@ def main():
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
 
-    if 1:
+    if 0:
         proto_objects = load_proto_objects(args.input_dir)
         paths = generate_python_code(proto_objects, args.output_dir)
         generate_init_files(paths)
 
     else:
-        name = "Task.proto" 
+        name = "Descriptors/Settings/Advanced.proto" 
         imports, messages, namespace = parse_proto(f"./V3Schema/MF/V3/{name}" , args.input_dir)
 
         # Add imports enum and messages to an object

@@ -14,18 +14,25 @@ class ProtoProperty:
         self.comment: str = comment
 
 class MessageType:
-    def __init__(self, type_: str, name: str, comment: str) -> None:
+    def __init__(self, type_: str, name: str, comment: str, parent: str) -> None:
         self.type: str = type_
         self.name: str = name
         self.comment: str = comment
         self.properties: List[ProtoProperty] = []
         self.nested_messages = []
+        self.parent = parent
 
     def add_property(self, type_: str, name: str, optional: bool, comment: str) -> None:
         self.properties.append(ProtoProperty(type_, name, optional, comment))
     
     def add_nested_message(self, message):
         self.nested_messages.append(message)
+
+def get_parent_name_from_stack(stack: List[MessageType]) -> str:
+    if len(stack) == 0:
+        return ""
+    # Concatinate all the names in the stack with a .
+    return ".".join([message.name for message in stack])
 
 
 def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[MessageType]]:
@@ -35,7 +42,6 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
     
     imports: Set[str] = set()
     messages: List[MessageType] = []
-    in_message: int = 0
     comments: List[str] = []
     namespace: str = ""
     current_message_stack = []
@@ -69,7 +75,6 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             continue
 
         elif line.startswith("message") or line.startswith("enum"):
-            in_message += 1
             comment = "\n".join(comments)
 
             if line.startswith("enum"):
@@ -80,7 +85,9 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
                 message_name: str = re.findall(r'message (\w+)', line)[0]
                 message_type = "message"
             
-            new_message = MessageType(message_type, message_name, comment)
+            
+            parent = get_parent_name_from_stack(current_message_stack)
+            new_message = MessageType(message_type, message_name, comment, parent)
             
             if current_message_stack:
                 current_message_stack[-1].add_nested_message(new_message)
@@ -94,9 +101,9 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
         elif "proto3" in line or "{" in line:
             continue
 
-        elif in_message > 0:
+        # elif current_message_stack is not empty, then we are in a message
+        elif len(current_message_stack) > 0:
             if line == "}":
-                in_message -= 1
                 current_message_stack.pop()
             else:
                 if current_message_stack[-1].type == "enum":
