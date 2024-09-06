@@ -121,14 +121,17 @@ def generate_message_code(message: Dict) -> str:
         nested_class_code = generate_message_code(nested_message)
         nested_class_code = add_indents(nested_class_code,1)
         class_code += f"\n{nested_class_code}\n"
-
+    
     if properties:
+        # sort properties so optionals are last
+        properties = sorted(properties, key=lambda x: x.optional)
+        
         class_code += "    def __init__(self"
         for prop in properties:
             prop_type = type_mapping.get(prop.type, prop.type)
             # Extract the last value of the type if it contains dots
-            if '.' in prop_type:
-                prop_type = prop_type.split('.')[-1]
+            # if '.' in prop_type:
+            #     prop_type = prop_type.split('.')[-1]
             class_code += f", {prop.name}: {prop_type}"
             if prop.optional:
                 class_code += " = None"
@@ -166,21 +169,24 @@ def main():
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
 
-    # proto_objects = load_proto_objects(args.input_dir)
-    # paths = generate_python_code(proto_objects, args.output_dir)
-    # generate_init_files(paths)
+    if 1:
+        proto_objects = load_proto_objects(args.input_dir)
+        paths = generate_python_code(proto_objects, args.output_dir)
+        generate_init_files(paths)
 
-    name = "Settings/Advanced.proto" 
-    imports, messages, namespace = parse_proto(f"./V3Schema/MF/V3/{name}" , args.input_dir)
+    else:
+        name = "Settings/Advanced.proto" 
+        imports, messages, namespace = parse_proto(f"./V3Schema/MF/V3/{name}" , args.input_dir)
 
-    # Add imports enum and messages to an object
-    proto_objects = [{
-        "imports": imports,
-        "messages": messages,
-        "namespace": namespace,
-        "filename": f"MF/V3/{name}"
-    }]
-    generate_python_code(proto_objects, args.output_dir)
+        # Add imports enum and messages to an object
+        proto_objects = [{
+            "imports": imports,
+            "messages": messages,
+            "namespace": namespace,
+            "filename": f"MF/V3/{name}"
+        }]
+        generate_python_code(proto_objects, args.output_dir)
+    
 
 if __name__ == "__main__":
     main()

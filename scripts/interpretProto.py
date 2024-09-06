@@ -2,7 +2,9 @@ import re
 import argparse
 import os
 import glob
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Set
+
+
 
 class ProtoProperty:
     def __init__(self, type_: str, name: str, optional: bool, comment: str) -> None:
@@ -27,10 +29,11 @@ class MessageType:
 
 
 def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[MessageType]]:
+    
     with open(proto_file, 'r') as file:
         lines: List[str] = file.readlines()
-
-    imports: List[str] = []
+    
+    imports: Set[str] = set()
     messages: List[MessageType] = []
     in_message: int = 0
     comments: List[str] = []
@@ -51,7 +54,7 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
         elif line.startswith("import"):
             match = re.findall(r'import\s+"([^"]+)";', line)
             if match:
-                imports.append(match[0])
+                imports.add(match[0])
             continue
 
         elif line.startswith("//") or line.startswith("/*") or line.startswith("*"):
@@ -72,7 +75,7 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             if line.startswith("enum"):
                 message_name = re.findall(r'enum (\w+)', line)[0]
                 message_type = "enum"
-                imports.append("enum/Enum.py")
+                imports.add("enum/Enum.py")
             else:
                 message_name: str = re.findall(r'message (\w+)', line)[0]
                 message_type = "message"
