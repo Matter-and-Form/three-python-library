@@ -21,6 +21,7 @@ class MessageType:
         self.properties: List[ProtoProperty] = []
         self.nested_messages = []
         self.parent = parent
+        self.path = ""
 
     def add_property(self, type_: str, name: str, optional: bool, comment: str) -> None:
         self.properties.append(ProtoProperty(type_, name, optional, comment))
@@ -135,7 +136,6 @@ def create_proto_objects(directory: str):
     all_objs = []
 
     for proto_file in proto_files:
-        print(f"Parsing file: {proto_file}")
         imports, messages, namespace = parse_proto(proto_file, directory)
         # Get relative path of the file
         proto_file = os.path.relpath(proto_file, directory)
