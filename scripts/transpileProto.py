@@ -26,6 +26,8 @@ class TreeNode:
         path = []
         current_node = self
         while current_node:
+            if current_node.name == "root":
+                break
             path.append(current_node.name)
             current_node = current_node.parent
         return '.'.join(reversed(path))
@@ -34,8 +36,12 @@ class TreeNode:
         path = []
         current_node = self
         while current_node != node:
+            if current_node.name == "root":
+                break
             path.append(current_node.name)
             current_node = current_node.parent
+        if current_node:
+            path.append(current_node.name)
         return '.'.join(reversed(path))
     
     def get_first_parent_with_child(self, name: str):
@@ -71,6 +77,73 @@ class Tree:
             if current_node is None:
                 return None
         return current_node
+    
+    def partial_search(self, path: str, reference_node: TreeNode) -> TreeNode:
+        if path == "":
+            raise Exception("Path cannot be empty")
+        
+        parts = path.split('.')
+        current_node = reference_node
+        
+        if (current_node.name == parts[0]):
+            current_node = current_node.parent
+
+        # Check children
+        for part in parts:
+            current_node = current_node.get_child(part)
+            if current_node is None:
+                break
+        if current_node:
+            return current_node
+        
+        # Check parents
+        current_node = reference_node
+        while current_node:
+            if current_node.name == "root":
+                current_node = None
+                break
+            
+            loop_node = current_node
+            if current_node.has_child(parts[-1]):
+                loop_node = current_node.get_child(parts[-1])
+            
+            if loop_node.name == parts[-1]:
+                index = len(parts) - 1
+                temp_node = loop_node
+                while index >= 0 and temp_node:
+                    if temp_node.name != parts[index]:
+                        break
+                    index -= 1
+                    temp_node = temp_node.parent
+                
+                if index < 0:
+                    return loop_node
+            
+            current_node = current_node.parent
+        
+        return None
+
+    def get_shared_parent(self, node1: TreeNode, node2: TreeNode) -> TreeNode:
+        path1 = []
+        current_node = node1
+        while current_node:
+            path1.append(current_node)
+            current_node = current_node.parent
+
+        path2 = []
+        current_node = node2
+        while current_node:
+            path2.append(current_node)
+            current_node = current_node.parent
+
+        shared_parent = None
+        while path1 and path2:
+            if path1[-1] == path2[-1]:
+                shared_parent = path1.pop()
+                path2.pop()
+            else:
+                break
+        return shared_parent
     
 
 def load_proto_objects(input_dir: str):
@@ -204,23 +277,77 @@ def add_indents(code: str, indent: int) -> str:
 
 def get_property_type(property, tree: Tree, node:TreeNode, import_paths: Set) -> str:
     
+    # Check to see if the property type can be mapped to a Python type
     if property.type in type_mapping:
-        prop_type = type_mapping.get(property.type, property.type)
-    elif any(import_path in property.type for import_path in import_paths):
-        matched_import_path = next(import_path for import_path in import_paths if import_path in property.type)
-        # Remove the matched import path from the property type, except for its last word
-        last_word = matched_import_path.split('.')[-1]
-        prop_type = property.type.replace(matched_import_path, last_word)
-    elif node.parent.has_child(property.type):
+        return type_mapping.get(property.type, property.type)
+    if property.type == "MF.V3.Settings.Scan.Processing.AdaptiveSampling.Type":
+        print("stop")
+
+    matching_node = tree.partial_search(property.type, node)
+    if matching_node:
+        pt = f"'{matching_node.get_path()}'"
+        return pt
+
+    for import_path in import_paths:
+        import_node = tree.search(import_path)
+        if import_node:
+            matching_node = tree.partial_search(property.type, import_node)
+            if matching_node:
+                pt = f"'{matching_node.get_path()}'"
+                return pt
+
+
+    # Check to see if the node has a child with the property type
+    if node.has_child(property.type):  
+        return f"'{property.type}'"
+    
+    # Check to see if the property type can be mapped to the tree using imports
+    # split the property type into parts
+    property_type_parts = property.type.split('.')
+    # iterrate through the import paths
+    for import_path in import_paths:
+        # see if there is a node in the tree that matches the import path
+        import_node = tree.search(import_path)
+        last_index = len(property_type_parts) - 1
+        if import_node:
+            if import_node.has_child(property_type_parts[last_index]):
+                return f"'{property.type}'"
+        # make sure to check the full path
+        while import_node and last_index >= 0:
+            if import_node.name != property_type_parts[last_index]:
+                break
+            last_index -= 1
+            import_node = import_node.parent
+        if last_index == -1:
+            return f"'{property.type}'"
+
+    if node.parent.has_child(property.type):
         parts = property.type.split('.')
-        prop_type = f"'{parts[-1]}'"
-    elif node.has_child(property.type):
-        prop_type = f"'{property.type}'"
-    else:
-        parentWithChild = node.get_first_parent_with_child(property.type)
-        # if (parentWithChild)
-        # prop_type = f"'{parentWithChild.object.path}'"
-        print("Warning: Property Type could not be resolved", property.type)
+        return f"'{parts[-1]}'"\
+
+    raise Exception("Property Type could not be resolved", property.type)
+    
+    # # Check to see if the property type is a direct match to anything the import list
+    # elif any(import_path in property.type for import_path in import_paths):
+    #     matched_import_path = next(import_path for import_path in import_paths if import_path in property.type)
+    #     # Remove the matched import path from the property type, except for its last word
+    #     last_word = matched_import_path.split('.')[-1]
+    #     prop_type = property.type.replace(matched_import_path, last_word)
+    # # Check to see if the property type part of this class
+    # elif node.has_child(property.type):
+    #     prop_type = f"'{property.type}'"
+    # # Check to see if the property type is part of the parent class
+    # elif node.parent.has_child(property.type):
+    #     parts = property.type.split('.')
+    #     prop_type = f"'{parts[-1]}'"\
+    # # Otherwise check up the tree.
+    # else:
+    #     parentWithChild = node.get_first_parent_with_child(property.type)
+    #     if parentWithChild:
+    #         prop_type = f"'{parentWithChild.get_path()}.{property.type}'"
+    #     else:
+    #         raise Exception("Property Type could not be resolved", property.type)
+        
 
     return prop_type
 def generate_message_code(message: Dict, tree: Tree, current_node:TreeNode, import_paths: Set) -> str:
@@ -288,7 +415,7 @@ def main():
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
 
-    if 0:
+    if 1:
         proto_objects = load_proto_objects(args.input_dir)
         paths = generate_python_code(proto_objects, args.output_dir)
         generate_init_files(paths)
