@@ -409,6 +409,9 @@ def generate_message_code(message: Dict, tree: Tree, current_node:TreeNode, impo
             # handle optionals
             if prop.optional:
                 class_code += " = None"
+            # handle repeated
+            if prop.repeated:
+                class_code += " = []"
         class_code += "):\n"
         for prop in properties:
             # Add comments with parseComment function with spaces
