@@ -301,10 +301,9 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
     if property.type in type_mapping:
         return type_mapping.get(property.type, property.type)
     
-
     property_type_parts = property.type.split('.')
-    if property.type == "Orientation" and node.filespace == "MF.V3.Settings.Projector":
-        print("Debug")
+    # if property.type == "Orientation" and node.filespace == "MF.V3.Settings.Projector":
+    #     print("Debug")
             
     if len(property_type_parts) > 1:
         # Combine message_namespace with property type
@@ -316,11 +315,11 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
         # If the property node is not found, try getting the node with the namespace
         if property_node == None:
             property_node = tree.search(property_type_with_namespace)
-        
+        # Nope? Try getting the node with the namespace and just the last part of the property type
         if property_node == None:
             property_type_with_namespace = f"{message_namespace}.{property.type.split('.')[-1]}"
             property_node = tree.search(property_type_with_namespace)
-        
+        # Still Nope? Try getting the node with a shared parent
         if property_node == None:
             property_node = node.get_first_parent_with_name(property.type)
             property_node = property_node.parent.get_child(property.type)

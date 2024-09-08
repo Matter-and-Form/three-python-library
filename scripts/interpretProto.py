@@ -7,10 +7,11 @@ from typing import List, Optional, Tuple, Set
 
 
 class ProtoProperty:
-    def __init__(self, type_: str, name: str, optional: bool, comment: str) -> None:
+    def __init__(self, type_: str, name: str, optional: bool, comment: str, repeated) -> None:
         self.type: str = type_
         self.name: str = name
         self.optional: bool = optional
+        self.repeated: bool = repeated
         self.comment: str = comment
 
 class MessageType:
@@ -25,8 +26,8 @@ class MessageType:
         self.path = ""
         
 
-    def add_property(self, type_: str, name: str, optional: bool, comment: str) -> None:
-        self.properties.append(ProtoProperty(type_, name, optional, comment))
+    def add_property(self, type_: str, name: str, optional: bool, comment: str, repeated: bool) -> None:
+        self.properties.append(ProtoProperty(type_, name, optional, comment, repeated))
     
     def add_nested_message(self, message):
         self.nested_messages.append(message)
@@ -114,17 +115,18 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
                     if match:
                         name, value = match[0]
                         comment = "\n".join(comments)
-                        current_message_stack[-1].add_property("string", name, False, comment)
+                        current_message_stack[-1].add_property("string", name, False, comment, False)
                         comments = []
                     else:
                         print(f"Error parsing enum: {line}")
                 else:
-                    match = re.findall(r'(optional\s+)?([\w\.]+)\s+(\w+)\s*=\s*(\d+);', line)
+                    match = re.findall(r'(optional\s+|repeated\s+)?([\w\.]+)\s+(\w+)\s*=\s*(\d+);', line)
                     if match:
-                        optional_str, type_, name, _ = match[0]
-                        optional: bool = bool(optional_str)
+                        keyword_str, type_, name, _ = match[0]
+                        optional: bool = keyword_str.strip() == 'optional'
+                        repeated: bool = keyword_str.strip() == 'repeated'
                         comment: str = "\n".join(comments)
-                        current_message_stack[-1].add_property(type_, name, optional, comment)
+                        current_message_stack[-1].add_property(type_, name, optional, comment, repeated)
                         comments = []
                     else :
                         print(f"Error parsing message: {line}")
