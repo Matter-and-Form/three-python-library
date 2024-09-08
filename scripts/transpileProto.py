@@ -98,28 +98,6 @@ class Tree:
                 get_nodes(child)
         get_nodes(self.root)
         return nodes
-    
-    def get_node_with_shared_parent(self, reference_node: TreeNode, path: str) -> TreeNode:
-        if path == "":
-            raise Exception("Path cannot be empty")
-        
-        parts = path.split('.')
-        
-        # Go up the tree until we find the node with parts[0]
-        current_node = reference_node
-        while current_node:
-            if current_node.name == parts[0]:
-                break
-            current_node = current_node.parent
-        if current_node == None:
-            return None
-        
-        # Now go down the tree to find the rest of the path
-        for part in parts[1:]:
-            current_node = current_node.get_child(part)
-            if current_node == None:
-                return None
-        return current_node
 
 class ImportDescriptor:
     def __init__(self, file:str):
@@ -131,11 +109,6 @@ class ImportDescriptor:
             if t["type"] == type:
                 return
         self.types.append({"type":type, "replacement":replacement})
-
-def load_proto_objects(input_dir: str):
-    # Call the function from interpretProto.py to create the proto objects
-    proto_objects = create_proto_objects(input_dir)
-    return proto_objects
 
 def get_descriptor_by_name(name: str, descriptors: List[dict]) -> ImportDescriptor:
     for descriptor in descriptors:
@@ -285,15 +258,6 @@ def parseComment(comment: str) -> str:
 def add_indents(code: str, indent: int) -> str:
     # Indent the code by adding spaces if the line is not empty
     return "\n".join([f"{'    ' * indent}{line}" if line.strip() else line for line in code.split("\n")])
-
-def find_remaining_elements_of_b(a_elements, b_elements):
-    len_a = len(a_elements)
-    len_b = len(b_elements)
-
-    for i in range(len_a):
-        if a_elements[i:i+len_b] == b_elements[:len_a-i]:
-            return b_elements[len_a-i:]
-    return None
 
 def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: List[ImportDescriptor], message_namespace:str) -> str:
     
@@ -448,7 +412,7 @@ def main():
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
 
-    proto_objects = load_proto_objects(args.input_dir)
+    proto_objects = create_proto_objects(args.input_dir)
     paths = generate_python_code(proto_objects, args.output_dir)
     generate_init_files(paths)
 
