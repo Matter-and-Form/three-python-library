@@ -235,11 +235,8 @@ def generate_python_code(proto_objects: List, output_dir: str) -> set:
         message_code = ""
         for message in messages:
             current_node = file_node.get_child(message.name)
-            if message.type == "message":
-                code = generate_message_code(message, tree, current_node, importDescs)
-                message_code += code + "\n\n"
-            elif message.type == "enum":
-                message_code += generate_enum_code(message) + "\n\n"
+            code = generate_message_code(message, tree, current_node, importDescs)
+            message_code += code + "\n\n"
 
         # Generate imports another time to get the final output of imports
         import_lines = generate_import_lines(importDescs)
@@ -306,7 +303,7 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
     
 
     property_type_parts = property.type.split('.')
-    if property.type == "Camera" and node.filespace == "MF.V3.Settings.Scanner":
+    if property.type == "Orientation" and node.filespace == "MF.V3.Settings.Projector":
         print("Debug")
             
     if len(property_type_parts) > 1:
@@ -344,7 +341,11 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
         sibling_nodes = tree.get_nodes_with_filespace(node.filespace)
         for sibling_node in sibling_nodes:
             if sibling_node.has_child(property.type):
-                return f"'{property.type}'"
+                if sibling_node.parent.name == node.parent.name:
+                    #true siblings
+                    return f"'{property.type}'"
+                else:
+                    return f"'{sibling_node.name}.{property.type}'"
             elif sibling_node.name == property.type:
                 return f"'{property.type}'"
         for descriptor in import_descriptors:
@@ -368,115 +369,14 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
                     return f"'{property.type}'"
                 
         
-        print("Debug")
-    # Check imports
-    tree_nodes = [] 
-    for descriptor in import_descriptors:
-        tree_nodes.extend(tree.get_nodes_with_filespace(descriptor.file))
-    
-    tree_nodes.extend(tree.get_nodes_with_filespace(node.filespace))
-    
-    if node.filespace == "MF.V3.Tasks.UpdateSettings" and property.type == "Descriptors.Settings.Scanner":
-        print("Debug")
-
-    for tree_node in tree_nodes:
-        tree_parts = tree_node.get_path().split('.')
-        remaining_parts = find_remaining_elements_of_b(tree_parts, property_type_parts)
-        if remaining_parts == None:
-            continue
-        elif len(remaining_parts) == 0:
-            if (node.filespace == tree_node.filespace):
-                return f"'{property.type}'"
-            descriptor = get_descriptor_by_name(tree_node.filespace, import_descriptors)
-            descriptor.add_type(tree_node.name, "")
-            return f"'{property.type}'"
-        else:
-            child_node = tree_node.get_child(remaining_parts[0])
-            if child_node:
-                if (node.filespace == child_node.filespace):
-                    propName = child_node.get_relative_path(tree_node)
-                    return propName
-                descriptor = get_descriptor_by_name(tree_node.filespace, import_descriptors)
-                descriptor.add_type(tree_node.name, "")
-                return f"'{tree_node.name}.{'.'.join(remaining_parts)}'"
-            
-                
-            print("debug")
-    print("debug")
-    
-    
-    # Node search down for the property type
-    childNode = node.get_child(property.type)
-    if childNode:
-        return f"'{property.type}'"
-    
-    
-
-    #run once on imports to see if therre is a direct import
-    for tree_node in tree_nodes:
-        if tree_node.name == property.type:
-            # direct import eg. Rectangle -> MF.V3.Rectangle
-            replacementName = tree_node.get_path().replace('.','_')
-            # Get descriptor for the import by tree_node filename
-            descriptor = get_descriptor_by_name(tree_node.filespace, import_descriptors)
-            if descriptor:
-                descriptor.add_type(property.type, replacementName)
-                return f"'{replacementName}'"
-
-    for tree_node in tree_nodes:
-        tree_parts = tree_node.filespace.split('.')
-        remaining_parts = find_remaining_elements_of_b(tree_parts, property_type_parts)
-        if remaining_parts == None:
-            continue
-
-        descriptor = get_descriptor_by_name(tree_node.filespace, import_descriptors)
-
-        if len(remaining_parts) == 0:
-            remaining_parts_name = property_type_parts[-1]
-            replacementName = tree_node.filespace.replace('.','_')
-            if descriptor:
-                descriptor.add_type(remaining_parts_name, replacementName)
-            else:
-                print(f"Descriptor not found for {tree_node.filespace}")
-            return f"'{replacementName}'"
-        else:
-            remaining_parts_name = remaining_parts[0] #'.'.join(property_type_parts[:-len(remaining_parts)])
-            replacementName = ""
-            if descriptor:
-                descriptor.add_type(tree_node.name, replacementName)
-            else:
-                print(f"Descriptor not found for {tree_node.filespace}")
-            if (tree_node.has_child(remaining_parts[0])):
-                return f"'{tree_node.name}.{'.'.join(remaining_parts)}'"
-            else:
-                return f"'{'.'.join(remaining_parts)}'"
-        
-    # Or Search for siblings
-    sibling_node = node.parent.get_child(property.type)
-    if sibling_node:
-        # while parents share the same filespace, then keep appending the parent name
-        parent_node = node
-        path = []
-        path.append(property.type)
-        while parent_node.parent.filespace == sibling_node.filespace:
-            parent_node = parent_node.parent
-            path.append(parent_node.name)
-            
-        if node == parent_node:
-            return f"'{property.type}'"
-        else:
-            return f"'{'.'.join(reversed(path))}'"
-            
-
-    # Finally Search up the tree for the property type if all else fails
-    parent_node = tree.get_node_with_shared_parent(node, property.type)
-    if parent_node:
-        return f"'{property.type}'"
-    
     raise Exception("Property Type could not be resolved", property.type)
     
 
 def generate_message_code(message: Dict, tree: Tree, current_node:TreeNode, import_descriptors: List[ImportDescriptor]) -> str:
+
+    if message.type == "enum":
+        return generate_enum_code(message) + "\n\n"
+
     comment = message.comment
     name = message.name
     properties = message.properties
@@ -489,7 +389,10 @@ def generate_message_code(message: Dict, tree: Tree, current_node:TreeNode, impo
 
     # Generate code for nested messages
     for nested_message in nested_messages:
-        nested_class_code = generate_message_code(nested_message, tree, current_node.get_child(nested_message.name), import_descriptors)
+        if nested_message.type == "enum":
+            nested_class_code = generate_enum_code(nested_message) + "\n\n"
+        else :
+            nested_class_code = generate_message_code(nested_message, tree, current_node.get_child(nested_message.name), import_descriptors)
         nested_class_code = add_indents(nested_class_code,1)
         class_code += f"\n{nested_class_code}\n"
     
