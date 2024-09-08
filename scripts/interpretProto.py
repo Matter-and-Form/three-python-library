@@ -14,14 +14,16 @@ class ProtoProperty:
         self.comment: str = comment
 
 class MessageType:
-    def __init__(self, type_: str, name: str, comment: str, parent: str) -> None:
+    def __init__(self, type_: str, name: str, comment: str, parent: str, namespace: str) -> None:
         self.type: str = type_
         self.name: str = name
         self.comment: str = comment
+        self.namespace = namespace
         self.properties: List[ProtoProperty] = []
         self.nested_messages = []
         self.parent = parent
         self.path = ""
+        
 
     def add_property(self, type_: str, name: str, optional: bool, comment: str) -> None:
         self.properties.append(ProtoProperty(type_, name, optional, comment))
@@ -88,7 +90,7 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             
             
             parent = get_parent_name_from_stack(current_message_stack)
-            new_message = MessageType(message_type, message_name, comment, parent)
+            new_message = MessageType(message_type, message_name, comment, parent, namespace)
             
             if current_message_stack:
                 current_message_stack[-1].add_nested_message(new_message)

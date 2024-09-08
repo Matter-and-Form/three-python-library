@@ -55,16 +55,14 @@ class TreeNode:
     
     def get_first_parent_with_name(self, name: str):
         # Break the name into parts
-        parts = name.split('.')
+        top_name = name.split('.')[0]
 
         current_node = self
         while current_node:
             if current_node.name == "root":
                 break
-            if current_node.name == parts[-1]:
+            if current_node.name == top_name:
                 return current_node
-            if current_node.has_child(parts[-1]):
-                return current_node.get_child(parts[-1])
             current_node = current_node.parent
         return None
 
@@ -90,7 +88,7 @@ class Tree:
             if current_node is None:
                 return None
         return current_node
-
+    
     def get_nodes_with_filespace(self, filespace: str) -> TreeNode:
         nodes = []
         def get_nodes(node):
@@ -123,37 +121,67 @@ class Tree:
                 return None
         return current_node
 
+class ImportDescriptor:
+    def __init__(self, file:str):
+        self.file = file
+        self.types: List[dict[str,str]] = []
+    def add_type(self, type:str, replacement:str):
+        # Check to see if the type is already in the list
+        for t in self.types:
+            if t["type"] == type:
+                return
+        self.types.append({"type":type, "replacement":replacement})
+
 def load_proto_objects(input_dir: str):
     # Call the function from interpretProto.py to create the proto objects
     proto_objects = create_proto_objects(input_dir)
     return proto_objects
 
-def generate_import_lines(imports: List[str]) -> Tuple[str, Set[str]]:
-    import_lines = []
-    module_parts_set = set()
+def get_descriptor_by_name(name: str, descriptors: List[dict]) -> ImportDescriptor:
+    for descriptor in descriptors:
+        if descriptor.file == name:
+            return descriptor
+    return None
+
+def get_imports(imports: List[str]) -> List[ImportDescriptor]:
+    module_parts_list:List[ImportDescriptor] = []
 
     for imp in imports:
         # Split the import path into parts
         module_path = os.path.splitext(imp.replace('/', '.'))[0]
+        # Check module_parts_list for existing module by filename
+        foundModule = None
+        for module in module_parts_list:
+            if module.file == module_path:
+                foundModule = module
+                break
+        if foundModule == None:
+            module_parts_list.append(ImportDescriptor(module_path))
+    return module_parts_list
+
+def generate_import_lines(descriptors:List[ImportDescriptor]) -> str:
+    import_lines = []
+
+    for descriptor in descriptors:
+        # Split the import path into parts
+        module_path = descriptor.file
         module_parts = module_path.split('.')
         module_name = module_parts[-1]
         
-        # Add module parts to the set
-        module_parts_set.add(module_path)
-
         # Special consideration for google imports and enum
         if "google" in module_parts:
-            import_line = f"from {'.'.join(module_parts[:-1])} import {module_name}_pb2 as _{module_name}_pb2"
+            import_lines.append(f"from {'.'.join(module_parts[:-1])} import {module_name}_pb2 as _{module_name}_pb2")
         elif module_path ==  "enum":
-            import_line = f"from enum import Enum"
+            import_lines.append(f"from enum import Enum")
         else:
-            # Check if the import has a namespace
-            if len(module_parts) > 1:
-                import_line = f"from {'.'.join(module_parts[:])} import *"
-            else:
-                import_line = f"import {module_path}"
-        import_lines.append(import_line)
-    return "\n".join(import_lines), module_parts_set
+            # Go through all the types in the descriptor and add them to the import line
+            for type in descriptor.types:
+                import_line = f"from {'.'.join(module_parts[:])} import {type['type']}"
+                if type['replacement'] != "":
+                    import_line += f" as {type['replacement']}"
+                import_lines.append(import_line)
+
+    return "\n".join(import_lines)
 
 def generate_python_code(proto_objects: List, output_dir: str) -> set:
     # create a unique set of paths
@@ -185,7 +213,10 @@ def generate_python_code(proto_objects: List, output_dir: str) -> set:
         imports = obj['imports']
         messages = obj['messages']
         file_path = obj['filename']
+        namespace = obj['namespace']
 
+        if file_path == "MF/V3/Tasks/UpdateSettings.proto":
+            print("Debug")
         # Get the base path of the file
         path = os.path.join(output_dir, os.path.dirname(file_path))
 
@@ -197,17 +228,21 @@ def generate_python_code(proto_objects: List, output_dir: str) -> set:
         # Add the path to a unique set
         paths.add(path)
         
-        # Generate imports
-        import_lines, import_paths = generate_import_lines(imports)
+        # Generate imports paths for parsing
+        importDescs = get_imports(imports)
 
         # Generate code for messages
         message_code = ""
         for message in messages:
             current_node = file_node.get_child(message.name)
             if message.type == "message":
-                message_code += generate_message_code(message, tree, current_node, import_paths) + "\n\n"
+                code = generate_message_code(message, tree, current_node, importDescs)
+                message_code += code + "\n\n"
             elif message.type == "enum":
                 message_code += generate_enum_code(message) + "\n\n"
+
+        # Generate imports another time to get the final output of imports
+        import_lines = generate_import_lines(importDescs)
 
         # Combine imports, message code, and enum code
         combined_code = import_lines + "\n\n" + message_code
@@ -254,33 +289,184 @@ def add_indents(code: str, indent: int) -> str:
     # Indent the code by adding spaces if the line is not empty
     return "\n".join([f"{'    ' * indent}{line}" if line.strip() else line for line in code.split("\n")])
 
-def get_property_type(property, tree: Tree, node:TreeNode, import_paths: Set) -> str:
+def find_remaining_elements_of_b(a_elements, b_elements):
+    len_a = len(a_elements)
+    len_b = len(b_elements)
+
+    for i in range(len_a):
+        if a_elements[i:i+len_b] == b_elements[:len_a-i]:
+            return b_elements[len_a-i:]
+    return None
+
+def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: List[ImportDescriptor], message_namespace:str) -> str:
     
     # Check to see if the property type can be mapped to a Python type
     if property.type in type_mapping:
         return type_mapping.get(property.type, property.type)
     
+
+    property_type_parts = property.type.split('.')
+    if property.type == "Camera" and node.filespace == "MF.V3.Settings.Scanner":
+        print("Debug")
+            
+    if len(property_type_parts) > 1:
+        # Combine message_namespace with property type
+        property_type_with_namespace = f"{message_namespace}.{property.type}"
+        
+        # Try getting the node directly
+        property_node = tree.search(property.type)
+
+        # If the property node is not found, try getting the node with the namespace
+        if property_node == None:
+            property_node = tree.search(property_type_with_namespace)
+        
+        if property_node == None:
+            property_type_with_namespace = f"{message_namespace}.{property.type.split('.')[-1]}"
+            property_node = tree.search(property_type_with_namespace)
+        
+        if property_node == None:
+            property_node = node.get_first_parent_with_name(property.type)
+            property_node = property_node.parent.get_child(property.type)
+
+        if (property_node.filespace == node.filespace):
+            return f"'{property.type}'"
+        
+        temp = property_node
+        while temp.parent.filespace == property_node.filespace:
+            temp = temp.parent
+        relativePath = property_node.get_relative_path(temp)
+        
+        descriptor = get_descriptor_by_name(property_node.filespace, import_descriptors)
+        descriptor.add_type(temp.name, "")
+        return f"'{relativePath}'"
+    else:
+        
+        sibling_nodes = tree.get_nodes_with_filespace(node.filespace)
+        for sibling_node in sibling_nodes:
+            if sibling_node.has_child(property.type):
+                return f"'{property.type}'"
+            elif sibling_node.name == property.type:
+                return f"'{property.type}'"
+        for descriptor in import_descriptors:
+            # Search for direct imports first
+            descriptor_file_node = tree.search(descriptor.file)
+            if descriptor_file_node:
+                if descriptor_file_node.name == property.type:
+                    descriptor.add_type(property.type, "")
+                    return f"'{property.type}'"
+        for descriptor in import_descriptors:
+            # Search for imports with the same filespace
+            descriptor_file_nodes = tree.get_nodes_with_filespace(descriptor.file)
+            for descriptor_node in descriptor_file_nodes:
+                if descriptor_node == None:
+                    continue
+                elif descriptor_node.name == property.type:
+                    descriptor.add_type(property.type, "")
+                    return f"'{property.type}'"
+                elif descriptor_node.has_child(property.type):
+                    descriptor.add_type(property.type, "")
+                    return f"'{property.type}'"
+                
+        
+        print("Debug")
+    # Check imports
+    tree_nodes = [] 
+    for descriptor in import_descriptors:
+        tree_nodes.extend(tree.get_nodes_with_filespace(descriptor.file))
+    
+    tree_nodes.extend(tree.get_nodes_with_filespace(node.filespace))
+    
+    if node.filespace == "MF.V3.Tasks.UpdateSettings" and property.type == "Descriptors.Settings.Scanner":
+        print("Debug")
+
+    for tree_node in tree_nodes:
+        tree_parts = tree_node.get_path().split('.')
+        remaining_parts = find_remaining_elements_of_b(tree_parts, property_type_parts)
+        if remaining_parts == None:
+            continue
+        elif len(remaining_parts) == 0:
+            if (node.filespace == tree_node.filespace):
+                return f"'{property.type}'"
+            descriptor = get_descriptor_by_name(tree_node.filespace, import_descriptors)
+            descriptor.add_type(tree_node.name, "")
+            return f"'{property.type}'"
+        else:
+            child_node = tree_node.get_child(remaining_parts[0])
+            if child_node:
+                if (node.filespace == child_node.filespace):
+                    propName = child_node.get_relative_path(tree_node)
+                    return propName
+                descriptor = get_descriptor_by_name(tree_node.filespace, import_descriptors)
+                descriptor.add_type(tree_node.name, "")
+                return f"'{tree_node.name}.{'.'.join(remaining_parts)}'"
+            
+                
+            print("debug")
+    print("debug")
+    
+    
     # Node search down for the property type
     childNode = node.get_child(property.type)
     if childNode:
         return f"'{property.type}'"
+    
+    
+
+    #run once on imports to see if therre is a direct import
+    for tree_node in tree_nodes:
+        if tree_node.name == property.type:
+            # direct import eg. Rectangle -> MF.V3.Rectangle
+            replacementName = tree_node.get_path().replace('.','_')
+            # Get descriptor for the import by tree_node filename
+            descriptor = get_descriptor_by_name(tree_node.filespace, import_descriptors)
+            if descriptor:
+                descriptor.add_type(property.type, replacementName)
+                return f"'{replacementName}'"
+
+    for tree_node in tree_nodes:
+        tree_parts = tree_node.filespace.split('.')
+        remaining_parts = find_remaining_elements_of_b(tree_parts, property_type_parts)
+        if remaining_parts == None:
+            continue
+
+        descriptor = get_descriptor_by_name(tree_node.filespace, import_descriptors)
+
+        if len(remaining_parts) == 0:
+            remaining_parts_name = property_type_parts[-1]
+            replacementName = tree_node.filespace.replace('.','_')
+            if descriptor:
+                descriptor.add_type(remaining_parts_name, replacementName)
+            else:
+                print(f"Descriptor not found for {tree_node.filespace}")
+            return f"'{replacementName}'"
+        else:
+            remaining_parts_name = remaining_parts[0] #'.'.join(property_type_parts[:-len(remaining_parts)])
+            replacementName = ""
+            if descriptor:
+                descriptor.add_type(tree_node.name, replacementName)
+            else:
+                print(f"Descriptor not found for {tree_node.filespace}")
+            if (tree_node.has_child(remaining_parts[0])):
+                return f"'{tree_node.name}.{'.'.join(remaining_parts)}'"
+            else:
+                return f"'{'.'.join(remaining_parts)}'"
+        
     # Or Search for siblings
     sibling_node = node.parent.get_child(property.type)
     if sibling_node:
-        return f"'{property.type}'"
-
-    # Check imports
-    tree_nodes = [] 
-    for import_path in import_paths:
-        tree_nodes.extend(tree.get_nodes_with_filespace(import_path))
-
-    for tree_node in tree_nodes:
-        if tree_node.name == property.type:
+        # while parents share the same filespace, then keep appending the parent name
+        parent_node = node
+        path = []
+        path.append(property.type)
+        while parent_node.parent.filespace == sibling_node.filespace:
+            parent_node = parent_node.parent
+            path.append(parent_node.name)
+            
+        if node == parent_node:
             return f"'{property.type}'"
-        if tree_node.has_child(property.type):
-            return f"'{property.type}'"
-        if (tree_node.parent.has_child(property.type)):
-            return f"'{property.type}'"
+        else:
+            return f"'{'.'.join(reversed(path))}'"
+            
 
     # Finally Search up the tree for the property type if all else fails
     parent_node = tree.get_node_with_shared_parent(node, property.type)
@@ -290,19 +476,20 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_paths: Set) ->
     raise Exception("Property Type could not be resolved", property.type)
     
 
-def generate_message_code(message: Dict, tree: Tree, current_node:TreeNode, import_paths: Set) -> str:
+def generate_message_code(message: Dict, tree: Tree, current_node:TreeNode, import_descriptors: List[ImportDescriptor]) -> str:
     comment = message.comment
     name = message.name
     properties = message.properties
     nested_messages = message.nested_messages
+    message_namespace = message.namespace
     
     class_code = parseComment(comment)
     
     class_code += f"class {name}:\n"
-    
+
     # Generate code for nested messages
     for nested_message in nested_messages:
-        nested_class_code = generate_message_code(nested_message, tree, current_node.get_child(nested_message.name), import_paths)
+        nested_class_code = generate_message_code(nested_message, tree, current_node.get_child(nested_message.name), import_descriptors)
         nested_class_code = add_indents(nested_class_code,1)
         class_code += f"\n{nested_class_code}\n"
     
@@ -313,8 +500,8 @@ def generate_message_code(message: Dict, tree: Tree, current_node:TreeNode, impo
         class_code += "    def __init__(self"
         for prop in properties:
             
-            prop_type = get_property_type(prop, tree, current_node, import_paths)
-            
+            prop_type = get_property_type(prop, tree, current_node, import_descriptors, message_namespace)
+
             # write class init parameter
             class_code += f", {prop.name}: {prop_type}"
             # handle optionals
@@ -350,6 +537,7 @@ def generate_init_files(paths: set):
             f.write("")
     
 def main():
+
     parser = argparse.ArgumentParser(description="Generate Python classes and enums from protobuf schema objects.")
     parser.add_argument('input_dir', type=str, nargs='?', default='./V3Schema', help='The input directory containing the protobuf schema objects.')
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
