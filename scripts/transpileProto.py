@@ -65,7 +65,20 @@ class TreeNode:
                 return current_node
             current_node = current_node.parent
         return None
-
+    
+    def climbing_search(self, name: str):
+        current_node = self
+        #find the top level node and return it's child
+        while current_node:
+            if current_node.name == "root":
+                break
+            if current_node.name == name:
+                return current_node
+            elif current_node.has_child(name):
+                return current_node.get_child(name)
+            current_node = current_node.parent
+        return None
+    
 class Tree:
     def __init__(self):
         self.root = TreeNode("root")
@@ -156,10 +169,7 @@ def generate_import_lines(descriptors:List[ImportDescriptor]) -> str:
 
     return "\n".join(import_lines)
 
-def generate_python_code(proto_objects: List, output_dir: str) -> set:
-    # create a unique set of paths
-    paths = set()
-    
+def get_tree(proto_objects: List)-> Tree:
     tree = Tree()
     for obj in proto_objects:
         namespace = obj['namespace']
@@ -175,6 +185,11 @@ def generate_python_code(proto_objects: List, output_dir: str) -> set:
                 for nested in message.nested_messages:
                     get_nested_messages(nested)
             get_nested_messages(msg)
+    return tree
+
+def generate_python_code(proto_objects: List, output_dir: str, tree:Tree) -> set:
+    # create a unique set of paths
+    paths = set()
 
     for obj in proto_objects:
         print(f"Parsing file: {obj['filename']}")
@@ -188,8 +203,6 @@ def generate_python_code(proto_objects: List, output_dir: str) -> set:
         file_path = obj['filename']
         namespace = obj['namespace']
 
-        if file_path == "MF/V3/Tasks/UpdateSettings.proto":
-            print("Debug")
         # Get the base path of the file
         path = os.path.join(output_dir, os.path.dirname(file_path))
 
@@ -266,9 +279,9 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
         return type_mapping.get(property.type, property.type)
     
     property_type_parts = property.type.split('.')
-    # if property.type == "Orientation" and node.filespace == "MF.V3.Settings.Projector":
-    #     print("Debug")
-            
+    if property.type == "Settings.Export" and node.filespace == "MF.V3.Tasks.ExportMerge":
+        print("Debug")
+    
     if len(property_type_parts) > 1:
         # Combine message_namespace with property type
         property_type_with_namespace = f"{message_namespace}.{property.type}"
@@ -279,15 +292,12 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
         # If the property node is not found, try getting the node with the namespace
         if property_node == None:
             property_node = tree.search(property_type_with_namespace)
-        # Nope? Try getting the node with the namespace and just the last part of the property type
         if property_node == None:
-            property_type_with_namespace = f"{message_namespace}.{property.type.split('.')[-1]}"
-            property_node = tree.search(property_type_with_namespace)
-        # Still Nope? Try getting the node with a shared parent
+            property_node = node.climbing_search(property.type)
+        
         if property_node == None:
-            property_node = node.get_first_parent_with_name(property.type)
-            property_node = property_node.parent.get_child(property.type)
-
+            raise Exception("Property Type could not be resolved", property.type)
+        
         if (property_node.filespace == node.filespace):
             return f"'{property.type}'"
         
@@ -388,6 +398,10 @@ def generate_message_code(message: Dict, tree: Tree, current_node:TreeNode, impo
     
     return class_code
 
+name_mapping = {
+    "None": "Empty",
+}
+
 def generate_enum_code(enum) -> str:
     comment = enum.comment
     name = enum.name
@@ -396,25 +410,43 @@ def generate_enum_code(enum) -> str:
     enum_code = parseComment(comment)
     enum_code += f"class {name}(Enum):\n"
     for value in values:
-        enum_code += f"    {value.name} = \"{value.name}\"  # {value.comment}\n"
+        name = name_mapping.get(value.name, value.name)
+        enum_code += f"    {name} = \"{value.name}\"  # {value.comment}\n"
     return enum_code
 
-def generate_init_files(paths: set):
+def generate_init_files(paths: set, tree: Tree, output_dir: str):
     for path in paths:
         init_file = os.path.join(path, "__init__.py")
+        
+        # Remove output_dir from the path
+        relative_path = path.replace(output_dir+"/", "")
+        relative_path = relative_path.replace("/", ".")
+        node = tree.search(relative_path)
+
         with open(init_file, 'w') as f:
-            f.write("")
+            f.write("") #guarantee a file
+            for child in node.children.values():
+                # imports.append((child.filespace, [child.name for child in child.children.values()]))
+                if child.filespace:
+                    f.write(f"from {child.filespace} import * \n")
     
 def main():
 
     parser = argparse.ArgumentParser(description="Generate Python classes and enums from protobuf schema objects.")
     parser.add_argument('input_dir', type=str, nargs='?', default='./V3Schema', help='The input directory containing the protobuf schema objects.')
-    parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three', help='The output directory to write the generated Python classes and enums.')
+    parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three/', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
 
+    # Check to see if args.input_dir and args.output_dir contain a trailing slash
+    if args.input_dir[-1] == '/':
+        args.input_dir = args.input_dir[:-1]
+    if args.output_dir[-1] == '/':
+        args.output_dir = args.output_dir[:-1]
+
     proto_objects = create_proto_objects(args.input_dir)
-    paths = generate_python_code(proto_objects, args.output_dir)
-    generate_init_files(paths)
+    tree= get_tree(proto_objects)
+    paths = generate_python_code(proto_objects, args.output_dir, tree)
+    generate_init_files(paths, tree, args.output_dir)
 
 if __name__ == "__main__":
     main()

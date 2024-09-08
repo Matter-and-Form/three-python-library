@@ -8,20 +8,27 @@ import numpy as np
 # from maf_three.scanner import Scanner
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from MF.V3 import Three, Task
-from MF.V3.Tasks import SetProjector
+from maf_three.MF.V3.Tasks import SetProjector
 
 from maf_three.scanner import Scanner
 
 def main():
 
     try:
-        scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
-        scanner.Connect("ws://matterandform.local:8081")
+        # scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
+        # scanner.Connect("ws://matterandform.local:8081")
 
         #### Turn ON
-        task = Task()
-        task.
+        set_projector_request = SetProjector.Request(
+            Index=1,
+            Type="SetProjector",
+            Input=SetProjector.Projector(on=True, brightness=1.0, color=[1, 1, 1])
+        )
+        #     Index=1,
+        #     Type="SetProjector",
+        #     Input=SetProjector.Projector(on=True, brightness=1.0, color=[1, 1, 1])
+        # )        # scanner.SendTask(Task)
+
         # task.Projector.CopyFrom(Projector(on=True, brightness=1.0, color=[1,1,1]))
         # print("test2")
         # print(task)
@@ -79,8 +86,8 @@ def main():
         print('Error')
 
     finally: 
-        if scanner.IsConnected():
-            scanner.Disconnect()
+        # if scanner.IsConnected():
+        #     scanner.Disconnect()
         print('Finally')
 
 if __name__ == "__main__":
