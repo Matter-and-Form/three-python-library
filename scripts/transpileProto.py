@@ -378,14 +378,20 @@ def generate_message_code(message: Dict, tree: Tree, current_node:TreeNode, impo
             
             prop_type = get_property_type(prop, tree, current_node, import_descriptors, message_namespace)
 
-            # write class init parameter
-            class_code += f", {prop.name}: {prop_type}"
+            # handle repeated
+            if prop.repeated:
+                # Get importDescriptor for List "typing"
+                descriptor = get_descriptor_by_name("typing", import_descriptors)
+                if descriptor == None:
+                    descriptor = ImportDescriptor("typing")
+                    import_descriptors.append(descriptor)
+                descriptor.add_type("List", "")
+                class_code += f", {prop.name}:List[{prop_type}]"
+            else:
+                class_code += f", {prop.name}:{prop_type}"
             # handle optionals
             if prop.optional:
                 class_code += " = None"
-            # handle repeated
-            if prop.repeated:
-                class_code += " = []"
         class_code += "):\n"
         for prop in properties:
             # Add comments with parseComment function with spaces
@@ -423,12 +429,16 @@ def generate_init_files(paths: set, tree: Tree, output_dir: str):
         relative_path = relative_path.replace("/", ".")
         node = tree.search(relative_path)
 
+        imports:Set[str] = set()
+
+        for child in node.children.values():
+            if child.filespace:
+                imports.add(child.filespace)
+
         with open(init_file, 'w') as f:
             f.write("") #guarantee a file
-            for child in node.children.values():
-                # imports.append((child.filespace, [child.name for child in child.children.values()]))
-                if child.filespace:
-                    f.write(f"from {child.filespace} import * \n")
+            for import_path in imports:
+                f.write(f"from {import_path} import * \n")
     
 def main():
 

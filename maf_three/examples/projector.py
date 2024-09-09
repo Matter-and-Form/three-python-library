@@ -19,11 +19,11 @@ def main():
         # scanner.Connect("ws://matterandform.local:8081")
 
         #### Turn ON
-        set_projector_request = SetProjector.Request(
-            Index=1,
-            Type="SetProjector",
-            Input=SetProjector.Projector(on=True, brightness=1.0, color=[1, 1, 1])
-        )
+        # set_projector_request = SetProjector.
+        #     Index=1,
+        #     Type="SetProjector",
+        #     Input=SetProjector.Projector(on=True, brightness=1.0, color=[1, 1, 1])
+        # )
         #     Index=1,
         #     Type="SetProjector",
         #     Input=SetProjector.Projector(on=True, brightness=1.0, color=[1, 1, 1])
