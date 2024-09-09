@@ -8,9 +8,11 @@ import numpy as np
 # from maf_three.scanner import Scanner
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from maf_three.MF.V3.Tasks import SetProjector, Settings_Projector as Projector
+from MF.V3.Tasks import SetProjector, Settings_Projector as Projector
+from MF.V3.Task import Task
 
 from maf_three.scanner import Scanner
+
 
 def main():
 
@@ -18,14 +20,8 @@ def main():
         scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
         scanner.Connect("ws://matterandform.local:8081")
 
-        #### Turn ON
-        set_projector_request = SetProjector.Request(
-            Index=1,
-            Type="SetProjector",
-            Input=Projector(on=True, brightness=1.0, color=[1, 1, 1])
-        )
-
-        scanner.SendTask(set_projector_request)
+        
+        scanner.SetProjector(on=True, brightness=1.0, color=[1,1,1])
         # Sleep for 5 seconds
         time.sleep(5)
         # task.Projector.CopyFrom(Projector(on=True, brightness=1.0, color=[1,1,1]))

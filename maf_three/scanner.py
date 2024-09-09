@@ -4,14 +4,15 @@
 # @date 2024-04-22
 # @copyright © 2024 Matter and Form. All rights reserved.
 
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, List
 
 import websocket
 import json
 import threading
 import time
 
-from MF.V3 import Task
+from MF.V3 import Task, TaskState
+from MF.V3.Tasks.SetProjector import SetProjector, Settings_Projector
 
 from maf_three import __version__
 from maf_three.serialization import TO_JSON
@@ -30,6 +31,9 @@ class Scanner:
     
     __bufferDescriptor = None
     __error = None
+    __taskIndex:int = 0
+    __tasks:List[Task] = []
+
 
     def __init__(self,
         OnTask: Optional[Callable[[Task], None]],
@@ -49,7 +53,8 @@ class Scanner:
         self.OnTask = OnTask
         self.OnMessage = OnMessage
         self.OnBuffer = OnBuffer
-
+        
+        self.__task_return_event = threading.Event()
 
     def Connect(self, URI:str, timeoutSec=5) -> bool:
         """
@@ -189,9 +194,22 @@ class Scanner:
                 # Create the task from the message
                 task = Task(**obj['Task'])
 
+                # Find the original task for reference
+                inputTask = self.__FindTaskWithIndex(task.Index)
+                assert inputTask
+
                 # If assigned => Call the handler
                 if self.OnTask:
                     self.OnTask(task)
+                
+                # If waiting for a response, set the response and notify
+                if (task.State == TaskState.Completed.value):
+                    if task.Output:
+                        inputTask.Output = task.Output
+                        self.__task_return_event.set()
+                elif (task.State == TaskState.Failed.value):
+                    inputTask.Error = task.Error
+                    self.__task_return_event
                     
             # Buffer
             elif 'Buffer' in obj:
@@ -201,8 +219,7 @@ class Scanner:
                 if self.OnMessage:
                     self.OnMessage(obj)
 
-    # Send a task to the scanner
-    def SendTask(self, task) -> None:
+    def SendTask(self, task, buffer:bytes = None) -> Any:
         """
         Sends a task to the scanner.
         Tasks are general control requests for the scanner. (eg. Camera exposure, or Get Image)
@@ -211,14 +228,42 @@ class Scanner:
 
         Args:
             * task (Task): The task to send.
+            * buffer (bytes): The buffer data to send, default is None.
+
+        Returns:
+            Any: The task object that was sent.
 
         Raises:
             AssertionError: If the connection is not established.
         """
         assert self.__isConnected
+
+        # Send the task
+        
+        self.__task_return_event.clear()
+        
+        # Append the task
+        self.__tasks.append(task)
+
+        if buffer == None:
+            task = self.__SendTask(task)
+        else:
+            task = self.__SendTaskWithBuffer(task, buffer)
+
+        if task.Output:
+            # Wait for response
+            self.__task_return_event.wait()
+
+        self.__tasks.remove(task)
+
+        return task
+    
+    # Send a task to the scanner
+    def __SendTask(self, task) -> Any:
+        assert self.__isConnected
         
         # Serialize the task
-        message = TO_JSON(task)
+        message = TO_JSON(task.Input)
         
         # Build and send the message
         message = '{"Task":' + message + '}'
@@ -228,28 +273,11 @@ class Scanner:
         return task
 
     # Send a task with its buffer to the scanner
-    def SendTaskWithBuffer(self, task:Task, buffer:bytes) -> Task:
-        """
-        Sends a task along with its associated buffer to the scanner.
-        This call is used to send data to the scanner, like an image to be projected by the projector. 
-        An appropriate task must be sent with the buffer, or the buffer will be ignored.
-        
-        The task is serialized, and sent to the scanner, followed by the buffer.
-        
-        Args:
-            * task (Task): The task to send.
-            * buffer (bytes): The buffer data to send.
-
-        Returns:
-            Task: The task object that was sent.
-
-        Raises:
-            AssertionError: If the connection is not established.
-        """
+    def __SendTaskWithBuffer(self, task:Task, buffer:bytes) -> Any:
         assert self.__isConnected
 
         # Send the task
-        task = self.SendTask(task)
+        task = self.__SendTask(task.Input)
 
         # Build the buffer descriptor
         bufferSize = len(buffer)
@@ -276,4 +304,68 @@ class Scanner:
             self.websocket.send(buffer[sentSize:bufferSize], websocket.ABNF.OPCODE_BINARY)
 
         return task
+    
+    def __FindTaskWithIndex(self, index:int) -> Task:
+        # Find the task in the list
+        for i, t in enumerate(self.__tasks):
+            if t.Index == index:
+                return t
+                break
+        return None
+        
+    def SetProjector(self, on:bool, brightness:float, color:List[float]) -> Task:
+        
+        """
+        Sets the projector settings.
 
+        Args:
+            * on (bool): True to turn the projector on, False to turn it off.
+            * brightness (float): The brightness of the projector, between 0.0 and 1.0.
+            * color ([float]): The RGB color of the projector, as a list of three floats between 0.0 and 1.0.
+
+        Returns:
+            Task: The task object that was sent.
+        """
+        set_projector_request = SetProjector.Request(
+            Index=self.__taskIndex,
+            Type="SetProjector",
+            Input=Settings_Projector(on=on, brightness=brightness, color=color)
+        )
+        set_projector_response = SetProjector.Response(
+            Index=self.__taskIndex,
+            Type="SetProjector"
+        )
+        
+        task = Task(Index=self.__taskIndex, Type="SetProjector", Input=set_projector_request, Output=set_projector_response)
+
+        self.__taskIndex += 1
+
+        print(self.SendTask(task))
+        
+        return 
+
+# Main function to run the code
+if __name__ == "__main__":
+    def on_task(task):
+        print(f"Task received: {task}")
+
+    def on_message(message):
+        print(f"Message received: {message}")
+
+    def on_buffer(buffer, data):
+        print(f"Buffer received: {data}")
+
+    scanner = Scanner(OnTask=on_task, OnMessage=on_message, OnBuffer=on_buffer)
+    scanner.Connect("ws://matterandform.local:8081")
+
+    # Set the projector settings for debugging
+    scanner.SetProjector(on=True, brightness=1.0, color=[1, 1, 1])
+    time.sleep(1)
+    scanner.SetProjector(on=False, brightness=1.0, color=[1, 1, 1])
+    time.sleep(1)
+    scanner.SetProjector(on=True, brightness=0.0, color=[1, 1, 1])
+    time.sleep(1)
+    scanner.SetProjector(on=True, brightness=1.0, color=[1, 0, 0])
+    time.sleep(1)
+
+    scanner.Disconnect()
