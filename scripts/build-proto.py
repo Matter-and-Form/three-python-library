@@ -21,13 +21,9 @@ def BuildProtoFile(protoFile, inputDir, outputDir):
     # Build the proto file
     status = subprocess.run([
         'python3',
-        '-m',
-        'grpc_tools.protoc',
-        protoFile,
-        f'-I={inputDir}',
-        f'--python_out={outputDir}',
-        f'--pyi_out={outputDir}',
-        '--experimental_allow_proto3_optional'
+        'transpileProto.py',
+        f'{inputDir}',
+        f'{outputDir}'
         ], capture_output=True) 
 
     return status
@@ -52,19 +48,21 @@ files = glob.glob(protoInputPath+"/**/*.proto", recursive=True)
 
 status = subprocess.run([
         'python3',
-        '-m',
-        'grpc_tools.protoc',
-        *files,
-        f'-I={protoInputPath}',
-        f'--python_out={protoOutputPath}',
-        f'--pyi_out={protoOutputPath}',
-        '--experimental_allow_proto3_optional'
+        f'{scriptPath}/transpileProto.py',
+        f'{protoInputPath}',
+        f'{protoOutputPath}'
         ], capture_output=True) 
 
 # Print results
-print("*****************")
-print(GREEN + 'Complete ' + str(status.returncode) + ENDC)
-print("*****************")
+if (status.returncode != 0):
+    print("*****************")
+    print(RED + 'Error ' + str(status.returncode) + ENDC)
+    print(status.stderr)
+    print("*****************")
+else:
+    print("*****************")
+    print(GREEN + 'Complete ' + str(status.returncode) + ENDC)
+    print("*****************")
 
 # Let the caller know if everything was built
 if fileError > 0:

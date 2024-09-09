@@ -202,7 +202,7 @@ class Scanner:
                     self.OnMessage(obj)
 
     # Send a task to the scanner
-    def SendTask(self, task:Task) -> None:
+    def SendTask(self, task) -> None:
         """
         Sends a task to the scanner.
         Tasks are general control requests for the scanner. (eg. Camera exposure, or Get Image)

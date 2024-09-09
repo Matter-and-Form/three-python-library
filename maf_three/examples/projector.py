@@ -15,8 +15,8 @@ from maf_three.scanner import Scanner
 def main():
 
     try:
-        # scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
-        # scanner.Connect("ws://matterandform.local:8081")
+        scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
+        scanner.Connect("ws://matterandform.local:8081")
 
         #### Turn ON
         set_projector_request = SetProjector.Request(
@@ -25,6 +25,9 @@ def main():
             Input=Projector(on=True, brightness=1.0, color=[1, 1, 1])
         )
 
+        scanner.SendTask(set_projector_request)
+        # Sleep for 5 seconds
+        time.sleep(5)
         # task.Projector.CopyFrom(Projector(on=True, brightness=1.0, color=[1,1,1]))
         # print("test2")
         # print(task)
@@ -82,8 +85,8 @@ def main():
         print('Error')
 
     finally: 
-        # if scanner.IsConnected():
-        #     scanner.Disconnect()
+        if scanner.IsConnected():
+            scanner.Disconnect()
         print('Finally')
 
 if __name__ == "__main__":

@@ -279,8 +279,8 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
         return type_mapping.get(property.type, property.type)
     
     property_type_parts = property.type.split('.')
-    if property.type == "Settings.Export" and node.filespace == "MF.V3.Tasks.ExportMerge":
-        print("Debug")
+    # if property.type == "Settings.Export" and node.filespace == "MF.V3.Tasks.ExportMerge":
+    #     print("Debug")
     
     if len(property_type_parts) > 1:
         # Combine message_namespace with property type
@@ -461,6 +461,8 @@ def main():
     tree= get_tree(proto_objects)
     paths = generate_python_code(proto_objects, args.output_dir, tree)
     generate_init_files(paths, tree, args.output_dir)
+
+    exit(0)
 
 if __name__ == "__main__":
     main()
