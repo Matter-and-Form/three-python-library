@@ -307,8 +307,12 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
         relativePath = property_node.get_relative_path(temp)
         
         descriptor = get_descriptor_by_name(property_node.filespace, import_descriptors)
-        descriptor.add_type(temp.name, "")
-        return f"'{relativePath}'"
+        # Make a unique name for the type based on the filespace and the property type
+        unique_name = f"{property.type}"
+        unique_name = unique_name.replace(".", "_")
+
+        descriptor.add_type(temp.name, unique_name)
+        return f"'{unique_name}'"
     else:
         
         sibling_nodes = tree.get_nodes_with_filespace(node.filespace)
