@@ -47,7 +47,7 @@ class ServiceType:
         self.procedures: List[ProcedureType] = []
         
     def add_procedure(self, name: str, comment: str, request: str, response: str) -> None:
-        self.procedures.append(ProtoProperty(name, comment, request, response))
+        self.procedures.append(ProcedureType(name, comment, request, response))
 
 def get_parent_name_from_stack(stack: List[MessageType]) -> str:
     if len(stack) == 0:
@@ -66,6 +66,8 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
     comments: List[str] = []
     namespace: str = ""
     current_message_stack = []
+    services :List[ServiceType] = []
+    service_object = None
 
     for line in lines:
         line = line.strip()
@@ -121,10 +123,22 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             continue
         elif "service" in line:
             comment = "\n".join(comments)
+            comments = []
+            name = re.findall(r'service (\w+)', line)[0]
+            service_object = ServiceType(name, comment, namespace)
             
         elif "proto3" in line or "{" in line:
             continue
-
+        elif "rpc" in line:
+            comment = "\n".join(comments)
+            comments = []
+            name = re.findall(r'rpc (\w+)', line)[0]
+            request = re.findall(r'rpc\s+\w+\((\w+\.\w+)\)', line)
+            response = re.findall(r'rpc\s+\w+\(\w+\.\w+\)\s+returns\s+\((\w+\.\w+)\)', line)
+            service_object.add_procedure(name, comment, request, response)
+        elif "}" in line and service_object:
+            services.append(service_object)
+            service_object = None
         # elif current_message_stack is not empty, then we are in a message
         elif len(current_message_stack) > 0:
             if line == "}":
@@ -153,14 +167,14 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
         else:
             print(f"Error parsing line: {line}")
 
-    return imports, messages, namespace
+    return imports, messages, services, namespace
 
 def create_proto_objects(directory: str):
     proto_files = glob.glob(os.path.join(directory, '**', '*.proto'), recursive=True)
     all_objs = []
 
     for proto_file in proto_files:
-        imports, messages, namespace = parse_proto(proto_file, directory)
+        imports, messages, services, namespace = parse_proto(proto_file, directory)
         # Get relative path of the file
         proto_file = os.path.relpath(proto_file, directory)
 
@@ -169,7 +183,8 @@ def create_proto_objects(directory: str):
             "imports": imports,
             "messages": messages,
             "namespace": namespace,
-            "filename": proto_file
+            "filename": proto_file,
+            "services": services
         })
     return all_objs
 
