@@ -177,14 +177,18 @@ def get_tree(proto_objects: List)-> Tree:
             
             def get_nested_messages(message):
                 # concat message.name with message.parent
-                tree_path = f"{namespace}.{message.parent + '.' if message.parent else ''}{message.name}"
-                message.path = tree_path
+                message.path = f"{namespace}.{message.parent + '.' if message.parent else ''}{message.name}"
                 #convert filename to namespace
                 filespace = obj['filename'].replace('/', '.').replace('.proto', '')
-                tree.add_path(tree_path, filespace)
+                tree.add_path(message.path, filespace)
                 for nested in message.nested_messages:
                     get_nested_messages(nested)
             get_nested_messages(msg)
+        for service in obj['services']:
+            # I think services are top level definitions, so no parent needed
+            service_path = f"{namespace}.{service.name}"
+            filespace = obj['filename'].replace('/', '.').replace('.proto', '')
+            tree.add_path(service_path, filespace)
     return tree
 
 def generate_python_code(proto_objects: List, output_dir: str, tree:Tree) -> set:
@@ -202,6 +206,7 @@ def generate_python_code(proto_objects: List, output_dir: str, tree:Tree) -> set
         messages = obj['messages']
         file_path = obj['filename']
         namespace = obj['namespace']
+        services = obj['services']
 
         # Get the base path of the file
         path = os.path.join(output_dir, os.path.dirname(file_path))
@@ -216,6 +221,11 @@ def generate_python_code(proto_objects: List, output_dir: str, tree:Tree) -> set
         
         # Generate imports paths for parsing
         importDescs = get_imports(imports)
+
+        # Generate code for Services
+        service_code = ""
+        for service in services:
+            print(service)
 
         # Generate code for messages
         message_code = ""
