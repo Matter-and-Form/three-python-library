@@ -12,12 +12,12 @@ import threading
 import time
 
 from MF.V3 import Task, TaskState
-from MF.V3.Tasks.SetProjector import SetProjector, Settings_Projector
 
 from maf_three import __version__
 from maf_three.serialization import TO_JSON
 from maf_three.buffer import Buffer
 
+from scanner_functions import set_projector
 
 class Scanner:
     """
@@ -36,9 +36,9 @@ class Scanner:
 
 
     def __init__(self,
-        OnTask: Optional[Callable[[Task], None]],
-        OnMessage: Optional[Callable[[str], None]],
-        OnBuffer: Optional[Callable[[Any, bytes], None]],
+        OnTask: Optional[Callable[[Task], None]] = None,
+        OnMessage: Optional[Callable[[str], None]] = None,
+        OnBuffer: Optional[Callable[[Any, bytes], None]] = None,
         ):
         """
         Initializes the Scanner object.
@@ -55,6 +55,13 @@ class Scanner:
         self.OnBuffer = OnBuffer
         
         self.__task_return_event = threading.Event()
+
+        # Bind functions
+        self.bind_functions()
+        
+    def bind_functions(self):
+        # SetProjector
+        self.set_projector = lambda on, brightness, color: set_projector(self, on, brightness, color)
 
     def Connect(self, URI:str, timeoutSec=5) -> bool:
         """
@@ -196,11 +203,13 @@ class Scanner:
 
                 # Find the original task for reference
                 inputTask = self.__FindTaskWithIndex(task.Index)
-                assert inputTask
+                if inputTask == None:
+                    raise Exception('Task not found')
 
                 # If assigned => Call the handler
                 if self.OnTask:
                     self.OnTask(task)
+                
                 
                 # If waiting for a response, set the response and notify
                 if (task.State == TaskState.Completed.value):
@@ -238,17 +247,21 @@ class Scanner:
         """
         assert self.__isConnected
 
+        # Update the index
+        task.Index = self.__taskIndex
+        task.Input.Index = self.__taskIndex
+        self.__taskIndex += 1
+
         # Send the task
-        
         self.__task_return_event.clear()
         
         # Append the task
         self.__tasks.append(task)
 
         if buffer == None:
-            task = self.__SendTask(task)
+            self.__SendTask(task)
         else:
-            task = self.__SendTaskWithBuffer(task, buffer)
+            self.__SendTaskWithBuffer(task, buffer)
 
         if task.Output:
             # Wait for response
@@ -259,25 +272,24 @@ class Scanner:
         return task
     
     # Send a task to the scanner
-    def __SendTask(self, task) -> Any:
+    def __SendTask(self, task):
         assert self.__isConnected
-        
+
         # Serialize the task
         message = TO_JSON(task.Input)
         
         # Build and send the message
         message = '{"Task":' + message + '}'
+        print('Message: ', message)
         #print('Message: ', message)   
         self.websocket.send(message)
 
-        return task
-
     # Send a task with its buffer to the scanner
-    def __SendTaskWithBuffer(self, task:Task, buffer:bytes) -> Any:
+    def __SendTaskWithBuffer(self, task:Task, buffer:bytes):
         assert self.__isConnected
 
         # Send the task
-        task = self.__SendTask(task.Input)
+        self.__SendTask(task.Input)
 
         # Build the buffer descriptor
         bufferSize = len(buffer)
@@ -302,8 +314,6 @@ class Scanner:
         # Send the remaining data.
         if sentSize < bufferSize:
             self.websocket.send(buffer[sentSize:bufferSize], websocket.ABNF.OPCODE_BINARY)
-
-        return task
     
     def __FindTaskWithIndex(self, index:int) -> Task:
         # Find the task in the list
@@ -312,60 +322,26 @@ class Scanner:
                 return t
                 break
         return None
-        
-    def SetProjector(self, on:bool, brightness:float, color:List[float]) -> Task:
-        
-        """
-        Sets the projector settings.
 
-        Args:
-            * on (bool): True to turn the projector on, False to turn it off.
-            * brightness (float): The brightness of the projector, between 0.0 and 1.0.
-            * color ([float]): The RGB color of the projector, as a list of three floats between 0.0 and 1.0.
-
-        Returns:
-            Task: The task object that was sent.
-        """
-        set_projector_request = SetProjector.Request(
-            Index=self.__taskIndex,
-            Type="SetProjector",
-            Input=Settings_Projector(on=on, brightness=brightness, color=color)
-        )
-        set_projector_response = SetProjector.Response(
-            Index=self.__taskIndex,
-            Type="SetProjector"
-        )
-        
-        task = Task(Index=self.__taskIndex, Type="SetProjector", Input=set_projector_request, Output=set_projector_response)
-
-        self.__taskIndex += 1
-
-        print(self.SendTask(task))
-        
-        return 
 
 # Main function to run the code
 if __name__ == "__main__":
-    def on_task(task):
-        print(f"Task received: {task}")
+    # def on_task(task):
+    #     print(f"Task received: {task}")
 
-    def on_message(message):
-        print(f"Message received: {message}")
+    # def on_message(message):
+    #     print(f"Message received: {message}")
 
-    def on_buffer(buffer, data):
-        print(f"Buffer received: {data}")
+    # def on_buffer(buffer, data):
+    #     print(f"Buffer received: {data}")
 
-    scanner = Scanner(OnTask=on_task, OnMessage=on_message, OnBuffer=on_buffer)
+    scanner = Scanner()#OnTask=on_task, OnMessage=on_message, OnBuffer=on_buffer)
     scanner.Connect("ws://matterandform.local:8081")
 
     # Set the projector settings for debugging
-    scanner.SetProjector(on=True, brightness=1.0, color=[1, 1, 1])
+    scanner.set_projector(on=True, brightness=1.0, color=[1, 1, 1])
     time.sleep(1)
-    scanner.SetProjector(on=False, brightness=1.0, color=[1, 1, 1])
+    scanner.set_projector(on=False, brightness=1.0, color=[1, 1, 1])
     time.sleep(1)
-    scanner.SetProjector(on=True, brightness=0.0, color=[1, 1, 1])
-    time.sleep(1)
-    scanner.SetProjector(on=True, brightness=1.0, color=[1, 0, 0])
-    time.sleep(1)
-
+    
     scanner.Disconnect()

@@ -32,6 +32,23 @@ class MessageType:
     def add_nested_message(self, message):
         self.nested_messages.append(message)
 
+class ProcedureType:
+    def __init__(self, name: str, comment: str, request: str, response: str) -> None:
+        self.name: str = name
+        self.comment: str = comment
+        self.request: str = request
+        self.response: str = response
+
+class ServiceType:
+    def __init__(self, name: str, comment: str, namespace: str) -> None:
+        self.name: str = name
+        self.comment: str = comment
+        self.namespace = namespace
+        self.procedures: List[ProcedureType] = []
+        
+    def add_procedure(self, name: str, comment: str, request: str, response: str) -> None:
+        self.procedures.append(ProtoProperty(name, comment, request, response))
+
 def get_parent_name_from_stack(stack: List[MessageType]) -> str:
     if len(stack) == 0:
         return ""
@@ -102,6 +119,9 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             
             comments = []
             continue
+        elif "service" in line:
+            comment = "\n".join(comments)
+            
         elif "proto3" in line or "{" in line:
             continue
 

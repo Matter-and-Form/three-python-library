@@ -443,7 +443,50 @@ def generate_init_files(paths: set, tree: Tree, output_dir: str):
             f.write("") #guarantee a file
             for import_path in imports:
                 f.write(f"from {import_path} import * \n")
-    
+
+def parse_service_file(file_path: str) -> List[dict]:
+    service_data = []
+    with open(file_path, 'r') as f:
+        lines = f.readlines()
+        i = 0
+        while i < len(lines):
+            line = lines[i].strip()
+            if line.startswith("service"):
+                service_name = line.split(" ")[1].strip("{")
+                i += 1
+                while i < len(lines):
+                    line = lines[i].strip()
+                    if line.startswith("//"):
+                        comment = line.lstrip("//").strip()
+                    elif line.startswith("rpc"):
+                        rpc_name = line.split(" ")[1].split("(")[0]
+                        request_type = line.split("(")[1].split(")")[0].strip()
+                        response_type = line.split("returns (")[1].split(")")[0].strip()
+                        service_data.append({
+                            "comment": comment,
+                            "name": rpc_name,
+                            "request": request_type,
+                            "response": response_type
+                        })
+                    elif line == "}":
+                        break
+                    i += 1
+            i += 1
+    return service_data
+
+def generate_function_file(input_dir:str, output_dir: str, tree: Tree):
+    function_file = os.path.join(output_dir, "scanner_helper.py")
+    # Check to see if the file exists, if it does, delete it
+    if os.path.exists(function_file):
+        os.remove(function_file)
+
+    service_file = os.path.join(input_dir, "MF/V3/Three.proto")
+    service_data = parse_service_file(service_file)
+    print(service_data)
+    # with open(function_file, 'w') as f:
+
+
+
 def main():
 
     parser = argparse.ArgumentParser(description="Generate Python classes and enums from protobuf schema objects.")
@@ -461,6 +504,7 @@ def main():
     tree= get_tree(proto_objects)
     paths = generate_python_code(proto_objects, args.output_dir, tree)
     generate_init_files(paths, tree, args.output_dir)
+    generate_function_file(args.input_dir, args.output_dir, tree)
 
     exit(0)
 
