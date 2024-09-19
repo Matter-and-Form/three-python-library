@@ -4,15 +4,31 @@ from interpretProto import create_proto_objects, MessageType, parse_proto
 from typing import List, Dict,Tuple, Set
 
 
+class TreeProperty:
+    def __init__(self, type_: str, name: str, optional: bool, comment: str, repeated) -> None:
+        self.type: str = type_
+        self.name: str = name
+        self.optional: bool = optional
+        self.repeated: bool = repeated
+        self.comment: str = comment
+
 class TreeNode:
     def __init__(self, name: str, parent = None, filespace = None):
         self.name = name
         self.parent = parent
         self.children = {}
+        self.properties = []
+        self.imports = []
         self.filespace = filespace
 
     def add_child(self, child_node):
         self.children[child_node.name] = child_node
+    
+    def add_property(self, type_: str, name: str, optional: bool, comment: str, repeated: bool) -> None:
+        self.properties.append(TreeProperty(type_, name, optional, comment, repeated))
+    
+    def add_import(self, import_path: str):
+        self.imports.append(ImportDescriptor(import_path))
 
     def get_child(self, name: str):
         parts = name.split('.')
@@ -83,7 +99,7 @@ class Tree:
     def __init__(self):
         self.root = TreeNode("root")
 
-    def add_path(self, path: str, filespace):
+    def add_path(self, path: str, filespace) -> TreeNode:
         parts = path.split('.')
         current_node = self.root
         for part in parts:
@@ -92,6 +108,7 @@ class Tree:
                 current_node.add_child(new_node)
             current_node = current_node.get_child(part)
         current_node.filespace = filespace
+        return current_node
 
     def search(self, path: str) -> TreeNode:
         parts = path.split('.')
@@ -128,6 +145,73 @@ def get_descriptor_by_name(name: str, descriptors: List[dict]) -> ImportDescript
         if descriptor.file == name:
             return descriptor
     return None
+
+def get_descriptor_by_partial_name(name, import_descriptors, tree) -> ImportDescriptor:
+    for descriptor in import_descriptors:
+        descriptor_file_nodes = tree.get_nodes_with_filespace(descriptor.file)
+        for descriptor_node in descriptor_file_nodes:
+            if descriptor_node.name == name:
+                return descriptor
+    return None
+
+def generate_python_code(proto_objects: List, output_dir: str, tree:Tree) -> set:
+    # create a unique set of paths
+    paths = set()
+
+    for obj in proto_objects:
+        print(f"Parsing file: {obj['filename']}")
+                
+        file_node = tree.search(obj['namespace'])
+
+        # Access namespace, imports, messages, enums from the dictionary obj
+        #namespace = obj['namespace']
+        imports = obj['imports']
+        messages = obj['messages']
+        file_path = obj['filename']
+        namespace = obj['namespace']
+        services = obj['services']
+
+        # Get the base path of the file
+        path = os.path.join(output_dir, os.path.dirname(file_path))
+
+        # Get the filename without the extension
+        filename = os.path.basename(file_path).replace('.proto', '')
+        
+        # Create the directory if it doesn't exist
+        os.makedirs(path, exist_ok=True)
+        # Add the path to a unique set
+        paths.add(path)
+        
+        # Generate imports paths for parsing
+        importDescs = get_imports(imports)
+
+        # Generate code for Services
+        service_code = ""
+        for service in services:
+            code = generate_service_code(service, tree, file_node, importDescs)
+            service_code += code + "\n\n"
+            
+
+        # Generate code for messages
+        message_code = ""
+        for message in messages:
+            current_node = file_node.get_child(message.name)
+            code = generate_message_code(message, tree, current_node, importDescs)
+            message_code += code + "\n\n"
+
+        # Generate imports another time to get the final output of imports
+        import_lines = generate_import_lines(importDescs)
+
+        # Combine imports, message code, and enum code
+        combined_code = import_lines + "\n\n" + message_code + "\n\n" + service_code
+
+        # Write the combined code to a file with the name from the file_path
+        filename = os.path.join(path, f"{filename}.py")
+        with open(filename, 'w') as f:
+            f.write(combined_code)
+        
+    return paths
+
 
 def get_imports(imports: List[str]) -> List[ImportDescriptor]:
     module_parts_list:List[ImportDescriptor] = []
@@ -171,81 +255,49 @@ def generate_import_lines(descriptors:List[ImportDescriptor]) -> str:
 
 def get_tree(proto_objects: List)-> Tree:
     tree = Tree()
+
+    # We need to go through the proto_objects twice. 
+    # First to build the base tree
+    # Then to to add the properties to the objects in the tree (self referencing)
     for obj in proto_objects:
         namespace = obj['namespace']
+        imports = obj['imports']
+        importDescs = get_imports(imports)
+        filespace = obj['filename'].replace('/', '.').replace('.proto', '')
+        
+        if obj['filename'] == "MF/V3/Descriptors/ProjectActions.proto":
+            print("Debug")
         for msg in obj['messages']:
             
-            def get_nested_messages(message):
+            def get_nested_messages(message, nested_name_space):   
                 # concat message.name with message.parent
-                message.path = f"{namespace}.{message.parent + '.' if message.parent else ''}{message.name}"
-                #convert filename to namespace
-                filespace = obj['filename'].replace('/', '.').replace('.proto', '')
-                tree.add_path(message.path, filespace)
+                nested_name_space = f"{nested_name_space}.{message.name}"
+                #convert filename to namespace 
+                node = tree.add_path(nested_name_space, filespace)
+                node.imports = importDescs
                 for nested in message.nested_messages:
-                    get_nested_messages(nested)
-            get_nested_messages(msg)
+                    get_nested_messages(nested, nested_name_space)
+            get_nested_messages(msg, namespace)
         for service in obj['services']:
             # I think services are top level definitions, so no parent needed
             service_path = f"{namespace}.{service.name}"
-            filespace = obj['filename'].replace('/', '.').replace('.proto', '')
-            tree.add_path(service_path, filespace)
-    return tree
-
-def generate_python_code(proto_objects: List, output_dir: str, tree:Tree) -> set:
-    # create a unique set of paths
-    paths = set()
-
+            node = tree.add_path(service_path, filespace)
+            node.imports = importDescs
+        
     for obj in proto_objects:
-        print(f"Parsing file: {obj['filename']}")
-        
-        file_node = tree.search(obj['namespace'])
-
-        # Access namespace, imports, messages, enums from the dictionary obj
-        #namespace = obj['namespace']
-        imports = obj['imports']
-        messages = obj['messages']
-        file_path = obj['filename']
         namespace = obj['namespace']
-        services = obj['services']
+        for msg in obj['messages']:
+            def parse_message_props(message):
+                message.path = f"{namespace}.{message.parent + '.' if message.parent else ''}{message.name}"
+                node = tree.search(message.path)
+                for prop in message.properties:
+                    prop_type = get_property_type(prop, tree, node, node.imports, namespace)
+                    node.add_property(prop_type, prop.name, prop.optional, prop.comment, prop.repeated)
+                for nested in message.nested_messages:
+                    parse_message_props(nested)
 
-        # Get the base path of the file
-        path = os.path.join(output_dir, os.path.dirname(file_path))
-
-        # Get the filename without the extension
-        filename = os.path.basename(file_path).replace('.proto', '')
-        
-        # Create the directory if it doesn't exist
-        os.makedirs(path, exist_ok=True)
-        # Add the path to a unique set
-        paths.add(path)
-        
-        # Generate imports paths for parsing
-        importDescs = get_imports(imports)
-
-        # Generate code for Services
-        service_code = ""
-        for service in services:
-            print(service)
-
-        # Generate code for messages
-        message_code = ""
-        for message in messages:
-            current_node = file_node.get_child(message.name)
-            code = generate_message_code(message, tree, current_node, importDescs)
-            message_code += code + "\n\n"
-
-        # Generate imports another time to get the final output of imports
-        import_lines = generate_import_lines(importDescs)
-
-        # Combine imports, message code, and enum code
-        combined_code = import_lines + "\n\n" + message_code
-
-        # Write the combined code to a file with the name from the file_path
-        filename = os.path.join(path, f"{filename}.py")
-        with open(filename, 'w') as f:
-            f.write(combined_code)
-        
-    return paths
+            parse_message_props(msg)
+    return tree
 
 # Mapping of special types to Python types
 type_mapping = {
@@ -434,6 +486,44 @@ def generate_enum_code(enum) -> str:
         enum_code += f"    {name} = \"{value.name}\"  # {value.comment}\n"
     return enum_code
 
+def generate_service_code(service, tree: Tree, current_node:TreeNode, import_descriptors: List[ImportDescriptor]) -> str:
+    comment = service.comment
+    name = service.name
+    procedures = service.procedures
+    service_namespace = service.namespace
+
+    class_code = parseComment(comment)
+    class_code += f"class {name}:\n"
+    for procedure in procedures:
+        comment = procedure.comment
+        name = procedure.name
+        request = procedure.request
+        response = procedure.response
+
+        descriptor = get_descriptor_by_partial_name(name, import_descriptors, tree)
+        # create a method name from the name value, by adding underscores between camel case
+        method_name = ""
+        for i, c in enumerate(name):
+            if c.isupper() and i != 0:
+                method_name += "_"
+            method_name += c.lower()
+        class_code += parseComment(comment)
+        
+        # Add the descriptor type so that it can be imported
+        assert descriptor != None, f"Descriptor not found for {name}"
+        descriptor.add_type(name, "")
+
+        # Get the tree for the file
+        parent_node = tree.search(descriptor.file)
+        request_node = parent_node.get_child("Request")
+        response_node = parent_node.get_child("Response")
+        
+        if request == None:
+            request = "Empty"
+
+        
+    return class_code
+
 def generate_init_files(paths: set, tree: Tree, output_dir: str):
     for path in paths:
         init_file = os.path.join(path, "__init__.py")
@@ -454,49 +544,6 @@ def generate_init_files(paths: set, tree: Tree, output_dir: str):
             for import_path in imports:
                 f.write(f"from {import_path} import * \n")
 
-def parse_service_file(file_path: str) -> List[dict]:
-    service_data = []
-    with open(file_path, 'r') as f:
-        lines = f.readlines()
-        i = 0
-        while i < len(lines):
-            line = lines[i].strip()
-            if line.startswith("service"):
-                service_name = line.split(" ")[1].strip("{")
-                i += 1
-                while i < len(lines):
-                    line = lines[i].strip()
-                    if line.startswith("//"):
-                        comment = line.lstrip("//").strip()
-                    elif line.startswith("rpc"):
-                        rpc_name = line.split(" ")[1].split("(")[0]
-                        request_type = line.split("(")[1].split(")")[0].strip()
-                        response_type = line.split("returns (")[1].split(")")[0].strip()
-                        service_data.append({
-                            "comment": comment,
-                            "name": rpc_name,
-                            "request": request_type,
-                            "response": response_type
-                        })
-                    elif line == "}":
-                        break
-                    i += 1
-            i += 1
-    return service_data
-
-def generate_function_file(input_dir:str, output_dir: str, tree: Tree):
-    function_file = os.path.join(output_dir, "scanner_helper.py")
-    # Check to see if the file exists, if it does, delete it
-    if os.path.exists(function_file):
-        os.remove(function_file)
-
-    service_file = os.path.join(input_dir, "MF/V3/Three.proto")
-    service_data = parse_service_file(service_file)
-    print(service_data)
-    # with open(function_file, 'w') as f:
-
-
-
 def main():
 
     parser = argparse.ArgumentParser(description="Generate Python classes and enums from protobuf schema objects.")
@@ -514,7 +561,6 @@ def main():
     tree= get_tree(proto_objects)
     paths = generate_python_code(proto_objects, args.output_dir, tree)
     generate_init_files(paths, tree, args.output_dir)
-    generate_function_file(args.input_dir, args.output_dir, tree)
 
     exit(0)
 

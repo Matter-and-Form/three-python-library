@@ -133,8 +133,9 @@ def parse_proto(proto_file: str, base_dir: str) -> Tuple[List[str], List[Message
             comment = "\n".join(comments)
             comments = []
             name = re.findall(r'rpc (\w+)', line)[0]
-            request = re.findall(r'rpc\s+\w+\((\w+\.\w+)\)', line)
-            response = re.findall(r'rpc\s+\w+\(\w+\.\w+\)\s+returns\s+\((\w+\.\w+)\)', line)
+            rr = re.findall(r'\(\s*([^)]+?)\s*\)', line)
+            request = rr[0]
+            response = rr[1]
             service_object.add_procedure(name, comment, request, response)
         elif "}" in line and service_object:
             services.append(service_object)
