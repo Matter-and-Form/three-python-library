@@ -46,13 +46,6 @@ def generate_python_code(output_dir: str, tree:Tree) -> set:
         os.makedirs(path, exist_ok=True)
         # Add the path to a unique set
         paths.add(path)
-
-        # Get imports
-        imports = set()
-        for node in branch:
-            imports.update(node.imports)
-        
-        import_lines = generate_import_lines(imports)
       
         # Generate code for messages
         class_code = ""
@@ -65,6 +58,13 @@ def generate_python_code(output_dir: str, tree:Tree) -> set:
             elif node.type == NodeType.Service:
                 service_code += generate_service_code(node, tree) + "\n\n"
         
+        # Get imports
+        imports = set()
+        for node in branch:
+            imports.update(node.imports)
+        
+        import_lines = generate_import_lines(imports)
+
         # Combine imports, message code, and enum code
         combined_code = import_lines + "\n\n" + class_code + "\n\n" + service_code
 
@@ -161,8 +161,8 @@ def get_tree(proto_objects: List)-> Tree:
                 message.path = f"{namespace}.{message.parent + '.' if message.parent else ''}{message.name}"
                 node = tree.search(message.path)
                 for prop in message.properties:
-                    prop_type = get_property_type(prop, tree, node, node.imports, namespace)
-                    node.add_property(prop_type, prop.name, prop.optional, parseComment(prop.comment), prop.repeated)
+                    property = get_property(prop, tree, node, node.imports, namespace)
+                    node.properties.append(property)
                 for nested in message.nested_messages:
                     parse_message_props(nested)
 
@@ -177,10 +177,14 @@ def get_tree(proto_objects: List)-> Tree:
 
                 import_descriptor_request = get_descriptor_by_partial_name(request_base, node.imports)
                 import_descriptor_response = get_descriptor_by_partial_name(response_base, node.imports)
+
                 # Check if the import descriptor is found and throw a message if not
                 assert import_descriptor_request != None, f"Descriptor not found for {procedure.request}"
                 assert import_descriptor_response != None, f"Descriptor not found for {procedure.response}"
 
+                import_descriptor_request.add_type(request_base, "")
+                import_descriptor_response.add_type(response_base, "")
+                
                 request_node = tree.search(import_descriptor_request.file)
                 response_node = tree.search(import_descriptor_response.file)
 
@@ -192,7 +196,7 @@ def get_tree(proto_objects: List)-> Tree:
                 assert response_node.has_child("Response"), f"Response node not found for {procedure.response}"
 
                 # Add the procedure
-                node.add_procedure(procedure.name, request_node.get_path(), response_node.get_path(), parseComment(procedure.comment))
+                node.add_procedure(procedure.name, request_node.get_child("Request").get_path(), response_node.get_child("Response").get_path(), parseComment(procedure.comment))
     return tree
 
 def parseComment(comment: str) -> str:
@@ -211,11 +215,14 @@ def add_indents(code: str, indent: int) -> str:
     # Indent the code by adding spaces if the line is not empty
     return "\n".join([f"{'    ' * indent}{line}" if line.strip() else line for line in code.split("\n")])
 
-def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: List[ImportDescriptor], message_namespace:str) -> str:
+def get_property(property, tree: Tree, node:TreeNode, import_descriptors: List[ImportDescriptor], message_namespace:str) -> TreeProperty:
     
+    tree_property = TreeProperty("", property.name, property.optional, parseComment(property.comment), property.repeated)
+
     # Check to see if the property type can be mapped to a Python type
     if property.type in type_mapping:
-        return type_mapping.get(property.type, property.type)
+        tree_property.type = type_mapping.get(property.type, property.type)
+        return tree_property
     
     property_type_parts = property.type.split('.')
     
@@ -236,7 +243,8 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
             raise Exception("Property Type could not be resolved", property.type)
         
         if (property_node.filespace == node.filespace):
-            return f"'{property.type}'"
+            tree_property.type = f"'{property.type}'"
+            return tree_property
         
         temp = property_node
         while temp.parent.filespace == property_node.filespace:
@@ -249,7 +257,9 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
         unique_name = unique_name.replace(".", "_")
 
         descriptor.add_type(temp.name, unique_name)
-        return f"'{unique_name}'"
+        tree_property.import_descriptor = descriptor
+        tree_property.type = f"'{unique_name}'"
+        return tree_property
     else:
         
         sibling_nodes = tree.get_nodes_with_filespace(node.filespace)
@@ -257,18 +267,23 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
             if sibling_node.has_child(property.type):
                 if sibling_node.parent.name == node.parent.name:
                     #true siblings
-                    return f"'{property.type}'"
+                    tree_property.type = f"'{property.type}'"
+                    return tree_property
                 else:
-                    return f"'{sibling_node.name}.{property.type}'"
+                    tree_property.type = f"'{sibling_node.name}.{property.type}'"
+                    return tree_property
             elif sibling_node.name == property.type:
-                return f"'{property.type}'"
+                tree_property.type = f"'{property.type}'"
+                return tree_property
         for descriptor in import_descriptors:
             # Search for direct imports first
             descriptor_file_node = tree.search(descriptor.file)
             if descriptor_file_node:
                 if descriptor_file_node.name == property.type:
                     descriptor.add_type(property.type, "")
-                    return f"'{property.type}'"
+                    tree_property.import_descriptor = descriptor
+                    tree_property.type = f"'{property.type}'"
+                    return tree_property
         for descriptor in import_descriptors:
             # Search for imports with the same filespace
             descriptor_file_nodes = tree.get_nodes_with_filespace(descriptor.file)
@@ -277,10 +292,14 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
                     continue
                 elif descriptor_node.name == property.type:
                     descriptor.add_type(property.type, "")
-                    return f"'{property.type}'"
+                    tree_property.import_descriptor = descriptor
+                    tree_property.type = f"'{property.type}'"
+                    return tree_property
                 elif descriptor_node.has_child(property.type):
                     descriptor.add_type(property.type, "")
-                    return f"'{property.type}'"
+                    tree_property.import_descriptor = descriptor
+                    tree_property.type = f"'{property.type}'"
+                    return tree_property
                 
         
     raise Exception("Property Type could not be resolved", property.type)
@@ -290,8 +309,6 @@ def generate_class_code(current_node:TreeNode) -> str:
 
     if current_node.type == NodeType.Enum:
         return generate_enum_code(current_node) + "\n\n"
-
-    properties = current_node.properties
     
     class_code = f"class {current_node.name}:\n"
 
@@ -305,9 +322,9 @@ def generate_class_code(current_node:TreeNode) -> str:
     
     class_code += "    def __init__(self"
 
-    if properties:
+    if current_node.properties:
         # sort properties so optionals are last
-        properties = sorted(properties, key=lambda x: x.optional)
+        properties = sorted(current_node.properties, key=lambda x: x.optional)
         for prop in properties:
             
 
@@ -355,11 +372,11 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
     service_code = f"class {name}:\n"
     
     service_code += add_indents(current_node.comment, 1)
-    service_code += "    def __init__(self"
+    service_code += "    def __init__(self):\n"
     service_code += "        pass\n"
     
     for procedure in current_node.procedures:
-        service_code += procedure.comment
+        
         name = procedure.name
 
         request_node = tree.search(procedure.request)
@@ -372,11 +389,31 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                method_name += "_"
             method_name += c.lower()
        
-       
-       # Add the descriptor type so that it can be imported
-       # assert descriptor != None, f"Descriptor not found for {name}"
-       # descriptor.add_type(name, "")
+        service_code += f"    def {method_name}(self"
+        # loop over all the properties from the request node to get the input node
+        
+        method_properties = []
+        for prop in request_node.properties:
+            if prop.name == "Input":
+                if prop.import_descriptor != None:
+                    input_node = tree.search(prop.import_descriptor.file)
+                    print(f"Found input node: {prop.type}")
+                    for input_prop in input_node.properties:
+                        method_properties.append(input_prop)
+                else:
+                    method_properties.append(prop)
+        
+        for prop in method_properties:
+            service_code += f", {prop.name}:{prop.type}"
+            if prop.import_descriptor != None:
+                current_node.imports.append(prop.import_descriptor)
 
+        service_code += f"):\n"
+        service_code += add_indents(procedure.comment,2)
+        service_code += f"        {method_name}_request = {request_node.name}(\n"
+        for prop in request_node.properties:
+            service_code += f"            {prop.name}={prop.name},\n"
+        service_code += "        )\n"
         # Get the tree for the file
         # parent_node = tree.search(descriptor.file)
         # request_node = parent_node.get_child("Request")

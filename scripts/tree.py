@@ -2,12 +2,13 @@ from enum import Enum
 from typing import List, Dict
 
 class TreeProperty:
-    def __init__(self, type_: str, name: str, optional: bool, comment: str, repeated) -> None:
+    def __init__(self, type_: str, name: str, optional: bool, comment: str, repeated: bool, import_descriptor = None) -> None:
         self.type: str = type_
         self.name: str = name
         self.optional: bool = optional
         self.repeated: bool = repeated
         self.comment: str = comment
+        self.import_descriptor: ImportDescriptor = import_descriptor
 
 class TreeProcedure:
     def __init__(self, name: str, request: str, response: str, comment: str) -> None:
