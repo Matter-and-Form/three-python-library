@@ -53,17 +53,17 @@ def generate_python_code(output_dir: str, tree:Tree) -> set:
             imports.update(node.imports)
         
         import_lines = generate_import_lines(imports)
-
-        # Generate code for Services
-        service_code = ""
-        # for service in services:
-        #     code = generate_service_code(service, tree, file_node, importDescs)
-        #     service_code += code + "\n\n"
-
+      
         # Generate code for messages
         class_code = ""
+        service_code = ""
+
+        class_code = ""
         for node in branch:
-            class_code += generate_class_code(node) + "\n\n"
+            if node.type == NodeType.Class:
+                class_code += generate_class_code(node) + "\n\n"
+            elif node.type == NodeType.Service:
+                service_code += generate_service_code(node, tree) + "\n\n"
         
         # Combine imports, message code, and enum code
         combined_code = import_lines + "\n\n" + class_code + "\n\n" + service_code
@@ -120,7 +120,7 @@ def get_tree(proto_objects: List)-> Tree:
 
     # We need to go through the proto_objects twice. 
     # First to build the base tree
-    # Then to to add the properties to the objects in the tree (self referencing)
+   
     for obj in proto_objects:
         namespace = obj['namespace']
         imports = obj['imports']
@@ -152,7 +152,8 @@ def get_tree(proto_objects: List)-> Tree:
             node.type = NodeType.Service
             node.imports = importDescs
             node.comment = parseComment(service.comment)
-        
+
+    # Then Loop again to to add the properties to the objects in the tree (self referencing)     
     for obj in proto_objects:
         namespace = obj['namespace']
         for msg in obj['messages']:
@@ -166,6 +167,32 @@ def get_tree(proto_objects: List)-> Tree:
                     parse_message_props(nested)
 
             parse_message_props(msg)
+        for service in obj['services']:
+            service_path = f"{namespace}.{service.name}"
+            node = tree.search(service_path)
+            for procedure in service.procedures:
+                # Remove only the last word from procedure.request and procedure.response
+                request_base = procedure.request.rsplit('.', 1)[0]
+                response_base = procedure.response.rsplit('.', 1)[0]
+
+                import_descriptor_request = get_descriptor_by_partial_name(request_base, node.imports)
+                import_descriptor_response = get_descriptor_by_partial_name(response_base, node.imports)
+                # Check if the import descriptor is found and throw a message if not
+                assert import_descriptor_request != None, f"Descriptor not found for {procedure.request}"
+                assert import_descriptor_response != None, f"Descriptor not found for {procedure.response}"
+
+                request_node = tree.search(import_descriptor_request.file)
+                response_node = tree.search(import_descriptor_response.file)
+
+                # Check if the nodes are valid
+                assert request_node != None, f"Node not found for {procedure.request}"
+                assert response_node != None, f"Node not found for {procedure.response}"
+
+                assert request_node.has_child("Request"), f"Request node not found for {procedure.request}"
+                assert response_node.has_child("Response"), f"Response node not found for {procedure.response}"
+
+                # Add the procedure
+                node.add_procedure(procedure.name, request_node.get_path(), response_node.get_path(), parseComment(procedure.comment))
     return tree
 
 def parseComment(comment: str) -> str:
@@ -191,8 +218,6 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
         return type_mapping.get(property.type, property.type)
     
     property_type_parts = property.type.split('.')
-    # if property.type == "Settings.Export" and node.filespace == "MF.V3.Tasks.ExportMerge":
-    #     print("Debug")
     
     if len(property_type_parts) > 1:
         # Combine message_namespace with property type
@@ -268,9 +293,9 @@ def generate_class_code(current_node:TreeNode) -> str:
 
     properties = current_node.properties
     
-    class_code = current_node.comment
-    
-    class_code += f"class {current_node.name}:\n"
+    class_code = f"class {current_node.name}:\n"
+
+    class_code += add_indents(current_node.comment,1)
 
     # Generate code for nested messages
     for child in current_node.children.values():
@@ -278,11 +303,11 @@ def generate_class_code(current_node:TreeNode) -> str:
         nested_class_code = add_indents(nested_class_code,1)
         class_code += f"\n{nested_class_code}\n"
     
+    class_code += "    def __init__(self"
+
     if properties:
         # sort properties so optionals are last
         properties = sorted(properties, key=lambda x: x.optional)
-
-        class_code += "    def __init__(self"
         for prop in properties:
             
 
@@ -307,7 +332,6 @@ def generate_class_code(current_node:TreeNode) -> str:
                 class_code += f"\n{add_indents(prop.comment,2)}"
             class_code += add_indents(f"self.{prop.name} = {prop.name}\n",2)
     else:
-        class_code += "    def __init__(self):\n"
         class_code += "        pass\n"
     
     return class_code
@@ -324,42 +348,45 @@ def generate_enum_code(enum:TreeNode) -> str:
         enum_code += f"    {name} = \"{value.name}\" {value.comment}\n"
     return enum_code
 
-def generate_service_code(service, tree: Tree, current_node:TreeNode, import_descriptors: List[ImportDescriptor]) -> str:
-    name = service.name
-    procedures = service.procedures
-    service_namespace = service.namespace
+def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
+    name = current_node.name
 
-    class_code = service.comment
-    class_code += f"class {name}:\n"
-    for procedure in procedures:
-        comment = procedure.comment
+    
+    service_code = f"class {name}:\n"
+    
+    service_code += add_indents(current_node.comment, 1)
+    service_code += "    def __init__(self"
+    service_code += "        pass\n"
+    
+    for procedure in current_node.procedures:
+        service_code += procedure.comment
         name = procedure.name
-        request = procedure.request
-        response = procedure.response
 
-        descriptor = get_descriptor_by_partial_name(name, import_descriptors, tree)
+        request_node = tree.search(procedure.request)
+        response_node = tree.search(procedure.response)
+
         # create a method name from the name value, by adding underscores between camel case
         method_name = ""
         for i, c in enumerate(name):
             if c.isupper() and i != 0:
-                method_name += "_"
+               method_name += "_"
             method_name += c.lower()
-        class_code += comment
-        
-        # Add the descriptor type so that it can be imported
-        assert descriptor != None, f"Descriptor not found for {name}"
-        descriptor.add_type(name, "")
+       
+       
+       # Add the descriptor type so that it can be imported
+       # assert descriptor != None, f"Descriptor not found for {name}"
+       # descriptor.add_type(name, "")
 
         # Get the tree for the file
-        parent_node = tree.search(descriptor.file)
-        request_node = parent_node.get_child("Request")
-        response_node = parent_node.get_child("Response")
+        # parent_node = tree.search(descriptor.file)
+        # request_node = parent_node.get_child("Request")
+        # response_node = parent_node.get_child("Response")
         
-        if request == None:
-            request = "Empty"
+        # if request == None:
+        #     request = "Empty"
 
         
-    return class_code
+    return service_code
 
 def generate_init_files(paths: set, tree: Tree, output_dir: str):
     for path in paths:

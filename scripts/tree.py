@@ -9,6 +9,13 @@ class TreeProperty:
         self.repeated: bool = repeated
         self.comment: str = comment
 
+class TreeProcedure:
+    def __init__(self, name: str, request: str, response: str, comment: str) -> None:
+        self.name: str = name
+        self.request: str = request
+        self.response: str = response
+        self.comment: str = comment
+
 class NodeType(Enum):
     Class = "Class"
     Enum = "Enum"
@@ -22,6 +29,7 @@ class TreeNode:
         self.parent = parent
         self.children = {}
         self.properties = []
+        self.procedures = []
         self.imports = []
         self.filespace = filespace
         self.comment = None
@@ -31,6 +39,9 @@ class TreeNode:
     
     def add_property(self, type_: str, name: str, optional: bool, comment: str, repeated: bool) -> None:
         self.properties.append(TreeProperty(type_, name, optional, comment, repeated))
+    
+    def add_procedure(self, name: str, request: str, response: str, comment: str) -> None:
+        self.procedures.append(TreeProcedure(name, request, response, comment))
     
     def add_import(self, import_path: str):
         self.imports.append(ImportDescriptor(import_path))
@@ -175,10 +186,11 @@ def get_descriptor_by_name(name: str, descriptors: List[dict]) -> ImportDescript
             return descriptor
     return None
 
-def get_descriptor_by_partial_name(name, import_descriptors, tree) -> ImportDescriptor:
+def get_descriptor_by_partial_name(name, import_descriptors) -> ImportDescriptor:
     for descriptor in import_descriptors:
-        descriptor_file_nodes = tree.get_nodes_with_filespace(descriptor.file)
-        for descriptor_node in descriptor_file_nodes:
-            if descriptor_node.name == name:
-                return descriptor
+        # replace any . in name with /
+        nameAsPath = name.replace('.', '/')
+        # match nameAsPath against the last part of descriptor.file
+        if descriptor.file.endswith(nameAsPath):
+            return descriptor
     return None
