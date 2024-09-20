@@ -28,73 +28,50 @@ type_mapping = {
 }
 
 
-def generate_python_code(proto_objects: List, output_dir: str, tree:Tree) -> set:
+def generate_python_code(output_dir: str, tree:Tree) -> set:
     # create a unique set of paths
     paths = set()
       
     branches = tree.get_branches_by_filespace()
     
-    for branch in branches.values():
-        # First get imports
-        imports = set()
-        for node in branch:
-            imports.update(node.imports)
-        
-        code = generate_import_lines(imports)
+    for key, branch in branches.items():
 
+        # Get the file path
+        file_path = os.path.join(output_dir, key.replace(".", "/") + ".py")
+        path =  os.path.dirname(file_path)
 
-    for obj in proto_objects:
-        print(f"Parsing file: {obj['filename']}")
-                
-        file_node = tree.search(obj['namespace'])
-
-        # Access namespace, imports, messages, enums from the dictionary obj
-        #namespace = obj['namespace']
-        imports = obj['imports']
-        messages = obj['messages']
-        file_path = obj['filename']
-        namespace = obj['namespace']
-        services = obj['services']
-
-        # Get the base path of the file
-        path = os.path.join(output_dir, os.path.dirname(file_path))
-
-        # Get the filename without the extension
-        filename = os.path.basename(file_path).replace('.proto', '')
-        
+        print(f"Parsing file: {file_path}")
+                       
         # Create the directory if it doesn't exist
         os.makedirs(path, exist_ok=True)
         # Add the path to a unique set
         paths.add(path)
+
+        # Get imports
+        imports = set()
+        for node in branch:
+            imports.update(node.imports)
         
-        # Generate imports paths for parsing
-        importDescs = get_imports(imports)
+        import_lines = generate_import_lines(imports)
 
         # Generate code for Services
         service_code = ""
         # for service in services:
         #     code = generate_service_code(service, tree, file_node, importDescs)
         #     service_code += code + "\n\n"
-            
 
         # Generate code for messages
-        message_code = ""
-        for message in messages:
-            current_node = file_node.get_child(message.name)
-            code = generate_class_code(tree, current_node, importDescs)
-            message_code += code + "\n\n"
-
-        # Generate imports another time to get the final output of imports
-        import_lines = generate_import_lines(importDescs)
-
+        class_code = ""
+        for node in branch:
+            class_code += generate_class_code(node) + "\n\n"
+        
         # Combine imports, message code, and enum code
-        combined_code = import_lines + "\n\n" + message_code + "\n\n" + service_code
+        combined_code = import_lines + "\n\n" + class_code + "\n\n" + service_code
 
         # Write the combined code to a file with the name from the file_path
-        filename = os.path.join(path, f"{filename}.py")
-        with open(filename, 'w') as f:
+        with open(file_path, 'w') as f:
             f.write(combined_code)
-        
+
     return paths
 
 
@@ -284,7 +261,7 @@ def get_property_type(property, tree: Tree, node:TreeNode, import_descriptors: L
     raise Exception("Property Type could not be resolved", property.type)
     
 
-def generate_class_code(tree: Tree, current_node:TreeNode, import_descriptors: List[ImportDescriptor]) -> str:
+def generate_class_code(current_node:TreeNode) -> str:
 
     if current_node.type == NodeType.Enum:
         return generate_enum_code(current_node) + "\n\n"
@@ -297,7 +274,7 @@ def generate_class_code(tree: Tree, current_node:TreeNode, import_descriptors: L
 
     # Generate code for nested messages
     for child in current_node.children.values():
-        nested_class_code = generate_class_code(tree, child, import_descriptors)
+        nested_class_code = generate_class_code(child)
         nested_class_code = add_indents(nested_class_code,1)
         class_code += f"\n{nested_class_code}\n"
     
@@ -312,10 +289,10 @@ def generate_class_code(tree: Tree, current_node:TreeNode, import_descriptors: L
             # handle repeated
             if prop.repeated:
                 # Get importDescriptor for List "typing"
-                descriptor = get_descriptor_by_name("typing", import_descriptors)
+                descriptor = get_descriptor_by_name("typing", current_node.imports)
                 if descriptor == None:
                     descriptor = ImportDescriptor("typing")
-                    import_descriptors.append(descriptor)
+                    current_node.imports.append(descriptor)
                 descriptor.add_type("List", "")
                 class_code += f", {prop.name}:List[{prop.type}]"
             else:
@@ -419,7 +396,7 @@ def main():
 
     proto_objects = create_proto_objects(args.input_dir)
     tree= get_tree(proto_objects)
-    paths = generate_python_code(proto_objects, args.output_dir, tree)
+    paths = generate_python_code(args.output_dir, tree)
     generate_init_files(paths, tree, args.output_dir)
 
     exit(0)
