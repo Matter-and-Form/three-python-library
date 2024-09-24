@@ -2,13 +2,14 @@ from enum import Enum
 from typing import List, Dict
 
 class TreeProperty:
-    def __init__(self, type_: str, name: str, optional: bool, comment: str, repeated: bool, import_descriptor = None) -> None:
+    def __init__(self, type_: str, name: str, optional: bool, comment: str, repeated: bool, import_descriptor:'ImportDescriptor') -> None:
         self.type: str = type_
         self.name: str = name
         self.optional: bool = optional
         self.repeated: bool = repeated
         self.comment: str = comment
         self.import_descriptor: ImportDescriptor = import_descriptor
+
 
 class TreeProcedure:
     def __init__(self, name: str, request: str, response: str, comment: str) -> None:
@@ -43,9 +44,6 @@ class TreeNode:
     
     def add_procedure(self, name: str, request: str, response: str, comment: str) -> None:
         self.procedures.append(TreeProcedure(name, request, response, comment))
-    
-    def add_import(self, import_path: str):
-        self.imports.append(ImportDescriptor(import_path))
 
     def get_child(self, name: str):
         parts = name.split('.')
@@ -171,26 +169,15 @@ class Tree:
         return branch_nodes
     
 class ImportDescriptor:
-    def __init__(self, file:str):
+    def __init__(self, file:str, type:str, replacement:str):
         self.file = file
-        self.types: List[dict[str,str]] = []
-    def add_type(self, type:str, replacement:str):
-        # Check to see if the type is already in the list
-        for t in self.types:
-            if t["type"] == type:
-                return
-        self.types.append({"type":type, "replacement":replacement})
+        self.type = type
+        self.replacement = replacement
 
-def get_descriptor_by_name(name: str, descriptors: List[dict]) -> ImportDescriptor:
-    for descriptor in descriptors:
-        if descriptor.file == name:
-            return descriptor
-    return None
-
-def get_descriptor_by_partial_name(name, import_descriptors) -> ImportDescriptor:
+def get_descriptor_by_partial_filename(filename, import_descriptors) -> ImportDescriptor:
     for descriptor in import_descriptors:
         # replace any . in name with /
-        nameAsPath = name.replace('.', '/')
+        nameAsPath = filename.replace('.', '/')
         # match nameAsPath against the last part of descriptor.file
         if descriptor.file.endswith(nameAsPath):
             return descriptor
