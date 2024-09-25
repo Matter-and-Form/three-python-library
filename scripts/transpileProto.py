@@ -71,7 +71,7 @@ def generate_python_code(output_dir: str, tree:Tree) -> set:
         # Get imports    
         imports = get_imports_from_nodes(branch)
         
-        import_lines = generate_import_lines(imports)
+        import_lines = generate_import_lines(imports, branch[0].filespace)
 
         # Combine imports, message code, and enum code
         combined_code = import_lines + "\n\n" + class_code + "\n\n" + service_code
@@ -124,7 +124,6 @@ def get_imports_from_nodes(nodes:List[TreeNode]) -> Dict[str, List[ImportDescrip
     # Convert the dictionary to a list of lists
     unique_imports = list(grouped_imports.values())
     
-    
     return unique_imports
 
 class ImportList:
@@ -133,13 +132,15 @@ class ImportList:
         self.types:List[Dict[str,str]] = []
 
 
-def generate_import_lines(descriptorsLists:Dict[str, List[ImportDescriptor]]) -> str:
+def generate_import_lines(descriptorsLists:Dict[str, List[ImportDescriptor]], file_path:str) -> str:
     import_lines = []
     
     ImportListArray = []
     for combined in descriptorsLists:    
         importList = ImportList()
         importList.file = combined[0].file
+        if (importList.file == file_path):
+            continue
         for descriptor in combined:
             importList.types.append({"type":descriptor.type, "replacement":descriptor.replacement})
         ImportListArray.append(importList)
@@ -161,6 +162,7 @@ def generate_import_lines(descriptorsLists:Dict[str, List[ImportDescriptor]]) ->
                 continue
             types[imp["type"]] = imp["replacement"]
         
+        # If there are no types, just import the file
         if not types:
             import_lines.append(f"import {importList.file}")
             continue
@@ -171,7 +173,7 @@ def generate_import_lines(descriptorsLists:Dict[str, List[ImportDescriptor]]) ->
                 import_line += ", "
             import_line += f"{t}"
             if replacement != "":
-                import_line += f" as {descriptor.replacement}"
+                import_line += f" as {replacement}"
         import_lines.append(import_line)
 
     return "\n".join(import_lines)
@@ -281,7 +283,7 @@ def add_indents(code: str, indent: int) -> str:
 def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> TreeProperty:
     
     tree_property = TreeProperty(property.type, property.name, property.optional, parseComment(property.comment), property.repeated, None)
-    if node.filespace == "MF.V3.Tasks.ListNetworkInterfaces" and node.name == "Response": 
+    if node.filespace == "MF.V3.Descriptors.System" and node.name == "Package" and property.name == "name": 
         print("debug")
 
     # 1 Check to see if property is a python type
@@ -296,6 +298,11 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
     direct_node = tree.search(property.type)
     if (direct_node):
         import_descriptor.file = direct_node.filespace
+        relative_path = direct_node.get_relative_path_from_filespace()
+        import_descriptor.type = relative_path if relative_path != "" else direct_node.name
+        import_descriptor.type = import_descriptor.type.split(".")[0]
+        # if import_descriptor.file != node.filespace:
+        tree_property.type = relative_path
         return tree_property
 
     # 3 Check to see if the property type is in this file (get root node)
@@ -312,6 +319,7 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
             import_descriptor.file = property_node.filespace
             relative_path = property_node.get_relative_path_from_filespace()
             import_descriptor.type = relative_path if relative_path != "" else property_node.name
+            tree_property.type = import_descriptor.type
             if import_descriptor.file != node.filespace:
                 # replace all . with _ in the type
                 import_descriptor.replacement = property_node.get_path().replace(".", "_")
@@ -535,7 +543,7 @@ def run_flake8(file_path):
 def check_files(directory):
     for root, _, files in os.walk(directory):
         for file in files:
-            if file.endswith('.py'):
+            if file.endswith('.py') and file != '__init__.py':
                 filepath = os.path.join(root, file)
                 # print(f"Running flake8 on {filepath}...")
                 flake8_output = run_flake8(filepath)
@@ -562,7 +570,7 @@ def main():
     paths = generate_python_code(args.output_dir, tree)
     generate_init_files(paths, tree, args.output_dir)
 
-    # check_files(args.output_dir)
+    check_files(args.output_dir+"/MF/V3/")
 
 
     exit(0)
