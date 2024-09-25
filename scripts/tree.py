@@ -80,10 +80,20 @@ class TreeNode:
                 break
             path.append(current_node.name)
             current_node = current_node.parent
-        if current_node:
-            path.append(current_node.name)
         return '.'.join(reversed(path))
     
+    def get_relative_path_from_filespace(self):
+        path = []
+        current_node = self
+        while current_node:
+            if current_node.name == "root":
+                break
+            if current_node.filespace == None:
+                break
+            path.append(current_node.name)
+            current_node = current_node.parent
+        return '.'.join(reversed(path))
+
     def get_first_parent_with_name(self, name: str):
         # Break the name into parts
         top_name = name.split('.')[0]

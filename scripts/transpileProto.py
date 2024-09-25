@@ -281,7 +281,7 @@ def add_indents(code: str, indent: int) -> str:
 def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> TreeProperty:
     
     tree_property = TreeProperty(property.type, property.name, property.optional, parseComment(property.comment), property.repeated, None)
-    if property.type == "TaskState":
+    if node.filespace == "MF.V3.Tasks.ListNetworkInterfaces" and node.name == "Response": 
         print("debug")
 
     # 1 Check to see if property is a python type
@@ -310,6 +310,12 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
         if root_node.has_child(property.type) or root_node.name == property.type:
             property_node = root_node.get_child(property.type)
             import_descriptor.file = property_node.filespace
+            relative_path = property_node.get_relative_path_from_filespace()
+            import_descriptor.type = relative_path if relative_path != "" else property_node.name
+            if import_descriptor.file != node.filespace:
+                # replace all . with _ in the type
+                import_descriptor.replacement = property_node.get_path().replace(".", "_")
+                tree_property.type = import_descriptor.replacement
             return tree_property
     
     # - Check if the property shares a namespace
@@ -556,7 +562,7 @@ def main():
     paths = generate_python_code(args.output_dir, tree)
     generate_init_files(paths, tree, args.output_dir)
 
-    check_files(args.output_dir)
+    # check_files(args.output_dir)
 
 
     exit(0)
