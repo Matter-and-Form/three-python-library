@@ -39,6 +39,12 @@ python_types = [
     
 
 def generate_python_code(output_dir: str, tree:Tree) -> set:
+    """
+    Generate Python code from the tree structure.
+    This method looks at messages, enums, and services and generates Python code for them.
+    Then produces the imports for the files
+    Then finally writes the code to the files.
+    """
     # create a unique set of paths
     paths = set()
       
@@ -82,23 +88,11 @@ def generate_python_code(output_dir: str, tree:Tree) -> set:
 
     return paths
 
-def get_imports(imports: List[str]) -> List[ImportDescriptor]:
-    module_parts_list:List[ImportDescriptor] = []
-
-    for imp in imports:
-        # Split the import path into parts
-        module_path = os.path.splitext(imp.replace('/', '.'))[0]
-        # Check module_parts_list for existing module by filename
-        foundModule = None
-        for module in module_parts_list:
-            if module.file == module_path:
-                foundModule = module
-                break
-        if foundModule == None:
-            module_parts_list.append(ImportDescriptor(module_path, "", ""))
-    return module_parts_list
-
 def get_imports_from_nodes(nodes:List[TreeNode]) -> Dict[str, List[ImportDescriptor]]:
+    """
+    Get the import descriptors from a list of nodes.
+    This will also create base descriptors for the properties
+    """
     imports = []
     for node in nodes:
         def nested_imports(node) -> List[ImportDescriptor]:
@@ -133,6 +127,9 @@ class ImportList:
 
 
 def generate_import_lines(descriptorsLists:Dict[str, List[ImportDescriptor]], file_path:str) -> str:
+    """
+    Generate import lines from a list of import descriptors.
+    """
     import_lines = []
     
     ImportListArray = []
@@ -178,20 +175,43 @@ def generate_import_lines(descriptorsLists:Dict[str, List[ImportDescriptor]], fi
 
     return "\n".join(import_lines)
 
+
+def get_imports(imports: List[str]) -> List[ImportDescriptor]:
+    """
+    Get the import descriptors from a list of import paths.
+    This is the first step in linking the properties in the tree. 
+    """
+    module_parts_list:List[ImportDescriptor] = []
+
+    for imp in imports:
+        # Split the import path into parts
+        module_path = os.path.splitext(imp.replace('/', '.'))[0]
+        # Check module_parts_list for existing module by filename
+        foundModule = None
+        for module in module_parts_list:
+            if module.file == module_path:
+                foundModule = module
+                break
+        if foundModule == None:
+            module_parts_list.append(ImportDescriptor(module_path, "", ""))
+    return module_parts_list
+
 def get_tree(proto_objects: List)-> Tree:
+    """ 
+    Get's the tree structure of the proto objects
+    We use this for a proper reference to the objects that are created afterwards
+    """
+
     tree = Tree()
 
-    # We need to go through the proto_objects twice. 
-    # First to build the base tree
-   
+    # We need to go through the proto_objects twice to build the tree properly. 
+    # First to build the base tree without properties
     for obj in proto_objects:
         namespace = obj['namespace']
         imports = obj['imports']
         importDescs = get_imports(imports)
         filespace = obj['filename'].replace('/', '.').replace('.proto', '')
         
-        if obj['filename'] == "MF/V3/Descriptors/ProjectActions.proto":
-            print("Debug")
         for msg in obj['messages']:
             
             def get_nested_messages(message, nested_name_space):   
@@ -224,8 +244,6 @@ def get_tree(proto_objects: List)-> Tree:
                 message.path = f"{namespace}.{message.parent + '.' if message.parent else ''}{message.name}"
                 node = tree.search(message.path)
                 for prop in message.properties:
-                    if node.filespace == "MF.V3.Tasks.DownloadProject" and node.name == "Response" and prop.name == "State":
-                        print("debug")
                     property = get_property(prop, tree, node, namespace)
                     node.properties.append(property)
                 for nested in message.nested_messages:
@@ -253,7 +271,7 @@ def get_tree(proto_objects: List)-> Tree:
                 request_node = tree.search(import_descriptor_request.file)
                 response_node = tree.search(import_descriptor_response.file)
 
-                # Check if the nodes are valid
+                # Check if the nodes are valid. Otherwise we're making some big assumptions
                 assert request_node != None, f"Node not found for {procedure.request}"
                 assert response_node != None, f"Node not found for {procedure.response}"
 
@@ -265,6 +283,9 @@ def get_tree(proto_objects: List)-> Tree:
     return tree
 
 def parseComment(comment: str) -> str:
+    """
+    Simply parse the comment and return it, wrapping multi lines or single lines appropriately
+    """
     if comment != "":
         if len(comment.split('\n')) > 1:
             class_code = f'"""{comment}"""\n'
@@ -277,24 +298,28 @@ def parseComment(comment: str) -> str:
     return class_code
 
 def add_indents(code: str, indent: int) -> str:
+    """
+    Add indents to the code
+    """
     # Indent the code by adding spaces if the line is not empty
     return "\n".join([f"{'    ' * indent}{line}" if line.strip() else line for line in code.split("\n")])
 
 def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> TreeProperty:
-    
+    """
+    Get the property from the property object. This is complicated as the property could be self referencing, part of the parent class, or from an external import
+    """
     tree_property = TreeProperty(property.type, property.name, property.optional, parseComment(property.comment), property.repeated, None)
-    if node.filespace == "MF.V3.Descriptors.System" and node.name == "Package" and property.name == "name": 
-        print("debug")
 
     # 1 Check to see if property is a python type
     if property.type in type_mapping:
         tree_property.type = type_mapping.get(property.type, property.type)
         return tree_property
         
-    # 2 Check to see if the property is directly accessible
+    
     import_descriptor = ImportDescriptor(node.filespace, property.type.split(".")[-1], "")
     tree_property.import_descriptor = import_descriptor
 
+    # 2 Check to see if the property is directly accessible
     direct_node = tree.search(property.type)
     if (direct_node):
         import_descriptor.file = direct_node.filespace
@@ -337,16 +362,16 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
     
 
 def generate_class_code(current_node:TreeNode) -> str:
-
+    """
+    Generate the class code for a node in the tree. This is recursive for children nodes.
+    """
     if current_node.type == NodeType.Enum:
         return generate_enum_code(current_node)
 
     class_code = f"class {current_node.name}:\n"
 
     class_code += add_indents(current_node.comment,1)
-    if current_node.name == "DownloadProject":
-        print("debug")
-
+    
     # Generate code for nested messages
     for child in current_node.children.values():
         nested_class_code = generate_class_code(child)
@@ -393,7 +418,10 @@ name_mapping = {
     "None": "Empty",
 }
 
-def generate_enum_code(enum:TreeNode) -> str:    
+def generate_enum_code(enum:TreeNode) -> str:
+    """
+    Generate the enum code for a node in the tree.
+    """
     enum_code = enum.comment
     enum_code += f"class {enum.name}(Enum):\n"
     for value in enum.properties:
@@ -403,6 +431,9 @@ def generate_enum_code(enum:TreeNode) -> str:
 
 
 def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
+    """
+    Generate the service code for a node in the tree.
+    """
     name = current_node.name
 
     
@@ -415,9 +446,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
     service_code += "        pass\n"
     
     for procedure in current_node.procedures:
-        if procedure.name == "update_settings":
-            print("Debug")
-
+        
         request_node = tree.search(procedure.request)
         response_node = tree.search(procedure.response)
 
@@ -493,6 +522,9 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
     return service_code
 
 def generate_init_files(paths: set, tree: Tree, output_dir: str):
+    """
+    Generates init files for use when accessing the classes and enums as a package
+    """
     for path in paths:
         init_file = os.path.join(path, "__init__.py")
         
@@ -512,6 +544,8 @@ def generate_init_files(paths: set, tree: Tree, output_dir: str):
             for import_path in imports:
                 f.write(f"from {import_path} import * \n")
 
+
+# Checking files for consistency after building
 def check_undefined_names(file_path):
     with open(file_path, 'r') as file:
         tree = ast.parse(file.read(), filename=file_path)
@@ -571,7 +605,6 @@ def main():
     generate_init_files(paths, tree, args.output_dir)
 
     check_files(args.output_dir+"/MF/V3/")
-
 
     exit(0)
 
