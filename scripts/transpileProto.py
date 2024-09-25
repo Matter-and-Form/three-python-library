@@ -127,34 +127,52 @@ def get_imports_from_nodes(nodes:List[TreeNode]) -> Dict[str, List[ImportDescrip
     
     return unique_imports
 
+class ImportList:
+    def __init__(self):
+        self.file:str = ""
+        self.types:List[Dict[str,str]] = []
+
+
 def generate_import_lines(descriptorsLists:Dict[str, List[ImportDescriptor]]) -> str:
     import_lines = []
     
-    for descriptors in descriptorsLists:    
-        for combined in descriptors.values():
-            # If single import, then just add the import line
-            # otherwise let's put them all on one line
+    ImportListArray = []
+    for combined in descriptorsLists:    
+        importList = ImportList()
+        importList.file = combined[0].file
+        for descriptor in combined:
+            importList.types.append({"type":descriptor.type, "replacement":descriptor.replacement})
+        ImportListArray.append(importList)
 
-            for descriptor in combined:
-                # Split the import path into parts
-                module_path = descriptor.file
-                module_parts = module_path.split('.')
-                module_name = module_parts[-1]
-                
-                # Special consideration for google imports and enum
-                if "google" in module_parts:
-                    import_lines.append(f"from {'.'.join(module_parts[:-1])} import {module_name}_pb2 as _{module_name}_pb2")
-                elif module_path ==  "enum":
-                    import_lines.append(f"from enum import Enum")
-                else:
-                    # Go through all the types in the descriptor and add them to the import line
-                    if descriptor.type == "":
-                        import_line = f"import {'.'.join(module_parts[:])}"
-                    else:
-                        import_line = f"from {'.'.join(module_parts[:])} import {descriptor.type}"
-                        if descriptor.replacement != "":
-                            import_line += f" as {descriptor.replacement}"
-                    import_lines.append(import_line)
+    for importList in ImportListArray:
+
+        if importList.file == "enum":
+            import_lines.append(f"from enum import Enum")
+            continue
+        if "google" in importList.file:
+            split = importList.file.split('.')
+            import_lines.append(f"from {'.'.join(split[:-1])} import {split[-1]}_pb2 as _{split[-1]}_pb2")
+            continue
+
+        # remove duplicates from types
+        types = {}
+        for imp in importList.types:
+            if imp["type"] == "":
+                continue
+            types[imp["type"]] = imp["replacement"]
+        
+        if not types:
+            import_lines.append(f"import {importList.file}")
+            continue
+
+        import_line = f"from {importList.file} import "
+        for i, (t, replacement) in enumerate(types.items()):
+            if i > 0:
+                import_line += ", "
+            import_line += f"{t}"
+            if replacement != "":
+                import_line += f" as {descriptor.replacement}"
+        import_lines.append(import_line)
 
     return "\n".join(import_lines)
 
@@ -272,7 +290,7 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
         return tree_property
         
     # 2 Check to see if the property is directly accessible
-    import_descriptor = ImportDescriptor(node.filespace, property.type.split(".")[0], "")
+    import_descriptor = ImportDescriptor(node.filespace, property.type.split(".")[-1], "")
     tree_property.import_descriptor = import_descriptor
 
     direct_node = tree.search(property.type)
