@@ -12,11 +12,13 @@ class TreeProperty:
 
 
 class TreeProcedure:
-    def __init__(self, name: str, request: str, response: str, comment: str) -> None:
+    def __init__(self, name: str, request: 'TreeNode', response: 'TreeNode', comment: str, request_import: 'ImportDescriptor', response_import: 'ImportDescriptor') -> None:
         self.name: str = name
         self.request: str = request
         self.response: str = response
         self.comment: str = comment
+        self.request_import: ImportDescriptor = request_import
+        self.response_import: ImportDescriptor = response_import
 
 class NodeType(Enum):
     Class = "Class"
@@ -42,8 +44,8 @@ class TreeNode:
     def add_property(self, type_: str, name: str, optional: bool, comment: str, repeated: bool) -> None:
         self.properties.append(TreeProperty(type_, name, optional, comment, repeated))
     
-    def add_procedure(self, name: str, request: str, response: str, comment: str) -> None:
-        self.procedures.append(TreeProcedure(name, request, response, comment))
+    def add_procedure(self, name: str, request: 'TreeNode', response: 'TreeNode', comment: str, request_import: 'ImportDescriptor', response_import: 'ImportDescriptor') -> None:
+        self.procedures.append(TreeProcedure(name, request, response, comment, request_import, response_import))
 
     def get_child(self, name: str):
         parts = name.split('.')
@@ -185,10 +187,10 @@ class ImportDescriptor:
         self.replacement = replacement
 
 def get_descriptor_by_partial_filename(filename, import_descriptors) -> ImportDescriptor:
+    
     for descriptor in import_descriptors:
-        # replace any . in name with /
-        nameAsPath = filename.replace('.', '/')
+        split_descriptor = descriptor.file.split('.')
         # match nameAsPath against the last part of descriptor.file
-        if descriptor.file.endswith(nameAsPath):
+        if split_descriptor[-1] == filename:
             return descriptor
     return None

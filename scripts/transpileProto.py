@@ -71,8 +71,8 @@ def generate_python_code(output_dir: str, tree:Tree) -> set:
         for node in branch:
             if node.type == NodeType.Class or node.type == NodeType.Enum:
                 class_code += generate_class_code(node) + "\n\n"
-            # elif node.type == NodeType.Service:
-            #     service_code += generate_service_code(node, tree) + "\n\n"
+            elif node.type == NodeType.Service:
+                service_code += generate_service_code(node, tree) + "\n\n"
         
         # Get imports    
         imports = get_imports_from_nodes(branch)
@@ -254,6 +254,7 @@ def get_tree(proto_objects: List)-> Tree:
             service_path = f"{namespace}.{service.name}"
             node = tree.search(service_path)
             for procedure in service.procedures:
+
                 # Remove only the last word from procedure.request and procedure.response
                 request_base = procedure.request.rsplit('.', 1)[0]
                 response_base = procedure.response.rsplit('.', 1)[0]
@@ -264,22 +265,22 @@ def get_tree(proto_objects: List)-> Tree:
                 # Check if the import descriptor is found and throw a message if not
                 assert import_descriptor_request != None, f"Descriptor not found for {procedure.request}"
                 assert import_descriptor_response != None, f"Descriptor not found for {procedure.response}"
-
-                node.imports.append(ImportDescriptor(import_descriptor_request.file, request_base, ""))
-                node.imports.append(ImportDescriptor(import_descriptor_response.file, response_base, ""))
                 
-                request_node = tree.search(import_descriptor_request.file)
-                response_node = tree.search(import_descriptor_response.file)
+                request_root_node = tree.search(import_descriptor_request.file)
+                response_root_node = tree.search(import_descriptor_response.file)
 
                 # Check if the nodes are valid. Otherwise we're making some big assumptions
-                assert request_node != None, f"Node not found for {procedure.request}"
-                assert response_node != None, f"Node not found for {procedure.response}"
+                assert request_root_node != None, f"Node not found for {procedure.request}"
+                assert response_root_node != None, f"Node not found for {procedure.response}"
 
-                assert request_node.has_child("Request"), f"Request node not found for {procedure.request}"
-                assert response_node.has_child("Response"), f"Response node not found for {procedure.response}"
+                request_node = request_root_node.get_child("Request")
+                response_node = response_root_node.get_child("Response")
+
+                assert request_node, f"Request node not found for {procedure.request}"
+                assert response_node, f"Response node not found for {procedure.response}"
 
                 # Add the procedure
-                node.add_procedure(procedure.name, request_node.get_child("Request").get_path(), response_node.get_child("Response").get_path(), parseComment(procedure.comment))
+                node.add_procedure(procedure.name, request_node, response_node, parseComment(procedure.comment), import_descriptor_request, import_descriptor_response)
     return tree
 
 def parseComment(comment: str) -> str:
@@ -347,7 +348,7 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
             tree_property.type = import_descriptor.type
             if import_descriptor.file != node.filespace:
                 # replace all . with _ in the type
-                import_descriptor.replacement = property_node.get_path().replace(".", "_")
+                import_descriptor.replacement = get_replacement_name(property_node)
                 tree_property.type = import_descriptor.replacement
             return tree_property
     
@@ -430,13 +431,16 @@ def generate_enum_code(enum:TreeNode) -> str:
     return enum_code
 
 
+def get_replacement_name(node:TreeNode) -> str:
+            replacement_name = node.get_path().replace(".", "_")
+            return replacement_name        
+
 def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
     """
     Generate the service code for a node in the tree.
     """
     name = current_node.name
 
-    
     service_code = f"class {name}:\n"
     
     service_code += add_indents("_index = 0\n", 1)
@@ -447,8 +451,8 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
     
     for procedure in current_node.procedures:
         
-        request_node = tree.search(procedure.request)
-        response_node = tree.search(procedure.response)
+        request_node = procedure.request
+        response_node = procedure.response
 
         # create a method name from the name value, by adding underscores between camel case
         method_name = ""
@@ -461,29 +465,52 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         # loop over all the properties from the request node to get the input node
         
         method_properties = []
-        
-        # Get the property that has the name Input
+        # Parse the request properties for convenience to the user
         for prop in request_node.properties:
             if prop.name == "Input":
                 if prop.import_descriptor != None:
-                    current_node.imports.append(prop.import_descriptor)
+                    # Get the input node from the tree
                     input_node = tree.search(prop.import_descriptor.file)
+
+                    # Create a new import descriptor because we're going to change the replacement name to avoid conflicts
+                    prop.import_descriptor.replacement = get_replacement_name(input_node);
+                    prop.type = prop.import_descriptor.replacement
+                    # Add the import descriptor to the current node imports
+                    current_node.imports.append(prop.import_descriptor)
+                    
+                    # Loop over the properties of the input node
+                    # We need to make the convenience call easier than just the Request itself
                     for input_prop in input_node.properties:
                         # Check if the input_prop.type is not a python type
-                        if input_prop.type not in python_types:
-                            if input_prop.import_descriptor == None:
-                                # Remove the single quotes and concat
-                                input_prop.type = f"{prop.type}.{input_prop.type}"
-                            else:
-                                # find the matching type in import descriptor
-                                t = [x for x in input_prop.import_descriptor.types if x['type'] == input_prop.type]
-                                # if (t[0]['replacement'] != ""):
-                                #     t[0]['repl']
-                        
-                        method_properties.append(input_prop)
+                        if input_prop.type in python_types:
+                            method_properties.append(input_prop)
+                            continue;
+                        if input_prop.import_descriptor == None:
+                            print("debug")
+                        if input_prop.import_descriptor != None and input_prop.import_descriptor.replacement == "":
+                            import_file_node = tree.search(input_prop.import_descriptor.file)
+                            import_node = import_file_node.get_child(input_prop.type)
+                            assert(import_node != None)
+                            relative_path = import_node.get_relative_path_from_filespace()
+                            replacement_name = get_replacement_name(import_file_node)
+                            new_descriptor = ImportDescriptor(import_node.filespace, relative_path.split(".")[0], replacement_name)
+                            
+                            #make a new property name by replacing the first part of the relative_path with replacement_name
+                            split_relative_path = relative_path.split(".")
+                            split_relative_path[0] = replacement_name
+                            new_property_name = ".".join(split_relative_path)
+                            
+                            prop = TreeProperty(new_property_name,input_prop.name, input_prop.optional, input_prop.comment, input_prop.repeated, new_descriptor)
+                            method_properties.append(prop)
+                            continue;
+                        else:
+
+                            method_properties.append(input_prop)
                 else:
                     method_properties.append(prop)
         
+        
+
         # Sort the properties so that optionals are last
         method_properties = sorted(method_properties, key=lambda x: x.optional)
 
@@ -496,29 +523,50 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
 
         service_code += f"):\n"
         service_code += add_indents(procedure.comment,2)
-        service_code += f"        {method_name}_request = {request_node.parent.name}.{request_node.name}(\n"
-        for prop in request_node.properties:
-            if prop.name == "Input":
-                service_code += f"            {prop.name}={prop.type}(\n"
-                for input_prop in method_properties:
-                    service_code += f"                {input_prop.name}={input_prop.name},\n"
-                service_code += "            ),\n"
-            elif prop.name == "Type":
-                service_code += f"            {prop.name}=\"{procedure.name}\",\n"
-            elif prop.name == "Index":
-                service_code += f"            {prop.name}=self._index,\n"
-            else:
-                service_code += f"            {prop.name}={prop.name},\n"
-        service_code += "        )\n"
-        # Get the tree for the file
-        # parent_node = tree.search(descriptor.file)
-        # request_node = parent_node.get_child("Request")
-        # response_node = parent_node.get_child("Response")
         
-        # if request == None:
-        #     request = "Empty"
 
+        def create_object_code(node:TreeNode, postfix:str)->str:
+            code = ""
+            # Get the request node from the tree
+            request_filespace_node = tree.search(node.filespace)
+            req_filespace_replacement_name = get_replacement_name(request_filespace_node)
+            
+            # Get the relative path of the request node
+            rel_path = node.get_relative_path_from_filespace()
+            # Replace the first part of the relative path with the replacement name
+            split_relative_request_path = rel_path.split(".")
+            split_relative_request_path[0] = req_filespace_replacement_name
+            new_request_property_name = ".".join(split_relative_request_path)
+            
+            # Update the node import_descriptor to have a replacement name
+            procedure.request_import.replacement = req_filespace_replacement_name
+            procedure.request_import.type = request_filespace_node.name
+
+            current_node.imports.append(procedure.request_import)
+
+            code += f"        {method_name}_{postfix} = {new_request_property_name}("
+            for i, prop in enumerate(node.properties):
+                if i>0:
+                    code += ","
+                code += "\n"
+                
+                if prop.name == "Input":
+                    code += f"            {prop.name}={prop.type}(\n"
+                    for input_prop in method_properties:
+                        code += f"                {input_prop.name}={input_prop.name},\n"
+                    code += "            )"
+                elif prop.name == "Type":
+                    code += f"            {prop.name}=\"{procedure.name}\""
+                elif prop.name == "Index":
+                    code += f"            {prop.name}=self._index"
+                else:
+                    code += f"            {prop.name}={prop.name}"
+            code += "\n        )\n"
+            return code
         
+        service_code += create_object_code(request_node, "request")
+        # service_code += create_object_code(response_node, "response")
+
     return service_code
 
 def generate_init_files(paths: set, tree: Tree, output_dir: str):
