@@ -470,8 +470,6 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
 
     service_code = f"class {name}:\n"
     
-    service_code += add_indents("_index = 0\n", 1)
-
     service_code += add_indents(current_node.comment, 1)
     service_code += "    def __init__(self):\n"
     service_code += "        pass\n"
@@ -521,6 +519,11 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                             assert(import_node != None)
                             relative_path = import_node.get_relative_path_from_filespace()
                             replacement_name = get_replacement_name(import_file_node.get_path())
+                            for imp in current_node.imports:
+                                if imp.file == import_node.filespace:
+                                    if imp.replacement != "":
+                                        replacement_name = imp.replacement
+                                
                             new_descriptor = ImportDescriptor(import_node.filespace, relative_path.split(".")[0], replacement_name)
                             
                             #make a new property name by replacing the first part of the relative_path with replacement_name
@@ -532,7 +535,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                             method_properties.append(prop)
                             continue;
                         else:
-
+                            assert(input_prop.import_descriptor != None) 
                             method_properties.append(input_prop)
                 else:
                     method_properties.append(prop)
@@ -555,20 +558,24 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
 
         def create_object_code(node:TreeNode, postfix:str, ignore_optionals:bool)->str:
             code = ""
-            # Get the request node from the tree
-            request_filespace_node = tree.search(node.filespace)
-            req_filespace_replacement_name = get_replacement_name(request_filespace_node.get_path())
+
+            if (procedure.name == "DepthMap"):
+                print("debug")
+            # Get the Request Or Response node from the tree
+            filespace_node = tree.search(node.filespace)
+            filespace_replacement_name = get_replacement_name(filespace_node.get_path())
             
-            # Get the relative path of the request node
+            # Get the relative path of the node
             rel_path = node.get_relative_path_from_filespace()
+
             # Replace the first part of the relative path with the replacement name
             split_relative_request_path = rel_path.split(".")
-            split_relative_request_path[0] = req_filespace_replacement_name
+            split_relative_request_path[0] = filespace_replacement_name
             new_request_property_name = ".".join(split_relative_request_path)
             
             # Update the node import_descriptor to have a replacement name
-            procedure.request_import.replacement = req_filespace_replacement_name
-            procedure.request_import.type = request_filespace_node.name
+            procedure.request_import.replacement = filespace_replacement_name
+            procedure.request_import.type = filespace_node.name
 
             current_node.imports.append(procedure.request_import)
 
@@ -591,9 +598,9 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                 elif prop.name == "Type":
                     code += f"            {prop.name}=\"{procedure.name}\""
                 elif prop.name == "Index":
-                    code += f"            {prop.name}=self._index"
+                    code += f"            {prop.name}=0"
                 else:
-                    code += f"            {prop.name}={prop.name}"
+                    code += f"            {prop.name}=None"
             code += "\n        )\n"
             return code
         

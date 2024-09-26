@@ -1,4 +1,5 @@
-from MF.V3.Tasks.SetProjector import SetProjector, Projector
+from MF.V3.Tasks.SetProjector import SetProjector
+from MF.V3.Settings.Projector import Projector
 from MF.V3 import Task
 from typing import List
 
