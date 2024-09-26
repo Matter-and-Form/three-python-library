@@ -406,9 +406,9 @@ def generate_class_code(current_node:TreeNode) -> str:
                 
                 descriptor = ImportDescriptor("typing", "List", "")
                 current_node.imports.append(descriptor)
-                class_code += f", {prop.name}:List[{prop_type}]"
+                class_code += f", {prop.name}: List[{prop_type}]"
             else:
-                class_code += f", {prop.name}:{prop_type}"
+                class_code += f", {prop.name}: {prop_type}"
             # handle optionals
             if prop.optional:
                 class_code += " = None"
@@ -631,7 +631,14 @@ def check_undefined_names(file_path):
 
 def run_flake8(file_path):
     result = subprocess.run(
-        ['flake8', '--select=E,F', file_path],
+        ['flake8', '--select=E,F', '--ignore=E501', file_path],
+        capture_output=True, text=True
+    )
+    return result.stdout
+
+def run_black(file_path):
+    result = subprocess.run(
+        ['black', file_path],
         capture_output=True, text=True
     )
     return result.stdout
@@ -642,6 +649,9 @@ def check_files(directory):
             if file.endswith('.py') and file != '__init__.py':
                 filepath = os.path.join(root, file)
                 # print(f"Running flake8 on {filepath}...")
+                black_output = run_black(filepath)
+                if black_output:
+                    print(f"black {filepath}:\n{black_output}")
                 flake8_output = run_flake8(filepath)
                 if flake8_output:
                     print(f"flake8 issues in {filepath}:\n{flake8_output}")
