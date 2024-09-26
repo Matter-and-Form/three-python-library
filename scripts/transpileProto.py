@@ -344,12 +344,20 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
             property_node = root_node.get_child(property.type)
             import_descriptor.file = property_node.filespace
             relative_path = property_node.get_relative_path_from_filespace()
-            import_descriptor.type = relative_path if relative_path != "" else property_node.name
-            tree_property.type = import_descriptor.type
+            full_type = relative_path if relative_path != "" else property_node.name
+            
+            split = full_type.split(".")
+            import_descriptor.type = split[0]
+            remaining = ".".join(split[1:])
+
+            tree_property.type = full_type
             if import_descriptor.file != node.filespace:
                 # replace all . with _ in the type
-                import_descriptor.replacement = get_replacement_name(property_node)
+                import_descriptor.replacement = get_replacement_name(import_descriptor.file)
                 tree_property.type = import_descriptor.replacement
+                if (remaining != ""):
+                    tree_property.type += "." + remaining
+                
             return tree_property
     
     # - Check if the property shares a namespace
@@ -431,9 +439,9 @@ def generate_enum_code(enum:TreeNode) -> str:
     return enum_code
 
 
-def get_replacement_name(node:TreeNode) -> str:
-            replacement_name = node.get_path().replace(".", "_")
-            return replacement_name        
+def get_replacement_name(path:str) -> str:
+    return path.replace(".", "_")
+   
 
 def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
     """
@@ -473,7 +481,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                     input_node = tree.search(prop.import_descriptor.file)
 
                     # Create a new import descriptor because we're going to change the replacement name to avoid conflicts
-                    prop.import_descriptor.replacement = get_replacement_name(input_node);
+                    prop.import_descriptor.replacement = get_replacement_name(input_node.get_path());
                     prop.type = prop.import_descriptor.replacement
                     # Add the import descriptor to the current node imports
                     current_node.imports.append(prop.import_descriptor)
@@ -492,7 +500,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                             import_node = import_file_node.get_child(input_prop.type)
                             assert(import_node != None)
                             relative_path = import_node.get_relative_path_from_filespace()
-                            replacement_name = get_replacement_name(import_file_node)
+                            replacement_name = get_replacement_name(import_file_node.get_path())
                             new_descriptor = ImportDescriptor(import_node.filespace, relative_path.split(".")[0], replacement_name)
                             
                             #make a new property name by replacing the first part of the relative_path with replacement_name
@@ -525,11 +533,11 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         service_code += add_indents(procedure.comment,2)
         
 
-        def create_object_code(node:TreeNode, postfix:str)->str:
+        def create_object_code(node:TreeNode, postfix:str, ignore_optionals:bool)->str:
             code = ""
             # Get the request node from the tree
             request_filespace_node = tree.search(node.filespace)
-            req_filespace_replacement_name = get_replacement_name(request_filespace_node)
+            req_filespace_replacement_name = get_replacement_name(request_filespace_node.get_path())
             
             # Get the relative path of the request node
             rel_path = node.get_relative_path_from_filespace()
@@ -546,15 +554,20 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
 
             code += f"        {method_name}_{postfix} = {new_request_property_name}("
             for i, prop in enumerate(node.properties):
+                if (prop.optional and ignore_optionals):
+                    continue
                 if i>0:
                     code += ","
-                code += "\n"
-                
+                code += "\n"        
                 if prop.name == "Input":
-                    code += f"            {prop.name}={prop.type}(\n"
-                    for input_prop in method_properties:
-                        code += f"                {input_prop.name}={input_prop.name},\n"
-                    code += "            )"
+                    # some property types are python types, so we need to handle them differently
+                    if len(method_properties) == 1 and method_properties[0].type in python_types:
+                        code += f"            {method_properties[0].name}={method_properties[0].name}"
+                    else: # multiple properties will result in a complicated type
+                        code += f"            {prop.name}={prop.type}(\n"
+                        for input_prop in method_properties:
+                            code += f"                {input_prop.name}={input_prop.name},\n"
+                        code += "            )"
                 elif prop.name == "Type":
                     code += f"            {prop.name}=\"{procedure.name}\""
                 elif prop.name == "Index":
@@ -564,8 +577,9 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
             code += "\n        )\n"
             return code
         
-        service_code += create_object_code(request_node, "request")
-        # service_code += create_object_code(response_node, "response")
+        
+        service_code += create_object_code(request_node, "request", False)
+        service_code += create_object_code(response_node, "response", True)
 
     return service_code
 
@@ -617,7 +631,7 @@ def check_undefined_names(file_path):
 
 def run_flake8(file_path):
     result = subprocess.run(
-        ['flake8', '--select=F', file_path],
+        ['flake8', '--select=E,F', file_path],
         capture_output=True, text=True
     )
     return result.stdout
