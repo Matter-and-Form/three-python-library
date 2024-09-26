@@ -80,7 +80,13 @@ def generate_python_code(output_dir: str, tree:Tree) -> set:
         import_lines = generate_import_lines(imports, branch[0].filespace)
 
         # Combine imports, message code, and enum code
-        combined_code = import_lines + "\n\n" + class_code + "\n\n" + service_code
+        combined_code = ""
+        if (import_lines != ""):
+            combined_code = import_lines + "\n\n\n"
+        if (class_code != ""):
+            combined_code += class_code
+        if (service_code != ""):
+            combined_code += "\n" + service_code
 
         # Write the combined code to a file with the name from the file_path
         with open(file_path, 'w') as f:
@@ -157,6 +163,10 @@ def generate_import_lines(descriptorsLists:Dict[str, List[ImportDescriptor]], fi
         for imp in importList.types:
             if imp["type"] == "":
                 continue
+            # if types already has the type, check to see if the values will be the same. Throw an error if they are not
+            # if imp["type"] in types:
+                # if types[imp["type"]] != imp["replacement"]:
+                #     raise Exception(f"Type {imp['type']} has multiple replacements {types[imp['type']]} and {imp['replacement']}")
             types[imp["type"]] = imp["replacement"]
         
         # If there are no types, just import the file
@@ -289,14 +299,14 @@ def parseComment(comment: str) -> str:
     """
     if comment != "":
         if len(comment.split('\n')) > 1:
-            class_code = f'"""{comment}"""\n'
+            comment_code = f'"""{comment}"""\n'
         else:
             # remove initial whitespace in comment
             comment = comment.strip()
-            class_code = f'# {comment}\n'
+            comment_code = f'# {comment}\n'
     else:
-        class_code = '\n'
-    return class_code
+        return ""
+    return comment_code
 
 def add_indents(code: str, indent: int) -> str:
     """
@@ -315,7 +325,10 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
     if property.type in type_mapping:
         tree_property.type = type_mapping.get(property.type, property.type)
         return tree_property
-        
+    
+    if (node.filespace == "MF.V3.Tasks.BoundingBox"):
+        print("debug")
+
     
     import_descriptor = ImportDescriptor(node.filespace, property.type.split(".")[-1], "")
     tree_property.import_descriptor = import_descriptor
@@ -353,7 +366,7 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
             tree_property.type = full_type
             if import_descriptor.file != node.filespace:
                 # replace all . with _ in the type
-                import_descriptor.replacement = get_replacement_name(import_descriptor.file)
+                import_descriptor.replacement = get_replacement_name( property_node.filespace + "." + import_descriptor.type )
                 tree_property.type = import_descriptor.replacement
                 if (remaining != ""):
                     tree_property.type += "." + remaining
@@ -385,13 +398,14 @@ def generate_class_code(current_node:TreeNode) -> str:
     for child in current_node.children.values():
         nested_class_code = generate_class_code(child)
         nested_class_code = add_indents(nested_class_code,1)
-        class_code += f"\n{nested_class_code}\n"
+        class_code += f"{nested_class_code}\n"
     
     class_code += "    def __init__(self"
     
     if current_node.properties:
         # sort properties so optionals are last
         properties = sorted(current_node.properties, key=lambda x: x.optional)
+        # Class init arguments
         for prop in properties:
             
             prop_type = prop.type
@@ -413,13 +427,14 @@ def generate_class_code(current_node:TreeNode) -> str:
             if prop.optional:
                 class_code += " = None"
         class_code += "):\n"
+        # Internal properties assignment
         for prop in properties:
             # Add comments with spaces
             if prop.comment:
-                class_code += f"\n{add_indents(prop.comment,2)}"
+                class_code += f"{add_indents(prop.comment,2)}"
             class_code += add_indents(f"self.{prop.name} = {prop.name}\n",2)
     else:
-        class_code += "):\n        pass\n"
+        class_code += "):\n        pass"
     
     return class_code
 
@@ -435,7 +450,11 @@ def generate_enum_code(enum:TreeNode) -> str:
     enum_code += f"class {enum.name}(Enum):\n"
     for value in enum.properties:
         name = name_mapping.get(value.name, value.name)
-        enum_code += f"    {name} = \"{value.name}\" {value.comment}\n"
+        enum_code += f"    {name} = \"{value.name}\""
+        if value.comment != "":
+            enum_code += f"  {value.comment}"
+        else:
+            enum_code += "\n"
     return enum_code
 
 
@@ -481,7 +500,8 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                     input_node = tree.search(prop.import_descriptor.file)
 
                     # Create a new import descriptor because we're going to change the replacement name to avoid conflicts
-                    prop.import_descriptor.replacement = get_replacement_name(input_node.get_path());
+                    if prop.import_descriptor.replacement == "":
+                        prop.import_descriptor.replacement = get_replacement_name(input_node.get_path());
                     prop.type = prop.import_descriptor.replacement
                     # Add the import descriptor to the current node imports
                     current_node.imports.append(prop.import_descriptor)
@@ -636,27 +656,15 @@ def run_flake8(file_path):
     )
     return result.stdout
 
-def run_black(file_path):
-    result = subprocess.run(
-        ['black', file_path],
-        capture_output=True, text=True
-    )
-    return result.stdout
-
 def check_files(directory):
     for root, _, files in os.walk(directory):
         for file in files:
             if file.endswith('.py') and file != '__init__.py':
                 filepath = os.path.join(root, file)
                 # print(f"Running flake8 on {filepath}...")
-                black_output = run_black(filepath)
-                if black_output:
-                    print(f"black {filepath}:\n{black_output}")
                 flake8_output = run_flake8(filepath)
                 if flake8_output:
                     print(f"flake8 issues in {filepath}:\n{flake8_output}")
-                # else:
-                #     print(f"No flake8 issues in {filepath}")
 
 def main():
 
