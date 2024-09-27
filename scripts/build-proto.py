@@ -1,88 +1,17 @@
+import subprocess
+import os
+
 # Build proto files
 
-import os
-import subprocess
-import glob
+def run_transpile_proto():
+    script_path = os.path.join(os.path.dirname(__file__), 'transpileProto.py')
+    input_dir = './V3Schema'
+    output_dir = './maf_three/'
+    result = subprocess.run(['python', script_path, input_dir, output_dir], capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"Error: {result.stderr}")
+    else:
+        print(f"Output: {result.stdout}")
 
-
-# Paths
-scriptPath = os.path.dirname(os.path.realpath(__file__))
-protoInputPath = scriptPath + "/../V3Schema"
-protoOutputPath = scriptPath + "/../maf_three"
-
-print("*****************")
-print("Building Proto files from: " + protoInputPath)
-print("Output directory:          " + protoOutputPath)
-print("*****************")
-
-def BuildProtoFile(protoFile, inputDir, outputDir):
-    print("---> Building: " + file)
-
-    # Build the proto file
-    status = subprocess.run([
-        'python3',
-        'transpileProto.py',
-        f'{inputDir}',
-        f'{outputDir}'
-        ], capture_output=True) 
-
-    return status
-    
-
-GREEN = '\033[92m'
-RED = '\033[91m'
-ENDC = '\033[0m'
-
-# Find and build all the proto files
-fileError = 0
-fileCount = 0
-
-# Delete previously compiled directory
-previousProtoOutputPath = protoOutputPath + "/MF"
-
-if os.path.exists(previousProtoOutputPath):
-    print("Deleting previously compiled directory: " + previousProtoOutputPath)
-    os.system("rm -rf " + previousProtoOutputPath)
-
-files = glob.glob(protoInputPath+"/**/*.proto", recursive=True)
-
-status = subprocess.run([
-        'python3',
-        f'{scriptPath}/transpileProto.py',
-        f'{protoInputPath}',
-        f'{protoOutputPath}'
-        ], capture_output=True) 
-
-# Print results
-if (status.returncode != 0):
-    print("*****************")
-    print(RED + 'Error ' + str(status.returncode) + ENDC)
-    print(status.stderr)
-    print("*****************")
-else:
-    print("*****************")
-    print(GREEN + 'Complete ' + str(status.returncode) + ENDC)
-    print("*****************")
-
-# Let the caller know if everything was built
-if fileError > 0:
-    exit(1)
-
-# Remove the _pb2 at the end of the generated files
-generatedFiles = glob.glob(protoOutputPath+"/MF/**/*_pb2.*", recursive=True)
-for file in generatedFiles:
-    print('Updating generated file:', file)    
-
-    # Get the content
-    with open(file, "r") as f:
-        lines = f.readlines()
-
-    # Remove '_pb2'
-    with open(file, "w") as f:
-        for line in lines:
-            if "MF.V3" in line:
-                line = line.replace('_pb2', '')
-            f.write(line)
-    
-    # Rename the file
-    os.rename(file, file.replace('_pb2', ''))
+if __name__ == "__main__":
+    run_transpile_proto()

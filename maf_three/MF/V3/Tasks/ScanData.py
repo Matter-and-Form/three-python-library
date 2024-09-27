@@ -1,0 +1,239 @@
+from MF.V3.Descriptors.ScanData import ScanData as MF_V3_Descriptors_ScanData_ScanData
+from MF.V3.Settings.ScanData import ScanData as MF_V3_Settings_ScanData_ScanData
+from MF.V3.Task import TaskState as MF_V3_Task_TaskState, Task as MF_V3_Task_Task
+
+
+class ScanData:
+    """*
+     Download the raw scan data for a scan in the current open project.
+
+     > Request example:
+
+     ```json
+     {
+         "Task":{
+             "Index":1,
+             "Type":"ScanData",
+             "Input":{
+                 "index":1,
+                 "buffers":["All"]
+             }
+         }
+     }
+     ```
+
+     > Vertex position buffer message from server.
+
+     ```json
+     {
+         "Buffer":{
+             "Index":0,
+             "Size":1558188,
+             "Descriptor":{
+                 "components":[{
+                     "type":"Position"
+                     "size":3,
+                     "offset":0,
+                     "normalized":false,
+                 }],
+                 "stride":3
+             },
+             "Task":{
+                 "Index":1,
+                 "Type":"ScanData",
+                 "Input":{
+                     "index":1,
+                     "buffers":["All"]
+                 }
+             }
+         }
+     }
+     ```
+
+     > Vertex position binary data transfer from server [1558188 bytes].
+
+     > Vertex normal buffer message from server.
+
+     ```json
+     {
+         "Buffer":{
+             "Index":1,
+             "Size":1558188,
+             "Descriptor":{
+                 "components":[{
+                     "type":"Normal"
+                     "size":3,
+                     "offset":0,
+                     "normalized":false,
+                 }],
+                 "stride":3
+             },
+             "Task":{
+                 "Index":1,
+                 "Type":"ScanData",
+                 "Input":{
+                     "index":1,
+                     "buffers":["All"]
+                 }
+             }
+         }
+     }
+     ```
+
+     > Vertex normal binary data transfer from server [1558188 bytes].
+
+     > Vertex texture coordinate buffer message from server.
+
+     ```json
+     {
+         "Buffer":{
+             "Index":2,
+             "Size":1038792,
+             "Descriptor":{
+                 "components":[{
+                     "type":"UV"
+                     "size":2,
+                     "offset":0,
+                     "normalized":false,
+                 }],
+                 "stride":2
+             },
+             "Task":{
+                 "Index":1,
+                 "Type":"ScanData",
+                 "Input":{
+                     "index":1,
+                     "buffers":["All"]
+                 }
+             }
+         }
+     }
+     ```
+
+     > Vertex texture coordinate binary data transfer from server [1038792 bytes].
+
+     > Texture image buffer message from server.
+
+     ```json
+     {
+         "Buffer":{
+             "Index":3,
+             "Size":3504494,
+             "Descriptor":{
+                 "components":[{
+                     "type":"Texture"
+                     "size":0,
+                     "offset":0,
+                     "normalized":false,
+                 }],
+                 "stride":0
+             },
+             "Task":{
+                 "Index":1,
+                 "Type":"ScanData",
+                 "Input":{
+                     "index":1,
+                     "buffers":["All"]
+                 }
+             }
+         }
+     }
+     ```
+
+     > Texture binary data transfer from server [3504494 bytes].
+
+     > Triangle index buffer message from server.
+
+     ```json
+     {
+         "Buffer":{
+             "Index":4,
+             "Size":1996356,
+             "Descriptor":{
+                 "components":[{
+                     "type":"Triangle"
+                     "size":1,
+                     "offset":0,
+                     "normalized":false,
+                 }],
+                 "stride":1
+             },
+             "Task":{
+                 "Index":1,
+                 "Type":"ScanData",
+                 "Input":{
+                     "index":1,
+                     "buffers":["All"]
+                 }
+             }
+         }
+     }
+     ```
+
+     > Triangle index binary data transfer from server [1996356 bytes].
+
+     > Response example:
+
+     ```json
+     {
+         "Task":{
+             "Index":1,
+             "Type":"ScanData",
+             "Input":{"buffers":["All"],"index":1},
+             "Output":{
+                 "buffers":[
+                     {"components":[{"normalized":false,"offset":0,"size":3,"type":"Position"}],"stride":3},
+                     {"components":[{"normalized":false,"offset":0,"size":3,"type":"Normal"}],"stride":3},
+                     {"components":[{"normalized":false,"offset":0,"size":2,"type":"UV"}],"stride":2},
+                     {"components":[{"normalized":false,"offset":0,"size":0,"type":"Texture"}],"stride":0},
+                     {"components":[{"normalized":false,"offset":0,"size":1,"type":"Triangle"}],"stride":1}
+                 ],
+                 "index":1,
+                 "name":"Scan-1"
+             },
+             "State":"Completed"
+         }
+     }
+     ```
+    """
+    class Request:
+        # Client request for the `ScanData` task.
+        def __init__(self, Index: int, Type: str, Input: MF_V3_Settings_ScanData_ScanData):
+            # A unique identifier generated by the client.
+            self.Index = Index
+            # "ScanData"
+            self.Type = Type
+            # Requested scan data.
+            self.Input = Input
+
+    class Response:
+        # Server response for the `ScanData` task.
+        def __init__(self, Index: int, Type: str, Input: MF_V3_Settings_ScanData_ScanData, Output: MF_V3_Descriptors_ScanData_ScanData, State: MF_V3_Task_TaskState = None, Error: str = None):
+            # The unique identifier generated by the client.
+            self.Index = Index
+            # "ScanData"
+            self.Type = Type
+            # The scan data requested by the client.
+            self.Input = Input
+            # The scan data sent from the server.
+            self.Output = Output
+            # The current state of the task.
+            self.State = State
+            # A string describing the error if the task has failed.
+            self.Error = Error
+
+    class Buffer:
+        # Server buffer message for the `ScanData` task.
+        def __init__(self, Index: int, Size: int, Task: MF_V3_Task_Task, Descriptor: MF_V3_Descriptors_ScanData_ScanData.Buffer):
+            # The zero-based index identifying the data buffer.
+            self.Index = Index
+            # The size of the incoming data buffer in bytes.
+            self.Size = Size
+            # The requested ScanData task.
+            self.Task = Task
+            # The scan data buffer descriptor.
+            self.Descriptor = Descriptor
+
+    def __init__(self):
+        pass
+

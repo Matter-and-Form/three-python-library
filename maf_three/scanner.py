@@ -15,9 +15,9 @@ from MF.V3 import Task, TaskState
 
 from maf_three import __version__
 from maf_three.serialization import TO_JSON
-from maf_three.buffer import Buffer
+from maf_three.MF.V3.Buffer import Buffer
 
-from scanner_functions import set_projector
+from maf_three.MF.V3.Three import Three as MF3
 
 class Scanner:
     """
@@ -61,7 +61,7 @@ class Scanner:
         
     def bind_functions(self):
         # SetProjector
-        self.set_projector = lambda on, brightness, color: set_projector(self, on, brightness, color)
+        self.set_projector = lambda on, brightness, color:  MF3.set_projector(self, on=on, brightness=brightness, color=color)
 
     def Connect(self, URI:str, timeoutSec=5) -> bool:
         """
@@ -326,22 +326,16 @@ class Scanner:
 
 # Main function to run the code
 if __name__ == "__main__":
-    # def on_task(task):
-    #     print(f"Task received: {task}")
-
-    # def on_message(message):
-    #     print(f"Message received: {message}")
-
-    # def on_buffer(buffer, data):
-    #     print(f"Buffer received: {data}")
 
     scanner = Scanner()#OnTask=on_task, OnMessage=on_message, OnBuffer=on_buffer)
     scanner.Connect("ws://matterandform.local:8081")
 
     # Set the projector settings for debugging
-    scanner.set_projector(on=True, brightness=1.0, color=[1, 1, 1])
-    time.sleep(1)
-    scanner.set_projector(on=False, brightness=1.0, color=[1, 1, 1])
-    time.sleep(1)
+    # scanner.set_projector(on=True, brightness=1.0, color=[1, 1, 1])
+    # time.sleep(1)
+    # scanner.set_projector(on=False, brightness=1.0, color=[1, 1, 1])
+    # time.sleep(1)
     
+    project_tasks = MF3.list_projects(scanner)
+    print(project_tasks.Output)
     scanner.Disconnect()
