@@ -86,7 +86,7 @@ def generate_python_code(output_dir: str, tree:Tree) -> set:
         if (class_code != ""):
             combined_code += class_code
         if (service_code != ""):
-            combined_code += "\n" + service_code
+            combined_code += service_code
 
         # Write the combined code to a file with the name from the file_path
         with open(file_path, 'w') as f:
@@ -468,11 +468,17 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
     """
     name = current_node.name
 
+    task_descriptor = get_descriptor_by_partial_filename("Task", current_node.imports)
+    if task_descriptor == None:
+        task_descriptor = ImportDescriptor("MF.V3", "Task", "")
+        current_node.imports.append(task_descriptor)
+    task_name = task_descriptor.replacement if task_descriptor.replacement != '' else task_descriptor.type
+
     service_code = f"class {name}:\n"
     
     service_code += add_indents(current_node.comment, 1)
     service_code += "    def __init__(self):\n"
-    service_code += "        pass\n"
+    service_code += "        pass\n\n"
     
     for procedure in current_node.procedures:
         
@@ -486,7 +492,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                method_name += "_"
             method_name += c.lower()
        
-        service_code += f"    def {method_name}(self"
+        service_code += f"    def {method_name}(scanner"
         # loop over all the properties from the request node to get the input node
         
         method_properties = []
@@ -511,8 +517,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                         if input_prop.type in python_types:
                             method_properties.append(input_prop)
                             continue;
-                        if input_prop.import_descriptor == None:
-                            print("debug")
+                        assert(input_prop.import_descriptor != None)
                         if input_prop.import_descriptor != None and input_prop.import_descriptor.replacement == "":
                             import_file_node = tree.search(input_prop.import_descriptor.file)
                             import_node = import_file_node.get_child(input_prop.type)
@@ -546,21 +551,20 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         method_properties = sorted(method_properties, key=lambda x: x.optional)
 
         for prop in method_properties:
-            service_code += f", {prop.name}:{prop.type}"
+            service_code += f", {prop.name}: {prop.type}"
             if prop.optional:
                 service_code += " = None"
             if prop.import_descriptor != None:
                 current_node.imports.append(prop.import_descriptor)
 
-        service_code += f"):\n"
+        
+        service_code += f") -> {task_name}:\n"
         service_code += add_indents(procedure.comment,2)
         
 
         def create_object_code(node:TreeNode, postfix:str, ignore_optionals:bool)->str:
             code = ""
 
-            if (procedure.name == "DepthMap"):
-                print("debug")
             # Get the Request Or Response node from the tree
             filespace_node = tree.search(node.filespace)
             filespace_replacement_name = get_replacement_name(filespace_node.get_path())
@@ -607,6 +611,10 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         
         service_code += create_object_code(request_node, "request", False)
         service_code += create_object_code(response_node, "response", True)
+
+        service_code += f"        task = {task_name}(Index=0, Type=\"{procedure.name}\", Input={method_name}_request, Output={method_name}_response)\n"
+        service_code += f"        scanner.SendTask(task)\n"
+        service_code += f"        return task\n\n"
 
     return service_code
 
