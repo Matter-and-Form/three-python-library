@@ -637,10 +637,12 @@ def generate_init_files(paths: set, tree: Tree, output_dir: str):
         for child in node.children.values():
             if child.filespace:
                 imports.add(child.filespace)
-
+        
+        sorted_imports = sorted(imports)
+       
         with open(init_file, 'w') as f:
             f.write("") #guarantee a file
-            for import_path in imports:
+            for import_path in sorted_imports:
                 f.write(f"from {import_path} import * \n")
 
 
