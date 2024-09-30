@@ -9,14 +9,13 @@ import numpy as np
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from maf_three.scanner import Scanner
-
+import maf_three.MF.V3.Three as Three
 
 def main():
 
     try:
         scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
         scanner.Connect("ws://matterandform.local:8081")
-
         
         scanner.set_projector(on=True, brightness=1.0, color=[1,1,1])
         # Sleep for 5 seconds

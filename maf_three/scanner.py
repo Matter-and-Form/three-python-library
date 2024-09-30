@@ -20,7 +20,7 @@ from maf_three import __version__
 from maf_three.serialization import TO_JSON
 from maf_three.MF.V3.Buffer import Buffer
 
-from maf_three.MF.V3.Three import Three
+import maf_three.MF.V3.Three as Three
 
 class Scanner:
     """
@@ -59,12 +59,16 @@ class Scanner:
         
         self.__task_return_event = threading.Event()
 
-        # Dynamically import and add functions from Three.py
-        Three_module = importlib.import_module('.Three', package='maf_three.MF.V3')
-        for name, func in inspect.getmembers(Three_module.Three, inspect.isfunction):
-            bound_func = types.MethodType(func, self) 
-            setattr(self, name, bound_func)
-    
+        # Dynamically add methods from Three to Scanner
+        self._add_three_methods()
+
+    def _add_three_methods(self):
+        """
+        Dynamically adds functions from the three_methods module to the Scanner class.
+        """
+        for name, func in inspect.getmembers(Three, predicate=inspect.isfunction):
+            if not name.startswith('_'):
+                setattr(self, name, func.__get__(self, self.__class__))
 
 
     def Connect(self, URI:str, timeoutSec=5) -> bool:
@@ -326,3 +330,9 @@ class Scanner:
                 return t
                 break
         return None
+
+if __name__ == "__main__":
+    scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
+    scanner.Connect("ws://matterandform.local:8081")
+
+    scanner.set_projector(on=True, brightness=1.0, color=[1,1,1])

@@ -328,10 +328,6 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
         tree_property.type = type_mapping.get(property.type, property.type)
         return tree_property
     
-    if (node.filespace == "MF.V3.Tasks.BoundingBox"):
-        print("debug")
-
-    
     import_descriptor = ImportDescriptor(node.filespace, property.type.split(".")[-1], "")
     tree_property.import_descriptor = import_descriptor
 
@@ -475,13 +471,9 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         task_descriptor = ImportDescriptor("MF.V3", "Task", "")
         current_node.imports.append(task_descriptor)
     task_name = task_descriptor.replacement if task_descriptor.replacement != '' else task_descriptor.type
-
-    service_code = f"class {name}:\n"
     
-    service_code += add_indents(current_node.comment, 1)
-    service_code += "    def __init__(self):\n"
-    service_code += "        pass\n\n"
-    
+    service_code = ""
+      
     for procedure in current_node.procedures:
         
         request_node = procedure.request
@@ -494,7 +486,6 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                method_name += "_"
             method_name += c.lower()
        
-        service_code += f"    def {method_name}(self"
         # loop over all the properties from the request node to get the input node
         
         method_properties = []
@@ -548,7 +539,8 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                     method_properties.append(prop)
         
         
-
+        service_code += f"def {method_name}(self"
+        
         # Sort the properties so that optionals are last
         method_properties = sorted(method_properties, key=lambda x: x.optional)
 
@@ -561,7 +553,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
 
         
         service_code += f") -> {task_name}:\n"
-        service_code += add_indents(procedure.comment,2)
+        service_code += add_indents(procedure.comment,1)
         
 
         def create_object_code(node:TreeNode, postfix:str, ignore_optionals:bool)->str:
@@ -585,7 +577,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
 
             current_node.imports.append(procedure.request_import)
 
-            code += f"        {method_name}_{postfix} = {new_request_property_name}("
+            code += f"    {method_name}_{postfix} = {new_request_property_name}("
             for i, prop in enumerate(node.properties):
                 if (prop.optional and ignore_optionals):
                     continue
@@ -595,28 +587,28 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                 if prop.name == "Input":
                     # some property types are python types, so we need to handle them differently
                     if len(method_properties) == 1 and method_properties[0].type in python_types:
-                        code += f"            {method_properties[0].name}={method_properties[0].name}"
+                        code += f"        {method_properties[0].name}={method_properties[0].name}"
                     else: # multiple properties will result in a complicated type
-                        code += f"            {prop.name}={prop.type}(\n"
+                        code += f"        {prop.name}={prop.type}(\n"
                         for input_prop in method_properties:
-                            code += f"                {input_prop.name}={input_prop.name},\n"
-                        code += "            )"
+                            code += f"            {input_prop.name}={input_prop.name},\n"
+                        code += "        )"
                 elif prop.name == "Type":
-                    code += f"            {prop.name}=\"{procedure.name}\""
+                    code += f"        {prop.name}=\"{procedure.name}\""
                 elif prop.name == "Index":
-                    code += f"            {prop.name}=0"
+                    code += f"        {prop.name}=0"
                 else:
-                    code += f"            {prop.name}=None"
-            code += "\n        )\n"
+                    code += f"        {prop.name}=None"
+            code += "\n    )\n"
             return code
         
         
         service_code += create_object_code(request_node, "request", False)
         service_code += create_object_code(response_node, "response", True)
 
-        service_code += f"        task = {task_name}(Index=0, Type=\"{procedure.name}\", Input={method_name}_request, Output={method_name}_response)\n"
-        service_code += f"        self.SendTask(task)\n"
-        service_code += f"        return task\n\n"
+        service_code += f"    task = {task_name}(Index=0, Type=\"{procedure.name}\", Input={method_name}_request, Output={method_name}_response)\n"
+        service_code += f"    self.SendTask(task)\n"
+        service_code += f"    return task\n\n\n"
 
     return service_code
 
