@@ -1,5 +1,5 @@
-from MF.V3.Settings.ScanSelection import ScanSelection as MF_V3_Settings_ScanSelection_ScanSelection
 from MF.V3.Settings.Quality import Quality as MF_V3_Settings_Quality_Quality
+from MF.V3.Settings.ScanSelection import ScanSelection as MF_V3_Settings_ScanSelection_ScanSelection
 from enum import Enum
 
 

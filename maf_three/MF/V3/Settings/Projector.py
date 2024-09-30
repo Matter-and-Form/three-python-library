@@ -1,5 +1,5 @@
-from MF.V3.Settings.Video import Video as MF_V3_Settings_Video_Video
 from MF.V3.Settings.Rectangle import Rectangle as MF_V3_Settings_Rectangle_Rectangle
+from MF.V3.Settings.Video import Video as MF_V3_Settings_Video_Video
 from enum import Enum
 from typing import List
 

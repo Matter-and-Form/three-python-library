@@ -1,5 +1,5 @@
-from MF.V3.Settings.Software import Software as MF_V3_Settings_Software_Software
 from MF.V3.Descriptors.System import System as MF_V3_Descriptors_System_System
+from MF.V3.Settings.Software import Software as MF_V3_Settings_Software_Software
 from MF.V3.Task import TaskState as MF_V3_Task_TaskState
 
 

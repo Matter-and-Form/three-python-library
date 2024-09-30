@@ -1,5 +1,5 @@
-from enum import Enum
 from MF.V3.Settings.Export import Export as MF_V3_Settings_Export_Export
+from enum import Enum
 from typing import List
 
 

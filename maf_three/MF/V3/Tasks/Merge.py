@@ -1,5 +1,5 @@
-from MF.V3.Settings.Merge import Merge as MF_V3_Settings_Merge_Merge
 from MF.V3.Descriptors.Merge import Merge as MF_V3_Descriptors_Merge_Merge
+from MF.V3.Settings.Merge import Merge as MF_V3_Settings_Merge_Merge
 from MF.V3.Task import TaskState as MF_V3_Task_TaskState
 
 

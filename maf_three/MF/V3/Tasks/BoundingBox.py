@@ -1,5 +1,5 @@
-from MF.V3.Settings.BoundingBox import BoundingBox as MF_V3_Settings_BoundingBox_BoundingBox
 from MF.V3.Descriptors.BoundingBox import BoundingBox as MF_V3_Descriptors_BoundingBox_BoundingBox
+from MF.V3.Settings.BoundingBox import BoundingBox as MF_V3_Settings_BoundingBox_BoundingBox
 from MF.V3.Task import TaskState as MF_V3_Task_TaskState
 
 

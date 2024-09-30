@@ -148,6 +148,8 @@ def generate_import_lines(descriptorsLists:Dict[str, List[ImportDescriptor]], fi
             importList.types.append({"type":descriptor.type, "replacement":descriptor.replacement})
         ImportListArray.append(importList)
 
+    ImportListArray.sort(key=lambda x: x.file)
+
     for importList in ImportListArray:
 
         if importList.file == "enum":
@@ -492,7 +494,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
                method_name += "_"
             method_name += c.lower()
        
-        service_code += f"    def {method_name}(scanner"
+        service_code += f"    def {method_name}(self"
         # loop over all the properties from the request node to get the input node
         
         method_properties = []
@@ -613,7 +615,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         service_code += create_object_code(response_node, "response", True)
 
         service_code += f"        task = {task_name}(Index=0, Type=\"{procedure.name}\", Input={method_name}_request, Output={method_name}_response)\n"
-        service_code += f"        scanner.SendTask(task)\n"
+        service_code += f"        self.SendTask(task)\n"
         service_code += f"        return task\n\n"
 
     return service_code

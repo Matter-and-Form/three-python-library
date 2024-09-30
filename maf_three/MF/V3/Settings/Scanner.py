@@ -1,13 +1,13 @@
-from MF.V3.Settings.Tutorials import Tutorials as MF_V3_Settings_Tutorials_Tutorials
-from MF.V3.Settings.I18n import I18n as MF_V3_Settings_I18n_I18n
-from MF.V3.Settings.Viewer import Viewer as MF_V3_Settings_Viewer_Viewer
-from MF.V3.Settings.Capture import Capture as MF_V3_Settings_Capture_Capture
-from MF.V3.Settings.Projector import Projector as MF_V3_Settings_Projector_Projector
-from MF.V3.Settings.Style import Style as MF_V3_Settings_Style_Style
-from MF.V3.Settings.Software import Software as MF_V3_Settings_Software_Software
-from MF.V3.Settings.Turntable import Turntable as MF_V3_Settings_Turntable_Turntable
-from MF.V3.Settings.Camera import Camera as MF_V3_Settings_Camera_Camera
 from MF.V3.Settings.Advanced import Advanced as MF_V3_Settings_Advanced_Advanced
+from MF.V3.Settings.Camera import Camera as MF_V3_Settings_Camera_Camera
+from MF.V3.Settings.Capture import Capture as MF_V3_Settings_Capture_Capture
+from MF.V3.Settings.I18n import I18n as MF_V3_Settings_I18n_I18n
+from MF.V3.Settings.Projector import Projector as MF_V3_Settings_Projector_Projector
+from MF.V3.Settings.Software import Software as MF_V3_Settings_Software_Software
+from MF.V3.Settings.Style import Style as MF_V3_Settings_Style_Style
+from MF.V3.Settings.Turntable import Turntable as MF_V3_Settings_Turntable_Turntable
+from MF.V3.Settings.Tutorials import Tutorials as MF_V3_Settings_Tutorials_Tutorials
+from MF.V3.Settings.Viewer import Viewer as MF_V3_Settings_Viewer_Viewer
 
 
 class Scanner:

@@ -1,83 +1,83 @@
-from MF.V3.Tasks.NewProject import NewProject as MF_V3_Tasks_NewProject
-from MF.V3.Tasks.Reboot import Reboot as MF_V3_Tasks_Reboot
-from MF.V3.Tasks.SetGroup import SetGroup as MF_V3_Tasks_SetGroup
-from MF.V3.Tasks.RemoveProjects import RemoveProjects as MF_V3_Tasks_RemoveProjects
-from MF.V3.Tasks.RemoveGroups import RemoveGroups as MF_V3_Tasks_RemoveGroups
-from MF.V3.Tasks.CalibrationCaptureTargets import CalibrationCaptureTargets as MF_V3_Tasks_CalibrationCaptureTargets
-from MF.V3.Tasks.Shutdown import Shutdown as MF_V3_Tasks_Shutdown
-from MF.V3.Tasks.NewScan import NewScan as MF_V3_Tasks_NewScan
-from MF.V3.Tasks.ExportMerge import ExportMerge as MF_V3_Tasks_ExportMerge
-from MF.V3.Tasks.UpdateSettings import UpdateSettings as MF_V3_Tasks_UpdateSettings
-from MF.V3.Tasks.CameraCalibration import CameraCalibration as MF_V3_Tasks_CameraCalibration
-from MF.V3.Tasks.StopVideo import StopVideo as MF_V3_Tasks_StopVideo
-from MF.V3.Tasks.AddMergeToProject import AddMergeToProject as MF_V3_Tasks_AddMergeToProject
-from MF.V3.Tasks.NewGroup import NewGroup as MF_V3_Tasks_NewGroup
-from MF.V3.Tasks.Align import Align as MF_V3_Tasks_Align
-from MF.V3.Tasks.CalibrateTurntable import CalibrateTurntable as MF_V3_Tasks_CalibrateTurntable
-from MF.V3.Tasks.DetectCalibrationCard import DetectCalibrationCard as MF_V3_Tasks_DetectCalibrationCard
-from MF.V3.Tasks.OpenProject import OpenProject as MF_V3_Tasks_OpenProject
-from MF.V3.Tasks.PushSettings import PushSettings as MF_V3_Tasks_PushSettings
-from MF.V3.Tasks.SplitGroup import SplitGroup as MF_V3_Tasks_SplitGroup
-from MF.V3.Tasks.UploadProject import UploadProject as MF_V3_Tasks_UploadProject
-from MF.V3.Tasks.RotateTurntable import RotateTurntable as MF_V3_Tasks_RotateTurntable
-from MF.V3.Tasks.ListExportFormats import ListExportFormats as MF_V3_Tasks_ListExportFormats
-from MF.V3.Tasks.ListWifi import ListWifi as MF_V3_Tasks_ListWifi
-from MF.V3.Tasks.ExportLogs import ExportLogs as MF_V3_Tasks_ExportLogs
-from MF.V3.Tasks.FlattenGroup import FlattenGroup as MF_V3_Tasks_FlattenGroup
-from MF.V3.Tasks.MergeData import MergeData as MF_V3_Tasks_MergeData
-from MF.V3.Tasks.StartVideo import StartVideo as MF_V3_Tasks_StartVideo
-from MF.V3.Tasks.ConnectWifi import ConnectWifi as MF_V3_Tasks_ConnectWifi
-from MF.V3.Tasks.BoundingBox import BoundingBox as MF_V3_Tasks_BoundingBox
-from MF.V3.Tasks.ListNetworkInterfaces import ListNetworkInterfaces as MF_V3_Tasks_ListNetworkInterfaces
-from MF.V3.Tasks.ListProjects import ListProjects as MF_V3_Tasks_ListProjects
-from MF.V3.Tasks.AutoFocus import AutoFocus as MF_V3_Tasks_AutoFocus
-from MF.V3.Tasks.CalibrateCameras import CalibrateCameras as MF_V3_Tasks_CalibrateCameras
-from MF.V3.Tasks.SetProject import SetProject as MF_V3_Tasks_SetProject
-from MF.V3.Tasks.DepthMap import DepthMap as MF_V3_Tasks_DepthMap
-from MF.V3.Tasks.PopSettings import PopSettings as MF_V3_Tasks_PopSettings
-from MF.V3.Tasks.SetProjector import SetProjector as MF_V3_Tasks_SetProjector
-from MF.V3.Tasks.HasProjector import HasProjector as MF_V3_Tasks_HasProjector
-from MF.V3.Tasks.Export import Export as MF_V3_Tasks_Export
-from MF.V3.Tasks.ListGroups import ListGroups as MF_V3_Tasks_ListGroups
-from MF.V3.Tasks.DownloadProject import DownloadProject as MF_V3_Tasks_DownloadProject
-from MF.V3.Tasks.SystemInfo import SystemInfo as MF_V3_Tasks_SystemInfo
-from MF.V3.Tasks.MoveGroup import MoveGroup as MF_V3_Tasks_MoveGroup
-from MF.V3.Tasks.HasCameras import HasCameras as MF_V3_Tasks_HasCameras
-from MF.V3.Tasks.TurntableCalibration import TurntableCalibration as MF_V3_Tasks_TurntableCalibration
-from MF.V3.Tasks.ListSettings import ListSettings as MF_V3_Tasks_ListSettings
-from MF.V3.Tasks.CloseProject import CloseProject as MF_V3_Tasks_CloseProject
-from MF.V3.Tasks.TransformGroup import TransformGroup as MF_V3_Tasks_TransformGroup
-from MF.V3.Tasks.RestoreFactoryCalibration import RestoreFactoryCalibration as MF_V3_Tasks_RestoreFactoryCalibration
-from MF.V3.Tasks.ScanData import ScanData as MF_V3_Tasks_ScanData
-from MF.V3.Tasks.Merge import Merge as MF_V3_Tasks_Merge
-from MF.V3.Tasks.HasTurntable import HasTurntable as MF_V3_Tasks_HasTurntable
-from MF.V3.Tasks.SetCameras import SetCameras as MF_V3_Tasks_SetCameras
-from MF.V3.Tasks.ForgetWifi import ForgetWifi as MF_V3_Tasks_ForgetWifi
-from MF.V3.Tasks.ListScans import ListScans as MF_V3_Tasks_ListScans
 from MF.V3 import Task
-from MF.V3.Settings.Wifi import Wifi as MF_V3_Settings_Wifi_Wifi
-from MF.V3.Settings.Scanner import Scanner as MF_V3_Settings_Scanner_Scanner
 from MF.V3.Settings.Advanced import Advanced as MF_V3_Settings_Advanced_Advanced
+from MF.V3.Settings.Align import Align as MF_V3_Settings_Align_Align
+from MF.V3.Settings.AutoFocus import AutoFocus as MF_V3_Settings_AutoFocus_AutoFocus
+from MF.V3.Settings.BoundingBox import BoundingBox as MF_V3_Settings_BoundingBox_BoundingBox
 from MF.V3.Settings.Camera import Camera as MF_V3_Settings_Camera_Camera
 from MF.V3.Settings.Capture import Capture as MF_V3_Settings_Capture_Capture
+from MF.V3.Settings.Export import Export as MF_V3_Settings_Export_Export
+from MF.V3.Settings.Group import Group as MF_V3_Settings_Group_Group
 from MF.V3.Settings.I18n import I18n as MF_V3_Settings_I18n_I18n
+from MF.V3.Settings.Merge import Merge as MF_V3_Settings_Merge_Merge
+from MF.V3.Settings.NewGroup import NewGroup as MF_V3_Settings_NewGroup_NewGroup
+from MF.V3.Settings.Project import Project as MF_V3_Settings_Project_Project
 from MF.V3.Settings.Projector import Projector as MF_V3_Settings_Projector_Projector
+from MF.V3.Settings.Scan import Scan as MF_V3_Settings_Scan_Scan
+from MF.V3.Settings.ScanData import ScanData as MF_V3_Settings_ScanData_ScanData
+from MF.V3.Settings.ScanSelection import ScanSelection as MF_V3_Settings_ScanSelection_ScanSelection
+from MF.V3.Settings.Scanner import Scanner as MF_V3_Settings_Scanner_Scanner
+from MF.V3.Settings.Software import Software as MF_V3_Settings_Software_Software
 from MF.V3.Settings.Style import Style as MF_V3_Settings_Style_Style
 from MF.V3.Settings.Turntable import Turntable as MF_V3_Settings_Turntable_Turntable
 from MF.V3.Settings.Tutorials import Tutorials as MF_V3_Settings_Tutorials_Tutorials
 from MF.V3.Settings.Viewer import Viewer as MF_V3_Settings_Viewer_Viewer
-from MF.V3.Settings.Software import Software as MF_V3_Settings_Software_Software
-from MF.V3.Settings.ScanData import ScanData as MF_V3_Settings_ScanData_ScanData
-from MF.V3.Settings.Project import Project as MF_V3_Settings_Project_Project
-from MF.V3.Settings.Group import Group as MF_V3_Settings_Group_Group
-from MF.V3.Settings.NewGroup import NewGroup as MF_V3_Settings_NewGroup_NewGroup
-from MF.V3.Settings.BoundingBox import BoundingBox as MF_V3_Settings_BoundingBox_BoundingBox
-from MF.V3.Settings.ScanSelection import ScanSelection as MF_V3_Settings_ScanSelection_ScanSelection
-from MF.V3.Settings.Align import Align as MF_V3_Settings_Align_Align
-from MF.V3.Settings.Merge import Merge as MF_V3_Settings_Merge_Merge
-from MF.V3.Settings.Export import Export as MF_V3_Settings_Export_Export
-from MF.V3.Settings.AutoFocus import AutoFocus as MF_V3_Settings_AutoFocus_AutoFocus
-from MF.V3.Settings.Scan import Scan as MF_V3_Settings_Scan_Scan
+from MF.V3.Settings.Wifi import Wifi as MF_V3_Settings_Wifi_Wifi
+from MF.V3.Tasks.AddMergeToProject import AddMergeToProject as MF_V3_Tasks_AddMergeToProject
+from MF.V3.Tasks.Align import Align as MF_V3_Tasks_Align
+from MF.V3.Tasks.AutoFocus import AutoFocus as MF_V3_Tasks_AutoFocus
+from MF.V3.Tasks.BoundingBox import BoundingBox as MF_V3_Tasks_BoundingBox
+from MF.V3.Tasks.CalibrateCameras import CalibrateCameras as MF_V3_Tasks_CalibrateCameras
+from MF.V3.Tasks.CalibrateTurntable import CalibrateTurntable as MF_V3_Tasks_CalibrateTurntable
+from MF.V3.Tasks.CalibrationCaptureTargets import CalibrationCaptureTargets as MF_V3_Tasks_CalibrationCaptureTargets
+from MF.V3.Tasks.CameraCalibration import CameraCalibration as MF_V3_Tasks_CameraCalibration
+from MF.V3.Tasks.CloseProject import CloseProject as MF_V3_Tasks_CloseProject
+from MF.V3.Tasks.ConnectWifi import ConnectWifi as MF_V3_Tasks_ConnectWifi
+from MF.V3.Tasks.DepthMap import DepthMap as MF_V3_Tasks_DepthMap
+from MF.V3.Tasks.DetectCalibrationCard import DetectCalibrationCard as MF_V3_Tasks_DetectCalibrationCard
+from MF.V3.Tasks.DownloadProject import DownloadProject as MF_V3_Tasks_DownloadProject
+from MF.V3.Tasks.Export import Export as MF_V3_Tasks_Export
+from MF.V3.Tasks.ExportLogs import ExportLogs as MF_V3_Tasks_ExportLogs
+from MF.V3.Tasks.ExportMerge import ExportMerge as MF_V3_Tasks_ExportMerge
+from MF.V3.Tasks.FlattenGroup import FlattenGroup as MF_V3_Tasks_FlattenGroup
+from MF.V3.Tasks.ForgetWifi import ForgetWifi as MF_V3_Tasks_ForgetWifi
+from MF.V3.Tasks.HasCameras import HasCameras as MF_V3_Tasks_HasCameras
+from MF.V3.Tasks.HasProjector import HasProjector as MF_V3_Tasks_HasProjector
+from MF.V3.Tasks.HasTurntable import HasTurntable as MF_V3_Tasks_HasTurntable
+from MF.V3.Tasks.ListExportFormats import ListExportFormats as MF_V3_Tasks_ListExportFormats
+from MF.V3.Tasks.ListGroups import ListGroups as MF_V3_Tasks_ListGroups
+from MF.V3.Tasks.ListNetworkInterfaces import ListNetworkInterfaces as MF_V3_Tasks_ListNetworkInterfaces
+from MF.V3.Tasks.ListProjects import ListProjects as MF_V3_Tasks_ListProjects
+from MF.V3.Tasks.ListScans import ListScans as MF_V3_Tasks_ListScans
+from MF.V3.Tasks.ListSettings import ListSettings as MF_V3_Tasks_ListSettings
+from MF.V3.Tasks.ListWifi import ListWifi as MF_V3_Tasks_ListWifi
+from MF.V3.Tasks.Merge import Merge as MF_V3_Tasks_Merge
+from MF.V3.Tasks.MergeData import MergeData as MF_V3_Tasks_MergeData
+from MF.V3.Tasks.MoveGroup import MoveGroup as MF_V3_Tasks_MoveGroup
+from MF.V3.Tasks.NewGroup import NewGroup as MF_V3_Tasks_NewGroup
+from MF.V3.Tasks.NewProject import NewProject as MF_V3_Tasks_NewProject
+from MF.V3.Tasks.NewScan import NewScan as MF_V3_Tasks_NewScan
+from MF.V3.Tasks.OpenProject import OpenProject as MF_V3_Tasks_OpenProject
+from MF.V3.Tasks.PopSettings import PopSettings as MF_V3_Tasks_PopSettings
+from MF.V3.Tasks.PushSettings import PushSettings as MF_V3_Tasks_PushSettings
+from MF.V3.Tasks.Reboot import Reboot as MF_V3_Tasks_Reboot
+from MF.V3.Tasks.RemoveGroups import RemoveGroups as MF_V3_Tasks_RemoveGroups
+from MF.V3.Tasks.RemoveProjects import RemoveProjects as MF_V3_Tasks_RemoveProjects
+from MF.V3.Tasks.RestoreFactoryCalibration import RestoreFactoryCalibration as MF_V3_Tasks_RestoreFactoryCalibration
+from MF.V3.Tasks.RotateTurntable import RotateTurntable as MF_V3_Tasks_RotateTurntable
+from MF.V3.Tasks.ScanData import ScanData as MF_V3_Tasks_ScanData
+from MF.V3.Tasks.SetCameras import SetCameras as MF_V3_Tasks_SetCameras
+from MF.V3.Tasks.SetGroup import SetGroup as MF_V3_Tasks_SetGroup
+from MF.V3.Tasks.SetProject import SetProject as MF_V3_Tasks_SetProject
+from MF.V3.Tasks.SetProjector import SetProjector as MF_V3_Tasks_SetProjector
+from MF.V3.Tasks.Shutdown import Shutdown as MF_V3_Tasks_Shutdown
+from MF.V3.Tasks.SplitGroup import SplitGroup as MF_V3_Tasks_SplitGroup
+from MF.V3.Tasks.StartVideo import StartVideo as MF_V3_Tasks_StartVideo
+from MF.V3.Tasks.StopVideo import StopVideo as MF_V3_Tasks_StopVideo
+from MF.V3.Tasks.SystemInfo import SystemInfo as MF_V3_Tasks_SystemInfo
+from MF.V3.Tasks.TransformGroup import TransformGroup as MF_V3_Tasks_TransformGroup
+from MF.V3.Tasks.TurntableCalibration import TurntableCalibration as MF_V3_Tasks_TurntableCalibration
+from MF.V3.Tasks.UpdateSettings import UpdateSettings as MF_V3_Tasks_UpdateSettings
+from MF.V3.Tasks.UploadProject import UploadProject as MF_V3_Tasks_UploadProject
 
 
 class Three:
@@ -85,7 +85,7 @@ class Three:
     def __init__(self):
         pass
 
-    def list_network_interfaces(scanner) -> Task:
+    def list_network_interfaces(self) -> Task:
         # List available wifi networks.
         list_network_interfaces_request = MF_V3_Tasks_ListNetworkInterfaces.Request(
             Index=0,
@@ -96,10 +96,10 @@ class Three:
             Type="ListNetworkInterfaces"
         )
         task = Task(Index=0, Type="ListNetworkInterfaces", Input=list_network_interfaces_request, Output=list_network_interfaces_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def list_wifi(scanner) -> Task:
+    def list_wifi(self) -> Task:
         # List available wifi networks.
         list_wifi_request = MF_V3_Tasks_ListWifi.Request(
             Index=0,
@@ -110,10 +110,10 @@ class Three:
             Type="ListWifi"
         )
         task = Task(Index=0, Type="ListWifi", Input=list_wifi_request, Output=list_wifi_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def connect_wifi(scanner, ssid: str, password: str) -> Task:
+    def connect_wifi(self, ssid: str, password: str) -> Task:
         # Connect to a wifi network.
         connect_wifi_request = MF_V3_Tasks_ConnectWifi.Request(
             Index=0,
@@ -132,10 +132,10 @@ class Three:
             )
         )
         task = Task(Index=0, Type="ConnectWifi", Input=connect_wifi_request, Output=connect_wifi_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def forget_wifi(scanner) -> Task:
+    def forget_wifi(self) -> Task:
         # Forget all wifi connections.
         forget_wifi_request = MF_V3_Tasks_ForgetWifi.Request(
             Index=0,
@@ -146,10 +146,10 @@ class Three:
             Type="ForgetWifi"
         )
         task = Task(Index=0, Type="ForgetWifi", Input=forget_wifi_request, Output=forget_wifi_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def list_settings(scanner) -> Task:
+    def list_settings(self) -> Task:
         # Get scanner settings.
         list_settings_request = MF_V3_Tasks_ListSettings.Request(
             Index=0,
@@ -160,10 +160,10 @@ class Three:
             Type="ListSettings"
         )
         task = Task(Index=0, Type="ListSettings", Input=list_settings_request, Output=list_settings_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def push_settings(scanner) -> Task:
+    def push_settings(self) -> Task:
         # Push the current scanner settings to the settings stack.
         push_settings_request = MF_V3_Tasks_PushSettings.Request(
             Index=0,
@@ -174,10 +174,10 @@ class Three:
             Type="PushSettings"
         )
         task = Task(Index=0, Type="PushSettings", Input=push_settings_request, Output=push_settings_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def pop_settings(scanner, Input: bool = None) -> Task:
+    def pop_settings(self, Input: bool = None) -> Task:
         # Pop and restore scanner settings from the settings stack.
         pop_settings_request = MF_V3_Tasks_PopSettings.Request(
             Index=0,
@@ -189,10 +189,10 @@ class Three:
             Type="PopSettings"
         )
         task = Task(Index=0, Type="PopSettings", Input=pop_settings_request, Output=pop_settings_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def update_settings(scanner, advanced: MF_V3_Settings_Advanced_Advanced = None, camera: MF_V3_Settings_Camera_Camera = None, capture: MF_V3_Settings_Capture_Capture = None, i18n: MF_V3_Settings_I18n_I18n = None, projector: MF_V3_Settings_Projector_Projector = None, style: MF_V3_Settings_Style_Style = None, turntable: MF_V3_Settings_Turntable_Turntable = None, tutorials: MF_V3_Settings_Tutorials_Tutorials = None, viewer: MF_V3_Settings_Viewer_Viewer = None, software: MF_V3_Settings_Software_Software = None) -> Task:
+    def update_settings(self, advanced: MF_V3_Settings_Advanced_Advanced = None, camera: MF_V3_Settings_Camera_Camera = None, capture: MF_V3_Settings_Capture_Capture = None, i18n: MF_V3_Settings_I18n_I18n = None, projector: MF_V3_Settings_Projector_Projector = None, style: MF_V3_Settings_Style_Style = None, turntable: MF_V3_Settings_Turntable_Turntable = None, tutorials: MF_V3_Settings_Tutorials_Tutorials = None, viewer: MF_V3_Settings_Viewer_Viewer = None, software: MF_V3_Settings_Software_Software = None) -> Task:
         # Update scanner settings.
         update_settings_request = MF_V3_Tasks_UpdateSettings.Request(
             Index=0,
@@ -227,10 +227,10 @@ class Three:
             )
         )
         task = Task(Index=0, Type="UpdateSettings", Input=update_settings_request, Output=update_settings_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def list_projects(scanner) -> Task:
+    def list_projects(self) -> Task:
         # List all projects.
         list_projects_request = MF_V3_Tasks_ListProjects.Request(
             Index=0,
@@ -241,10 +241,10 @@ class Three:
             Type="ListProjects"
         )
         task = Task(Index=0, Type="ListProjects", Input=list_projects_request, Output=list_projects_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def download_project(scanner, Input: int) -> Task:
+    def download_project(self, Input: int) -> Task:
         # Download a project from the scanner.
         download_project_request = MF_V3_Tasks_DownloadProject.Request(
             Index=0,
@@ -257,10 +257,10 @@ class Three:
             Input=Input
         )
         task = Task(Index=0, Type="DownloadProject", Input=download_project_request, Output=download_project_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def upload_project(scanner) -> Task:
+    def upload_project(self) -> Task:
         # Upload a project to the scanner.
         upload_project_request = MF_V3_Tasks_UploadProject.Request(
             Index=0,
@@ -271,10 +271,10 @@ class Three:
             Type="UploadProject"
         )
         task = Task(Index=0, Type="UploadProject", Input=upload_project_request, Output=upload_project_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def new_project(scanner, Input: str = None) -> Task:
+    def new_project(self, Input: str = None) -> Task:
         # Create a new project.
         new_project_request = MF_V3_Tasks_NewProject.Request(
             Index=0,
@@ -286,10 +286,10 @@ class Three:
             Type="NewProject"
         )
         task = Task(Index=0, Type="NewProject", Input=new_project_request, Output=new_project_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def open_project(scanner, Input: int) -> Task:
+    def open_project(self, Input: int) -> Task:
         # Open an existing project.
         open_project_request = MF_V3_Tasks_OpenProject.Request(
             Index=0,
@@ -302,10 +302,10 @@ class Three:
             Input=Input
         )
         task = Task(Index=0, Type="OpenProject", Input=open_project_request, Output=open_project_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def close_project(scanner) -> Task:
+    def close_project(self) -> Task:
         # Close the current open project.
         close_project_request = MF_V3_Tasks_CloseProject.Request(
             Index=0,
@@ -316,10 +316,10 @@ class Three:
             Type="CloseProject"
         )
         task = Task(Index=0, Type="CloseProject", Input=close_project_request, Output=close_project_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def remove_projects(scanner, Input: int) -> Task:
+    def remove_projects(self, Input: int) -> Task:
         # Remove selected projects.
         remove_projects_request = MF_V3_Tasks_RemoveProjects.Request(
             Index=0,
@@ -332,10 +332,10 @@ class Three:
             Input=Input
         )
         task = Task(Index=0, Type="RemoveProjects", Input=remove_projects_request, Output=remove_projects_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def list_groups(scanner) -> Task:
+    def list_groups(self) -> Task:
         # List the scan groups in the current open project.
         list_groups_request = MF_V3_Tasks_ListGroups.Request(
             Index=0,
@@ -347,10 +347,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="ListGroups", Input=list_groups_request, Output=list_groups_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def list_scans(scanner) -> Task:
+    def list_scans(self) -> Task:
         # List the scans in the current open project.
         list_scans_request = MF_V3_Tasks_ListScans.Request(
             Index=0,
@@ -362,10 +362,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="ListScans", Input=list_scans_request, Output=list_scans_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def scan_data(scanner, index: int, buffers: MF_V3_Settings_ScanData_ScanData.Buffer, metadata: MF_V3_Settings_ScanData_ScanData.Metadata, mergeStep: MF_V3_Settings_ScanData_ScanData.MergeStep = None) -> Task:
+    def scan_data(self, index: int, buffers: MF_V3_Settings_ScanData_ScanData.Buffer, metadata: MF_V3_Settings_ScanData_ScanData.Metadata, mergeStep: MF_V3_Settings_ScanData_ScanData.MergeStep = None) -> Task:
         # Download the raw scan data for a scan in the current open project.
         scan_data_request = MF_V3_Tasks_ScanData.Request(
             Index=0,
@@ -389,10 +389,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="ScanData", Input=scan_data_request, Output=scan_data_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def set_project(scanner, index: int = None, name: str = None) -> Task:
+    def set_project(self, index: int = None, name: str = None) -> Task:
         # Apply settings to the current open project.
         set_project_request = MF_V3_Tasks_SetProject.Request(
             Index=0,
@@ -407,10 +407,10 @@ class Three:
             Type="SetProject"
         )
         task = Task(Index=0, Type="SetProject", Input=set_project_request, Output=set_project_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def set_group(scanner, index: int, color: float, rotation: float, translation: float, name: str = None, visible: bool = None, collapsed: bool = None) -> Task:
+    def set_group(self, index: int, color: float, rotation: float, translation: float, name: str = None, visible: bool = None, collapsed: bool = None) -> Task:
         # Set scan group properties.
         set_group_request = MF_V3_Tasks_SetGroup.Request(
             Index=0,
@@ -440,10 +440,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="SetGroup", Input=set_group_request, Output=set_group_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def new_group(scanner, color: float, rotation: float, translation: float, parentIndex: int = None, baseName: str = None, visible: bool = None, collapsed: bool = None) -> Task:
+    def new_group(self, color: float, rotation: float, translation: float, parentIndex: int = None, baseName: str = None, visible: bool = None, collapsed: bool = None) -> Task:
         # Create a new scan group.
         new_group_request = MF_V3_Tasks_NewGroup.Request(
             Index=0,
@@ -464,10 +464,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="NewGroup", Input=new_group_request, Output=new_group_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def move_group(scanner, Input: int) -> Task:
+    def move_group(self, Input: int) -> Task:
         # Move a scan group.
         move_group_request = MF_V3_Tasks_MoveGroup.Request(
             Index=0,
@@ -481,10 +481,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="MoveGroup", Input=move_group_request, Output=move_group_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def flatten_group(scanner, Input: int) -> Task:
+    def flatten_group(self, Input: int) -> Task:
         # Flatten a scan group such that it only consists of single scans.
         flatten_group_request = MF_V3_Tasks_FlattenGroup.Request(
             Index=0,
@@ -498,10 +498,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="FlattenGroup", Input=flatten_group_request, Output=flatten_group_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def split_group(scanner, Input: int) -> Task:
+    def split_group(self, Input: int) -> Task:
         # Split a scan group (ie. move its subgroups to its parent group).
         split_group_request = MF_V3_Tasks_SplitGroup.Request(
             Index=0,
@@ -515,10 +515,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="SplitGroup", Input=split_group_request, Output=split_group_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def transform_group(scanner, index: int, color: float, rotation: float, translation: float, name: str = None, visible: bool = None, collapsed: bool = None) -> Task:
+    def transform_group(self, index: int, color: float, rotation: float, translation: float, name: str = None, visible: bool = None, collapsed: bool = None) -> Task:
         # Apply a rigid transformation to a group.
         transform_group_request = MF_V3_Tasks_TransformGroup.Request(
             Index=0,
@@ -548,10 +548,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="TransformGroup", Input=transform_group_request, Output=transform_group_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def remove_groups(scanner, Input: int) -> Task:
+    def remove_groups(self, Input: int) -> Task:
         # Remove selected scan groups.
         remove_groups_request = MF_V3_Tasks_RemoveGroups.Request(
             Index=0,
@@ -565,10 +565,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="RemoveGroups", Input=remove_groups_request, Output=remove_groups_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def bounding_box(scanner, selection: MF_V3_Settings_ScanSelection_ScanSelection, axisAligned: bool) -> Task:
+    def bounding_box(self, selection: MF_V3_Settings_ScanSelection_ScanSelection, axisAligned: bool) -> Task:
         # Get the bounding box of a set of scan groups.
         bounding_box_request = MF_V3_Tasks_BoundingBox.Request(
             Index=0,
@@ -588,10 +588,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="BoundingBox", Input=bounding_box_request, Output=bounding_box_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def align(scanner, source: int, target: int, rough: MF_V3_Settings_Align_Align.Rough = None, fine: MF_V3_Settings_Align_Align.Fine = None) -> Task:
+    def align(self, source: int, target: int, rough: MF_V3_Settings_Align_Align.Rough = None, fine: MF_V3_Settings_Align_Align.Fine = None) -> Task:
         # Align two scan groups.
         align_request = MF_V3_Tasks_Align.Request(
             Index=0,
@@ -615,10 +615,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="Align", Input=align_request, Output=align_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def merge(scanner, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, remesh: MF_V3_Settings_Merge_Merge.Remesh = None, simplify: MF_V3_Settings_Merge_Merge.Simplify = None, texturize: bool = None) -> Task:
+    def merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, remesh: MF_V3_Settings_Merge_Merge.Remesh = None, simplify: MF_V3_Settings_Merge_Merge.Simplify = None, texturize: bool = None) -> Task:
         # Merge two or more scan groups.
         merge_request = MF_V3_Tasks_Merge.Request(
             Index=0,
@@ -642,10 +642,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="Merge", Input=merge_request, Output=merge_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def merge_data(scanner, index: int, buffers: MF_V3_Settings_ScanData_ScanData.Buffer, metadata: MF_V3_Settings_ScanData_ScanData.Metadata, mergeStep: MF_V3_Settings_ScanData_ScanData.MergeStep = None) -> Task:
+    def merge_data(self, index: int, buffers: MF_V3_Settings_ScanData_ScanData.Buffer, metadata: MF_V3_Settings_ScanData_ScanData.Metadata, mergeStep: MF_V3_Settings_ScanData_ScanData.MergeStep = None) -> Task:
         # Download the raw scan data for the current merge process.
         merge_data_request = MF_V3_Tasks_MergeData.Request(
             Index=0,
@@ -669,10 +669,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="MergeData", Input=merge_data_request, Output=merge_data_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def add_merge_to_project(scanner) -> Task:
+    def add_merge_to_project(self) -> Task:
         # Add a merged scan to the current project.
         add_merge_to_project_request = MF_V3_Tasks_AddMergeToProject.Request(
             Index=0,
@@ -684,10 +684,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="AddMergeToProject", Input=add_merge_to_project_request, Output=add_merge_to_project_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def list_export_formats(scanner) -> Task:
+    def list_export_formats(self) -> Task:
         # List all export formats.
         list_export_formats_request = MF_V3_Tasks_ListExportFormats.Request(
             Index=0,
@@ -699,10 +699,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="ListExportFormats", Input=list_export_formats_request, Output=list_export_formats_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def export(scanner, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None) -> Task:
+    def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None) -> Task:
         # Export a group of scans.
         export_request = MF_V3_Tasks_Export.Request(
             Index=0,
@@ -725,10 +725,10 @@ class Three:
             )
         )
         task = Task(Index=0, Type="Export", Input=export_request, Output=export_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def export_merge(scanner, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None) -> Task:
+    def export_merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None) -> Task:
         # Export a merged scan.
         export_merge_request = MF_V3_Tasks_ExportMerge.Request(
             Index=0,
@@ -751,10 +751,10 @@ class Three:
             )
         )
         task = Task(Index=0, Type="ExportMerge", Input=export_merge_request, Output=export_merge_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def export_logs(scanner, Input: bool = None) -> Task:
+    def export_logs(self, Input: bool = None) -> Task:
         # Export scanner logs.
         export_logs_request = MF_V3_Tasks_ExportLogs.Request(
             Index=0,
@@ -766,10 +766,10 @@ class Three:
             Type="ExportLogs"
         )
         task = Task(Index=0, Type="ExportLogs", Input=export_logs_request, Output=export_logs_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def has_cameras(scanner) -> Task:
+    def has_cameras(self) -> Task:
         # Check if the scanner has working cameras.
         has_cameras_request = MF_V3_Tasks_HasCameras.Request(
             Index=0,
@@ -780,10 +780,10 @@ class Three:
             Type="HasCameras"
         )
         task = Task(Index=0, Type="HasCameras", Input=has_cameras_request, Output=has_cameras_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def has_projector(scanner) -> Task:
+    def has_projector(self) -> Task:
         # Check if the scanner has a working projector.
         has_projector_request = MF_V3_Tasks_HasProjector.Request(
             Index=0,
@@ -794,10 +794,10 @@ class Three:
             Type="HasProjector"
         )
         task = Task(Index=0, Type="HasProjector", Input=has_projector_request, Output=has_projector_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def has_turntable(scanner) -> Task:
+    def has_turntable(self) -> Task:
         # Check if the scanner is connected to a working turntable.
         has_turntable_request = MF_V3_Tasks_HasTurntable.Request(
             Index=0,
@@ -808,10 +808,10 @@ class Three:
             Type="HasTurntable"
         )
         task = Task(Index=0, Type="HasTurntable", Input=has_turntable_request, Output=has_turntable_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def system_info(scanner, installed: MF_V3_Settings_Software_Software.Package, available: MF_V3_Settings_Software_Software.Package, nightlyIncluded: bool = None) -> Task:
+    def system_info(self, installed: MF_V3_Settings_Software_Software.Package, available: MF_V3_Settings_Software_Software.Package, nightlyIncluded: bool = None) -> Task:
         # Get system information.
         system_info_request = MF_V3_Tasks_SystemInfo.Request(
             Index=0,
@@ -828,10 +828,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="SystemInfo", Input=system_info_request, Output=system_info_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def camera_calibration(scanner) -> Task:
+    def camera_calibration(self) -> Task:
         # Get the camera calibration descriptor.
         camera_calibration_request = MF_V3_Tasks_CameraCalibration.Request(
             Index=0,
@@ -842,10 +842,10 @@ class Three:
             Type="CameraCalibration"
         )
         task = Task(Index=0, Type="CameraCalibration", Input=camera_calibration_request, Output=camera_calibration_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def turntable_calibration(scanner) -> Task:
+    def turntable_calibration(self) -> Task:
         # Get the turntable calibration descriptor.
         turntable_calibration_request = MF_V3_Tasks_TurntableCalibration.Request(
             Index=0,
@@ -856,10 +856,10 @@ class Three:
             Type="TurntableCalibration"
         )
         task = Task(Index=0, Type="TurntableCalibration", Input=turntable_calibration_request, Output=turntable_calibration_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def calibration_capture_targets(scanner) -> Task:
+    def calibration_capture_targets(self) -> Task:
         # Get the calibration capture target for each camera calibration capture.
         calibration_capture_targets_request = MF_V3_Tasks_CalibrationCaptureTargets.Request(
             Index=0,
@@ -870,10 +870,10 @@ class Three:
             Type="CalibrationCaptureTargets"
         )
         task = Task(Index=0, Type="CalibrationCaptureTargets", Input=calibration_capture_targets_request, Output=calibration_capture_targets_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def calibrate_cameras(scanner) -> Task:
+    def calibrate_cameras(self) -> Task:
         # Calibrate the cameras.
         calibrate_cameras_request = MF_V3_Tasks_CalibrateCameras.Request(
             Index=0,
@@ -884,10 +884,10 @@ class Three:
             Type="CalibrateCameras"
         )
         task = Task(Index=0, Type="CalibrateCameras", Input=calibrate_cameras_request, Output=calibrate_cameras_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def calibrate_turntable(scanner) -> Task:
+    def calibrate_turntable(self) -> Task:
         # Calibrate the turntable.
         calibrate_turntable_request = MF_V3_Tasks_CalibrateTurntable.Request(
             Index=0,
@@ -898,10 +898,10 @@ class Three:
             Type="CalibrateTurntable"
         )
         task = Task(Index=0, Type="CalibrateTurntable", Input=calibrate_turntable_request, Output=calibrate_turntable_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def detect_calibration_card(scanner, Input: int) -> Task:
+    def detect_calibration_card(self, Input: int) -> Task:
         # Detect the calibration card on one or both cameras.
         detect_calibration_card_request = MF_V3_Tasks_DetectCalibrationCard.Request(
             Index=0,
@@ -914,10 +914,10 @@ class Three:
             Input=Input
         )
         task = Task(Index=0, Type="DetectCalibrationCard", Input=detect_calibration_card_request, Output=detect_calibration_card_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def restore_factory_calibration(scanner) -> Task:
+    def restore_factory_calibration(self) -> Task:
         # Restore factory calibration.
         restore_factory_calibration_request = MF_V3_Tasks_RestoreFactoryCalibration.Request(
             Index=0,
@@ -928,10 +928,10 @@ class Three:
             Type="RestoreFactoryCalibration"
         )
         task = Task(Index=0, Type="RestoreFactoryCalibration", Input=restore_factory_calibration_request, Output=restore_factory_calibration_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def start_video(scanner) -> Task:
+    def start_video(self) -> Task:
         # Start the video stream.
         start_video_request = MF_V3_Tasks_StartVideo.Request(
             Index=0,
@@ -942,10 +942,10 @@ class Three:
             Type="StartVideo"
         )
         task = Task(Index=0, Type="StartVideo", Input=start_video_request, Output=start_video_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def stop_video(scanner) -> Task:
+    def stop_video(self) -> Task:
         # Stop the video stream.
         stop_video_request = MF_V3_Tasks_StopVideo.Request(
             Index=0,
@@ -956,10 +956,10 @@ class Three:
             Type="StopVideo"
         )
         task = Task(Index=0, Type="StopVideo", Input=stop_video_request, Output=stop_video_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def set_cameras(scanner, selection: int, autoExposure: bool = None, exposure: int = None, analogGain: float = None, digitalGain: int = None, focus: int = None) -> Task:
+    def set_cameras(self, selection: int, autoExposure: bool = None, exposure: int = None, analogGain: float = None, digitalGain: int = None, focus: int = None) -> Task:
         # Apply camera settings to one or both cameras.
         set_cameras_request = MF_V3_Tasks_SetCameras.Request(
             Index=0,
@@ -978,10 +978,10 @@ class Three:
             Type="SetCameras"
         )
         task = Task(Index=0, Type="SetCameras", Input=set_cameras_request, Output=set_cameras_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def set_projector(scanner, color: float, on: bool = None, brightness: float = None, pattern: MF_V3_Settings_Projector_Projector.Pattern = None, image: MF_V3_Settings_Projector_Projector.Image = None) -> Task:
+    def set_projector(self, color: float, on: bool = None, brightness: float = None, pattern: MF_V3_Settings_Projector_Projector.Pattern = None, image: MF_V3_Settings_Projector_Projector.Image = None) -> Task:
         # Apply projector settings.
         set_projector_request = MF_V3_Tasks_SetProjector.Request(
             Index=0,
@@ -999,10 +999,10 @@ class Three:
             Type="SetProjector"
         )
         task = Task(Index=0, Type="SetProjector", Input=set_projector_request, Output=set_projector_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def auto_focus(scanner, cameras: MF_V3_Settings_AutoFocus_AutoFocus.Camera, applyAll: bool) -> Task:
+    def auto_focus(self, cameras: MF_V3_Settings_AutoFocus_AutoFocus.Camera, applyAll: bool) -> Task:
         # Auto focus one or both cameras.
         auto_focus_request = MF_V3_Tasks_AutoFocus.Request(
             Index=0,
@@ -1017,10 +1017,10 @@ class Three:
             Type="AutoFocus"
         )
         task = Task(Index=0, Type="AutoFocus", Input=auto_focus_request, Output=auto_focus_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def rotate_turntable(scanner, Input: int) -> Task:
+    def rotate_turntable(self, Input: int) -> Task:
         # Rotate the turntable.
         rotate_turntable_request = MF_V3_Tasks_RotateTurntable.Request(
             Index=0,
@@ -1033,10 +1033,10 @@ class Three:
             Input=Input
         )
         task = Task(Index=0, Type="RotateTurntable", Input=rotate_turntable_request, Output=rotate_turntable_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def new_scan(scanner, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: MF_V3_Settings_Scan_Scan.Processing = None) -> Task:
+    def new_scan(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: MF_V3_Settings_Scan_Scan.Processing = None) -> Task:
         # Capture a new scan.
         new_scan_request = MF_V3_Tasks_NewScan.Request(
             Index=0,
@@ -1054,10 +1054,10 @@ class Three:
             Type="NewScan"
         )
         task = Task(Index=0, Type="NewScan", Input=new_scan_request, Output=new_scan_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def depth_map(scanner, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: MF_V3_Settings_Scan_Scan.Processing = None) -> Task:
+    def depth_map(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: MF_V3_Settings_Scan_Scan.Processing = None) -> Task:
         # Capture a depth map.
         depth_map_request = MF_V3_Tasks_DepthMap.Request(
             Index=0,
@@ -1076,10 +1076,10 @@ class Three:
             Output=None
         )
         task = Task(Index=0, Type="DepthMap", Input=depth_map_request, Output=depth_map_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def reboot(scanner) -> Task:
+    def reboot(self) -> Task:
         # Reboot the scanner.
         reboot_request = MF_V3_Tasks_Reboot.Request(
             Index=0,
@@ -1090,10 +1090,10 @@ class Three:
             Type="Reboot"
         )
         task = Task(Index=0, Type="Reboot", Input=reboot_request, Output=reboot_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
-    def shutdown(scanner) -> Task:
+    def shutdown(self) -> Task:
         # Shutdown the scanner.
         shutdown_request = MF_V3_Tasks_Shutdown.Request(
             Index=0,
@@ -1104,7 +1104,7 @@ class Three:
             Type="Shutdown"
         )
         task = Task(Index=0, Type="Shutdown", Input=shutdown_request, Output=shutdown_response)
-        scanner.SendTask(task)
+        self.SendTask(task)
         return task
 
 

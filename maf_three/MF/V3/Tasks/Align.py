@@ -1,5 +1,5 @@
-from MF.V3.Settings.Align import Align as MF_V3_Settings_Align_Align
 from MF.V3.Descriptors.Transform import Transform as MF_V3_Descriptors_Transform_Transform
+from MF.V3.Settings.Align import Align as MF_V3_Settings_Align_Align
 from MF.V3.Task import TaskState as MF_V3_Task_TaskState
 
 

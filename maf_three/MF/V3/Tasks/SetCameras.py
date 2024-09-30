@@ -1,5 +1,5 @@
-from MF.V3.Settings.Camera import Camera as MF_V3_Settings_Camera_Camera
 from MF.V3.Descriptors.Settings.Camera import Camera as MF_V3_Descriptors_Settings_Camera_Camera
+from MF.V3.Settings.Camera import Camera as MF_V3_Settings_Camera_Camera
 from MF.V3.Task import TaskState as MF_V3_Task_TaskState
 
 

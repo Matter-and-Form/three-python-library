@@ -1,5 +1,5 @@
-from MF.V3.Settings.Scan import Scan as MF_V3_Settings_Scan_Scan
 from MF.V3.Descriptors.Project import Project as MF_V3_Descriptors_Project_Project
+from MF.V3.Settings.Scan import Scan as MF_V3_Settings_Scan_Scan
 from MF.V3.Task import TaskState as MF_V3_Task_TaskState
 
 

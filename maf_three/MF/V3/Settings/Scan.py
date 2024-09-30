@@ -1,8 +1,8 @@
-from enum import Enum
+from MF.V3.Settings.Camera import Camera as MF_V3_Settings_Camera_Camera
 from MF.V3.Settings.Capture import Capture as MF_V3_Settings_Capture_Capture
 from MF.V3.Settings.Projector import Projector as MF_V3_Settings_Projector_Projector
 from MF.V3.Settings.Turntable import Turntable as MF_V3_Settings_Turntable_Turntable
-from MF.V3.Settings.Camera import Camera as MF_V3_Settings_Camera_Camera
+from enum import Enum
 from typing import List
 
 

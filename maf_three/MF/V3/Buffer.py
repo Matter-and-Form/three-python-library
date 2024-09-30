@@ -1,5 +1,5 @@
-from google.protobuf import any_pb2 as _any_pb2
 from MF.V3.Task import Task as MF_V3_Task_Task
+from google.protobuf import any_pb2 as _any_pb2
 
 
 class Buffer:

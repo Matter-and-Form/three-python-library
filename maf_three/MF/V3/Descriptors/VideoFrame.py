@@ -1,5 +1,5 @@
-from MF.V3.Settings.Video import Video as MF_V3_Settings_Video_Video
 from MF.V3.Descriptors.Calibration import DetectedCard as MF_V3_Descriptors_Calibration_DetectedCard
+from MF.V3.Settings.Video import Video as MF_V3_Settings_Video_Video
 
 
 class VideoFrame:
