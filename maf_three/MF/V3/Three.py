@@ -266,7 +266,7 @@ def download_project(self, Input: int) -> Task:
     return task
 
 
-def upload_project(self) -> Task:
+def upload_project(self, buffer: bytes) -> Task:
     # Upload a project to the scanner.
     upload_project_request = MF_V3_Tasks_UploadProject.Request(
         Index=0,
@@ -277,7 +277,7 @@ def upload_project(self) -> Task:
         Type="UploadProject"
     )
     task = Task(Index=0, Type="UploadProject", Input=upload_project_request, Output=upload_project_response)
-    self.SendTask(task)
+    self.SendTask(task, buffer)
     return task
 
 
@@ -1021,7 +1021,7 @@ def set_cameras(self, selection: List[int] = None, autoExposure: bool = None, ex
     return task
 
 
-def set_projector(self, on: bool = None, brightness: float = None, pattern: MF_V3_Settings_Projector_Projector.Pattern = None, image: MF_V3_Settings_Projector_Projector.Image = None, color: List[float] = None) -> Task:
+def set_projector(self, on: bool = None, brightness: float = None, pattern: MF_V3_Settings_Projector_Projector.Pattern = None, image: MF_V3_Settings_Projector_Projector.Image = None, color: List[float] = None, buffer: bytes = None) -> Task:
     # Apply projector settings.
     set_projector_request = MF_V3_Tasks_SetProjector.Request(
         Index=0,
@@ -1039,7 +1039,7 @@ def set_projector(self, on: bool = None, brightness: float = None, pattern: MF_V
         Type="SetProjector"
     )
     task = Task(Index=0, Type="SetProjector", Input=set_projector_request, Output=set_projector_response)
-    self.SendTask(task)
+    self.SendTask(task, buffer)
     return task
 
 

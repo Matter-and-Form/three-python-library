@@ -36,6 +36,26 @@ python_types = [
     "str", 
     "bytes"
 ]
+
+required_upload_procedures = [
+    "UploadProject",
+    "RemoveVertices"
+]
+
+optional_upload_procedures = [
+    "SetProjector"
+]
+
+required_download_procedures = [
+    "ScanData",
+    "MergeData",
+    "Export",
+    "ExportMerge",
+    "ExportLogs",
+    "StartVideo",
+    "DepthMap",
+    "DownloadProject"
+]
     
 
 def generate_python_code(output_dir: str, tree:Tree) -> set:
@@ -458,7 +478,6 @@ def generate_enum_code(enum:TreeNode) -> str:
 
 def get_replacement_name(path:str) -> str:
     return path.replace(".", "_")
-   
 
 def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
     """
@@ -478,7 +497,7 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         
         request_node = procedure.request
         response_node = procedure.response
-
+        
         # create a method name from the name value, by adding underscores between camel case
         method_name = ""
         for i, c in enumerate(procedure.name):
@@ -547,6 +566,9 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         descriptor = ImportDescriptor("typing", "List", "")
         current_node.imports.append(descriptor)
         
+        if procedure.name in required_upload_procedures:
+            service_code += ", buffer: bytes"
+        
         for prop in method_properties:
             if prop.repeated:
                 service_code += f", {prop.name}: List[{prop.type}]"
@@ -557,7 +579,9 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
             if prop.import_descriptor != None:
                 current_node.imports.append(prop.import_descriptor)
 
-        
+        if procedure.name in optional_upload_procedures:
+            service_code += ", buffer: bytes = None"
+
         service_code += f") -> {task_name}:\n"
         service_code += add_indents(procedure.comment,1)
         
@@ -611,9 +635,13 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         
         service_code += create_object_code(request_node, "request", False)
         service_code += create_object_code(response_node, "response", True)
-
+        
+    
         service_code += f"    task = {task_name}(Index=0, Type=\"{procedure.name}\", Input={method_name}_request, Output={method_name}_response)\n"
-        service_code += f"    self.SendTask(task)\n"
+        if procedure.name in required_upload_procedures or procedure.name in optional_upload_procedures:
+            service_code += f"    self.SendTask(task, buffer)\n"
+        else:
+            service_code += f"    self.SendTask(task)\n"
         service_code += f"    return task\n\n\n"
 
     return service_code

@@ -11,6 +11,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from maf_three.scanner import Scanner
 import maf_three.MF.V3.Three as Three
 from maf_three.MF.V3.Settings.Projector import Projector
+from maf_three.MF.V3.Settings.Video import Video
+from maf_three.MF.V3.Settings.Rectangle import Rectangle
 
 def main():
 
@@ -20,10 +22,10 @@ def main():
         
         # # Set white color
         # scanner.set_projector(color=[1,1,1], on=True, brightness=1.0)
-        # # Sleep for 1 second
+        # Sleep for 1 second
         # time.sleep(1)
 
-        # # # Set red color
+        # # Set red color
         # scanner.set_projector(color=[1,0,0])
         # # Sleep for 1 second
         # time.sleep(1)
@@ -42,42 +44,30 @@ def main():
         # scanner.set_projector(brightness=0.25)
         # time.sleep(1)
         
-        pattern = Projector.Pattern(Projector.Orientation.Vertical,4, 1)
-        scanner.set_projector(True, 1.0, pattern)
+        # pattern = Projector.Pattern(Projector.Orientation.Vertical,4, 1)
+        # scanner.set_projector(True, 1.0, pattern, None)
+        # time.sleep(1)
+
+        ### Project an image
+        print('Project Image')
+        width = 640
+        height = 480
+        img = np.zeros([height, width, 3], np.uint8)
+        for y in range(height):
+            for x in range(0, width):
+                img[y,x] = (
+                    255 * y / height , # Blue
+                    255 * x / width , # Green
+                    255 - 255 * y / height # Red
+                )
+        source = Projector.Image.Source(format = Video.Format.BGR888, width=width, height=height, step=3*width, fixAspectRatio=True)
+        scanner.set_projector(on=True, brightness=1.0, pattern=None, image=Projector.Image(source, Rectangle(0,0,width,height)), color=None, buffer=img.tobytes())
+        
         time.sleep(1)
 
-        # Turn off
+        #### Turn OFF
         scanner.set_projector(on=False)
 
-        # #### Project Vertical Pattern
-        # print('Project Vertical Pattern (Identical image columns)')
-        # scanner.SendTask(4, V3Task.SetProjector, Projector(pattern=Projector.Pattern(orientation=Projector.Orientation.Vertical,frequency=4,phase=1)))
-        # time.sleep(1)
-
-        # #### Project Horizontal Pattern
-        # print('Project Horizontal Pattern (Identical image rows)')
-        # scanner.SendTask(5, V3Task.SetProjector, Projector(pattern=Projector.Pattern(orientation=Projector.Orientation.Horizontal,frequency=4,phase=1)))
-        # time.sleep(1)
-
-        # ### Project an image
-        # print('Project Image')
-        # width = 640
-        # height = 480
-        # image = np.zeros([height, width, 3], np.uint8)
-        # for y in range(height):
-        #     for x in range(0, width):
-        #         image[y,x] = (
-        #             255 * y / height , # Blue
-        #             255 * x / width , # Green
-        #             255 - 255 * y / height # Red
-        #         )
-        # source = Projector.Image.Source(format = Video.Format.BGR888, width=width, height=height, step=3*width, fixAspectRatio=True)
-        # scanner.SendTaskWithBuffer(6, V3Task.SetProjector, image.tobytes(), Projector(image=Projector.Image(source=source, target=Rectangle(x=100,y=100,width=640, height=480))) )
-        # time.sleep(1)
-
-        # #### Turn OFF
-        # print('Turn OFF')
-        # scanner.SendTask(7, V3Task.SetProjector, Projector(on=False))
 
     except Exception as error:
         print('Error: ', error)
