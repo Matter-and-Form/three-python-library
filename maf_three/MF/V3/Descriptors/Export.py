@@ -19,20 +19,20 @@ class Export:
         Single = "Single"  # The format supports a single texture only.
         Multiple = "Multiple"  # The format supports multiple textures.
 
-    def __init__(self, format: MF_V3_Settings_Export_Export.Format, extension: str, description: str, faces: List['Face'], normals: bool, colors: bool, textures: 'Texture'):
+    def __init__(self, format: MF_V3_Settings_Export_Export.Format, extension: str, description: str, normals: bool, colors: bool, textures: 'Texture', faces: List['Face'] = None):
         # Export format.
         self.format = format
         # Export file extension. e.g. ".ply"
         self.extension = extension
         # Export format description. e.g. "Polygon format"
         self.description = description
-        # Types of supported faces.
-        self.faces = faces
         # Vertex normal support.
         self.normals = normals
         # Vertex color support.
         self.colors = colors
         # Texture (UV) support.
         self.textures = textures
+        # Types of supported faces.
+        self.faces = faces
 
 

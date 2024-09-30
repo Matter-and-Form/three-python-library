@@ -10,6 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from maf_three.scanner import Scanner
 import maf_three.MF.V3.Three as Three
+from maf_three.MF.V3.Settings.Projector import Projector
 
 def main():
 
@@ -17,30 +18,36 @@ def main():
         scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
         scanner.Connect("ws://matterandform.local:8081")
         
-        scanner.set_projector(on=True, brightness=1.0, color=[1,1,1])
-        # Sleep for 5 seconds
-        time.sleep(1)
+        # # Set white color
+        # scanner.set_projector(color=[1,1,1], on=True, brightness=1.0)
+        # # Sleep for 1 second
+        # time.sleep(1)
+
+        # # # Set red color
+        # scanner.set_projector(color=[1,0,0])
+        # # Sleep for 1 second
+        # time.sleep(1)
+
+        # # Set green color
+        # scanner.set_projector(color=[0,1,0])
+        # # Sleep for 1 second
+        # time.sleep(1)
+
+        # # Set blue color
+        # scanner.set_projector(color=[0,0,1])
+        # # Sleep for 1 second
+        # time.sleep(1)
         
-        # task.Projector.CopyFrom(Projector(on=True, brightness=1.0, color=[1,1,1]))
-        # print("test2")
-        # print(task)
-        # scanner.SendTask(task)
+        # # Set brightness to 0.25. The other settings will persist
+        # scanner.set_projector(brightness=0.25)
         # time.sleep(1)
+        
+        pattern = Projector.Pattern(Projector.Orientation.Vertical,4, 1)
+        scanner.set_projector(True, 1.0, pattern)
+        time.sleep(1)
 
-        # #### Project Red
-        # print('Project Red')
-        # scanner.SendTask(1, V3Task.SetProjector, Projector(color=[1,0,0]))
-        # time.sleep(1)
-
-        # #### Project Green
-        # print('Project Green')
-        # scanner.SendTask(2, V3Task.SetProjector, Projector(color=[0,1,0]))
-        # time.sleep(1)
-
-        # #### Project Blue
-        # print('Project Blue')
-        # scanner.SendTask(3, V3Task.SetProjector, Projector(color=[0,0,1]))
-        # time.sleep(1)
+        # Turn off
+        scanner.set_projector(on=False)
 
         # #### Project Vertical Pattern
         # print('Project Vertical Pattern (Identical image columns)')

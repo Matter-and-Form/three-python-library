@@ -21,7 +21,7 @@ class Merge:
             # Total mesh size in bytes.
             self.size = size
 
-    def __init__(self, scans: int, textures: int, maxSimplifyCount: int, meshes: List['Mesh']):
+    def __init__(self, scans: int, textures: int, maxSimplifyCount: int, meshes: List['Mesh'] = None):
         # The number of input scans.
         self.scans = scans
         # The number of input textures.

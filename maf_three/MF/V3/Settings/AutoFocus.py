@@ -12,13 +12,13 @@ class AutoFocus:
             # The image rectangle in video image pixels on which to apply auto focus.
             self.box = box
 
-    def __init__(self, cameras: List['Camera'], applyAll: bool):
-        # The set of cameras on which to apply auto focus.
-        self.cameras = cameras
+    def __init__(self, applyAll: bool, cameras: List['Camera'] = None):
         """
          Apply the final focus value to both cameras.
          This setting is ignored if more than one camera is selected.
         """
         self.applyAll = applyAll
+        # The set of cameras on which to apply auto focus.
+        self.cameras = cameras
 
 

@@ -64,7 +64,8 @@ def generate_pyi(scanner_module_name, three_module_name, output_file):
         pyi_content.append(f"import {imp}")
 
     # Add specific imports from typing
-    pyi_content.append("from typing import Optional, Callable, Any, Union")
+    pyi_content.append("from typing import Optional, Callable, Any, Union, List")
+    
 
     # Add class definition
     pyi_content.append("\n\nclass Scanner:")

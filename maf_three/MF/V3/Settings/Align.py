@@ -6,7 +6,7 @@ class Align:
     # Alignment settings.
     class Points:
         # Point pair alignment settings.
-        def __init__(self, points: List[float], absoluteError: float = None, relativeError: float = None, useAllPoints: bool = None):
+        def __init__(self, points: List[float] = None, absoluteError: float = None, relativeError: float = None, useAllPoints: bool = None):
             # The set of corresponding point pairs.
             self.points = points
             # The maximum absolute error for a point pair to be an inlier to the model.
@@ -57,7 +57,7 @@ class Align:
             ICP = "ICP"  # Iterative closest point alignment.
 
         class Transform:
-            def __init__(self, rotation: List[float], translation: List[float]):
+            def __init__(self, rotation: List[float] = None, translation: List[float] = None):
                 self.rotation = rotation
                 self.translation = translation
 

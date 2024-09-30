@@ -38,13 +38,13 @@ class System:
                 # The package changelog.
                 self.changelog = changelog
 
-        def __init__(self, installed: List['Package'], available: List['Package'], nightlyIncluded: bool):
+        def __init__(self, nightlyIncluded: bool, installed: List['Package'] = None, available: List['Package'] = None):
+            # Nightly releases are included.
+            self.nightlyIncluded = nightlyIncluded
             # Installed software versions.
             self.installed = installed
             # Available software versions.
             self.available = available
-            # Nightly releases are included.
-            self.nightlyIncluded = nightlyIncluded
 
     def __init__(self, serialNumber: str, diskSpace: 'DiskSpace', software: 'Software', publicKey: str):
         # Serial number;

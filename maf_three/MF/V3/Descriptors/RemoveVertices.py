@@ -14,7 +14,7 @@ class RemoveVertices:
             # The number of triangles after the removal.
             self.triangles = triangles
 
-    def __init__(self, scans: List['Scan'], groups: MF_V3_Descriptors_Project_Project.Group = None):
+    def __init__(self, scans: List['Scan'] = None, groups: MF_V3_Descriptors_Project_Project.Group = None):
         # The list of scans whose vertices were removed.
         self.scans = scans
         """

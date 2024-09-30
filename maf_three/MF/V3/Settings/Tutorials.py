@@ -5,7 +5,7 @@ class Tutorials:
     # Tutorials settings.
     class Viewed:
         # Viewed tutorials.
-        def __init__(self, pages: List[str]):
+        def __init__(self, pages: List[str] = None):
             # Viewed tutorials pages.
             self.pages = pages
 

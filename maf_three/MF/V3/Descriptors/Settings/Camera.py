@@ -38,15 +38,15 @@ class Camera:
         # Focus settings descriptor.
         class Value:
             # Focus value.
-            def __init__(self, value: List[int], default: List[int], min: int, max: int):
-                self.value = value
-                self.default = default
+            def __init__(self, min: int, max: int, value: List[int] = None, default: List[int] = None):
                 self.min = min
                 self.max = max
+                self.value = value
+                self.default = default
 
         class Box:
             # Auto focus box.
-            def __init__(self, value: List[MF_V3_Settings_Rectangle_Rectangle], default: List[MF_V3_Settings_Rectangle_Rectangle]):
+            def __init__(self, value: List[MF_V3_Settings_Rectangle_Rectangle] = None, default: List[MF_V3_Settings_Rectangle_Rectangle] = None):
                 self.value = value
                 self.default = default
 

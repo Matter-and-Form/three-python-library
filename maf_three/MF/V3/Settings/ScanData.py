@@ -27,14 +27,14 @@ class ScanData:
         Simplified = "Simplified"  # The combined or remeshed mesh is simplified to a reduced number of triangles.
         Textured = "Textured"  # The merged mesh has been textured.
 
-    def __init__(self, index: int, buffers: List['Buffer'], metadata: List['Metadata'], mergeStep: 'MergeStep' = None):
+    def __init__(self, index: int, mergeStep: 'MergeStep' = None, buffers: List['Buffer'] = None, metadata: List['Metadata'] = None):
         # Requested index of the scan in the current open project.
         self.index = index
+        # The merge process step if requesting merge data.
+        self.mergeStep = mergeStep
         # Requested scan buffers.
         self.buffers = buffers
         # Requested scan metadata.
         self.metadata = metadata
-        # The merge process step if requesting merge data.
-        self.mergeStep = mergeStep
 
 

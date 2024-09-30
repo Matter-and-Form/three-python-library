@@ -9,7 +9,7 @@ class Software:
         server = "server"  # The server software package.
         frontend = "frontend"  # The frontend software package.
 
-    def __init__(self, installed: List['Package'], available: List['Package'], nightlyIncluded: bool = None):
+    def __init__(self, installed: List['Package'] = None, available: List['Package'] = None, nightlyIncluded: bool = None):
         # Request installed software packages.  If undefined all installed packages are returned.
         self.installed = installed
         # Request available software packages.  If undefined all available packages are returned.

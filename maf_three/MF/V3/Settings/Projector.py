@@ -43,9 +43,7 @@ class Projector:
             # Image target rectangle.
             self.target = target
 
-    def __init__(self, color: List[float], on: bool = None, brightness: float = None, pattern: 'Pattern' = None, image: 'Image' = None):
-        # Solid color
-        self.color = color
+    def __init__(self, on: bool = None, brightness: float = None, pattern: 'Pattern' = None, image: 'Image' = None, color: List[float] = None):
         # Projector on/off.
         self.on = on
         # Projector brightness.
@@ -54,5 +52,7 @@ class Projector:
         self.pattern = pattern
         # Image to project
         self.image = image
+        # Solid color
+        self.color = color
 
 

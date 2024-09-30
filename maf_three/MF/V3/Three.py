@@ -78,6 +78,7 @@ from MF.V3.Tasks.TransformGroup import TransformGroup as MF_V3_Tasks_TransformGr
 from MF.V3.Tasks.TurntableCalibration import TurntableCalibration as MF_V3_Tasks_TurntableCalibration
 from MF.V3.Tasks.UpdateSettings import UpdateSettings as MF_V3_Tasks_UpdateSettings
 from MF.V3.Tasks.UploadProject import UploadProject as MF_V3_Tasks_UploadProject
+from typing import List
 
 
 def list_network_interfaces(self) -> Task:
@@ -328,7 +329,7 @@ def close_project(self) -> Task:
     return task
 
 
-def remove_projects(self, Input: int) -> Task:
+def remove_projects(self, Input: List[int] = None) -> Task:
     # Remove selected projects.
     remove_projects_request = MF_V3_Tasks_RemoveProjects.Request(
         Index=0,
@@ -337,8 +338,7 @@ def remove_projects(self, Input: int) -> Task:
     )
     remove_projects_response = MF_V3_Tasks_RemoveProjects.Response(
         Index=0,
-        Type="RemoveProjects",
-        Input=Input
+        Type="RemoveProjects"
     )
     task = Task(Index=0, Type="RemoveProjects", Input=remove_projects_request, Output=remove_projects_response)
     self.SendTask(task)
@@ -369,24 +369,23 @@ def list_scans(self) -> Task:
     )
     list_scans_response = MF_V3_Tasks_ListScans.Response(
         Index=0,
-        Type="ListScans",
-        Output=None
+        Type="ListScans"
     )
     task = Task(Index=0, Type="ListScans", Input=list_scans_request, Output=list_scans_response)
     self.SendTask(task)
     return task
 
 
-def scan_data(self, index: int, buffers: MF_V3_Settings_ScanData_ScanData.Buffer, metadata: MF_V3_Settings_ScanData_ScanData.Metadata, mergeStep: MF_V3_Settings_ScanData_ScanData.MergeStep = None) -> Task:
+def scan_data(self, index: int, mergeStep: MF_V3_Settings_ScanData_ScanData.MergeStep = None, buffers: List[MF_V3_Settings_ScanData_ScanData.Buffer] = None, metadata: List[MF_V3_Settings_ScanData_ScanData.Metadata] = None) -> Task:
     # Download the raw scan data for a scan in the current open project.
     scan_data_request = MF_V3_Tasks_ScanData.Request(
         Index=0,
         Type="ScanData",
         Input=MF_V3_Settings_ScanData_ScanData(
             index=index,
+            mergeStep=mergeStep,
             buffers=buffers,
             metadata=metadata,
-            mergeStep=mergeStep,
         )
     )
     scan_data_response = MF_V3_Tasks_ScanData.Response(
@@ -394,9 +393,9 @@ def scan_data(self, index: int, buffers: MF_V3_Settings_ScanData_ScanData.Buffer
         Type="ScanData",
         Input=MF_V3_Settings_ScanData_ScanData(
             index=index,
+            mergeStep=mergeStep,
             buffers=buffers,
             metadata=metadata,
-            mergeStep=mergeStep,
         ),
         Output=None
     )
@@ -424,19 +423,19 @@ def set_project(self, index: int = None, name: str = None) -> Task:
     return task
 
 
-def set_group(self, index: int, color: float, rotation: float, translation: float, name: str = None, visible: bool = None, collapsed: bool = None) -> Task:
+def set_group(self, index: int, name: str = None, color: List[float] = None, visible: bool = None, collapsed: bool = None, rotation: List[float] = None, translation: List[float] = None) -> Task:
     # Set scan group properties.
     set_group_request = MF_V3_Tasks_SetGroup.Request(
         Index=0,
         Type="SetGroup",
         Input=MF_V3_Settings_Group_Group(
             index=index,
-            color=color,
-            rotation=rotation,
-            translation=translation,
             name=name,
+            color=color,
             visible=visible,
             collapsed=collapsed,
+            rotation=rotation,
+            translation=translation,
         )
     )
     set_group_response = MF_V3_Tasks_SetGroup.Response(
@@ -444,12 +443,12 @@ def set_group(self, index: int, color: float, rotation: float, translation: floa
         Type="SetGroup",
         Input=MF_V3_Settings_Group_Group(
             index=index,
-            color=color,
-            rotation=rotation,
-            translation=translation,
             name=name,
+            color=color,
             visible=visible,
             collapsed=collapsed,
+            rotation=rotation,
+            translation=translation,
         ),
         Output=None
     )
@@ -458,19 +457,19 @@ def set_group(self, index: int, color: float, rotation: float, translation: floa
     return task
 
 
-def new_group(self, color: float, rotation: float, translation: float, parentIndex: int = None, baseName: str = None, visible: bool = None, collapsed: bool = None) -> Task:
+def new_group(self, parentIndex: int = None, baseName: str = None, color: List[float] = None, visible: bool = None, collapsed: bool = None, rotation: List[float] = None, translation: List[float] = None) -> Task:
     # Create a new scan group.
     new_group_request = MF_V3_Tasks_NewGroup.Request(
         Index=0,
         Type="NewGroup",
         Input=MF_V3_Settings_NewGroup_NewGroup(
-            color=color,
-            rotation=rotation,
-            translation=translation,
             parentIndex=parentIndex,
             baseName=baseName,
+            color=color,
             visible=visible,
             collapsed=collapsed,
+            rotation=rotation,
+            translation=translation,
         )
     )
     new_group_response = MF_V3_Tasks_NewGroup.Response(
@@ -483,7 +482,7 @@ def new_group(self, color: float, rotation: float, translation: float, parentInd
     return task
 
 
-def move_group(self, Input: int) -> Task:
+def move_group(self, Input: List[int] = None) -> Task:
     # Move a scan group.
     move_group_request = MF_V3_Tasks_MoveGroup.Request(
         Index=0,
@@ -493,7 +492,6 @@ def move_group(self, Input: int) -> Task:
     move_group_response = MF_V3_Tasks_MoveGroup.Response(
         Index=0,
         Type="MoveGroup",
-        Input=Input,
         Output=None
     )
     task = Task(Index=0, Type="MoveGroup", Input=move_group_request, Output=move_group_response)
@@ -537,19 +535,19 @@ def split_group(self, Input: int) -> Task:
     return task
 
 
-def transform_group(self, index: int, color: float, rotation: float, translation: float, name: str = None, visible: bool = None, collapsed: bool = None) -> Task:
+def transform_group(self, index: int, name: str = None, color: List[float] = None, visible: bool = None, collapsed: bool = None, rotation: List[float] = None, translation: List[float] = None) -> Task:
     # Apply a rigid transformation to a group.
     transform_group_request = MF_V3_Tasks_TransformGroup.Request(
         Index=0,
         Type="TransformGroup",
         Input=MF_V3_Settings_Group_Group(
             index=index,
-            color=color,
-            rotation=rotation,
-            translation=translation,
             name=name,
+            color=color,
             visible=visible,
             collapsed=collapsed,
+            rotation=rotation,
+            translation=translation,
         )
     )
     transform_group_response = MF_V3_Tasks_TransformGroup.Response(
@@ -557,12 +555,12 @@ def transform_group(self, index: int, color: float, rotation: float, translation
         Type="TransformGroup",
         Input=MF_V3_Settings_Group_Group(
             index=index,
-            color=color,
-            rotation=rotation,
-            translation=translation,
             name=name,
+            color=color,
             visible=visible,
             collapsed=collapsed,
+            rotation=rotation,
+            translation=translation,
         ),
         Output=None
     )
@@ -571,7 +569,7 @@ def transform_group(self, index: int, color: float, rotation: float, translation
     return task
 
 
-def remove_groups(self, Input: int) -> Task:
+def remove_groups(self, Input: List[int] = None) -> Task:
     # Remove selected scan groups.
     remove_groups_request = MF_V3_Tasks_RemoveGroups.Request(
         Index=0,
@@ -581,7 +579,6 @@ def remove_groups(self, Input: int) -> Task:
     remove_groups_response = MF_V3_Tasks_RemoveGroups.Response(
         Index=0,
         Type="RemoveGroups",
-        Input=Input,
         Output=None
     )
     task = Task(Index=0, Type="RemoveGroups", Input=remove_groups_request, Output=remove_groups_response)
@@ -669,16 +666,16 @@ def merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, re
     return task
 
 
-def merge_data(self, index: int, buffers: MF_V3_Settings_ScanData_ScanData.Buffer, metadata: MF_V3_Settings_ScanData_ScanData.Metadata, mergeStep: MF_V3_Settings_ScanData_ScanData.MergeStep = None) -> Task:
+def merge_data(self, index: int, mergeStep: MF_V3_Settings_ScanData_ScanData.MergeStep = None, buffers: List[MF_V3_Settings_ScanData_ScanData.Buffer] = None, metadata: List[MF_V3_Settings_ScanData_ScanData.Metadata] = None) -> Task:
     # Download the raw scan data for the current merge process.
     merge_data_request = MF_V3_Tasks_MergeData.Request(
         Index=0,
         Type="MergeData",
         Input=MF_V3_Settings_ScanData_ScanData(
             index=index,
+            mergeStep=mergeStep,
             buffers=buffers,
             metadata=metadata,
-            mergeStep=mergeStep,
         )
     )
     merge_data_response = MF_V3_Tasks_MergeData.Response(
@@ -686,9 +683,9 @@ def merge_data(self, index: int, buffers: MF_V3_Settings_ScanData_ScanData.Buffe
         Type="MergeData",
         Input=MF_V3_Settings_ScanData_ScanData(
             index=index,
+            mergeStep=mergeStep,
             buffers=buffers,
             metadata=metadata,
-            mergeStep=mergeStep,
         ),
         Output=None
     )
@@ -721,8 +718,7 @@ def list_export_formats(self) -> Task:
     )
     list_export_formats_response = MF_V3_Tasks_ListExportFormats.Response(
         Index=0,
-        Type="ListExportFormats",
-        Output=None
+        Type="ListExportFormats"
     )
     task = Task(Index=0, Type="ListExportFormats", Input=list_export_formats_request, Output=list_export_formats_response)
     self.SendTask(task)
@@ -844,7 +840,7 @@ def has_turntable(self) -> Task:
     return task
 
 
-def system_info(self, installed: MF_V3_Settings_Software_Software.Package, available: MF_V3_Settings_Software_Software.Package, nightlyIncluded: bool = None) -> Task:
+def system_info(self, installed: List[MF_V3_Settings_Software_Software.Package] = None, available: List[MF_V3_Settings_Software_Software.Package] = None, nightlyIncluded: bool = None) -> Task:
     # Get system information.
     system_info_request = MF_V3_Tasks_SystemInfo.Request(
         Index=0,
@@ -1002,7 +998,7 @@ def stop_video(self) -> Task:
     return task
 
 
-def set_cameras(self, selection: int, autoExposure: bool = None, exposure: int = None, analogGain: float = None, digitalGain: int = None, focus: int = None) -> Task:
+def set_cameras(self, selection: List[int] = None, autoExposure: bool = None, exposure: int = None, analogGain: float = None, digitalGain: int = None, focus: int = None) -> Task:
     # Apply camera settings to one or both cameras.
     set_cameras_request = MF_V3_Tasks_SetCameras.Request(
         Index=0,
@@ -1025,17 +1021,17 @@ def set_cameras(self, selection: int, autoExposure: bool = None, exposure: int =
     return task
 
 
-def set_projector(self, color: float, on: bool = None, brightness: float = None, pattern: MF_V3_Settings_Projector_Projector.Pattern = None, image: MF_V3_Settings_Projector_Projector.Image = None) -> Task:
+def set_projector(self, on: bool = None, brightness: float = None, pattern: MF_V3_Settings_Projector_Projector.Pattern = None, image: MF_V3_Settings_Projector_Projector.Image = None, color: List[float] = None) -> Task:
     # Apply projector settings.
     set_projector_request = MF_V3_Tasks_SetProjector.Request(
         Index=0,
         Type="SetProjector",
         Input=MF_V3_Settings_Projector_Projector(
-            color=color,
             on=on,
             brightness=brightness,
             pattern=pattern,
             image=image,
+            color=color,
         )
     )
     set_projector_response = MF_V3_Tasks_SetProjector.Response(
@@ -1047,14 +1043,14 @@ def set_projector(self, color: float, on: bool = None, brightness: float = None,
     return task
 
 
-def auto_focus(self, cameras: MF_V3_Settings_AutoFocus_AutoFocus.Camera, applyAll: bool) -> Task:
+def auto_focus(self, applyAll: bool, cameras: List[MF_V3_Settings_AutoFocus_AutoFocus.Camera] = None) -> Task:
     # Auto focus one or both cameras.
     auto_focus_request = MF_V3_Tasks_AutoFocus.Request(
         Index=0,
         Type="AutoFocus",
         Input=MF_V3_Settings_AutoFocus_AutoFocus(
-            cameras=cameras,
             applyAll=applyAll,
+            cameras=cameras,
         )
     )
     auto_focus_response = MF_V3_Tasks_AutoFocus.Response(
@@ -1120,8 +1116,7 @@ def depth_map(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V
     )
     depth_map_response = MF_V3_Tasks_DepthMap.Response(
         Index=0,
-        Type="DepthMap",
-        Output=None
+        Type="DepthMap"
     )
     task = Task(Index=0, Type="DepthMap", Input=depth_map_request, Output=depth_map_response)
     self.SendTask(task)

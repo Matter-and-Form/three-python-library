@@ -7,7 +7,7 @@ class Advanced:
     # Advanced settings.
     class Capture:
         # Capture settings.
-        def __init__(self, horizontalFrequencies: List[int], verticalFrequencies: List[int], use: bool = None):
+        def __init__(self, horizontalFrequencies: List[int] = None, verticalFrequencies: List[int] = None, use: bool = None):
             # Projector sample rate.
             self.horizontalFrequencies = horizontalFrequencies
             # Image sample rate.
@@ -98,11 +98,11 @@ class Advanced:
 
     class PointClipping:
         # Point32 clipping settings.
-        def __init__(self, transform: List[float], type: MF_V3_Settings_Scan_Scan.Processing.PointClipping.Type = None, use: bool = None):
-            # 4x4 transform mapping 3D points to the canonical point32 clipping coordinates.
-            self.transform = transform
+        def __init__(self, type: MF_V3_Settings_Scan_Scan.Processing.PointClipping.Type = None, transform: List[float] = None, use: bool = None):
             # Point32 clipping type.
             self.type = type
+            # 4x4 transform mapping 3D points to the canonical point32 clipping coordinates.
+            self.transform = transform
             # Use the point32 clipping settings.
             self.use = use
 

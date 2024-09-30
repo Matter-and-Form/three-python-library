@@ -17,7 +17,7 @@ class Wifi:
             # Signal quality [0 ; 100].
             self.quality = quality
 
-    def __init__(self, ssid: str, networks: List['Network']):
+    def __init__(self, ssid: str, networks: List['Network'] = None):
         # The wifi ssid.
         self.ssid = ssid
         # The list of wifi networks.

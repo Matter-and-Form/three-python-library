@@ -13,7 +13,7 @@ class Quality(Enum):
 
 class Camera:
     # Camera calibration descriptor.
-    def __init__(self, quality: 'Quality', date: List[int]):
+    def __init__(self, quality: 'Quality', date: List[int] = None):
         # Calibration quality.
         self.quality = quality
         # Calibration date and time [year, month, day, hour, minute, second].
@@ -22,7 +22,7 @@ class Camera:
 
 class Turntable:
     # Turntable calibration descriptor.
-    def __init__(self, quality: 'Quality', date: List[int], focus: List[int]):
+    def __init__(self, quality: 'Quality', date: List[int] = None, focus: List[int] = None):
         # Calibration quality.
         self.quality = quality
         # Calibration date and time [year, month, day, hour, minute, second].
@@ -37,7 +37,7 @@ class CaptureTarget:
 
      The camera calibration capture targets are used to draw quad overlays on the video stream to guide a user as to where to position the calibration card for each capture during camera calibration.
     """
-    def __init__(self, camera: int, quads: List[float]):
+    def __init__(self, camera: int, quads: List[float] = None):
         # Index of the camera that is displayed to the user for this capture.
         self.camera = camera
         """
@@ -66,7 +66,7 @@ class DetectedCard:
             """
             self.hold = hold
 
-    def __init__(self, size: List[int], quad: List[float], corners: List[float], target: 'Target' = None):
+    def __init__(self, size: List[int] = None, quad: List[float] = None, corners: List[float] = None, target: 'Target' = None):
         # The calibration card columns and rows.
         self.size = size
         # The calibration card bounding quadrilateral.

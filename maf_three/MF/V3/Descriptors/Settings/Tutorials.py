@@ -13,7 +13,7 @@ class Tutorials:
         # Viewed tutorials.
         class Pages:
             # Viewed tutorials pages.
-            def __init__(self, value: List[str], default: List[str]):
+            def __init__(self, value: List[str] = None, default: List[str] = None):
                 self.value = value
                 self.default = default
 

@@ -544,8 +544,14 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
         # Sort the properties so that optionals are last
         method_properties = sorted(method_properties, key=lambda x: x.optional)
 
+        descriptor = ImportDescriptor("typing", "List", "")
+        current_node.imports.append(descriptor)
+        
         for prop in method_properties:
-            service_code += f", {prop.name}: {prop.type}"
+            if prop.repeated:
+                service_code += f", {prop.name}: List[{prop.type}]"
+            else:
+                service_code += f", {prop.name}: {prop.type}"
             if prop.optional:
                 service_code += " = None"
             if prop.import_descriptor != None:

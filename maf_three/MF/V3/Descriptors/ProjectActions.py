@@ -14,21 +14,21 @@ class ProjectAction:
             # The number of triangles after undo or redo.
             self.triangles = triangles
 
-    def __init__(self, task: str, scans: List['Scan'], project: MF_V3_Descriptors_Project_Project = None):
+    def __init__(self, task: str, project: MF_V3_Descriptors_Project_Project = None, scans: List['Scan'] = None):
         # The original websocket task that the action is undoing or redoing.
         self.task = task
-        # The list of scans whose vertex/triangle elements were changed by the undo/redo action.
-        self.scans = scans
         """
          The updated project data after undo or redo.
          If undefined, then there was no change to the project.
         """
         self.project = project
+        # The list of scans whose vertex/triangle elements were changed by the undo/redo action.
+        self.scans = scans
 
 
 class ProjectActions:
     # Project undo and redo action descriptors.
-    def __init__(self, undo: List[str], redo: List[str]):
+    def __init__(self, undo: List[str] = None, redo: List[str] = None):
         # Project undo action descriptors.
         self.undo = undo
         # Project redo action descriptors.

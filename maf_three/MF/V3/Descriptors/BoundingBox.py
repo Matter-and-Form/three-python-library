@@ -3,7 +3,7 @@ from typing import List
 
 class BoundingBox:
     # BoundingBox descriptor.
-    def __init__(self, center: List[float], size: List[float], rotation: List[float], transform: List[float]):
+    def __init__(self, center: List[float] = None, size: List[float] = None, rotation: List[float] = None, transform: List[float] = None):
         # The center of the bounding box.
         self.center = center
         # The size of the bounding box.

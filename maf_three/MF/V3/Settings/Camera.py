@@ -3,7 +3,7 @@ from typing import List
 
 class Camera:
     # Camera settings.
-    def __init__(self, selection: List[int], autoExposure: bool = None, exposure: int = None, analogGain: float = None, digitalGain: int = None, focus: int = None):
+    def __init__(self, selection: List[int] = None, autoExposure: bool = None, exposure: int = None, analogGain: float = None, digitalGain: int = None, focus: int = None):
         # Camera selection.  Default is all cameras.
         self.selection = selection
         # Auto exposure.

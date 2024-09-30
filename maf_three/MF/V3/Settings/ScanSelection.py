@@ -10,7 +10,7 @@ class ScanSelection:
         visible = "visible"  # Select visible scans.
         all = "all"  # Select all scans.
 
-    def __init__(self, mode: 'Mode', groups: List[int]):
+    def __init__(self, mode: 'Mode', groups: List[int] = None):
         # The scan selection mode.
         self.mode = mode
         """

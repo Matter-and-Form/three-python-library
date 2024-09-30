@@ -13,18 +13,18 @@ class Advanced:
     class Capture:
         # Capture settings descriptor.
         class HorizontalFrequencies:
-            def __init__(self, value: List[int], default: List[int], min: int, max: int):
-                self.value = value
-                self.default = default
+            def __init__(self, min: int, max: int, value: List[int] = None, default: List[int] = None):
                 self.min = min
                 self.max = max
+                self.value = value
+                self.default = default
 
         class VerticalFrequencies:
-            def __init__(self, value: List[int], default: List[int], min: int, max: int):
-                self.value = value
-                self.default = default
+            def __init__(self, min: int, max: int, value: List[int] = None, default: List[int] = None):
                 self.min = min
                 self.max = max
+                self.value = value
+                self.default = default
 
         def __init__(self, use: 'Advanced.Use', horizontalFrequencies: 'HorizontalFrequencies', verticalFrequencies: 'VerticalFrequencies'):
             self.use = use

@@ -9,6 +9,8 @@ class TreeProperty:
         self.repeated: bool = repeated
         self.comment: str = comment
         self.import_descriptor: ImportDescriptor = import_descriptor
+        if self.repeated:
+            self.optional = True
 
 
 class TreeProcedure:

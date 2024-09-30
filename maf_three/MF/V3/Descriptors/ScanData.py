@@ -30,13 +30,13 @@ class ScanData:
                 # Indicates if the data is normalized.
                 self.normalized = normalized
 
-        def __init__(self, components: List['Component'], stride: int):
-            # Scan buffer components.
-            self.components = components
+        def __init__(self, stride: int, components: List['Component'] = None):
             # Scan buffer stride.  This should be greater or equal to the sum of the component sizes.
             self.stride = stride
+            # Scan buffer components.
+            self.components = components
 
-    def __init__(self, index: int, name: str, buffers: List['Buffer'], mean: List[float], stddev: List[float], axisAlignedBoundingBox: List[float]):
+    def __init__(self, index: int, name: str, buffers: List['Buffer'] = None, mean: List[float] = None, stddev: List[float] = None, axisAlignedBoundingBox: List[float] = None):
         # Scan index.
         self.index = index
         # Scan name.

@@ -89,7 +89,7 @@ class Scan:
                 InsideCylinder = "InsideCylinder"  # Clip points inside a unit cylinder.
                 InsideSphere = "InsideSphere"  # Clip points inside a unit sphere.
 
-            def __init__(self, type: 'Type', transform: List[float]):
+            def __init__(self, type: 'Type', transform: List[float] = None):
                 # Point clipping type.
                 self.type = type
                 # 4x4 transform mapping 3D points to the canonical point clipping coordinates.
@@ -124,9 +124,7 @@ class Scan:
                 # The neighbour search radius.
                 self.neighbourRadius = neighbourRadius
 
-        def __init__(self, pointClipping: List['PointClipping'], projectorSampleRate: float = None, imageSampleRate: float = None, edgeDetection: 'PhaseEdgeDetection' = None, phaseFilter: 'PhaseFilter' = None, adaptiveSampling: 'AdaptiveSampling' = None, normalEstimation: 'NormalEstimation' = None, outlierRemoval: 'OutlierRemoval' = None):
-            # Point clipping settings.
-            self.pointClipping = pointClipping
+        def __init__(self, projectorSampleRate: float = None, imageSampleRate: float = None, edgeDetection: 'PhaseEdgeDetection' = None, phaseFilter: 'PhaseFilter' = None, adaptiveSampling: 'AdaptiveSampling' = None, pointClipping: List['PointClipping'] = None, normalEstimation: 'NormalEstimation' = None, outlierRemoval: 'OutlierRemoval' = None):
             # Projector sample rate.
             self.projectorSampleRate = projectorSampleRate
             # Image sample rate.
@@ -137,6 +135,8 @@ class Scan:
             self.phaseFilter = phaseFilter
             # Adaptive sampling settings.
             self.adaptiveSampling = adaptiveSampling
+            # Point clipping settings.
+            self.pointClipping = pointClipping
             # Normal estimation settings.
             self.normalEstimation = normalEstimation
             # Outlier removal settings.
