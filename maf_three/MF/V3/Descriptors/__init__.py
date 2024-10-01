@@ -2,6 +2,7 @@ from MF.V3.Descriptors.BoundingBox import *
 from MF.V3.Descriptors.Export import * 
 from MF.V3.Descriptors.Image import * 
 from MF.V3.Descriptors.Merge import * 
+from MF.V3.Descriptors.Progress import * 
 from MF.V3.Descriptors.Project import * 
 from MF.V3.Descriptors.ProjectActions import * 
 from MF.V3.Descriptors.RemoveVertices import * 

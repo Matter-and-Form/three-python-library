@@ -3,24 +3,19 @@
 import numpy as np
 
 # Three library
-from maf_three.V3Task import V3Task
 from maf_three.scanner import Scanner
-from maf_three.task import Task, TaskState
-
-from MF.V3.Settings.Camera_pb2 import Camera
-from MF.V3.Settings.Capture_pb2 import Capture
-from MF.V3.Settings.Projector_pb2 import Projector
-from MF.V3.Settings.Turntable_pb2 import Turntable
-from MF.V3.Settings.Scan_pb2 import Scan
-
+from maf_three.MF.V3.Settings import Camera, Projector, Turntable, Scan, Capture
+from maf_three.MF.V3.Descriptors import Project
+from maf_three.MF.V3.Descriptors.Settings import Scanner as ScannerDescriptor, Camera as CameraDescriptor, Projector as ProjectorDescriptor, Turntable as TurntableDescriptor
+from maf_three.MF.V3 import Task, TaskState
 # Two frames for the video stream
 frame0 = np.zeros((0,0,3), np.uint8)
 frame1 = np.zeros((0,0,3), np.uint8)
 
 # Camera/Projector settings
 camera = Camera(exposure=50000, digitalGain=256, analogGain=256.0)
-projector = Projector(brightness=0.5)
-turntable = Turntable(use=False)
+projector = Projector(on=True, brightness=0.5)
+turntable = Turntable(8,360,False)
 
 def main():
 
@@ -43,17 +38,21 @@ def main():
     # Task update
     def OnTask(task:Task):
 
-        if task.State == TaskState.Completed:
+        if task.Progress:
+            print(task.Progress)
+        else:
+            print(task.State)
+        # if task.State == TaskState.Completed:
             # New Test Scan
-            if(task.Type == V3Task.NewTestScan):
-                if task.Output:
-                    print('Scan Completed -> Requesting the data')
-                    index = task.Output[0]
-                    filePath = f'TestScans/Scan-{index}/Scan-{index}.ply'
-                    scanner.SendTask(1, V3Task.DownloadFile, filePath )
+            # if(task.Type == V3Task.NewTestScan):
+            #     if task.Output:
+            #         print('Scan Completed -> Requesting the data')
+            #         index = task.Output[0]
+            #         filePath = f'TestScans/Scan-{index}/Scan-{index}.ply'
+            #         scanner.SendTask(1, V3Task.DownloadFile, filePath )
         
-        elif task.State == TaskState.Failed:
-            print('Failed Task: ', task)
+        # elif task.State == TaskState.Failed:
+        #     print('Failed Task: ', task)
 
     # Buffer received
     def OnBuffer(descriptor, buffer:bytes):
@@ -74,24 +73,23 @@ def main():
 
 
     def OnTrackbarExposure(value):
-        global camera
+        # Exposure Min in 9000
+        if (value < 9000):
+            value = 9000
         camera.exposure = value
-        if scanner.IsConnected(): scanner.SendTask(99, V3Task.SetCameras, Camera(exposure=value))
+        scanner.set_cameras(exposure=value)
 
     def OnTrackbarAnalogGain(value):
-        global camera
         camera.analogGain = value
-        if scanner.IsConnected(): scanner.SendTask(99, V3Task.SetCameras, Camera(analogGain=value))
-
+        scanner.set_cameras(analogGain=value)
+        
     def OnTrackbarDigitalGain(value):
-        global camera
         camera.digitalGain = value
-        if scanner.IsConnected(): scanner.SendTask(99, V3Task.SetCameras, Camera(digitalGain=value))
+        scanner.set_cameras(digitalGain=value)
 
     def OnTrackbarProjectorBrightness(value):
-        global projector
-        projector.brightness = float(value / 100)
-        if scanner.IsConnected(): scanner.SendTask(112, V3Task.SetProjector, Projector(brightness=value/100))
+        projector.brightness = value/100
+        scanner.set_projector(brightness=value/100)
 
     def OnTrackbarUseTurntable(value):
         global turntable
@@ -105,10 +103,31 @@ def main():
         global turntable
         turntable.steps = value
 
+    def OnTrackbarFocus(value):
+        camera.focus = value
+        scanner.set_cameras(focus=value)
+
+
     try:
+        global camera, projector, turntable
+
         # Connect to the scanner
         scanner = Scanner(OnTask=OnTask, OnBuffer=OnBuffer, OnMessage=None)
         scanner.Connect("ws://matterandform.local:8081")
+
+        scanSettingsTask = scanner.list_settings()
+        cameraDescriptor = CameraDescriptor(**scanSettingsTask.Output["camera"])
+        projectorDescriptor = ProjectorDescriptor(**scanSettingsTask.Output["projector"])
+        turntableDescriptor = TurntableDescriptor(**scanSettingsTask.Output["turntable"])
+
+        camera.exposure = cameraDescriptor.exposure["value"]
+        camera.analogGain = cameraDescriptor.analogGain["value"]
+        camera.digitalGain = cameraDescriptor.digitalGain["value"]
+        camera.focus = cameraDescriptor.focus["value"]["default"][0]
+        projector.brightness = projectorDescriptor.brightness["value"]
+        turntable.use = False
+        turntable.sweep = turntableDescriptor.sweep["value"]
+        turntable.scans = turntableDescriptor.scans["value"]
 
         # Create the UI
         cv2.namedWindow(ControlsWindow)
@@ -117,17 +136,24 @@ def main():
         cv2.moveWindow(ControlsWindow,0, 550)
         cv2.moveWindow(Camera0Window,0,100)
         cv2.moveWindow(Camera1Window,550,100)
-        cv2.createTrackbar('Exposure', ControlsWindow , camera.exposure, 100000, OnTrackbarExposure)
-        cv2.createTrackbar('Analog Gain', ControlsWindow , int(camera.analogGain), 1024, OnTrackbarAnalogGain)
-        cv2.createTrackbar('Digital Gain', ControlsWindow , camera.digitalGain, 1024, OnTrackbarDigitalGain)
-        cv2.createTrackbar('Projector Brightness', ControlsWindow , int(100 * projector.brightness), 100, OnTrackbarProjectorBrightness)
-        cv2.createTrackbar('Use Turntable', ControlsWindow , 1 if turntable.use else 0, 1, OnTrackbarUseTurntable)
-        cv2.createTrackbar('Turntable Sweep', ControlsWindow , 180, 360, OnTrackbarTurntableSweep)
-        cv2.createTrackbar('Turntable Steps', ControlsWindow , 0, 32, OnTrackbarTurntableSteps)
+        cv2.createTrackbar('Exposure', ControlsWindow, int(camera.exposure), int(cameraDescriptor.exposure["max"]), OnTrackbarExposure)
+        cv2.createTrackbar('Camera Focus', ControlsWindow, int(camera.focus), int(cameraDescriptor.focus["value"]["max"]), OnTrackbarFocus)
+        cv2.createTrackbar('Analog Gain', ControlsWindow, int(camera.analogGain), int(cameraDescriptor.analogGain["max"]), OnTrackbarAnalogGain)
+        cv2.createTrackbar('Digital Gain', ControlsWindow, int(camera.digitalGain), int(cameraDescriptor.digitalGain["max"]), OnTrackbarDigitalGain)
+        cv2.createTrackbar('Projector Brightness', ControlsWindow, int(100 * projector.brightness), 100, OnTrackbarProjectorBrightness)
+        cv2.createTrackbar('Use Turntable', ControlsWindow, 1 if turntable.use else 0, 1, OnTrackbarUseTurntable)
+        cv2.createTrackbar('Turntable Sweep', ControlsWindow, int(turntable.sweep), int(turntableDescriptor.sweep["max"]), OnTrackbarTurntableSweep)
+        cv2.createTrackbar('Turntable Scans', ControlsWindow, int(turntable.scans), int(turntableDescriptor.scans["max"]), OnTrackbarTurntableSteps)
+        
 
+        new_project_return = scanner.new_project('SimpleScanner')
+        project:Project = Project(**new_project_return.Output)
+        scanner.open_project(project.index)
+    
         # Turn on the projector and start the video
-        scanner.SendTask(112, V3Task.SetProjector, Projector(color=[1,1,1], on=True, brightness=projector.brightness))
-        scanner.SendTask(-1, V3Task.StartVideo)
+        scanner.set_projector(on=True, brightness=projector.brightness, color=[1,1,1])
+        scanner.start_video()
+        
 
         # User input loop
         print('Press "Esc" to quit.')  
@@ -147,15 +173,19 @@ def main():
                     break
                 
                 elif key == 115: # 's' => Create a new Test Scan
-                    scan = Scan(
-                        camera=camera,
-                        capture=Capture(), 
-                        projector=projector,
-                        turntable=turntable)
-                    scanner.SendTask(115, V3Task.NewTestScan, scan)
+                    if turntable.use:
+                        scanner.new_scan(camera=camera, projector=projector, turntable=turntable)
+                    else:
+                        scanner.new_scan(camera=camera, projector=projector)
     
     except Exception as error:
         print('Error: ', error)
+    
+    finally:
+        if scanner.IsConnected():
+            if project:
+                scanner.remove_projects([project.index])
+            scanner.set_projector(on=False)
 
     
     scanner.Disconnect()

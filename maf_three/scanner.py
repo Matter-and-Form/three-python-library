@@ -335,9 +335,3 @@ class Scanner:
                 return t
                 break
         return None
-
-if __name__ == "__main__":
-    scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
-    scanner.Connect("ws://matterandform.local:8081")
-
-    scanner.set_projector(on=True, brightness=1.0, color=[1,1,1])
