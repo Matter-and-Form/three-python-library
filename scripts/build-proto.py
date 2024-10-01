@@ -93,6 +93,7 @@ def run_flake8(file_path):
     return report.get_statistics('E') + report.get_statistics('F')
 
 def check_files(directory):
+    hasError = False
     for root, _, files in os.walk(directory):
         for file in files:
             if file.endswith('.py') and file != '__init__.py':
@@ -101,7 +102,11 @@ def check_files(directory):
                 flake8_output = run_flake8(filepath)
                 if flake8_output:
                     print(f"flake8 issues in {filepath}:\n{flake8_output}")
-
+                    hasError = True
+                else:
+                    print(f"Clean: {filepath}")
+    if hasError:
+        raise Exception("Formatting Or Linting Issues Found")
 
 if __name__ == "__main__":
     print("Building python files...")
@@ -111,3 +116,4 @@ if __name__ == "__main__":
     print("Generating .pyi file...")
     generate_pyi('maf_three.scanner', 'maf_three.MF.V3.Three', './maf_three/scanner.pyi')
     print("Completed!")
+    exit(0)
