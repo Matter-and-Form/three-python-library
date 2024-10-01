@@ -4,16 +4,9 @@ import inspect
 import importlib
 import ast
 
-# Build proto files
-def run_transpile_proto():
-    script_path = os.path.join(os.path.dirname(__file__), 'transpileProto.py')
-    input_dir = './V3Schema'
-    output_dir = './maf_three/'
-    result = subprocess.run(['python', script_path, input_dir, output_dir], capture_output=True, text=True)
-    if result.returncode != 0:
-        print(f"Error: {result.stderr}")
-    else:
-        print(f"Output: {result.stdout}")
+import transpileProto
+from flake8.api import legacy as flake8
+    
 
 def get_imports_from_file(file_path):
     with open(file_path, 'r') as file:
@@ -93,6 +86,28 @@ def generate_pyi(scanner_module_name, three_module_name, output_file):
     with open(output_file, 'w') as f:
         f.write('\n'.join(pyi_content))
 
+
+def run_flake8(file_path):
+    style_guide = flake8.get_style_guide(select=['E', 'F'], ignore=['E501'])
+    report = style_guide.check_files([file_path])
+    return report.get_statistics('E') + report.get_statistics('F')
+
+def check_files(directory):
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.py') and file != '__init__.py':
+                filepath = os.path.join(root, file)
+                # print(f"Running flake8 on {filepath}...")
+                flake8_output = run_flake8(filepath)
+                if flake8_output:
+                    print(f"flake8 issues in {filepath}:\n{flake8_output}")
+
+
 if __name__ == "__main__":
-    run_transpile_proto()
+    print("Building python files...")
+    transpileProto.transpile("./V3Schema/", "./maf_three/")
+    print("Checking python files...")
+    check_files("./maf_three/MF/V3/")
+    print("Generating .pyi file...")
     generate_pyi('maf_three.scanner', 'maf_three.MF.V3.Three', './maf_three/scanner.pyi')
+    print("Completed!")

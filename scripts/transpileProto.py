@@ -672,67 +672,25 @@ def generate_init_files(paths: set, tree: Tree, output_dir: str):
                 f.write(f"from {import_path} import * \n")
 
 
-# Checking files for consistency after building
-def check_undefined_names(file_path):
-    with open(file_path, 'r') as file:
-        tree = ast.parse(file.read(), filename=file_path)
+
+def transpile(input_dir:str, output_dir:str):
+    # Check to see if input_dir and output_dir contain a trailing slash
+    if input_dir[-1] == '/':
+        input_dir = input_dir[:-1]
+    if output_dir[-1] == '/':
+        output_dir = output_dir[:-1]
+
+    proto_objects = create_proto_objects(input_dir)
+    tree= get_tree(proto_objects)
+    paths = generate_python_code(output_dir, tree)
+    generate_init_files(paths, tree, output_dir)
+
     
-    undefined_names = set()
-    defined_names = set()
 
-    class NameVisitor(ast.NodeVisitor):
-        def visit_Name(self, node):
-            if isinstance(node.ctx, ast.Load):
-                if node.id not in defined_names and node.id not in dir(__builtins__):
-                    undefined_names.add(node.id)
-            elif isinstance(node.ctx, ast.Store):
-                defined_names.add(node.id)
-            self.generic_visit(node)
-
-    visitor = NameVisitor()
-    visitor.visit(tree)
-
-    return undefined_names
-
-def run_flake8(file_path):
-    result = subprocess.run(
-        ['flake8', '--select=E,F', '--ignore=E501', file_path],
-        capture_output=True, text=True
-    )
-    return result.stdout
-
-def check_files(directory):
-    for root, _, files in os.walk(directory):
-        for file in files:
-            if file.endswith('.py') and file != '__init__.py':
-                filepath = os.path.join(root, file)
-                # print(f"Running flake8 on {filepath}...")
-                flake8_output = run_flake8(filepath)
-                if flake8_output:
-                    print(f"flake8 issues in {filepath}:\n{flake8_output}")
-
-def main():
-
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate Python classes and enums from protobuf schema objects.")
     parser.add_argument('input_dir', type=str, nargs='?', default='./V3Schema', help='The input directory containing the protobuf schema objects.')
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three/', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
-
-    # Check to see if args.input_dir and args.output_dir contain a trailing slash
-    if args.input_dir[-1] == '/':
-        args.input_dir = args.input_dir[:-1]
-    if args.output_dir[-1] == '/':
-        args.output_dir = args.output_dir[:-1]
-
-    proto_objects = create_proto_objects(args.input_dir)
-    tree= get_tree(proto_objects)
-    paths = generate_python_code(args.output_dir, tree)
-    generate_init_files(paths, tree, args.output_dir)
-
-    check_files(args.output_dir+"/MF/V3/")
-
+    transpile(args.input_dir, args.output_dir)
     exit(0)
-
-if __name__ == "__main__":
-    main()
-    

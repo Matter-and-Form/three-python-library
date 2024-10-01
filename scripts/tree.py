@@ -76,16 +76,6 @@ class TreeNode:
             current_node = current_node.parent
         return '.'.join(reversed(path))
     
-    def get_relative_path(self, node):
-        path = []
-        current_node = self
-        while current_node != node:
-            if current_node.name == "root":
-                break
-            path.append(current_node.name)
-            current_node = current_node.parent
-        return '.'.join(reversed(path))
-    
     def get_relative_path_from_filespace(self):
         path = []
         current_node = self
@@ -97,32 +87,6 @@ class TreeNode:
             path.append(current_node.name)
             current_node = current_node.parent
         return '.'.join(reversed(path))
-
-    def get_first_parent_with_name(self, name: str):
-        # Break the name into parts
-        top_name = name.split('.')[0]
-
-        current_node = self
-        while current_node:
-            if current_node.name == "root":
-                break
-            if current_node.name == top_name:
-                return current_node
-            current_node = current_node.parent
-        return None
-    
-    def climbing_search(self, name: str):
-        current_node = self
-        #find the top level node and return it's child
-        while current_node:
-            if current_node.name == "root":
-                break
-            if current_node.name == name:
-                return current_node
-            elif current_node.has_child(name):
-                return current_node.get_child(name)
-            current_node = current_node.parent
-        return None
     
 class Tree:
     def __init__(self):
