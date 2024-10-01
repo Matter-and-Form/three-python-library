@@ -14,11 +14,11 @@ def Serializer(object, visited=None):
 
     # logger.debug(f"Serializing object: {object} (id: {id(object)})")
 
-    # Detect circular references
-    if id(object) in visited:
-        # logger.warning(f"Circular reference detected for object: {object} (id: {id(object)})")
-        return None
-    visited.add(id(object))
+   # Only track objects for circular references
+    if isinstance(object, (dict, list, set, tuple, Enum)) or hasattr(object, '__dict__'):
+        if id(object) in visited:
+            return None
+        visited.add(id(object))
 
     # Handle enums
     if isinstance(object, Enum):

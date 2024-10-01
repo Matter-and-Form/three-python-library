@@ -213,7 +213,12 @@ class Scanner:
                 inputTask = self.__FindTaskWithIndex(task.Index)
                 if inputTask == None:
                     raise Exception('Task not found')
-
+                    
+                if task.Error:
+                    inputTask.Error = task.Error
+                    self.__OnError(self.websocket, task.Error)
+                    self.__task_return_event.set()
+                    
                 # If assigned => Call the handler
                 if self.OnTask:
                     self.OnTask(task)
@@ -297,7 +302,7 @@ class Scanner:
         assert self.__isConnected
 
         # Send the task
-        self.__SendTask(task.Input)
+        self.__SendTask(task)
 
         # Build the buffer descriptor
         bufferSize = len(buffer)
