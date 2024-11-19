@@ -1,27 +1,33 @@
 # Simple Scanner
 
 import numpy as np
+import json
 
 # Three library
 from maf_three.scanner import Scanner
-from maf_three.MF.V3.Settings import Camera, Projector, Turntable, Scan, Capture
+from maf_three.MF.V3.Settings import Camera, Projector, Turntable, Scan, ScanSelection, Export
 from maf_three.MF.V3.Descriptors import Project
 from maf_three.MF.V3.Descriptors.Settings import Scanner as ScannerDescriptor, Camera as CameraDescriptor, Projector as ProjectorDescriptor, Turntable as TurntableDescriptor
+
 from maf_three.MF.V3 import Task, TaskState
 # Two frames for the video stream
 frame0 = np.zeros((0,0,3), np.uint8)
 frame1 = np.zeros((0,0,3), np.uint8)
+
 
 # Camera/Projector settings
 camera = Camera(exposure=50000, digitalGain=256, analogGain=256.0)
 projector = Projector(on=True, brightness=0.5)
 turntable = Turntable(8,360,False)
 
+scanTaskIndex = -1
+
 def main():
 
     # OpenCV
     try:
         import cv2
+
     except ModuleNotFoundError as error:
         print('###############################################')
         print('This example required OpenCV for Python')
@@ -37,36 +43,25 @@ def main():
 
     # Task update
     def OnTask(task:Task):
-
+        # print(json.dumps(task, default=lambda o: o.__dict__, indent=4))
         if task.Progress:
-            print(task.Progress)
+            print(f"{int((task.Progress.current/task.Progress.total)*100)} %")
         else:
             print(task.State)
-        # if task.State == TaskState.Completed:
-            # New Test Scan
-            # if(task.Type == V3Task.NewTestScan):
-            #     if task.Output:
-            #         print('Scan Completed -> Requesting the data')
-            #         index = task.Output[0]
-            #         filePath = f'TestScans/Scan-{index}/Scan-{index}.ply'
-            #         scanner.SendTask(1, V3Task.DownloadFile, filePath )
-        
-        # elif task.State == TaskState.Failed:
-        #     print('Failed Task: ', task)
 
     # Buffer received
     def OnBuffer(descriptor, buffer:bytes):
         global frame0, frame1
     
         # Video task
-        if descriptor['Task']['Index'] == -1:
-            if descriptor['Index'] == 0:
+        if descriptor.Task['Index'] == -1:
+            if descriptor.Index == 0:
                 frame0 = cv2.imdecode(np.frombuffer(buffer, np.uint8), cv2.IMREAD_COLOR)
             else:
                 frame1 = cv2.imdecode(np.frombuffer(buffer, np.uint8), cv2.IMREAD_COLOR)
         
         # DownloadFile
-        elif descriptor['Task']['Index'] == 1:
+        elif descriptor.Task['Index'] == 1:
             with open('scan.ply', 'wb') as binary_file:
                 binary_file.write(buffer)
             print('Scan saved into scan.ply')
@@ -174,9 +169,11 @@ def main():
                 
                 elif key == 115: # 's' => Create a new Test Scan
                     if turntable.use:
-                        scanner.new_scan(camera=camera, projector=projector, turntable=turntable)
+                        scanTask = scanner.new_scan(camera=camera, projector=projector, turntable=turntable)
+                        scanTaskIndex = scanTask.Index
                     else:
                         scanner.new_scan(camera=camera, projector=projector)
+                        scanner.export(selection=ScanSelection(ScanSelection.Mode.all) ,merge=True, texture=True, format=Export.Format.ply)
     
     except Exception as error:
         print('Error: ', error)

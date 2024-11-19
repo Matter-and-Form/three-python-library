@@ -14,7 +14,7 @@ import importlib
 import inspect
 import types
 
-from MF.V3 import Task, TaskState
+from MF.V3 import Task, TaskState, Buffer
 
 from maf_three import __version__
 from maf_three.serialization import TO_JSON
@@ -33,6 +33,7 @@ class Scanner:
     """
     
     __bufferDescriptor = None
+    __buffer = None
     __error = None
     __taskIndex:int = 0
     __tasks:List[Task] = []
@@ -199,8 +200,15 @@ class Scanner:
         # Bytes ?
         if isinstance(message, bytes):
             if self.OnBuffer:
-                self.OnBuffer(self.__bufferDescriptor, message)
-                self.__bufferDescriptor = None 
+                
+                if self.__buffer:
+                    self.__buffer += message
+                else:
+                    self.__buffer = message
+                if self.__bufferDescriptor.Size == len(self.__buffer):
+                    self.OnBuffer(self.__bufferDescriptor, message)
+                    self.__bufferDescriptor = None 
+                    self.__buffer = None
         else:
             obj = json.loads(message)              
         
@@ -208,6 +216,9 @@ class Scanner:
             if 'Task' in obj:
                 # Create the task from the message
                 task = Task(**obj['Task'])
+                if (task.Progress):
+                    progress_data = next(iter(task.Progress.values()))
+                    task.Progress = Task.Progress(**progress_data)
 
                 # Find the original task for reference
                 inputTask = self.__FindTaskWithIndex(task.Index)
@@ -235,7 +246,8 @@ class Scanner:
                     
             # Buffer
             elif 'Buffer' in obj:
-                self.__bufferDescriptor = obj['Buffer']
+                self.__bufferDescriptor = Buffer(**obj['Buffer'])
+                self.__buffer = None    
             # Message
             elif 'Message' in obj:
                 if self.OnMessage:

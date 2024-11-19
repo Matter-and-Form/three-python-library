@@ -725,7 +725,7 @@ def list_export_formats(self) -> Task:
     return task
 
 
-def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None) -> Task:
+def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None, scale: float = None) -> Task:
     # Export a group of scans.
     export_request = MF_V3_Tasks_Export.Request(
         Index=0,
@@ -735,6 +735,7 @@ def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, t
             texture=texture,
             merge=merge,
             format=format,
+            scale=scale,
         )
     )
     export_response = MF_V3_Tasks_Export.Response(
@@ -745,6 +746,7 @@ def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, t
             texture=texture,
             merge=merge,
             format=format,
+            scale=scale,
         )
     )
     task = Task(Index=0, Type="Export", Input=export_request, Output=export_response)
@@ -752,7 +754,7 @@ def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, t
     return task
 
 
-def export_merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None) -> Task:
+def export_merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None, scale: float = None) -> Task:
     # Export a merged scan.
     export_merge_request = MF_V3_Tasks_ExportMerge.Request(
         Index=0,
@@ -762,6 +764,7 @@ def export_merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = N
             texture=texture,
             merge=merge,
             format=format,
+            scale=scale,
         )
     )
     export_merge_response = MF_V3_Tasks_ExportMerge.Response(
@@ -772,6 +775,7 @@ def export_merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = N
             texture=texture,
             merge=merge,
             format=format,
+            scale=scale,
         )
     )
     task = Task(Index=0, Type="ExportMerge", Input=export_merge_request, Output=export_merge_response)

@@ -14,7 +14,7 @@ class Export:
         stl = "stl"  # Stereolithography format.
         xyz = "xyz"  # Chemical format.
 
-    def __init__(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: 'Format' = None):
+    def __init__(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: 'Format' = None, scale: float = None):
         # The scan selection.
         self.selection = selection
         # Export textures.
@@ -23,5 +23,7 @@ class Export:
         self.merge = merge
         # The export format.
         self.format = format
+        # Scale factor of the exported geometry.
+        self.scale = scale
 
 
