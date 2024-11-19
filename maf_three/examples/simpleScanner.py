@@ -2,6 +2,7 @@
 
 import numpy as np
 import json
+from typing import List
 
 # Three library
 from maf_three.scanner import Scanner
@@ -54,17 +55,17 @@ def main():
         global frame0, frame1
     
         # Video task
-        if descriptor.Task['Index'] == -1:
+        if descriptor.Task['Type'] == 'Video':
             if descriptor.Index == 0:
                 frame0 = cv2.imdecode(np.frombuffer(buffer, np.uint8), cv2.IMREAD_COLOR)
             else:
                 frame1 = cv2.imdecode(np.frombuffer(buffer, np.uint8), cv2.IMREAD_COLOR)
         
         # DownloadFile
-        elif descriptor.Task['Index'] == 1:
-            with open('scan.ply', 'wb') as binary_file:
+        elif descriptor.Task['Type'] == "Export":
+            with open('scan.zip', 'wb') as binary_file:
                 binary_file.write(buffer)
-            print('Scan saved into scan.ply')
+            print('Scan saved into scan.zip')
 
 
     def OnTrackbarExposure(value):
@@ -174,6 +175,16 @@ def main():
                     else:
                         scanner.new_scan(camera=camera, projector=projector)
                         scanner.export(selection=ScanSelection(ScanSelection.Mode.all) ,merge=True, texture=True, format=Export.Format.ply)
+                elif key == 101: # e for export project
+                    scanner.open_project(3)
+                    scanner.export(selection=ScanSelection(ScanSelection.Mode.all) ,merge=True, texture=True, format=Export.Format.ply)    
+                elif key == 108: # 'l' => List all scans in the current project
+                    list_project_return = scanner.list_projects()
+                    project_list: List[Project.Brief] = []
+                    for proj in list_project_return.Output:
+                        project_list.append(Project.Brief(**proj))
+                    for proj in project_list:
+                        print(f"Project Index: {proj.index}, Project Name: {proj.name}")
     
     except Exception as error:
         print('Error: ', error)
