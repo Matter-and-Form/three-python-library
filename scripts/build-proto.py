@@ -6,6 +6,7 @@ import ast
 
 import transpileProto
 from flake8.api import legacy as flake8
+import shutil
     
 
 def get_imports_from_file(file_path):
@@ -109,6 +110,10 @@ def check_files(directory):
         raise Exception("Formatting Or Linting Issues Found")
 
 if __name__ == "__main__":
+    # Remove the folder maf_three/MF if it exists
+    mf_folder = "./maf_three/MF"
+    if os.path.exists(mf_folder):
+        shutil.rmtree(mf_folder)
     print("Building python files...")
     transpileProto.transpile("./V3Schema/", "./maf_three/")
     print("Checking python files...")

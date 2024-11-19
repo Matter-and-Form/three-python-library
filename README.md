@@ -44,3 +44,8 @@ python3 ./scripts/build-doc.py
 
 
 
+## Updating to new Schema
+Update the schema subrepo, then run this to compile new files
+```
+python3 ./scripts/build-proto.py
+```
