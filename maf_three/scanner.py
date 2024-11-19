@@ -15,6 +15,7 @@ import inspect
 import types
 
 from MF.V3 import Task, TaskState, Buffer
+from MF.V3.Descriptors import Progress
 
 from maf_three import __version__
 from maf_three.serialization import TO_JSON
@@ -139,7 +140,7 @@ class Scanner:
     def __callback(self, callback, *args) -> None:
         if callback:
                 callback(self, *args)
- 
+
     # Called when the connection is opened
     def __OnOpen(self, ws) -> None:
         """
@@ -217,9 +218,15 @@ class Scanner:
                 # Create the task from the message
                 task = Task(**obj['Task'])
                 if (task.Progress):
-                    progress_data = next(iter(task.Progress.values()))
-                    task.Progress = Task.Progress(**progress_data)
-
+                    # Extract the first (and only) item from the task.Progress dictionary
+                    # TODO Duct tape fix due to schema weirdness
+                    key, process = next(iter(task.Progress.items()))
+                    task.Progress = Progress.ScanProgress(
+                        current=process["current"],
+                        step=process["step"],
+                        total=process["total"]
+                    )
+                    
                 # Find the original task for reference
                 inputTask = self.__FindTaskWithIndex(task.Index)
                 if inputTask == None:

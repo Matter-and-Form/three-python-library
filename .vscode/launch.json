@@ -9,6 +9,15 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true
+        },
+        {
+            "name": "Python: Simple Scanner",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/maf_three/examples/simpleScanner.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
         }
     ]
 }
