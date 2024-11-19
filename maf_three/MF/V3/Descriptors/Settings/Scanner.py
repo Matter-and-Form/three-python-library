@@ -31,7 +31,7 @@ class Scanner:
         self.tutorials = tutorials
         # Viewer settings descriptor.
         self.viewer = viewer
-        # Style settings descriptor.
+        # Software settings descriptor.
         self.software = software
 
 

@@ -449,6 +449,8 @@ def generate_class_code(current_node:TreeNode) -> str:
         for prop in properties:
             # Add comments with spaces
             if prop.comment:
+                # TODO Check for types that are not python types and add a isinstance call to cast to that type. This will help unwrapping
+                    
                 class_code += f"{add_indents(prop.comment,2)}"
             class_code += add_indents(f"self.{prop.name} = {prop.name}\n",2)
     else:

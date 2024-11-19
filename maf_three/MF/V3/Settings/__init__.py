@@ -4,6 +4,7 @@ from MF.V3.Settings.AutoFocus import *
 from MF.V3.Settings.BoundingBox import * 
 from MF.V3.Settings.Camera import * 
 from MF.V3.Settings.Capture import * 
+from MF.V3.Settings.CopyGroup import * 
 from MF.V3.Settings.CopyProject import * 
 from MF.V3.Settings.Export import * 
 from MF.V3.Settings.Group import * 
@@ -24,7 +25,6 @@ from MF.V3.Settings.Software import *
 from MF.V3.Settings.Style import * 
 from MF.V3.Settings.Turntable import * 
 from MF.V3.Settings.Tutorials import * 
-from MF.V3.Settings.Upgrade import * 
 from MF.V3.Settings.Video import * 
 from MF.V3.Settings.Viewer import * 
 from MF.V3.Settings.Wifi import * 

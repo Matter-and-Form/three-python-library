@@ -15,7 +15,6 @@ import inspect
 import types
 
 from MF.V3 import Task, TaskState, Buffer
-from MF.V3.Descriptors import Progress
 
 from maf_three import __version__
 from maf_three.serialization import TO_JSON
@@ -221,12 +220,12 @@ class Scanner:
                     # Extract the first (and only) item from the task.Progress dictionary
                     # TODO Duct tape fix due to schema weirdness
                     key, process = next(iter(task.Progress.items()))
-                    task.Progress = Progress.ScanProgress(
+                    task.Progress = Task.Progress(
                         current=process["current"],
                         step=process["step"],
                         total=process["total"]
                     )
-                    
+
                 # Find the original task for reference
                 inputTask = self.__FindTaskWithIndex(task.Index)
                 if inputTask == None:

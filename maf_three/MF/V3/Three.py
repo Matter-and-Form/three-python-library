@@ -844,15 +844,14 @@ def has_turntable(self) -> Task:
     return task
 
 
-def system_info(self, installed: List[MF_V3_Settings_Software_Software.Package] = None, available: List[MF_V3_Settings_Software_Software.Package] = None, nightlyIncluded: bool = None) -> Task:
+def system_info(self, updateMajor: bool = None, updateNightly: bool = None) -> Task:
     # Get system information.
     system_info_request = MF_V3_Tasks_SystemInfo.Request(
         Index=0,
         Type="SystemInfo",
         Input=MF_V3_Settings_Software_Software(
-            installed=installed,
-            available=available,
-            nightlyIncluded=nightlyIncluded,
+            updateMajor=updateMajor,
+            updateNightly=updateNightly,
         )
     )
     system_info_response = MF_V3_Tasks_SystemInfo.Response(
