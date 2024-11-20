@@ -93,16 +93,13 @@ scanner.list_settings()
 ```
 
 ### Available Examples
-The library comes with several pre-made examples. To list the available examples, run:
-
-```sh
-ls examples/
-```
+### Available Examples
+The library comes with several pre-made examples. You can find them in the [examples directory](https://github.com/Matter-and-Form/three-python-library/tree/develop/maf_three/examples).
 
 To run a specific example, use:
 
 ```sh
-python examples/<example_name>.py
+python maf_three/examples/<example_name>.py
 ```
 
 ## Documentation
