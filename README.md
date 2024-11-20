@@ -1,51 +1,122 @@
+# Matter and Form THREE Library
 
-# Setup
+## Overview
+The Matter and Form THREE library provides a comprehensive API for controlling and interacting with the Matter and Form THREE scanner. This library allows developers to build custom integrations, automate tasks, and create new front-end systems for 3D scanning.
 
-## Install required packages
+## Setup
 
-```
-sudo apt install python3 python3-pip python3.12-venv
-```
+### Install Required Packages
+Ensure you have Python 3.10 or newer installed. You can download it from [python.org](https://www.python.org).
 
-## Start and activate a virtual Python environment with the build dependencies
+### Initialize Git Submodules
+If you haven't already initialized the git submodules, run the following command:
 
-```
-python3 -m venv .venv
-source .venv/bin/activate
-pip3 install -r requirements.txt
-```
-
-# Build
-
-## Build python source from proto files
-```
-python3 ./scripts/build-proto.py
+```sh
+git submodule update --init --recursive
 ```
 
-## Package Build
-```
-python3 -m build
+### Start and Activate a Virtual Python Environment
+Create and activate a virtual environment:
+
+```sh
+python -m venv .venv
+source .venv/bin/activate  # On Windows use `venv\Scripts\activate`
 ```
 
-## Install the package locally in editable mode
-```
-pip3 install --editable .
+### Install Requirements
+Install the required packages listed in the `requirements.txt` file:
+
+```sh
+pip install -r requirements.txt
 ```
 
-## Run the tests
-```
-python3 -m pytest
+### Build
+
+#### Build Python Source from Proto Files
+This is only necessary if you have an update the schema. Keep in mind that schema's are tied to THREE server releases. Generated files are commited to this repo.To generate the Python source files again from the Schema files, run:
+
+```sh
+python3 ./scipts/build-proto.py
 ```
 
-## Build the documentation
-```
-python3 ./scripts/build-doc.py
+#### Package Build
+To build the package, run:
+
+```sh
+python setup.py sdist bdist_wheel
 ```
 
+#### Install the Package Locally in Editable Mode
+To install the package locally in editable mode, run:
 
+```sh
+pip install -e .
+```
 
-## Updating to new Schema
-Update the schema subrepo, then run this to compile new files
+#### Run the Tests
+At the moment there are no unit tests
+
+#### Build the Documentation
+To build the documentation, run:
+
+```sh
+TODO
 ```
-python3 ./scripts/build-proto.py
+
+## How to Use the Library
+
+### Installation from PyPI
+To install the library from PyPI, run:
+
+```sh
+pip install matter-and-form-three
 ```
+
+### Connect to the Scanner
+To connect to the scanner, you can use the provided examples. For instance, to run the connection example, execute:
+
+```sh
+python examples/connect.py
+```
+
+### Example Usage
+Here is an example of how to use the library to connect to the scanner and control the projector:
+
+```python
+from matter_and_form_three import Scanner
+
+scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
+scanner.Connect("ws://matterandform.local:8081")
+
+# Do some tasks
+scanner.list_settings()
+```
+
+### Available Examples
+The library comes with several pre-made examples. To list the available examples, run:
+
+```sh
+ls examples/
+```
+
+To run a specific example, use:
+
+```sh
+python examples/<example_name>.py
+```
+
+## Documentation
+For detailed documentation, visit the TODO -> [official documentation](TODO).
+
+## Contributing
+We welcome contributions! Please follow the standard GitHub workflow:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -am 'Add new feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Create a new Pull Request.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
