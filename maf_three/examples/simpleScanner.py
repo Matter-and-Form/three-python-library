@@ -197,16 +197,9 @@ def main():
                     break
                 
                 elif key == 115: # 's' => Create a new Test Scan
-                    if turntable.use:
-                        scanTask = scanner.new_scan(camera=camera, projector=projector, turntable=turntable, capture=capture)
-                        scanTaskIndex = scanTask.Index
-                        scanner.export(selection=ScanSelection(ScanSelection.Mode.all) ,merge=True, texture=True, format=Export.Format.ply)
-                    else:
-                        scanner.new_scan(camera=camera, projector=projector, capture=capture)
-                        scanner.export(selection=ScanSelection(ScanSelection.Mode.all) ,merge=True, texture=True, format=Export.Format.ply)
-                elif key == 101: # e for export project
-                    scanner.open_project(3)
-                    scanner.export(selection=ScanSelection(ScanSelection.Mode.all) ,merge=True, texture=True, format=Export.Format.ply)    
+                    scanner.new_scan(camera=camera, projector=projector, turntable=turntable if turntable.use else None, capture=capture)
+                    scanner.export(selection=ScanSelection(ScanSelection.Mode.all) ,merge=True, texture=True, format=Export.Format.ply)
+                    
                 elif key == 108: # 'l' => List all scans in the current project
                     list_project_return = scanner.list_projects()
                     project_list: List[Project.Brief] = []
