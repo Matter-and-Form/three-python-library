@@ -1,14 +1,12 @@
-# Task
-import time
+import numpy as np
+import json
+from typing import List
 
+# Three library
 from maf_three.scanner import Scanner
-from maf_three.task import Task, TaskState
-from maf_three.V3Task import V3Task
-
-from MF.V3.Settings.Camera import Camera
-from MF.V3.Settings.Capture import Capture
-from MF.V3.Settings.Projector import Projector
-from MF.V3.Settings.Scan import Scan
+from maf_three.MF.V3.Settings import Capture, Camera, Projector
+from maf_three.MF.V3.Descriptors import Project
+from maf_three.MF.V3 import Task, TaskState
 
 
 done = False
@@ -16,9 +14,8 @@ done = False
 def main():
     global done
 
+    # Task update
     def OnTask(task:Task):
-        global done
-
         # Inspect Task State
         match task.State:
 
@@ -50,20 +47,9 @@ def main():
         scanner.Connect("ws://matterandform.local:8081")
 
         # Try to scan without input => Will trigger an error
-        scanner.SendTask(0, V3Task.NewTestScan)
+        scanner.new_scan()
 
-        # Scan
-        scan = Scan(
-            camera=Camera(analogGain=256,digitalGain=256,exposure=50000),
-            capture=Capture(), 
-            projector=Projector(brightness=0.5)
-        )
-        scanner.SendTask(1, V3Task.NewTestScan, scan)
-
-        # Wait for the tasks to finish
-        while not done:
-            time.sleep(0.1)
-
+        scanner.list_settings()
 
     except Exception as error:
         print('Error: ', error)
