@@ -216,9 +216,10 @@ class Scanner:
             if 'Task' in obj:
                 # Create the task from the message
                 task = Task(**obj['Task'])
+                
                 if (task.Progress):
                     # Extract the first (and only) item from the task.Progress dictionary
-                    # TODO Duct tape fix due to schema weirdness
+                    # TODO Duct tape fix due to schema weirdness for progress
                     key, process = next(iter(task.Progress.items()))
                     task.Progress = Task.Progress(
                         current=process["current"],
@@ -245,7 +246,7 @@ class Scanner:
                 if (task.State == TaskState.Completed.value):
                     if task.Output:
                         inputTask.Output = task.Output
-                        self.__task_return_event.set()
+                    self.__task_return_event.set()
                 elif (task.State == TaskState.Failed.value):
                     inputTask.Error = task.Error
                     self.__task_return_event
@@ -312,7 +313,7 @@ class Scanner:
         # Build and send the message
         message = '{"Task":' + message + '}'
         print('Message: ', message)
-        #print('Message: ', message)   
+
         self.websocket.send(message)
 
     # Send a task with its buffer to the scanner

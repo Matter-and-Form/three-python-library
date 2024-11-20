@@ -6,9 +6,9 @@ from typing import List
 
 # Three library
 from maf_three.scanner import Scanner
-from maf_three.MF.V3.Settings import Camera, Projector, Turntable, Scan, ScanSelection, Export
+from maf_three.MF.V3.Settings import Capture, Camera, Projector, Turntable, ScanSelection, Export, Quality
 from maf_three.MF.V3.Descriptors import Project
-from maf_three.MF.V3.Descriptors.Settings import Scanner as ScannerDescriptor, Camera as CameraDescriptor, Projector as ProjectorDescriptor, Turntable as TurntableDescriptor
+from maf_three.MF.V3.Descriptors.Settings import Scanner as ScannerDescriptor, Camera as CameraDescriptor, Projector as ProjectorDescriptor, Turntable as TurntableDescriptor, Capture as CaptureDescriptor
 
 from maf_three.MF.V3 import Task, TaskState
 # Two frames for the video stream
@@ -20,6 +20,7 @@ frame1 = np.zeros((0,0,3), np.uint8)
 camera = Camera(exposure=50000, digitalGain=256, analogGain=256.0)
 projector = Projector(on=True, brightness=0.5)
 turntable = Turntable(8,360,False)
+capture = Capture(Quality.Low,False)
 
 scanTaskIndex = -1
 
@@ -48,7 +49,7 @@ def main():
         if task.Progress:
             print(f"{int((task.Progress.current/task.Progress.total)*100)} %")
         else:
-            print(task.State)
+            print(task.Type,task.Index,task.State)
 
     # Buffer received
     def OnBuffer(descriptor, buffer:bytes):
@@ -97,12 +98,35 @@ def main():
 
     def OnTrackbarTurntableSteps(value):
         global turntable
-        turntable.steps = value
+        turntable.scans = value
 
     def OnTrackbarFocus(value):
         camera.focus = value
         scanner.set_cameras(focus=value)
 
+    def OnTrackbarQuality(value):
+        global capture
+        capture.quality = getQualityFromInt(value)
+
+    def OnTrackbarTexture(value):
+        global capture
+        capture.texture = value == 1
+
+    def getIntFromQuality(quality:Quality) -> int:
+        if quality == Quality.Low.value:
+            return 0
+        elif quality == Quality.Medium.value:
+            return 1
+        elif quality == Quality.High.value:
+            return 2
+    
+    def getQualityFromInt(quality:int) -> Quality:
+        if quality == 0:
+            return Quality.Low
+        elif quality == 1:
+            return Quality.Medium
+        elif quality == 2:
+            return Quality.High
 
     try:
         global camera, projector, turntable
@@ -111,10 +135,12 @@ def main():
         scanner = Scanner(OnTask=OnTask, OnBuffer=OnBuffer, OnMessage=None)
         scanner.Connect("ws://matterandform.local:8081")
 
+        # Get the settings stored on the scanner and apply them to the UI
         scanSettingsTask = scanner.list_settings()
         cameraDescriptor = CameraDescriptor(**scanSettingsTask.Output["camera"])
         projectorDescriptor = ProjectorDescriptor(**scanSettingsTask.Output["projector"])
         turntableDescriptor = TurntableDescriptor(**scanSettingsTask.Output["turntable"])
+        captureDescriptor = CaptureDescriptor(**scanSettingsTask.Output["capture"])
 
         camera.exposure = cameraDescriptor.exposure["value"]
         camera.analogGain = cameraDescriptor.analogGain["value"]
@@ -124,6 +150,8 @@ def main():
         turntable.use = False
         turntable.sweep = turntableDescriptor.sweep["value"]
         turntable.scans = turntableDescriptor.scans["value"]
+        capture.quality = captureDescriptor.quality["value"]
+        capture.texture = captureDescriptor.texture["value"]
 
         # Create the UI
         cv2.namedWindow(ControlsWindow)
@@ -140,7 +168,8 @@ def main():
         cv2.createTrackbar('Use Turntable', ControlsWindow, 1 if turntable.use else 0, 1, OnTrackbarUseTurntable)
         cv2.createTrackbar('Turntable Sweep', ControlsWindow, int(turntable.sweep), int(turntableDescriptor.sweep["max"]), OnTrackbarTurntableSweep)
         cv2.createTrackbar('Turntable Scans', ControlsWindow, int(turntable.scans), int(turntableDescriptor.scans["max"]), OnTrackbarTurntableSteps)
-        
+        cv2.createTrackbar('Capture Quality', ControlsWindow, getIntFromQuality(capture.quality), 2, OnTrackbarQuality)
+        cv2.createTrackbar('Capture Texture', ControlsWindow, 1 if capture.texture else 0, 1, OnTrackbarTexture)
 
         new_project_return = scanner.new_project('SimpleScanner')
         project:Project = Project(**new_project_return.Output)
@@ -160,7 +189,6 @@ def main():
                 cv2.imshow(Camera0Window,frame0)
             if frame1.size > 0:
                 cv2.imshow(Camera1Window,frame1)
-
             # User input
             key = cv2.waitKey(1)
             if(key != -1):
@@ -170,10 +198,11 @@ def main():
                 
                 elif key == 115: # 's' => Create a new Test Scan
                     if turntable.use:
-                        scanTask = scanner.new_scan(camera=camera, projector=projector, turntable=turntable)
+                        scanTask = scanner.new_scan(camera=camera, projector=projector, turntable=turntable, capture=capture)
                         scanTaskIndex = scanTask.Index
+                        scanner.export(selection=ScanSelection(ScanSelection.Mode.all) ,merge=True, texture=True, format=Export.Format.ply)
                     else:
-                        scanner.new_scan(camera=camera, projector=projector)
+                        scanner.new_scan(camera=camera, projector=projector, capture=capture)
                         scanner.export(selection=ScanSelection(ScanSelection.Mode.all) ,merge=True, texture=True, format=Export.Format.ply)
                 elif key == 101: # e for export project
                     scanner.open_project(3)
