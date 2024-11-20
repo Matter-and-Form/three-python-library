@@ -27,6 +27,15 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true
+        },
+        {
+            "name": "Python: Calibrate Turntable Example",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/maf_three/examples/turntableCalibration.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
         }
     ]
 }
