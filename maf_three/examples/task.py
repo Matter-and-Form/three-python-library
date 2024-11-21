@@ -50,7 +50,10 @@ def main():
         scanner.new_scan()
 
         projectTask = scanner.list_projects()
-    
+        if projectTask.Error:
+            print('Error:', projectTask.Error)
+            return
+        
         for project_obj in projectTask.Output:
             project = Project.Brief(**project_obj)
             print('Project index:', project.index, ' - Name:', project.name)
