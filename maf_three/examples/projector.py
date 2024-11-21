@@ -50,7 +50,7 @@ def main():
 
         ### Project an image
         print('Project Image')
-        width = 640
+        width = 512
         height = 480
         img = np.zeros([height, width, 3], np.uint8)
         for y in range(height):
