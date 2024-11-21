@@ -44,11 +44,13 @@ jobs:
         
     # Set version
     - name: Set Version
-      run: echo "__version__ = \"0.0.0\"" > maf_three/__init__.py
+      run: |
+      VERSION=$(python3 setup.py --version)
+      echo "__version__ = \"$VERSION\"" > maf_three/__init__.py
 
     # Build proto files
     - name: Build proto files
-      run: python3 ./scripts/build-proto.py 
+      run: python3 ./scripts/build_proto.py 
 
     # Build
     - name: Build

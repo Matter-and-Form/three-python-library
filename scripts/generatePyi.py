@@ -1,13 +1,7 @@
-import subprocess
-import os
 import inspect
 import importlib
 import ast
-
-import transpileProto
-from flake8.api import legacy as flake8
-import shutil
-    
+import argparse
 
 def get_imports_from_file(file_path):
     with open(file_path, 'r') as file:
@@ -33,9 +27,10 @@ def adjust_signature(signature):
     return signature.replace('NoneType', 'None')
 
 def generate_pyi(scanner_module_name, three_module_name, output_file):
+    print("Generating .pyi file...")
     # Import the modules
-    scanner_module = importlib.import_module(scanner_module_name)
     three_module = importlib.import_module(three_module_name)
+    scanner_module = importlib.import_module(scanner_module_name)
 
     # Get the class from scanner.py
     scanner_class = getattr(scanner_module, 'Scanner')
@@ -86,39 +81,14 @@ def generate_pyi(scanner_module_name, three_module_name, output_file):
     # Write to the output file
     with open(output_file, 'w') as f:
         f.write('\n'.join(pyi_content))
-
-
-def run_flake8(file_path):
-    style_guide = flake8.get_style_guide(select=['E', 'F'], ignore=['E501'])
-    report = style_guide.check_files([file_path])
-    return report.get_statistics('E') + report.get_statistics('F')
-
-def check_files(directory):
-    hasError = False
-    for root, _, files in os.walk(directory):
-        for file in files:
-            if file.endswith('.py') and file != '__init__.py':
-                filepath = os.path.join(root, file)
-                # print(f"Running flake8 on {filepath}...")
-                flake8_output = run_flake8(filepath)
-                if flake8_output:
-                    print(f"flake8 issues in {filepath}:\n{flake8_output}")
-                    hasError = True
-                else:
-                    print(f"Clean: {filepath}")
-    if hasError:
-        raise Exception("Formatting Or Linting Issues Found")
+    print("Completed!")
 
 if __name__ == "__main__":
-    # Remove the folder maf_three/MF if it exists
-    mf_folder = "./maf_three/MF"
-    if os.path.exists(mf_folder):
-        shutil.rmtree(mf_folder)
-    print("Building python files...")
-    transpileProto.transpile("./V3Schema/", "./maf_three/")
-    print("Checking python files...")
-    check_files("./maf_three/MF/V3/")
-    print("Generating .pyi file...")
-    generate_pyi('maf_three.scanner', 'maf_three.MF.V3.Three', './maf_three/scanner.pyi')
-    print("Completed!")
+    parser = argparse.ArgumentParser(description="Generate .pyi file for a given module.")
+    parser.add_argument('scanner_module', type=str, nargs='?', default='maf_three.scanner', help='The module name for the scanner class.')
+    parser.add_argument('three_module', type=str, nargs='?', default='maf_three.MF.V3.Three', help='The module name for the three functions.')
+    parser.add_argument('output_file', type=str, nargs='?', default='./maf_three/scanner.pyi', help='The output file for the .pyi content.')
+    args = parser.parse_args()
+    
+    generate_pyi(args.scanner_module, args.three_module, args.output_file)
     exit(0)

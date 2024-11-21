@@ -36,7 +36,7 @@ pip install -r requirements.txt
 This is only necessary if you have an update the schema. Keep in mind that schema's are tied to THREE server releases. Generated files are commited to this repo.To generate the Python source files again from the Schema files, run:
 
 ```sh
-python3 ./scipts/build-proto.py
+python3 ./scipts/build_proto.py
 ```
 
 #### Package Build

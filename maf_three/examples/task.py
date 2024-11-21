@@ -49,7 +49,11 @@ def main():
         # Try to scan without input => Will trigger an error
         scanner.new_scan()
 
-        scanner.list_settings()
+        projectTask = scanner.list_projects()
+    
+        for project_obj in projectTask.Output:
+            project = Project.Brief(**project_obj)
+            print('Project index:', project.index, ' - Name:', project.name)
 
     except Exception as error:
         print('Error: ', error)

@@ -676,6 +676,7 @@ def generate_init_files(paths: set, tree: Tree, output_dir: str):
 
 
 def transpile(input_dir:str, output_dir:str):
+    print("Building python files...")
     # Check to see if input_dir and output_dir contain a trailing slash
     if input_dir[-1] == '/':
         input_dir = input_dir[:-1]
@@ -687,11 +688,10 @@ def transpile(input_dir:str, output_dir:str):
     paths = generate_python_code(output_dir, tree)
     generate_init_files(paths, tree, output_dir)
 
-    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate Python classes and enums from protobuf schema objects.")
-    parser.add_argument('input_dir', type=str, nargs='?', default='./V3Schema', help='The input directory containing the protobuf schema objects.')
+    parser.add_argument('input_dir', type=str, nargs='?', default= './V3Schema', help='The input directory containing the protobuf schema objects.')
     parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three/', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
     transpile(args.input_dir, args.output_dir)

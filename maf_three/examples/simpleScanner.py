@@ -56,7 +56,7 @@ def main():
         global frame0, frame1
     
         # Video task
-        if descriptor.Task['Type'] == 'Video':
+        if descriptor.Task['Type'] == 'Video': 
             if descriptor.Index == 0:
                 frame0 = cv2.imdecode(np.frombuffer(buffer, np.uint8), cv2.IMREAD_COLOR)
             else:
