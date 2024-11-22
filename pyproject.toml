@@ -39,5 +39,7 @@ version = {attr = "maf_three.__version__"}
 #    python3 -m maf_three.examples connection
 #    python3 -m maf_three.examples projector
 #    python3 -m maf_three.examples simpleScanner
+#    python3 -m maf_three.examples task
+#    python3 -m maf_three.examples turntableCalibration
 [project.scripts]
 examples = "maf_three.examples:main_cli"
