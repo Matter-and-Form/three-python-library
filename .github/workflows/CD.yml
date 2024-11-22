@@ -44,16 +44,6 @@ jobs:
       run: |
         pip install twine
         twine upload --verbose --repository pypi dist/*
-
-    - name: Commit and push changes
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@matterandform.net'
-        git add .
-        git commit -m "Publish new version to PyPi [skip ci]"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Extract version
       id: extract_version
@@ -61,9 +51,10 @@ jobs:
         CURRENT_VERSION=$(grep -oP "(?<=__version__ = ')[^']*" ./three/__init__.py)
         echo "TAG=$CURRENT_VERSION" >> $GITHUB_ENV
 
-    - name: Create a Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: dist/*
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag_name: ${{ env.TAG }}
+    - name: Create Release
+      run: |
+        gh release create ${{ env.TAG }} \
+          --generate-notes \
+          --title "${{ env.TAG }}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
