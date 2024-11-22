@@ -2,17 +2,29 @@ from typing import List
 
 
 class Tutorials:
-    # Tutorials settings descriptor.
+
+    """
+     Tutorials settings descriptor.
+    """
     class Show:
-        # Tutorials to show.
+
+        """
+         Tutorials to show.
+        """
         def __init__(self, value: bool, default: bool):
             self.value = value
             self.default = default
 
     class Viewed:
-        # Viewed tutorials.
+
+        """
+         Viewed tutorials.
+        """
         class Pages:
-            # Viewed tutorials pages.
+
+            """
+             Viewed tutorials pages.
+            """
             def __init__(self, value: List[str] = None, default: List[str] = None):
                 self.value = value
                 self.default = default

@@ -1,7 +1,13 @@
 class Software:
-    # Software settings descriptor.
+
+    """
+     Software settings descriptor.
+    """
     class UpdateMajor:
-        # Enable major version updates which can have breaking API changes.
+
+        """
+         Enable major version updates which can have breaking API changes.
+        """
         def __init__(self, value: bool, default: bool):
             self.value = value
             self.default = default

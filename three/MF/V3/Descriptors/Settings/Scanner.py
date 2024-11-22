@@ -11,7 +11,10 @@ from MF.V3.Descriptors.Settings.Viewer import Viewer as MF_V3_Descriptors_Settin
 
 
 class Scanner:
-    # Scanner settings descriptor.
+
+    """
+     Scanner settings descriptor.
+    """
     def __init__(self, advanced: MF_V3_Descriptors_Settings_Advanced_Advanced, camera: MF_V3_Descriptors_Settings_Camera_Camera, capture: MF_V3_Descriptors_Settings_Capture_Capture, projector: MF_V3_Descriptors_Settings_Projector_Projector, i18n: MF_V3_Descriptors_Settings_I18n_I18n, style: MF_V3_Descriptors_Settings_Style_Style, turntable: MF_V3_Descriptors_Settings_Turntable_Turntable, tutorials: MF_V3_Descriptors_Settings_Tutorials_Tutorials, viewer: MF_V3_Descriptors_Settings_Viewer_Viewer, software: MF_V3_Descriptors_Settings_Software_Software):
         # Advanced settings descriptor.
         self.advanced = advanced

@@ -4,9 +4,15 @@ from typing import List
 
 
 class Advanced:
-    # Advanced settings.
+
+    """
+     Advanced settings.
+    """
     class Capture:
-        # Capture settings.
+
+        """
+         Capture settings.
+        """
         def __init__(self, horizontalFrequencies: List[int] = None, verticalFrequencies: List[int] = None, use: bool = None):
             # Projector sample rate.
             self.horizontalFrequencies = horizontalFrequencies
@@ -16,7 +22,10 @@ class Advanced:
             self.use = use
 
     class Sampling:
-        # Sampling settings.
+
+        """
+         Sampling settings.
+        """
         def __init__(self, projectorSampleRate: float = None, imageSampleRate: float = None, use: bool = None):
             # Projector sample rate.
             self.projectorSampleRate = projectorSampleRate
@@ -26,56 +35,62 @@ class Advanced:
             self.use = use
 
     class EdgeDetection:
-        # Edge detection settings.
+
+        """
+         Edge detection settings.
+        """
         def __init__(self, threshold: float = None, laplacianKernelRadius: int = None, gaussianBlurRadius: int = None, gaussianBlurStdDev: float = None, maximumWidthForProcessing: int = None, use: bool = None):
             # The edge detection threshold.
             self.threshold = threshold
             # The Laplacian kernel radius.  This must be in the range [1..5].
             self.laplacianKernelRadius = laplacianKernelRadius
             """
-             Gaussian blur kernel radius. (Optional)  To disable, set to 0.
+            Gaussian blur kernel radius. (Optional)  To disable, set to 0.
 
-             The phase images can optionally blurred before taking the Laplacian to reduce noise.
-             However as a result, the detected edges are wider.
+            The phase images can optionally blurred before taking the Laplacian to reduce noise.
+            However as a result, the detected edges are wider.
             """
             self.gaussianBlurRadius = gaussianBlurRadius
             """
-             Gaussian blur kernel standard deviation.  This parameter is ignored if
-             \p gaussianBlurSize is zero.
+            Gaussian blur kernel standard deviation.  This parameter is ignored if
+            \p gaussianBlurSize is zero.
             """
             self.gaussianBlurStdDev = gaussianBlurStdDev
             """
-             The maximum image width for processing. (Optional) To disable, set to 0.
+            The maximum image width for processing. (Optional) To disable, set to 0.
 
-             If this value is greater than zero, the phase images are resized to the maximum
-             width prior to computing the Laplacian and the the detected edges are then upsampled to the
-             original size.
+            If this value is greater than zero, the phase images are resized to the maximum
+            width prior to computing the Laplacian and the the detected edges are then upsampled to the
+            original size.
 
-             This would be done to speed up processing or to detect edges on a larger scale.
+            This would be done to speed up processing or to detect edges on a larger scale.
             """
             self.maximumWidthForProcessing = maximumWidthForProcessing
             # Use the edge detection settings.
             self.use = use
 
     class PhaseFilter:
-        # Phase filter settings.
+
+        """
+         Phase filter settings.
+        """
         def __init__(self, kernelRadius: int = None, spatialWeightStdDev: float = None, use: bool = None):
             """
-             The filter kernel radius.
+            The filter kernel radius.
 
-             A neighboring value must be within this radius to be included in the filter.
-             If the kernel radius is set to zero, the phase filtering is disabled.
+            A neighboring value must be within this radius to be included in the filter.
+            If the kernel radius is set to zero, the phase filtering is disabled.
             """
             self.kernelRadius = kernelRadius
             """
-             The standard deviation of the spatial weights.
+            The standard deviation of the spatial weights.
 
-             The weight of a neighboring value is \f$ exp(-(r/s)^2) \f$  where \f$ r \f$
-             is the distance to the central value and \f$ s \f$ is the spatial weight
-             standard deviation.
+            The weight of a neighboring value is \f$ exp(-(r/s)^2) \f$  where \f$ r \f$
+            is the distance to the central value and \f$ s \f$ is the spatial weight
+            standard deviation.
 
-             If the spatial weight standard deviation is set to zero, all the spatial
-             weights are uniformly set to 1.
+            If the spatial weight standard deviation is set to zero, all the spatial
+            weights are uniformly set to 1.
             """
             self.spatialWeightStdDev = spatialWeightStdDev
             # Use the phase filter settings.
@@ -83,10 +98,10 @@ class Advanced:
 
     class AdaptiveSampling:
         """
-         Adaptive sampling settings
+        Adaptive sampling settings
 
-         Adaptive sampling will downsample points in regions of low detail
-         and keep points in regions of high detail.
+        Adaptive sampling will downsample points in regions of low detail
+        and keep points in regions of high detail.
         """
         def __init__(self, rate: float, type: MF_V3_Settings_Scan_Scan.Processing.AdaptiveSampling.Type = None, use: bool = None):
             # The sample rate [0..1] for the regions of low detail.
@@ -97,7 +112,10 @@ class Advanced:
             self.use = use
 
     class PointClipping:
-        # Point32 clipping settings.
+
+        """
+         Point32 clipping settings.
+        """
         def __init__(self, type: MF_V3_Settings_Scan_Scan.Processing.PointClipping.Type = None, transform: List[float] = None, use: bool = None):
             # Point32 clipping type.
             self.type = type
@@ -107,13 +125,16 @@ class Advanced:
             self.use = use
 
     class NormalEstimation:
-        # Normal estimation settings.
+
+        """
+         Normal estimation settings.
+        """
         def __init__(self, method: MF_V3_Settings_Scan_Scan.Processing.NormalEstimation.Method = None, maximumNeighbourCount: int = None, maximumNeighbourRadius: float = None, useMaximumNeighbourCount: bool = None, useMaximumNeighbourRadius: bool = None, use: bool = None):
             # Normal estimation method.
             self.method = method
             """
-             Maximum number of nearest neighbors used to compute the normal.
-             This value is only used with the NORMAL_OPEN3D method.
+            Maximum number of nearest neighbors used to compute the normal.
+            This value is only used with the NORMAL_OPEN3D method.
             """
             self.maximumNeighbourCount = maximumNeighbourCount
             # Maximum radius for a point32 to be considered a neighbour.
@@ -124,7 +145,10 @@ class Advanced:
             self.use = use
 
     class OutlierRemoval:
-        # Radius outlier removal settings.
+
+        """
+         Radius outlier removal settings.
+        """
         def __init__(self, neighbourCount: int = None, neighbourRadius: float = None, use: bool = None):
             # The minimum number of points within the radius for a point32 to be retained.
             self.neighbourCount = neighbourCount
@@ -134,7 +158,10 @@ class Advanced:
             self.use = use
 
     class Remesh:
-        # Remesh settings.
+
+        """
+         Remesh settings.
+        """
         def __init__(self, quality: MF_V3_Settings_Quality_Quality = None, voxelSize: float = None, depth: int = None, scale: float = None, linearInterpolation: bool = None, use: bool = None):
             # Remesh quality preset.
             self.quality = quality
@@ -150,12 +177,18 @@ class Advanced:
             self.use = use
 
     class Camera:
-        # Camera settings.
+
+        """
+         Camera settings.
+        """
         def __init__(self, useContinuousExposureValues: bool = None):
             self.useContinuousExposureValues = useContinuousExposureValues
 
     class Turntable:
-        # Turntable settings.
+
+        """
+         Turntable settings.
+        """
         def __init__(self, rampAngle: int = None):
             # The angle in degrees to slow down the turntable at the end of a rotation.
             self.rampAngle = rampAngle

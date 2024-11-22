@@ -3,9 +3,15 @@ from enum import Enum
 
 
 class Export:
-    # Export settings.
-    # Scan export formats.
+
+    """
+     Export settings.
+    """
     class Format(Enum):
+
+        """
+         Scan export formats.
+        """
         ply = "ply"  # Polygon format.
         dae = "dae"  # Digital asset exchange format.
         fbx = "fbx"  # Autodesk format.

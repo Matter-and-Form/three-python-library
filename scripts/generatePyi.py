@@ -76,7 +76,10 @@ def generate_pyi(scanner_module_name, three_module_name, output_file):
     for name, func in three_functions:
         sig = str(inspect.signature(func))
         sig = adjust_signature(sig)
+        doc = inspect.getdoc(func)
         pyi_content.append(f"    def {name}{sig}: ...")
+        if doc:
+            pyi_content.append(f'        """{doc}"""')
 
     # Write to the output file
     with open(output_file, 'w') as f:

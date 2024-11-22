@@ -16,52 +16,55 @@ class TaskState(Enum):
 
 class Task:
     """*
-     Generic task message for the Three Scanner.
+    Generic task message for the Three Scanner.
 
-     The task message is the generic message used for requesting a task of the Three Scanner and receiving updates and results.
+    The task message is the generic message used for requesting a task of the Three Scanner and receiving updates and results.
 
-     Example: Apply camera settings with the "SetCameras" task.
+    Example: Apply camera settings with the "SetCameras" task.
 
-     > Example request:
+    > Example request:
 
-     ```json
-     {
-         "Task":{
-             "Index":1,
-             "Type":"SetCameras"
-             "Input":{
-                 "analogGain":256,
-                 "digitalGain":128,
-                 "exposure":18000
-             },
-         }
-     }
-     ```
+    ```json
+    {
+    "Task":{
+    "Index":1,
+    "Type":"SetCameras"
+    "Input":{
+    "analogGain":256,
+    "digitalGain":128,
+    "exposure":18000
+    },
+    }
+    }
+    ```
 
-     > Example response:
+    > Example response:
 
-     ```json
-     {
-         "Task":{
-             "Index":1,
-             "Type":"SetCameras"
-             "Input":{
-                 "analogGain":256,
-                 "digitalGain":512,
-                 "exposure":18000
-             },
-             "Output":{
-                 "analogGain":{"default":512.0,"max":1024.0,"min":256.0,"value":256.0},
-                 "digitalGain":{"default":256,"max":65536,"min":256,"value":512},
-                 "exposure":{"default":27000,"max":90000,"min":9000,"value":18000},
-             },
-             "State":"Completed"
-         }
-     }
-     ```
+    ```json
+    {
+    "Task":{
+    "Index":1,
+    "Type":"SetCameras"
+    "Input":{
+    "analogGain":256,
+    "digitalGain":512,
+    "exposure":18000
+    },
+    "Output":{
+    "analogGain":{"default":512.0,"max":1024.0,"min":256.0,"value":256.0},
+    "digitalGain":{"default":256,"max":65536,"min":256,"value":512},
+    "exposure":{"default":27000,"max":90000,"min":9000,"value":18000},
+    },
+    "State":"Completed"
+    }
+    }
+    ```
     """
     class Progress:
-        # V3 Task Progress Descriptor
+
+        """
+         V3 Task Progress Descriptor
+        """
         def __init__(self, current: int, step: str, total: int):
             # The current step of the scan.
             self.current = current

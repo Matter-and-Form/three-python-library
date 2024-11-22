@@ -3,15 +3,24 @@ from typing import List
 
 
 class Advanced:
-    # Advanced settings descriptor.
+
+    """
+     Advanced settings descriptor.
+    """
     class Use:
-        # Use advanced settings.
+
+        """
+         Use advanced settings.
+        """
         def __init__(self, value: bool, default: bool):
             self.value = value
             self.default = default
 
     class Capture:
-        # Capture settings descriptor.
+
+        """
+         Capture settings descriptor.
+        """
         class HorizontalFrequencies:
             def __init__(self, min: int, max: int, value: List[int] = None, default: List[int] = None):
                 self.min = min
@@ -32,7 +41,10 @@ class Advanced:
             self.verticalFrequencies = verticalFrequencies
 
     class Sampling:
-        # Sampling settings descriptor.
+
+        """
+         Sampling settings descriptor.
+        """
         class ProjectorSampleRate:
             def __init__(self, value: float, default: float, min: float, max: float):
                 self.value = value
@@ -54,7 +66,10 @@ class Advanced:
             self.imageSampleRate = imageSampleRate
 
     class EdgeDetection:
-        # Edge detection settings descriptor.
+
+        """
+         Edge detection settings descriptor.
+        """
         class Threshold:
             def __init__(self, value: float, default: float, min: float, max: float):
                 self.value = value
@@ -99,7 +114,10 @@ class Advanced:
             self.maximumWidthForProcessing = maximumWidthForProcessing
 
     class PhaseFilter:
-        # Phase filter settings descriptor.
+
+        """
+         Phase filter settings descriptor.
+        """
         class KernelRadius:
             def __init__(self, value: int, default: int, min: int, max: int):
                 self.value = value
@@ -120,7 +138,10 @@ class Advanced:
             self.spatialWeightStdDev = spatialWeightStdDev
 
     class AdaptiveSampling:
-        # Adaptive sampling settings descriptor.
+
+        """
+         Adaptive sampling settings descriptor.
+        """
         class Type:
             def __init__(self, value: MF_V3_Settings_Scan_Scan.Processing.AdaptiveSampling.Type, default: MF_V3_Settings_Scan_Scan.Processing.AdaptiveSampling.Type):
                 self.value = value
@@ -139,7 +160,10 @@ class Advanced:
             self.rate = rate
 
     class NormalEstimation:
-        # Normal estimation settings descriptor.
+
+        """
+         Normal estimation settings descriptor.
+        """
         class Method:
             def __init__(self, value: MF_V3_Settings_Scan_Scan.Processing.NormalEstimation.Method, default: MF_V3_Settings_Scan_Scan.Processing.NormalEstimation.Method):
                 self.value = value
@@ -178,7 +202,10 @@ class Advanced:
             self.useMaximumNeighbourRadius = useMaximumNeighbourRadius
 
     class OutlierRemoval:
-        # Outlier removal settings descriptor.
+
+        """
+         Outlier removal settings descriptor.
+        """
         class NeighbourCount:
             def __init__(self, value: int, default: int, min: int, max: int):
                 self.value = value
@@ -199,7 +226,10 @@ class Advanced:
             self.neighbourRadius = neighbourRadius
 
     class Remesh:
-        # Remesh settings descriptor.
+
+        """
+         Remesh settings descriptor.
+        """
         class VoxelSize:
             def __init__(self, value: float, default: float, min: float, max: float):
                 self.value = value
@@ -234,9 +264,15 @@ class Advanced:
             self.linearInterpolation = linearInterpolation
 
     class Camera:
-        # Camera settings descriptor.
+
+        """
+         Camera settings descriptor.
+        """
         class UseContinuousExposureValues:
-            # Use continuous exposure values settings descriptor.
+
+            """
+             Use continuous exposure values settings descriptor.
+            """
             def __init__(self, value: bool, default: bool):
                 self.value = value
                 self.default = default
@@ -246,9 +282,15 @@ class Advanced:
             self.useContinuousExposureValues = useContinuousExposureValues
 
     class Turntable:
-        # Turntable settings descriptor.
+
+        """
+         Turntable settings descriptor.
+        """
         class RampAngle:
-            # The angle in degrees to slow down the turntable at the end of a rotation.
+
+            """
+             The angle in degrees to slow down the turntable at the end of a rotation.
+            """
             def __init__(self, value: int, default: int, min: int, max: int):
                 self.value = value
                 self.default = default

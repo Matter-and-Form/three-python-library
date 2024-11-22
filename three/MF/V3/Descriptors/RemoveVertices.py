@@ -3,9 +3,15 @@ from typing import List
 
 
 class RemoveVertices:
-    # Descriptor a remove vertices task.
+
+    """
+     Descriptor a remove vertices task.
+    """
     class Scan:
-        # Scan vertex and triangle removal metadata.
+
+        """
+         Scan vertex and triangle removal metadata.
+        """
         def __init__(self, index: int, vertices: int, triangles: int):
             # The scan index.
             self.index = index
@@ -18,8 +24,8 @@ class RemoveVertices:
         # The list of scans whose vertices were removed.
         self.scans = scans
         """
-         The updated project data after undo or redo.
-         If undefined, then there was no change to the project.
+        The updated project data after undo or redo.
+        If undefined, then there was no change to the project.
         """
         self.groups = groups
 

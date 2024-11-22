@@ -2,9 +2,15 @@ from typing import List
 
 
 class Tutorials:
-    # Tutorials settings.
+
+    """
+     Tutorials settings.
+    """
     class Viewed:
-        # Viewed tutorials.
+
+        """
+         Viewed tutorials.
+        """
         def __init__(self, pages: List[str] = None):
             # Viewed tutorials pages.
             self.pages = pages

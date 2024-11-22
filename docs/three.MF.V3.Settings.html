@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>three.MF.V3.Settings package &#8212; Three Python Library  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="three-mf-v3-settings-package">
+<h1>three.MF.V3.Settings package<a class="headerlink" href="#three-mf-v3-settings-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-three.MF.V3.Settings.Advanced">
+<span id="three-mf-v3-settings-advanced-module"></span><h2>three.MF.V3.Settings.Advanced module<a class="headerlink" href="#module-three.MF.V3.Settings.Advanced" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Advanced.</span></span><span class="sig-name descname"><span class="pre">Advanced</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgeDetection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phaseFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptiveSampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalEstimation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlierRemoval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">turntable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Advanced settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.AdaptiveSampling">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AdaptiveSampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.AdaptiveSampling" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Adaptive sampling settings</p>
+<p>Adaptive sampling will downsample points in regions of low detail
+and keep points in regions of high detail.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.Camera">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">useContinuousExposureValues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.Camera" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Camera settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.Capture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Capture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizontalFrequencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verticalFrequencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.Capture" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Capture settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.EdgeDetection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EdgeDetection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacianKernelRadius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gaussianBlurRadius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gaussianBlurStdDev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximumWidthForProcessing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.EdgeDetection" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Edge detection settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.EdgeDetection.gaussianBlurRadius">
+<span class="sig-name descname"><span class="pre">gaussianBlurRadius</span></span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.EdgeDetection.gaussianBlurRadius" title="Link to this definition">¶</a></dt>
+<dd><p>Gaussian blur kernel standard deviation.  This parameter is ignored if
+p gaussianBlurSize is zero.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.EdgeDetection.gaussianBlurStdDev">
+<span class="sig-name descname"><span class="pre">gaussianBlurStdDev</span></span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.EdgeDetection.gaussianBlurStdDev" title="Link to this definition">¶</a></dt>
+<dd><p>The maximum image width for processing. (Optional) To disable, set to 0.</p>
+<p>If this value is greater than zero, the phase images are resized to the maximum
+width prior to computing the Laplacian and the the detected edges are then upsampled to the
+original size.</p>
+<p>This would be done to speed up processing or to detect edges on a larger scale.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.EdgeDetection.laplacianKernelRadius">
+<span class="sig-name descname"><span class="pre">laplacianKernelRadius</span></span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.EdgeDetection.laplacianKernelRadius" title="Link to this definition">¶</a></dt>
+<dd><p>Gaussian blur kernel radius. (Optional)  To disable, set to 0.</p>
+<p>The phase images can optionally blurred before taking the Laplacian to reduce noise.
+However as a result, the detected edges are wider.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.NormalEstimation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NormalEstimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximumNeighbourCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximumNeighbourRadius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useMaximumNeighbourCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useMaximumNeighbourRadius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.NormalEstimation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Normal estimation settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.NormalEstimation.method">
+<span class="sig-name descname"><span class="pre">method</span></span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.NormalEstimation.method" title="Link to this definition">¶</a></dt>
+<dd><p>Maximum number of nearest neighbors used to compute the normal.
+This value is only used with the NORMAL_OPEN3D method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.OutlierRemoval">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OutlierRemoval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neighbourCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighbourRadius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.OutlierRemoval" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Radius outlier removal settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.PhaseFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PhaseFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernelRadius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatialWeightStdDev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.PhaseFilter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Phase filter settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.PhaseFilter.kernelRadius">
+<span class="sig-name descname"><span class="pre">kernelRadius</span></span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.PhaseFilter.kernelRadius" title="Link to this definition">¶</a></dt>
+<dd><p>The standard deviation of the spatial weights.</p>
+<p>The weight of a neighboring value is
+$ exp(-(r/s)^2)
+$  where
+$ r
+$
+is the distance to the central value and
+$ s
+$ is the spatial weight
+standard deviation.</p>
+<p>If the spatial weight standard deviation is set to zero, all the spatial
+weights are uniformly set to 1.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.PointClipping">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointClipping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.PointClipping" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Point32 clipping settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.Remesh">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Remesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxelSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linearInterpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.Remesh" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Remesh settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.Sampling">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Sampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projectorSampleRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imageSampleRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.Sampling" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Sampling settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Advanced.Advanced.Turntable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Turntable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rampAngle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Advanced.Advanced.Turntable" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Turntable settings.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Align">
+<span id="three-mf-v3-settings-align-module"></span><h2>three.MF.V3.Settings.Align module<a class="headerlink" href="#module-three.MF.V3.Settings.Align" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Align.</span></span><span class="sig-name descname"><span class="pre">Align</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rough</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Align.Align" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Alignment settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Fine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Fine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialTransform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Fine" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Fine alignment settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Fine.Method">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Fine.Method" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Fine alignment methods.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Fine.Method.Empty">
+<span class="sig-name descname"><span class="pre">Empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'None'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Fine.Method.Empty" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Fine.Method.ICP">
+<span class="sig-name descname"><span class="pre">ICP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ICP'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Fine.Method.ICP" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Fine.Transform">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Fine.Transform" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.ICP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ICP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matchDistance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.ICP" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Iterative closest point alignment settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Points">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absoluteError</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relativeError</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useAllPoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Points" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Point pair alignment settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Ransac">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Ransac</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">downsampleVoxelSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximumFeatureRadius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximumFeaturePointCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximumMatchDistance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimumMatchSimilarity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutualFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Ransac" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Ransac alignment settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Rough">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Rough</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ransac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Rough" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Rough alignment settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Rough.Method">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Rough.Method" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Rough alignment methods.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Rough.Method.Empty">
+<span class="sig-name descname"><span class="pre">Empty</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'None'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Rough.Method.Empty" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Rough.Method.FastGlobal">
+<span class="sig-name descname"><span class="pre">FastGlobal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FastGlobal'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Rough.Method.FastGlobal" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Rough.Method.Points">
+<span class="sig-name descname"><span class="pre">Points</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Points'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Rough.Method.Points" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Align.Align.Rough.Method.Ransac">
+<span class="sig-name descname"><span class="pre">Ransac</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ransac'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Align.Align.Rough.Method.Ransac" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.AutoFocus">
+<span id="three-mf-v3-settings-autofocus-module"></span><h2>three.MF.V3.Settings.AutoFocus module<a class="headerlink" href="#module-three.MF.V3.Settings.AutoFocus" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.AutoFocus.AutoFocus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.AutoFocus.</span></span><span class="sig-name descname"><span class="pre">AutoFocus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">applyAll</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cameras</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.AutoFocus.AutoFocus" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Auto focus settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.AutoFocus.AutoFocus.Camera">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.AutoFocus.AutoFocus.Camera" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Auto focus camera settings.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.BoundingBox">
+<span id="three-mf-v3-settings-boundingbox-module"></span><h2>three.MF.V3.Settings.BoundingBox module<a class="headerlink" href="#module-three.MF.V3.Settings.BoundingBox" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.BoundingBox.BoundingBox">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.BoundingBox.</span></span><span class="sig-name descname"><span class="pre">BoundingBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axisAligned</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.BoundingBox.BoundingBox" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Bounding box settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.BoundingBox.BoundingBox.selection">
+<span class="sig-name descname"><span class="pre">selection</span></span><a class="headerlink" href="#three.MF.V3.Settings.BoundingBox.BoundingBox.selection" title="Link to this definition">¶</a></dt>
+<dd><p>If <cite>true</cite>, align the bounding box with the world axes.
+Otherwise orient the bounding box with the scans.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Camera">
+<span id="three-mf-v3-settings-camera-module"></span><h2>three.MF.V3.Settings.Camera module<a class="headerlink" href="#module-three.MF.V3.Settings.Camera" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Camera.Camera">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Camera.</span></span><span class="sig-name descname"><span class="pre">Camera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoExposure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analogGain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">digitalGain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Camera.Camera" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Camera settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Capture">
+<span id="three-mf-v3-settings-capture-module"></span><h2>three.MF.V3.Settings.Capture module<a class="headerlink" href="#module-three.MF.V3.Settings.Capture" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Capture.Capture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Capture.</span></span><span class="sig-name descname"><span class="pre">Capture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">texture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calibrationCard</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">horizontalFrequencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verticalFrequencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blendCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">horizontalBlendFrequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verticalBlendFrequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Capture.Capture" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Capture settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.CopyGroup">
+<span id="three-mf-v3-settings-copygroup-module"></span><h2>three.MF.V3.Settings.CopyGroup module<a class="headerlink" href="#module-three.MF.V3.Settings.CopyGroup" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.CopyGroup.CopyGroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.CopyGroup.</span></span><span class="sig-name descname"><span class="pre">CopyGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sourceIndexes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targetIndex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">childPosition</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nameSuffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.CopyGroup.CopyGroup" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Copy scan group settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.CopyGroup.CopyGroup.childPosition">
+<span class="sig-name descname"><span class="pre">childPosition</span></span><a class="headerlink" href="#three.MF.V3.Settings.CopyGroup.CopyGroup.childPosition" title="Link to this definition">¶</a></dt>
+<dd><p>Optional name suffix to append to the copied group names.
+If unspecified the names are unchanged.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.CopyGroup.CopyGroup.sourceIndexes">
+<span class="sig-name descname"><span class="pre">sourceIndexes</span></span><a class="headerlink" href="#three.MF.V3.Settings.CopyGroup.CopyGroup.sourceIndexes" title="Link to this definition">¶</a></dt>
+<dd><p>The index of the group into which the source group are copied.
+If unspecified the copied groups are added to the root of the group tree.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.CopyGroup.CopyGroup.targetIndex">
+<span class="sig-name descname"><span class="pre">targetIndex</span></span><a class="headerlink" href="#three.MF.V3.Settings.CopyGroup.CopyGroup.targetIndex" title="Link to this definition">¶</a></dt>
+<dd><p>The position among the target group’s children where the copied groups are inserted.
+If unspecified the copied groups are appended to the end of the target group’s children.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.CopyProject">
+<span id="three-mf-v3-settings-copyproject-module"></span><h2>three.MF.V3.Settings.CopyProject module<a class="headerlink" href="#module-three.MF.V3.Settings.CopyProject" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.CopyProject.CopyProject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.CopyProject.</span></span><span class="sig-name descname"><span class="pre">CopyProject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copyName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.CopyProject.CopyProject" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Copy project settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Export">
+<span id="three-mf-v3-settings-export-module"></span><h2>three.MF.V3.Settings.Export module<a class="headerlink" href="#module-three.MF.V3.Settings.Export" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Export.Export">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Export.</span></span><span class="sig-name descname"><span class="pre">Export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">texture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Export.Export" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Export settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Export.Export.Format">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Export.Export.Format" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Scan export formats.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Export.Export.Format.dae">
+<span class="sig-name descname"><span class="pre">dae</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dae'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Export.Export.Format.dae" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Export.Export.Format.fbx">
+<span class="sig-name descname"><span class="pre">fbx</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'fbx'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Export.Export.Format.fbx" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Export.Export.Format.glb">
+<span class="sig-name descname"><span class="pre">glb</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'glb'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Export.Export.Format.glb" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Export.Export.Format.obj">
+<span class="sig-name descname"><span class="pre">obj</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'obj'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Export.Export.Format.obj" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Export.Export.Format.ply">
+<span class="sig-name descname"><span class="pre">ply</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ply'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Export.Export.Format.ply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Export.Export.Format.stl">
+<span class="sig-name descname"><span class="pre">stl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'stl'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Export.Export.Format.stl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Export.Export.Format.xyz">
+<span class="sig-name descname"><span class="pre">xyz</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'xyz'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Export.Export.Format.xyz" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Group">
+<span id="three-mf-v3-settings-group-module"></span><h2>three.MF.V3.Settings.Group module<a class="headerlink" href="#module-three.MF.V3.Settings.Group" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Group.Group">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Group.</span></span><span class="sig-name descname"><span class="pre">Group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapsed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Group.Group" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Scan group settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Group.Group.collapsed">
+<span class="sig-name descname"><span class="pre">collapsed</span></span><a class="headerlink" href="#three.MF.V3.Settings.Group.Group.collapsed" title="Link to this definition">¶</a></dt>
+<dd><p>Axis-angle rotation vector.
+The direction of the vector is the rotation axis.
+The magnitude of the vector is rotation angle in radians.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.I18n">
+<span id="three-mf-v3-settings-i18n-module"></span><h2>three.MF.V3.Settings.I18n module<a class="headerlink" href="#module-three.MF.V3.Settings.I18n" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.I18n.I18n">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.I18n.</span></span><span class="sig-name descname"><span class="pre">I18n</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.I18n.I18n" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>I18n language settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.I18n.I18n.Language">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.I18n.I18n.Language" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Available languages.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.I18n.I18n.Language.de">
+<span class="sig-name descname"><span class="pre">de</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'de'</span></em><a class="headerlink" href="#three.MF.V3.Settings.I18n.I18n.Language.de" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.I18n.I18n.Language.en">
+<span class="sig-name descname"><span class="pre">en</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'en'</span></em><a class="headerlink" href="#three.MF.V3.Settings.I18n.I18n.Language.en" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.I18n.I18n.Language.fr">
+<span class="sig-name descname"><span class="pre">fr</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'fr'</span></em><a class="headerlink" href="#three.MF.V3.Settings.I18n.I18n.Language.fr" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Merge">
+<span id="three-mf-v3-settings-merge-module"></span><h2>three.MF.V3.Settings.Merge module<a class="headerlink" href="#module-three.MF.V3.Settings.Merge" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Merge.</span></span><span class="sig-name descname"><span class="pre">Merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">texturize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Scan merge settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Remesh">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Remesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poisson</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxelSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linearInterpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Remesh" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Remesh settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Remesh.Flow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faceCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertexCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creaseAngleThreshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrinsicSmoothness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alignToBoundaries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothIterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">knnPoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deterministic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Remesh.Flow" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Flow remesh settings</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Remesh.Method">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Remesh.Method" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Remesh method.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Remesh.Method.FlowQuadDominant">
+<span class="sig-name descname"><span class="pre">FlowQuadDominant</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FlowQuadDominant'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Remesh.Method.FlowQuadDominant" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Remesh.Method.FlowQuads">
+<span class="sig-name descname"><span class="pre">FlowQuads</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FlowQuads'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Remesh.Method.FlowQuads" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Remesh.Method.FlowTriangles">
+<span class="sig-name descname"><span class="pre">FlowTriangles</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FlowTriangles'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Remesh.Method.FlowTriangles" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Remesh.Method.PoissonTriangles">
+<span class="sig-name descname"><span class="pre">PoissonTriangles</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PoissonTriangles'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Remesh.Method.PoissonTriangles" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Remesh.Poisson">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Poisson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voxelSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linearInterpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Remesh.Poisson" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Remesh.poisson">
+<span class="sig-name descname"><span class="pre">poisson</span></span><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Remesh.poisson" title="Link to this definition">¶</a></dt>
+<dd><p>Temporary for backwards compatibility
+Voxel size.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Merge.Merge.Simplify">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Simplify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triangleCount</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Merge.Merge.Simplify" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Simplify settings.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.NewGroup">
+<span id="three-mf-v3-settings-newgroup-module"></span><h2>three.MF.V3.Settings.NewGroup module<a class="headerlink" href="#module-three.MF.V3.Settings.NewGroup" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.NewGroup.NewGroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.NewGroup.</span></span><span class="sig-name descname"><span class="pre">NewGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parentIndex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapsed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.NewGroup.NewGroup" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Scan group settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.NewGroup.NewGroup.collapsed">
+<span class="sig-name descname"><span class="pre">collapsed</span></span><a class="headerlink" href="#three.MF.V3.Settings.NewGroup.NewGroup.collapsed" title="Link to this definition">¶</a></dt>
+<dd><p>Group axis-angle rotation vector.
+The direction of the vector is the rotation axis.
+The magnitude of the vector is rotation angle in radians.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.NewGroup.NewGroup.parentIndex">
+<span class="sig-name descname"><span class="pre">parentIndex</span></span><a class="headerlink" href="#three.MF.V3.Settings.NewGroup.NewGroup.parentIndex" title="Link to this definition">¶</a></dt>
+<dd><p>Group base name.
+The new group name will start with the base name followed by a unique index number chosen by the backend.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Project">
+<span id="three-mf-v3-settings-project-module"></span><h2>three.MF.V3.Settings.Project module<a class="headerlink" href="#module-three.MF.V3.Settings.Project" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Project.Project">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Project.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Project.Project" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Project settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Projector">
+<span id="three-mf-v3-settings-projector-module"></span><h2>three.MF.V3.Settings.Projector module<a class="headerlink" href="#module-three.MF.V3.Settings.Projector" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Projector.Projector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Projector.</span></span><span class="sig-name descname"><span class="pre">Projector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brightness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Projector.Projector" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Projector settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Projector.Projector.Image">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Projector.Projector.Image" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Projector image settings</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Projector.Projector.Image.Source">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixAspectRatio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Projector.Projector.Image.Source" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Image source.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Projector.Projector.Orientation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Orientation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Projector.Projector.Orientation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Pattern orientation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Projector.Projector.Orientation.Horizontal">
+<span class="sig-name descname"><span class="pre">Horizontal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Horizontal'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Projector.Projector.Orientation.Horizontal" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Projector.Projector.Orientation.Vertical">
+<span class="sig-name descname"><span class="pre">Vertical</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Vertical'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Projector.Projector.Orientation.Vertical" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Projector.Projector.Pattern">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Projector.Projector.Pattern" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Structured light pattern.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Quality">
+<span id="three-mf-v3-settings-quality-module"></span><h2>three.MF.V3.Settings.Quality module<a class="headerlink" href="#module-three.MF.V3.Settings.Quality" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Quality.Quality">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Quality.</span></span><span class="sig-name descname"><span class="pre">Quality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Quality.Quality" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Quality settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Quality.Quality.High">
+<span class="sig-name descname"><span class="pre">High</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'High'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Quality.Quality.High" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Quality.Quality.Low">
+<span class="sig-name descname"><span class="pre">Low</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Low'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Quality.Quality.Low" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Quality.Quality.Medium">
+<span class="sig-name descname"><span class="pre">Medium</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Medium'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Quality.Quality.Medium" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Rectangle">
+<span id="three-mf-v3-settings-rectangle-module"></span><h2>three.MF.V3.Settings.Rectangle module<a class="headerlink" href="#module-three.MF.V3.Settings.Rectangle" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Rectangle.Rectangle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Rectangle.</span></span><span class="sig-name descname"><span class="pre">Rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Rectangle.Rectangle" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Rectangle settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Remesh">
+<span id="three-mf-v3-settings-remesh-module"></span><h2>three.MF.V3.Settings.Remesh module<a class="headerlink" href="#module-three.MF.V3.Settings.Remesh" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Remesh.Remesh">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Remesh.</span></span><span class="sig-name descname"><span class="pre">Remesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faceCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertexCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creaseAngleThreshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrinsicSmoothness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alignToBoundaries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothIterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">knnPoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deterministic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Remesh.Remesh" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Field aligned remesh settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Remesh.Remesh.Type">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Remesh.Remesh.Type" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Types of remesh output.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Remesh.Remesh.Type.quad">
+<span class="sig-name descname"><span class="pre">quad</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'quad'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Remesh.Remesh.Type.quad" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Remesh.Remesh.Type.quadDominant">
+<span class="sig-name descname"><span class="pre">quadDominant</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'quadDominant'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Remesh.Remesh.Type.quadDominant" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Remesh.Remesh.Type.triangle">
+<span class="sig-name descname"><span class="pre">triangle</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'triangle'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Remesh.Remesh.Type.triangle" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.RemoveVertices">
+<span id="three-mf-v3-settings-removevertices-module"></span><h2>three.MF.V3.Settings.RemoveVertices module<a class="headerlink" href="#module-three.MF.V3.Settings.RemoveVertices" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.RemoveVertices.RemoveVertices">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.RemoveVertices.</span></span><span class="sig-name descname"><span class="pre">RemoveVertices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.RemoveVertices.RemoveVertices" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Remove vertices.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Scan">
+<span id="three-mf-v3-settings-scan-module"></span><h2>three.MF.V3.Settings.Scan module<a class="headerlink" href="#module-three.MF.V3.Settings.Scan" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Scan.</span></span><span class="sig-name descname"><span class="pre">Scan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">turntable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Scan settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Processing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projectorSampleRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imageSampleRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edgeDetection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phaseFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adaptiveSampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointClipping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalEstimation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlierRemoval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Scan processing settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AdaptiveSampling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Adaptive sampling settings</p>
+<p>Adaptive sampling will downsample points in regions of low detail
+and keep points in regions of high detail.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling.Type">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling.Type" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling.Type.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NONE'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling.Type.NONE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling.Type.RANDOM">
+<span class="sig-name descname"><span class="pre">RANDOM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RANDOM'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling.Type.RANDOM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling.Type.REGULAR">
+<span class="sig-name descname"><span class="pre">REGULAR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'REGULAR'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.AdaptiveSampling.Type.REGULAR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NormalEstimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximumNeighbourCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximumNeighbourRadius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useMaximumNeighbourCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useMaximumNeighbourRadius</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Normal estimation settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation.Method">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation.Method" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation.Method.NORMAL_LLS">
+<span class="sig-name descname"><span class="pre">NORMAL_LLS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NORMAL_LLS'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation.Method.NORMAL_LLS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation.Method.NORMAL_OPEN3D">
+<span class="sig-name descname"><span class="pre">NORMAL_OPEN3D</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NORMAL_OPEN3D'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation.Method.NORMAL_OPEN3D" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation.method">
+<span class="sig-name descname"><span class="pre">method</span></span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.NormalEstimation.method" title="Link to this definition">¶</a></dt>
+<dd><p>Maximum number of nearest neighbors used to compute the normal.
+This value is only used with the NORMAL_OPEN3D method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.OutlierRemoval">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OutlierRemoval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neighbourCount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neighbourRadius</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.OutlierRemoval" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Outlier removal settings.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PhaseEdgeDetection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PhaseEdgeDetection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacianKernelRadius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gaussianBlurRadius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gaussianBlurStdDev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximumWidthForProcessing</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PhaseEdgeDetection" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Phase edge detection settings.</p>
+<p>Phase edge detection produces a binary mask indicating the edges of a horizontal/vertical pair of phase images.  Since flat geometries give a constant phase image gradient, we use the second derivative (Laplacian) of the phase image to detect edges rather than the gradient.</p>
+<p>The edge mask generated by phase edge detection is an input to both phase filtering and adaptive sampling.  If neither of these are enabled, the phase edge detection settings have no effect on the output point cloud.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PhaseEdgeDetection.gaussianBlurRadius">
+<span class="sig-name descname"><span class="pre">gaussianBlurRadius</span></span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PhaseEdgeDetection.gaussianBlurRadius" title="Link to this definition">¶</a></dt>
+<dd><p>Gaussian blur kernel standard deviation.
+This parameter is ignored if <cite>gaussianBlurSize</cite> is zero.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PhaseEdgeDetection.gaussianBlurStdDev">
+<span class="sig-name descname"><span class="pre">gaussianBlurStdDev</span></span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PhaseEdgeDetection.gaussianBlurStdDev" title="Link to this definition">¶</a></dt>
+<dd><p>The maximum image width for processing. (Optional) To disable, set to 0.
+If this value is greater than zero, the phase images are resized to the maximum width prior
+to computing the Laplacian and the the detected edges are then upsampled to the original size.
+This would be done to speed up processing or to detect edges on a larger scale.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PhaseEdgeDetection.laplacianKernelRadius">
+<span class="sig-name descname"><span class="pre">laplacianKernelRadius</span></span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PhaseEdgeDetection.laplacianKernelRadius" title="Link to this definition">¶</a></dt>
+<dd><p>Gaussian blur kernel radius. (Optional)  To disable, set to 0.
+The phase images can optionally blurred before taking the Laplacian to reduce noise.
+However as a result, the detected edges are wider.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PhaseFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PhaseFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernelRadius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatialWeightStdDev</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PhaseFilter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Phase filter settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PhaseFilter.kernelRadius">
+<span class="sig-name descname"><span class="pre">kernelRadius</span></span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PhaseFilter.kernelRadius" title="Link to this definition">¶</a></dt>
+<dd><p>The standard deviation of the spatial weights.
+The weight of a neighboring value is $exp(-(r/s)^2)$ where $r$ is the distance
+to the central value and $s$ is the spatial weight standard deviation.
+If the spatial weight standard deviation is set to zero, all the spatial
+weights are uniformly set to 1.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PointClipping">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PointClipping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PointClipping" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Point clipping settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Point clipping type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.InsideCube">
+<span class="sig-name descname"><span class="pre">InsideCube</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'InsideCube'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.InsideCube" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.InsideCylinder">
+<span class="sig-name descname"><span class="pre">InsideCylinder</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'InsideCylinder'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.InsideCylinder" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.InsideSphere">
+<span class="sig-name descname"><span class="pre">InsideSphere</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'InsideSphere'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.InsideSphere" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.OutsideCube">
+<span class="sig-name descname"><span class="pre">OutsideCube</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OutsideCube'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.OutsideCube" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.OutsideCylinder">
+<span class="sig-name descname"><span class="pre">OutsideCylinder</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OutsideCylinder'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.OutsideCylinder" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.OutsideSphere">
+<span class="sig-name descname"><span class="pre">OutsideSphere</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OutsideSphere'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Scan.Scan.Processing.PointClipping.Type.OutsideSphere" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.ScanData">
+<span id="three-mf-v3-settings-scandata-module"></span><h2>three.MF.V3.Settings.ScanData module<a class="headerlink" href="#module-three.MF.V3.Settings.ScanData" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.ScanData.</span></span><span class="sig-name descname"><span class="pre">ScanData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mergeStep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Scan data request.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Buffer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Buffer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Scan buffer type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Buffer.All">
+<span class="sig-name descname"><span class="pre">All</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'All'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Buffer.All" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Buffer.Color">
+<span class="sig-name descname"><span class="pre">Color</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Color'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Buffer.Color" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Buffer.Normal">
+<span class="sig-name descname"><span class="pre">Normal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Normal'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Buffer.Normal" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Buffer.Position">
+<span class="sig-name descname"><span class="pre">Position</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Position'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Buffer.Position" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Buffer.Texture">
+<span class="sig-name descname"><span class="pre">Texture</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Texture'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Buffer.Texture" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Buffer.Triangle">
+<span class="sig-name descname"><span class="pre">Triangle</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Triangle'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Buffer.Triangle" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Buffer.UV">
+<span class="sig-name descname"><span class="pre">UV</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UV'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Buffer.UV" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.MergeStep">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MergeStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.MergeStep" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>The merge processing step.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.MergeStep.Combined">
+<span class="sig-name descname"><span class="pre">Combined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Combined'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.MergeStep.Combined" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.MergeStep.Remeshed">
+<span class="sig-name descname"><span class="pre">Remeshed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Remeshed'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.MergeStep.Remeshed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.MergeStep.Simplified">
+<span class="sig-name descname"><span class="pre">Simplified</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Simplified'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.MergeStep.Simplified" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.MergeStep.Textured">
+<span class="sig-name descname"><span class="pre">Textured</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Textured'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.MergeStep.Textured" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Metadata">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Metadata" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Scan metadata type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Metadata.AxisAlignedBoundingBox">
+<span class="sig-name descname"><span class="pre">AxisAlignedBoundingBox</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AxisAlignedBoundingBox'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Metadata.AxisAlignedBoundingBox" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Metadata.Mean">
+<span class="sig-name descname"><span class="pre">Mean</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Mean'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Metadata.Mean" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanData.ScanData.Metadata.StdDev">
+<span class="sig-name descname"><span class="pre">StdDev</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'StdDev'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanData.ScanData.Metadata.StdDev" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.ScanSelection">
+<span id="three-mf-v3-settings-scanselection-module"></span><h2>three.MF.V3.Settings.ScanSelection module<a class="headerlink" href="#module-three.MF.V3.Settings.ScanSelection" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanSelection.ScanSelection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.ScanSelection.</span></span><span class="sig-name descname"><span class="pre">ScanSelection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.ScanSelection.ScanSelection" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Scan selection.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanSelection.ScanSelection.Mode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.ScanSelection.ScanSelection.Mode" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Scan selection mode.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanSelection.ScanSelection.Mode.all">
+<span class="sig-name descname"><span class="pre">all</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'all'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanSelection.ScanSelection.Mode.all" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanSelection.ScanSelection.Mode.selected">
+<span class="sig-name descname"><span class="pre">selected</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'selected'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanSelection.ScanSelection.Mode.selected" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanSelection.ScanSelection.Mode.visible">
+<span class="sig-name descname"><span class="pre">visible</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'visible'</span></em><a class="headerlink" href="#three.MF.V3.Settings.ScanSelection.ScanSelection.Mode.visible" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.ScanSelection.ScanSelection.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><a class="headerlink" href="#three.MF.V3.Settings.ScanSelection.ScanSelection.mode" title="Link to this definition">¶</a></dt>
+<dd><p>The set of user-selected groups.
+These are only used if the selection mode is ‘selected’.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Scanner">
+<span id="three-mf-v3-settings-scanner-module"></span><h2>three.MF.V3.Settings.Scanner module<a class="headerlink" href="#module-three.MF.V3.Settings.Scanner" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Scanner.Scanner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Scanner.</span></span><span class="sig-name descname"><span class="pre">Scanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">advanced</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i18n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">turntable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tutorials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">software</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Scanner.Scanner" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Scanner settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Software">
+<span id="three-mf-v3-settings-software-module"></span><h2>three.MF.V3.Settings.Software module<a class="headerlink" href="#module-three.MF.V3.Settings.Software" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Software.Software">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Software.</span></span><span class="sig-name descname"><span class="pre">Software</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">updateMajor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updateNightly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Software.Software" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Software settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Style">
+<span id="three-mf-v3-settings-style-module"></span><h2>three.MF.V3.Settings.Style module<a class="headerlink" href="#module-three.MF.V3.Settings.Style" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Style.Style">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Style.</span></span><span class="sig-name descname"><span class="pre">Style</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Style.Style" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Style settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Style.Style.Theme">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Theme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Style.Style.Theme" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Themes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Style.Style.Theme.Dark">
+<span class="sig-name descname"><span class="pre">Dark</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Dark'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Style.Style.Theme.Dark" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Style.Style.Theme.Light">
+<span class="sig-name descname"><span class="pre">Light</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Light'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Style.Style.Theme.Light" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Turntable">
+<span id="three-mf-v3-settings-turntable-module"></span><h2>three.MF.V3.Settings.Turntable module<a class="headerlink" href="#module-three.MF.V3.Settings.Turntable" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Turntable.Turntable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Turntable.</span></span><span class="sig-name descname"><span class="pre">Turntable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sweep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Turntable.Turntable" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Turntable settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Tutorials">
+<span id="three-mf-v3-settings-tutorials-module"></span><h2>three.MF.V3.Settings.Tutorials module<a class="headerlink" href="#module-three.MF.V3.Settings.Tutorials" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Tutorials.Tutorials">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Tutorials.</span></span><span class="sig-name descname"><span class="pre">Tutorials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Tutorials.Tutorials" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Tutorials settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Tutorials.Tutorials.Viewed">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Viewed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pages</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Tutorials.Tutorials.Viewed" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Viewed tutorials.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Video">
+<span id="three-mf-v3-settings-video-module"></span><h2>three.MF.V3.Settings.Video module<a class="headerlink" href="#module-three.MF.V3.Settings.Video" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Video.</span></span><span class="sig-name descname"><span class="pre">Video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Video.Video" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Video settings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Codec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Codec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Codec" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Video codecs.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Codec.H264">
+<span class="sig-name descname"><span class="pre">H264</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'H264'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Codec.H264" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Codec.JPEG">
+<span class="sig-name descname"><span class="pre">JPEG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'JPEG'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Codec.JPEG" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Codec.NoCodec">
+<span class="sig-name descname"><span class="pre">NoCodec</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NoCodec'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Codec.NoCodec" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Codec.RAW">
+<span class="sig-name descname"><span class="pre">RAW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RAW'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Codec.RAW" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Format">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Format" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Pixel formats.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Format.BGR888">
+<span class="sig-name descname"><span class="pre">BGR888</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BGR888'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Format.BGR888" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Format.NoFormat">
+<span class="sig-name descname"><span class="pre">NoFormat</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NoFormat'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Format.NoFormat" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Format.RGB565">
+<span class="sig-name descname"><span class="pre">RGB565</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RGB565'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Format.RGB565" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Format.RGB888">
+<span class="sig-name descname"><span class="pre">RGB888</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RGB888'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Format.RGB888" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Video.Video.Format.YUV420">
+<span class="sig-name descname"><span class="pre">YUV420</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'YUV420'</span></em><a class="headerlink" href="#three.MF.V3.Settings.Video.Video.Format.YUV420" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Viewer">
+<span id="three-mf-v3-settings-viewer-module"></span><h2>three.MF.V3.Settings.Viewer module<a class="headerlink" href="#module-three.MF.V3.Settings.Viewer" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Viewer.Viewer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Viewer.</span></span><span class="sig-name descname"><span class="pre">Viewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">textureOpacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Viewer.Viewer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>3D Viewer settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings.Wifi">
+<span id="three-mf-v3-settings-wifi-module"></span><h2>three.MF.V3.Settings.Wifi module<a class="headerlink" href="#module-three.MF.V3.Settings.Wifi" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="three.MF.V3.Settings.Wifi.Wifi">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">three.MF.V3.Settings.Wifi.</span></span><span class="sig-name descname"><span class="pre">Wifi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ssid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#three.MF.V3.Settings.Wifi.Wifi" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Wifi connection settings.</p>
+</dd></dl>
+
+</section>
+<section id="module-three.MF.V3.Settings">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-three.MF.V3.Settings" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Three Python Library</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Matter and Form.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/three.MF.V3.Settings.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
