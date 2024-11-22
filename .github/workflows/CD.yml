@@ -1,120 +1,69 @@
-name: CD Pipeline
+name: CI
 
-# The pipeline is triggered by tags being pushed.
 on:
   push:
-    tags:        
-      - 'v*.*.*'   # Library version
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches:
+      - release
+  workflow_dispatch:
 
 jobs:
-  Continuous_Deployment:
+  build:
     runs-on: ubuntu-latest
-    
-    # 1. Extract information from the tag (version number, channel).
-    # 2. Build the python package.
-    # 3. Update the package to the repo.
+
     steps:
-
-    # Checkout the source and the submodules
-    - name: Checkout repository and submodules
-      uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
       with:
-        submodules: recursive
-        token: ${{ secrets.API_TOKEN_GITHUB }}
-        persist-credentials: true
+        submodules: true
+        fetch-depth: 0
 
-    ############## 1. Extract information from the tag ##############
-
-    # Check tag
-    - name: Check tag
-      run: |
-        echo "Checking tag: ${GITHUB_REF_NAME}"
-        source ./scripts/github-tag
-        CheckTag ${GITHUB_REF_NAME}
-        
-    # Get version number
-    - name: Tag -> Version
-      run: |
-        source scripts/github-tag
-        echo "PACKAGE_VERSION=$(VersionFromTag ${GITHUB_REF_NAME})" >> $GITHUB_ENV
-
-    # Get the release channel: stable vs testing
-    - name: Tag -> Channel
-      run: |
-        source scripts/github-tag
-        echo "PACKAGE_CHANNEL=$(ChannelFromTag ${GITHUB_REF_NAME})" >> $GITHUB_ENV
-
-    # Print out info
-    - name: Package Info
-      run: |
-        echo "Version: $PACKAGE_VERSION"
-        echo "Channel: $PACKAGE_CHANNEL"
-
-
-    ############## 2. Build the python package. ##############
-
-    # Install dependencies
-    - name: Install dependencies
-      run: |
-          pip3 install -r requirements.txt
-          pip3 install twine
-
-    # Set version
-    - name: Set Version
-      run: echo "__version__ = \"${{ env.PACKAGE_VERSION }}\"" > three/__init__.py
-
-    # Build proto files
-    - name: Build proto files
-      run: python3 ./scripts/build_proto.py 
-
-    # Build
-    - name: Build
-      run: python3 -m build
-
-    # Install our package (required for the tests to find the namespace : MF.V3)
-    - name: Install
-      run: pip3 install ./dist/three-${{ env.PACKAGE_VERSION }}-py3-none-any.whl
-
-    # Run the tests
-    - name: Test
-      run: python3 -m pytest
-
-    # Build the documentation
-    - name: Documentation
-      run: python3 ./scripts/build-doc.py 
-
-
-    ############## 3. Upload the package and the documentation. ##############
-
-    # Upload python package to testpypi
-    - name: Upload to TestPyPi
-      run: twine upload --repository testpypi dist/* -u__token__ -p${{ secrets.TESTPYPI_TOKEN }}
-      #run: twine upload dist/* -u__token__ -p${{ secrets.PYPI_TOKEN }}
-
-
-    # Upload the documentation
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
-
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
+    - name: Update submodules
+      run: git submodule update --init --recursive
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        path: './doc/build/html'
+        python-version: '3.x'
 
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+    - name: Install build dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Transpile Schema
+      run: |
+        python ./scripts/build_proto.py
 
+    - name: Build the package
+      run: python -m build
 
+    - name: Publish to PyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        pip install twine
+        twine upload --verbose --repository pypi dist/*
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@matterandform.net'
+        git add .
+        git commit -m "Publish new version to PyPi [skip ci]"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Extract version
+      id: extract_version
+      run: |
+        CURRENT_VERSION=$(grep -oP "(?<=__version__ = ')[^']*" ./three/__init__.py)
+        echo "TAG=$CURRENT_VERSION" >> $GITHUB_ENV
+
+    - name: Create a Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/*
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag_name: ${{ env.TAG }}

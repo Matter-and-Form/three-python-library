@@ -58,3 +58,19 @@ jobs:
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract version number
+      id: extract_version
+      run: |
+        CURRENT_VERSION=$(grep -oP "(?<=__version__ = ')[^']*" ./three/__init__.py)
+        echo "VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+
+    - name: Create Pull Request to merge develop into release
+      uses: peter-evans/create-pull-request@v3
+      with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "CI: Merge develop into release"
+          base: "develop"
+          branch: "release"
+          title: "New Release Candidate v${{ env.VERSION }}"
+          body: "This is an new release candidate for three-python. Merging this will distribute the new version to pypi."

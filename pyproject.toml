@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 # Package info and dependencies
 [project]
-name = "three"
+name = "mfthree"
 description = "Matter and Form - THREE - Library"
 readme = "./three/PYPI_README.md"
 dynamic = ["version"]
