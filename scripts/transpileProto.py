@@ -652,6 +652,7 @@ def generate_init_files(paths: set, tree: Tree, output_dir: str):
     """
     Generates init files for use when accessing the classes and enums as a package
     """
+    paths.add("./three/MF")
     for path in paths:
         init_file = os.path.join(path, "__init__.py")
         
