@@ -65,12 +65,17 @@ jobs:
         CURRENT_VERSION=$(grep -oP "(?<=__version__ = ')[^']*" ./three/__init__.py)
         echo "VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
 
-    - name: Create Pull Request to merge develop into release
-      uses: peter-evans/create-pull-request@v3
-      with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "CI: Merge develop into release"
-          base: "develop"
-          branch: "release"
-          title: "New Release Candidate v${{ env.VERSION }}"
-          body: "This is an new release candidate for three-python. Merging this will distribute the new version to pypi."
+    # Create a pull request for master
+    - name: Create Pull Request
+      run: |
+        echo "Switching to branch..."
+        git switch -c RC/${{ env.VERSION }}
+        git push --set-upstream origin RC/${{ env.VERSION }}
+
+        echo "Creating a pull request..."
+        TITLE="Release Candidate for three-python-library - ${{ env.VERSION }}"
+        BODY="Generated automatically by Github Actions Bot.
+        Version - ${{ env.VERSION }}"
+        gh pr create --title "$TITLE" --body "$BODY" --base release --head RC/${{ env.VERSION }} --label "rc"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
