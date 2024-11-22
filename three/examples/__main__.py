@@ -2,13 +2,12 @@
 
 import sys
 
-from three.examples import  connection, projector, turntable, task, turntableCalibration, simpleScanner
+from three.examples import  connection, projector, task, turntableCalibration, simpleScanner
 
 # Available examples dictionary 
 examples = {
     'connection': connection,
     'projector': projector,
-    'turntable': turntable,
     'task': task,
     'turntableCalibration': turntableCalibration,
     'simpleScanner': simpleScanner

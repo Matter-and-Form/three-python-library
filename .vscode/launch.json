@@ -36,6 +36,16 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true
+        },
+        {
+            "name": "Python: Setup Wheel",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/three/setup.py",
+            "args": ["sdist", "bdist_wheel"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
         }
     ]
 }

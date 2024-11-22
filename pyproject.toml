@@ -8,6 +8,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "three"
 description = "Matter and Form - THREE - Library"
+readme = "./three/PYPI_README.md"
 dynamic = ["version"]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -22,7 +23,7 @@ dependencies = [
 
 # URLs
 [project.urls]
-Homepage = "https://matterandform.net"
+Homepage = "https://github.com/Matter-and-Form/three-python-library"
 Documentation = "https://github.com/Matter-and-Form/three-python-library/wiki"
 
 # Package source

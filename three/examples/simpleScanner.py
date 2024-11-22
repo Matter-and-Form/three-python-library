@@ -6,9 +6,18 @@ from typing import List
 
 # Three library
 from three.scanner import Scanner
-from three.MF.V3.Settings import Capture, Camera, Projector, Turntable, ScanSelection, Export, Quality
-from three.MF.V3.Descriptors import Project
-from three.MF.V3.Descriptors.Settings import Scanner as ScannerDescriptor, Camera as CameraDescriptor, Projector as ProjectorDescriptor, Turntable as TurntableDescriptor, Capture as CaptureDescriptor
+from three.MF.V3.Settings.Projector import Projector
+from three.MF.V3.Settings.Capture import Capture
+from three.MF.V3.Settings.Camera import Camera
+from three.MF.V3.Settings.Turntable import Turntable
+from three.MF.V3.Settings.ScanSelection import ScanSelection
+from three.MF.V3.Settings.Export import Export
+from three.MF.V3.Settings.Quality import Quality
+from three.MF.V3.Descriptors.Project import Project
+from three.MF.V3.Descriptors.Settings.Camera import Camera as CameraDescriptor
+from three.MF.V3.Descriptors.Settings.Projector import Projector as ProjectorDescriptor
+from three.MF.V3.Descriptors.Settings.Turntable import Turntable as TurntableDescriptor
+from three.MF.V3.Descriptors.Settings.Capture import Capture as CaptureDescriptor
 
 from three.MF.V3 import Task, TaskState
 # Two frames for the video stream
