@@ -36,7 +36,7 @@ pip install -r requirements.txt
 This is only necessary if you have an update the schema. Keep in mind that schema's are tied to THREE server releases. Generated files are commited to this repo.To generate the Python source files again from the Schema files, run:
 
 ```sh
-python3 ./scipts/build_proto.py
+python3 ./scripts/build_proto.py
 ```
 
 #### Package Build
@@ -85,21 +85,31 @@ Here is an example of how to use the library to connect to the scanner and contr
 ```python
 from matter_and_form_three import Scanner
 
+# Create and connect to the scanner
 scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
+# Use the Zeroconf address or replace with the ip
 scanner.Connect("ws://matterandform.local:8081")
 
-# Do some tasks
-scanner.list_settings()
+# Simple request to list all projects
+projectTask = scanner.list_projects()
+
+# Check the output from the task for errors
+if projectTask.Error:
+    print('Error:', projectTask.Error)
+    return
+# Do something with the output
+for project_obj in projectTask.Output:
+    project = Project.Brief(**project_obj)
+    print('Project index:', project.index, ' - Name:', project.name)
 ```
 
 ### Available Examples
-### Available Examples
-The library comes with several pre-made examples. You can find them in the [examples directory](https://github.com/Matter-and-Form/three-python-library/tree/develop/maf_three/examples).
+The library comes with several pre-made examples. You can find them in the [examples directory](https://github.com/Matter-and-Form/three-python-library/tree/develop/three/examples).
 
 To run a specific example, use:
 
 ```sh
-python maf_three/examples/<example_name>.py
+python three/examples/<example_name>.py
 ```
 
 ## Documentation

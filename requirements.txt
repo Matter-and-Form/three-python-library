@@ -5,3 +5,4 @@ protobuf==5.28.3
 pycodestyle==2.12.1
 pyflakes==3.2.0
 websocket-client==1.8.0
+wheel
