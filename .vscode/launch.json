@@ -14,7 +14,7 @@
             "name": "Python: Simple Scanner Example",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/maf_three/examples/simpleScanner.py",
+            "program": "${workspaceFolder}/three/examples/simpleScanner.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true
@@ -23,7 +23,7 @@
             "name": "Python: Task Example",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/maf_three/examples/task.py",
+            "program": "${workspaceFolder}/three/examples/task.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true
@@ -32,7 +32,7 @@
             "name": "Python: Calibrate Turntable Example",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/maf_three/examples/turntableCalibration.py",
+            "program": "${workspaceFolder}/three/examples/turntableCalibration.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true

@@ -85,9 +85,9 @@ def generate_pyi(scanner_module_name, three_module_name, output_file):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate .pyi file for a given module.")
-    parser.add_argument('scanner_module', type=str, nargs='?', default='maf_three.scanner', help='The module name for the scanner class.')
-    parser.add_argument('three_module', type=str, nargs='?', default='maf_three.MF.V3.Three', help='The module name for the three functions.')
-    parser.add_argument('output_file', type=str, nargs='?', default='./maf_three/scanner.pyi', help='The output file for the .pyi content.')
+    parser.add_argument('scanner_module', type=str, nargs='?', default='three.scanner', help='The module name for the scanner class.')
+    parser.add_argument('three_module', type=str, nargs='?', default='three.MF.V3.Three', help='The module name for the three functions.')
+    parser.add_argument('output_file', type=str, nargs='?', default='./three/scanner.pyi', help='The output file for the .pyi content.')
     args = parser.parse_args()
     
     generate_pyi(args.scanner_module, args.three_module, args.output_file)

@@ -8,7 +8,7 @@ import re
 # Paths
 scriptPath = os.path.dirname(os.path.realpath(__file__))
 protoInputPath = scriptPath + '/../V3Schema/'
-protoOutputPath = scriptPath + '/../maf_three'
+protoOutputPath = scriptPath + '/../three'
 docInputPath = scriptPath + '/../doc/source/'
 docOutputPath = scriptPath + '/../doc/build/'
 
@@ -58,9 +58,9 @@ def CleanUpGeneratedInit(file):
             if badImport and ')' in line:
                 badImport = False
 
-# Save the maf_three/__init__.py
+# Save the three/__init__.py
 # It will be overridden by the betterprotoc compiler
-initFilePath = scriptPath + "/../maf_three/__init__.py"
+initFilePath = scriptPath + "/../three/__init__.py"
 initFilePathBack = initFilePath+'.back'
 os.rename(initFilePath, initFilePathBack)
 
@@ -68,7 +68,7 @@ os.rename(initFilePath, initFilePathBack)
 protoFiles = glob.glob(protoInputPath+"/**/*.proto", recursive=True)
 result = BuildProtoFiles(protoFiles, protoInputPath, protoOutputPath)
 
-# Restore maf_three/__init__.py
+# Restore three/__init__.py
 os.rename(initFilePathBack, initFilePath)
 
 # Inspect the results

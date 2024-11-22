@@ -692,7 +692,7 @@ def transpile(input_dir:str, output_dir:str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate Python classes and enums from protobuf schema objects.")
     parser.add_argument('input_dir', type=str, nargs='?', default= './V3Schema', help='The input directory containing the protobuf schema objects.')
-    parser.add_argument('output_dir', type=str, nargs='?', default='./maf_three/', help='The output directory to write the generated Python classes and enums.')
+    parser.add_argument('output_dir', type=str, nargs='?', default='./three/', help='The output directory to write the generated Python classes and enums.')
     args = parser.parse_args()
     transpile(args.input_dir, args.output_dir)
     exit(0)

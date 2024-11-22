@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 # Package info and dependencies
 [project]
-name = "maf_three"
+name = "three"
 description = "Matter and Form - THREE - Library"
 dynamic = ["version"]
 classifiers = [
@@ -27,19 +27,19 @@ Documentation = "https://github.com/Matter-and-Form/three-python-library/wiki"
 
 # Package source
 [tool.setuptools.package-dir]
-maf_three = "maf_three"
-"MF" = "maf_three/MF"
+three = "three"
+"MF" = "three/MF"
 
 # Dynamic input
 [tool.setuptools.dynamic]
-version = {attr = "maf_three.__version__"}
+version = {attr = "three.__version__"}
 
 # Command line accessible scripts
 # Usage:
-#    python3 -m maf_three.examples connection
-#    python3 -m maf_three.examples projector
-#    python3 -m maf_three.examples simpleScanner
-#    python3 -m maf_three.examples task
-#    python3 -m maf_three.examples turntableCalibration
+#    python3 -m three.examples connection
+#    python3 -m three.examples projector
+#    python3 -m three.examples simpleScanner
+#    python3 -m three.examples task
+#    python3 -m three.examples turntableCalibration
 [project.scripts]
-examples = "maf_three.examples:main_cli"
+examples = "three.examples:main_cli"

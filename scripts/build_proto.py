@@ -7,16 +7,16 @@ from transpileProto import transpile
 from checkFiles import check_files
 
 if __name__ == "__main__":
-    # Remove the folder maf_three/MF if it exists
-    mf_folder = "./maf_three/MF"
+    # Remove the folder three/MF if it exists
+    mf_folder = "./three/MF"
     if os.path.exists(mf_folder):
         shutil.rmtree(mf_folder)
     
     # Transpile the proto files
-    transpile('./V3Schema','./maf_three/')
+    transpile('./V3Schema','./three/')
 
     # Check the python files for formatting and linting issues
-    check_files('./maf_three/MF/V3/')
+    check_files('./three/MF/V3/')
 
      # These have to be done in subprocesses because the imports are not available in the current process. Chicken and egg problem
     # Add the scripts folder to the system path

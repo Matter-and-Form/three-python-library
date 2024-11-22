@@ -73,7 +73,7 @@ jobs:
 
     # Set version
     - name: Set Version
-      run: echo "__version__ = \"${{ env.PACKAGE_VERSION }}\"" > maf_three/__init__.py
+      run: echo "__version__ = \"${{ env.PACKAGE_VERSION }}\"" > three/__init__.py
 
     # Build proto files
     - name: Build proto files
@@ -85,7 +85,7 @@ jobs:
 
     # Install our package (required for the tests to find the namespace : MF.V3)
     - name: Install
-      run: pip3 install ./dist/maf_three-${{ env.PACKAGE_VERSION }}-py3-none-any.whl
+      run: pip3 install ./dist/three-${{ env.PACKAGE_VERSION }}-py3-none-any.whl
 
     # Run the tests
     - name: Test

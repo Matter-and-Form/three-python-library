@@ -27,6 +27,6 @@ def check_files(directory):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Check python files for formatting and linting issues.")
-    parser.add_argument('input_dir', type=str, nargs='?', default='./maf_three/MF/V3/', help='The directory to check for python files.')
+    parser.add_argument('input_dir', type=str, nargs='?', default='./three/MF/V3/', help='The directory to check for python files.')
     args = parser.parse_args()
     check_files(args.input_dir)
