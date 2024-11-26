@@ -26,6 +26,13 @@ def adjust_signature(signature):
     # Replace NoneType with None in the signature
     return signature.replace('NoneType', 'None')
 
+def add_indents(code: str, indent: int) -> str:
+    """
+    Add indents to the code
+    """
+    # Indent the code by adding spaces if the line is not empty
+    return "\n".join([f"{'    ' * indent}{line}" if line.strip() else line for line in code.split("\n")])
+
 def generate_pyi(scanner_module_name, three_module_name, output_file):
     print("Generating .pyi file...")
     # Import the modules
@@ -70,16 +77,23 @@ def generate_pyi(scanner_module_name, three_module_name, output_file):
         if not name.startswith('_'):  # Skip private methods
             sig = str(inspect.signature(method))
             sig = adjust_signature(sig)
-            pyi_content.append(f"    def {name}{sig}: ...")
+            doc = inspect.getdoc(method)
+            pyi_content.append(f"    def {name}{sig}:")
+            if doc:
+                pyi_content.append(add_indents(f'"""{doc}"""',2))
+            pyi_content.append(add_indents("...",2))
 
     # Add dynamically bound functions from three.py
     for name, func in three_functions:
         sig = str(inspect.signature(func))
         sig = adjust_signature(sig)
         doc = inspect.getdoc(func)
-        pyi_content.append(f"    def {name}{sig}: ...")
+        
+        pyi_content.append(f"    def {name}{sig}:")
         if doc:
             pyi_content.append(f'        """{doc}"""')
+        pyi_content.append("        ...")
+        
 
     # Write to the output file
     with open(output_file, 'w') as f:

@@ -1,14 +1,6 @@
 three package
 =============
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   three.MF
-
 Submodules
 ----------
 
