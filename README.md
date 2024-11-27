@@ -83,7 +83,7 @@ python examples/connect.py
 Here is an example of how to use the library to connect to the scanner and control the projector:
 
 ```python
-from matter_and_form_three import Scanner
+from three.scanner import Scanner
 
 # Create and connect to the scanner
 scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)
