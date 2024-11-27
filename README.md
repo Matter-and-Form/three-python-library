@@ -69,7 +69,7 @@ python ./scripts/build_doc.py
 To install the library from PyPI, run:
 
 ```sh
-pip install matter-and-form-three
+pip install mfthree
 ```
 
 ### Connect to the Scanner
