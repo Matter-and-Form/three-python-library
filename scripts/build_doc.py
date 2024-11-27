@@ -2,6 +2,8 @@
 
 import os
 import subprocess
+import shutil
+
 # Define color variables
 GREEN = '\033[92m'
 YELLOW = '\033[93m'
@@ -12,6 +14,10 @@ ENDC = '\033[0m'
 scriptPath = os.path.dirname(os.path.realpath(__file__))
 docOutputPath = scriptPath + '/../docs'
 module = 'three'
+
+# Remove the docOutputPath if it exists
+if os.path.exists(docOutputPath):
+    shutil.rmtree(docOutputPath)
 
 # Build the documentation
 result = subprocess.run(args=[
