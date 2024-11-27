@@ -15,7 +15,6 @@ from MF.V3.Settings.Project import *
 from MF.V3.Settings.Projector import * 
 from MF.V3.Settings.Quality import * 
 from MF.V3.Settings.Rectangle import * 
-from MF.V3.Settings.Remesh import * 
 from MF.V3.Settings.RemoveVertices import * 
 from MF.V3.Settings.Scan import * 
 from MF.V3.Settings.ScanData import * 
