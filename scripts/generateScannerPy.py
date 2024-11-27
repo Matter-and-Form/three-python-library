@@ -89,13 +89,32 @@ def generate_py(scanner_module_name, three_module_name, output_file):
                 three_imports[module_path].add(imported_name)
             new_annotations[param_name] = new_annotation
         func.__annotations__ = new_annotations
-        
+
+        # Get the signature and update it with new annotations
+        signature = inspect.signature(func)
+        parameters = []
+        for param in signature.parameters.values():
+            # Update the annotation of each parameter
+            new_annotation = func.__annotations__.get(param.name, param.annotation)
+            new_param = param.replace(annotation=new_annotation)
+            parameters.append(new_param)
+
+        # Update the return annotation
+        return_annotation = func.__annotations__.get('return', signature.return_annotation)
+
+        # Create a new signature with updated parameters and return annotation
+        new_signature = signature.replace(parameters=parameters, return_annotation=return_annotation)
+        func.__signature__ = new_signature
+
         # Add the function signature to the three_content
-        three_content.append(f"    def {name}{str(inspect.signature(func))}:")
+        three_content.append(f"    def {name}{new_signature}:")
         doc = inspect.getdoc(func)
         if doc:
             three_content.append(f'        """{doc}"""')
-        three_content.append("        return Three." + name + str(inspect.signature(func)))
+
+        # Construct the parameter string for the function call
+        param_names = ', '.join(param.name for param in parameters)
+        three_content.append(f"        return Three.{name}({param_names})")
         three_content.append("")
 
     # Start generating the .py content

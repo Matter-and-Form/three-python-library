@@ -380,224 +380,224 @@ class Scanner:
 
     def add_merge_to_project(self) -> 'Task':
         """Add a merged scan to the current project."""
-        return Three.add_merge_to_project(self) -> 'Task'
+        return Three.add_merge_to_project(self)
 
     def align(self, source: 'int', target: 'int', rough: 'Align.Rough' = None, fine: 'Align.Fine' = None) -> 'Task':
         """Align two scan groups."""
-        return Three.align(self, source: 'int', target: 'int', rough: 'Align.Rough' = None, fine: 'Align.Fine' = None) -> 'Task'
+        return Three.align(self, source, target, rough, fine)
 
     def auto_focus(self, applyAll: 'bool', cameras: 'list[AutoFocus.Camera]' = None) -> 'Task':
         """Auto focus one or both cameras."""
-        return Three.auto_focus(self, applyAll: 'bool', cameras: 'list[AutoFocus.Camera]' = None) -> 'Task'
+        return Three.auto_focus(self, applyAll, cameras)
 
     def bounding_box(self, selection: 'ScanSelection', axisAligned: 'bool') -> 'Task':
         """Get the bounding box of a set of scan groups."""
-        return Three.bounding_box(self, selection: 'ScanSelection', axisAligned: 'bool') -> 'Task'
+        return Three.bounding_box(self, selection, axisAligned)
 
     def calibrate_cameras(self) -> 'Task':
         """Calibrate the cameras."""
-        return Three.calibrate_cameras(self) -> 'Task'
+        return Three.calibrate_cameras(self)
 
     def calibrate_turntable(self) -> 'Task':
         """Calibrate the turntable."""
-        return Three.calibrate_turntable(self) -> 'Task'
+        return Three.calibrate_turntable(self)
 
     def calibration_capture_targets(self) -> 'Task':
         """Get the calibration capture target for each camera calibration capture."""
-        return Three.calibration_capture_targets(self) -> 'Task'
+        return Three.calibration_capture_targets(self)
 
     def camera_calibration(self) -> 'Task':
         """Get the camera calibration descriptor."""
-        return Three.camera_calibration(self) -> 'Task'
+        return Three.camera_calibration(self)
 
     def close_project(self) -> 'Task':
         """Close the current open project."""
-        return Three.close_project(self) -> 'Task'
+        return Three.close_project(self)
 
     def connect_wifi(self, ssid: 'str', password: 'str') -> 'Task':
         """Connect to a wifi network."""
-        return Three.connect_wifi(self, ssid: 'str', password: 'str') -> 'Task'
+        return Three.connect_wifi(self, ssid, password)
 
     def depth_map(self, camera: 'Camera' = None, projector: 'Projector' = None, turntable: 'Turntable' = None, capture: 'Capture' = None, processing: 'Scan.Processing' = None) -> 'Task':
         """Capture a depth map."""
-        return Three.depth_map(self, camera: 'Camera' = None, projector: 'Projector' = None, turntable: 'Turntable' = None, capture: 'Capture' = None, processing: 'Scan.Processing' = None) -> 'Task'
+        return Three.depth_map(self, camera, projector, turntable, capture, processing)
 
     def detect_calibration_card(self, Input: 'int') -> 'Task':
         """Detect the calibration card on one or both cameras."""
-        return Three.detect_calibration_card(self, Input: 'int') -> 'Task'
+        return Three.detect_calibration_card(self, Input)
 
     def download_project(self, Input: 'int') -> 'Task':
         """Download a project from the scanner."""
-        return Three.download_project(self, Input: 'int') -> 'Task'
+        return Three.download_project(self, Input)
 
     def export(self, selection: 'ScanSelection' = None, texture: 'bool' = None, merge: 'bool' = None, format: 'Export.Format' = None, scale: 'float' = None) -> 'Task':
         """Export a group of scans."""
-        return Three.export(self, selection: 'ScanSelection' = None, texture: 'bool' = None, merge: 'bool' = None, format: 'Export.Format' = None, scale: 'float' = None) -> 'Task'
+        return Three.export(self, selection, texture, merge, format, scale)
 
     def export_logs(self, Input: 'bool' = None) -> 'Task':
         """Export scanner logs."""
-        return Three.export_logs(self, Input: 'bool' = None) -> 'Task'
+        return Three.export_logs(self, Input)
 
     def export_merge(self, selection: 'ScanSelection' = None, texture: 'bool' = None, merge: 'bool' = None, format: 'Export.Format' = None, scale: 'float' = None) -> 'Task':
         """Export a merged scan."""
-        return Three.export_merge(self, selection: 'ScanSelection' = None, texture: 'bool' = None, merge: 'bool' = None, format: 'Export.Format' = None, scale: 'float' = None) -> 'Task'
+        return Three.export_merge(self, selection, texture, merge, format, scale)
 
     def flatten_group(self, Input: 'int') -> 'Task':
         """Flatten a scan group such that it only consists of single scans."""
-        return Three.flatten_group(self, Input: 'int') -> 'Task'
+        return Three.flatten_group(self, Input)
 
     def forget_wifi(self) -> 'Task':
         """Forget all wifi connections."""
-        return Three.forget_wifi(self) -> 'Task'
+        return Three.forget_wifi(self)
 
     def has_cameras(self) -> 'Task':
         """Check if the scanner has working cameras."""
-        return Three.has_cameras(self) -> 'Task'
+        return Three.has_cameras(self)
 
     def has_projector(self) -> 'Task':
         """Check if the scanner has a working projector."""
-        return Three.has_projector(self) -> 'Task'
+        return Three.has_projector(self)
 
     def has_turntable(self) -> 'Task':
         """Check if the scanner is connected to a working turntable."""
-        return Three.has_turntable(self) -> 'Task'
+        return Three.has_turntable(self)
 
     def list_export_formats(self) -> 'Task':
         """List all export formats."""
-        return Three.list_export_formats(self) -> 'Task'
+        return Three.list_export_formats(self)
 
     def list_groups(self) -> 'Task':
         """List the scan groups in the current open project."""
-        return Three.list_groups(self) -> 'Task'
+        return Three.list_groups(self)
 
     def list_network_interfaces(self) -> 'Task':
         """List available wifi networks."""
-        return Three.list_network_interfaces(self) -> 'Task'
+        return Three.list_network_interfaces(self)
 
     def list_projects(self) -> 'Task':
         """List all projects."""
-        return Three.list_projects(self) -> 'Task'
+        return Three.list_projects(self)
 
     def list_scans(self) -> 'Task':
         """List the scans in the current open project."""
-        return Three.list_scans(self) -> 'Task'
+        return Three.list_scans(self)
 
     def list_settings(self) -> 'Task':
         """Get scanner settings."""
-        return Three.list_settings(self) -> 'Task'
+        return Three.list_settings(self)
 
     def list_wifi(self) -> 'Task':
         """List available wifi networks."""
-        return Three.list_wifi(self) -> 'Task'
+        return Three.list_wifi(self)
 
     def merge(self, selection: 'ScanSelection' = None, remesh: 'Merge.Remesh' = None, simplify: 'Merge.Simplify' = None, texturize: 'bool' = None) -> 'Task':
         """Merge two or more scan groups."""
-        return Three.merge(self, selection: 'ScanSelection' = None, remesh: 'Merge.Remesh' = None, simplify: 'Merge.Simplify' = None, texturize: 'bool' = None) -> 'Task'
+        return Three.merge(self, selection, remesh, simplify, texturize)
 
     def merge_data(self, index: 'int', mergeStep: 'ScanData.MergeStep' = None, buffers: 'list[ScanData.Buffer]' = None, metadata: 'list[ScanData.Metadata]' = None) -> 'Task':
         """Download the raw scan data for the current merge process."""
-        return Three.merge_data(self, index: 'int', mergeStep: 'ScanData.MergeStep' = None, buffers: 'list[ScanData.Buffer]' = None, metadata: 'list[ScanData.Metadata]' = None) -> 'Task'
+        return Three.merge_data(self, index, mergeStep, buffers, metadata)
 
     def move_group(self, Input: 'list[int]' = None) -> 'Task':
         """Move a scan group."""
-        return Three.move_group(self, Input: 'list[int]' = None) -> 'Task'
+        return Three.move_group(self, Input)
 
     def new_group(self, parentIndex: 'int' = None, baseName: 'str' = None, color: 'list[float]' = None, visible: 'bool' = None, collapsed: 'bool' = None, rotation: 'list[float]' = None, translation: 'list[float]' = None) -> 'Task':
         """Create a new scan group."""
-        return Three.new_group(self, parentIndex: 'int' = None, baseName: 'str' = None, color: 'list[float]' = None, visible: 'bool' = None, collapsed: 'bool' = None, rotation: 'list[float]' = None, translation: 'list[float]' = None) -> 'Task'
+        return Three.new_group(self, parentIndex, baseName, color, visible, collapsed, rotation, translation)
 
     def new_project(self, Input: 'str' = None) -> 'Task':
         """Create a new project."""
-        return Three.new_project(self, Input: 'str' = None) -> 'Task'
+        return Three.new_project(self, Input)
 
     def new_scan(self, camera: 'Camera' = None, projector: 'Projector' = None, turntable: 'Turntable' = None, capture: 'Capture' = None, processing: 'Scan.Processing' = None) -> 'Task':
         """Capture a new scan."""
-        return Three.new_scan(self, camera: 'Camera' = None, projector: 'Projector' = None, turntable: 'Turntable' = None, capture: 'Capture' = None, processing: 'Scan.Processing' = None) -> 'Task'
+        return Three.new_scan(self, camera, projector, turntable, capture, processing)
 
     def open_project(self, Input: 'int') -> 'Task':
         """Open an existing project."""
-        return Three.open_project(self, Input: 'int') -> 'Task'
+        return Three.open_project(self, Input)
 
     def pop_settings(self, Input: 'bool' = None) -> 'Task':
         """Pop and restore scanner settings from the settings stack."""
-        return Three.pop_settings(self, Input: 'bool' = None) -> 'Task'
+        return Three.pop_settings(self, Input)
 
     def push_settings(self) -> 'Task':
         """Push the current scanner settings to the settings stack."""
-        return Three.push_settings(self) -> 'Task'
+        return Three.push_settings(self)
 
     def reboot(self) -> 'Task':
         """Reboot the scanner."""
-        return Three.reboot(self) -> 'Task'
+        return Three.reboot(self)
 
     def remove_groups(self, Input: 'list[int]' = None) -> 'Task':
         """Remove selected scan groups."""
-        return Three.remove_groups(self, Input: 'list[int]' = None) -> 'Task'
+        return Three.remove_groups(self, Input)
 
     def remove_projects(self, Input: 'list[int]' = None) -> 'Task':
         """Remove selected projects."""
-        return Three.remove_projects(self, Input: 'list[int]' = None) -> 'Task'
+        return Three.remove_projects(self, Input)
 
     def restore_factory_calibration(self) -> 'Task':
         """Restore factory calibration."""
-        return Three.restore_factory_calibration(self) -> 'Task'
+        return Three.restore_factory_calibration(self)
 
     def rotate_turntable(self, Input: 'int') -> 'Task':
         """Rotate the turntable."""
-        return Three.rotate_turntable(self, Input: 'int') -> 'Task'
+        return Three.rotate_turntable(self, Input)
 
     def scan_data(self, index: 'int', mergeStep: 'ScanData.MergeStep' = None, buffers: 'list[ScanData.Buffer]' = None, metadata: 'list[ScanData.Metadata]' = None) -> 'Task':
         """Download the raw scan data for a scan in the current open project."""
-        return Three.scan_data(self, index: 'int', mergeStep: 'ScanData.MergeStep' = None, buffers: 'list[ScanData.Buffer]' = None, metadata: 'list[ScanData.Metadata]' = None) -> 'Task'
+        return Three.scan_data(self, index, mergeStep, buffers, metadata)
 
     def set_cameras(self, selection: 'list[int]' = None, autoExposure: 'bool' = None, exposure: 'int' = None, analogGain: 'float' = None, digitalGain: 'int' = None, focus: 'int' = None) -> 'Task':
         """Apply camera settings to one or both cameras."""
-        return Three.set_cameras(self, selection: 'list[int]' = None, autoExposure: 'bool' = None, exposure: 'int' = None, analogGain: 'float' = None, digitalGain: 'int' = None, focus: 'int' = None) -> 'Task'
+        return Three.set_cameras(self, selection, autoExposure, exposure, analogGain, digitalGain, focus)
 
     def set_group(self, index: 'int', name: 'str' = None, color: 'list[float]' = None, visible: 'bool' = None, collapsed: 'bool' = None, rotation: 'list[float]' = None, translation: 'list[float]' = None) -> 'Task':
         """Set scan group properties."""
-        return Three.set_group(self, index: 'int', name: 'str' = None, color: 'list[float]' = None, visible: 'bool' = None, collapsed: 'bool' = None, rotation: 'list[float]' = None, translation: 'list[float]' = None) -> 'Task'
+        return Three.set_group(self, index, name, color, visible, collapsed, rotation, translation)
 
     def set_project(self, index: 'int' = None, name: 'str' = None) -> 'Task':
         """Apply settings to the current open project."""
-        return Three.set_project(self, index: 'int' = None, name: 'str' = None) -> 'Task'
+        return Three.set_project(self, index, name)
 
     def set_projector(self, on: 'bool' = None, brightness: 'float' = None, pattern: 'Projector.Pattern' = None, image: 'Projector.Image' = None, color: 'list[float]' = None, buffer: 'bytes' = None) -> 'Task':
         """Apply projector settings."""
-        return Three.set_projector(self, on: 'bool' = None, brightness: 'float' = None, pattern: 'Projector.Pattern' = None, image: 'Projector.Image' = None, color: 'list[float]' = None, buffer: 'bytes' = None) -> 'Task'
+        return Three.set_projector(self, on, brightness, pattern, image, color, buffer)
 
     def shutdown(self) -> 'Task':
         """Shutdown the scanner."""
-        return Three.shutdown(self) -> 'Task'
+        return Three.shutdown(self)
 
     def split_group(self, Input: 'int') -> 'Task':
         """Split a scan group (ie. move its subgroups to its parent group)."""
-        return Three.split_group(self, Input: 'int') -> 'Task'
+        return Three.split_group(self, Input)
 
     def start_video(self) -> 'Task':
         """Start the video stream."""
-        return Three.start_video(self) -> 'Task'
+        return Three.start_video(self)
 
     def stop_video(self) -> 'Task':
         """Stop the video stream."""
-        return Three.stop_video(self) -> 'Task'
+        return Three.stop_video(self)
 
     def system_info(self, updateMajor: 'bool' = None, updateNightly: 'bool' = None) -> 'Task':
         """Get system information."""
-        return Three.system_info(self, updateMajor: 'bool' = None, updateNightly: 'bool' = None) -> 'Task'
+        return Three.system_info(self, updateMajor, updateNightly)
 
     def transform_group(self, index: 'int', name: 'str' = None, color: 'list[float]' = None, visible: 'bool' = None, collapsed: 'bool' = None, rotation: 'list[float]' = None, translation: 'list[float]' = None) -> 'Task':
         """Apply a rigid transformation to a group."""
-        return Three.transform_group(self, index: 'int', name: 'str' = None, color: 'list[float]' = None, visible: 'bool' = None, collapsed: 'bool' = None, rotation: 'list[float]' = None, translation: 'list[float]' = None) -> 'Task'
+        return Three.transform_group(self, index, name, color, visible, collapsed, rotation, translation)
 
     def turntable_calibration(self) -> 'Task':
         """Get the turntable calibration descriptor."""
-        return Three.turntable_calibration(self) -> 'Task'
+        return Three.turntable_calibration(self)
 
     def update_settings(self, advanced: 'Advanced' = None, camera: 'Camera' = None, capture: 'Capture' = None, i18n: 'I18n' = None, projector: 'Projector' = None, style: 'Style' = None, turntable: 'Turntable' = None, tutorials: 'Tutorials' = None, viewer: 'Viewer' = None, software: 'Software' = None) -> 'Task':
         """Update scanner settings."""
-        return Three.update_settings(self, advanced: 'Advanced' = None, camera: 'Camera' = None, capture: 'Capture' = None, i18n: 'I18n' = None, projector: 'Projector' = None, style: 'Style' = None, turntable: 'Turntable' = None, tutorials: 'Tutorials' = None, viewer: 'Viewer' = None, software: 'Software' = None) -> 'Task'
+        return Three.update_settings(self, advanced, camera, capture, i18n, projector, style, turntable, tutorials, viewer, software)
 
     def upload_project(self, buffer: 'bytes') -> 'Task':
         """Upload a project to the scanner."""
-        return Three.upload_project(self, buffer: 'bytes') -> 'Task'
+        return Three.upload_project(self, buffer)
