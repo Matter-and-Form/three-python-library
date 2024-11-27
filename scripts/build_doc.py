@@ -10,17 +10,15 @@ ENDC = '\033[0m'
 
 # Paths
 scriptPath = os.path.dirname(os.path.realpath(__file__))
-docInputPath = scriptPath + '/../doc/source/'
-docOutputPath = scriptPath + '/../doc/build/'
+docOutputPath = scriptPath + '/../docs'
+module = 'three'
 
 # Build the documentation
 result = subprocess.run(args=[
-    'sphinx-build',
-    '-M',
-    'html',
-    docInputPath,
+    'pdoc',
+    '-o',
     docOutputPath,
-    '--write-all'],
+    module],
     capture_output=True)
 
 if result.returncode == 0:
