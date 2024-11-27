@@ -4,17 +4,26 @@ from typing import List
 
 
 class Export:
-    # Scan data descriptor.
-    # Geometry face types.
+
+    """
+     Scan data descriptor.
+    """
     class Face(Enum):
+
+        """
+         Geometry face types.
+        """
         NoFace = "NoFace"  # No faces.
         Point = "Point"  # Point faces.
         Line = "Line"  # Line faces.
         Triangle = "Triangle"  # Triangle faces.
         Quad = "Quad"  # Quad faces.
 
-    # Texture support types.
     class Texture(Enum):
+
+        """
+         Texture support types.
+        """
         Empty = "None"  # The format does not support textures.
         Single = "Single"  # The format supports a single texture only.
         Multiple = "Multiple"  # The format supports multiple textures.

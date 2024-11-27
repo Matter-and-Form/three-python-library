@@ -1,7 +1,13 @@
 class System:
-    # System descriptor.
+
+    """
+     System descriptor.
+    """
     class DiskSpace:
-        # Disk space descriptor.
+
+        """
+         Disk space descriptor.
+        """
         def __init__(self, capacity: int, available: int):
             # Disk space capacity in bytes.
             self.capacity = capacity

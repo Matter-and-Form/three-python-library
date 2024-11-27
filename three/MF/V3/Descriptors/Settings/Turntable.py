@@ -1,7 +1,13 @@
 class Turntable:
-    # Turntable settings descriptor.
+
+    """
+     Turntable settings descriptor.
+    """
     class Scans:
-        # The number of turntable scans.
+
+        """
+         The number of turntable scans.
+        """
         def __init__(self, value: int, default: int, min: int, max: int):
             self.value = value
             self.default = default
@@ -9,7 +15,10 @@ class Turntable:
             self.max = max
 
     class Sweep:
-        # Turntable angle sweep in degrees.
+
+        """
+         Turntable angle sweep in degrees.
+        """
         def __init__(self, value: int, default: int, min: int, max: int):
             self.value = value
             self.default = default
@@ -17,7 +26,10 @@ class Turntable:
             self.max = max
 
     class Use:
-        # Use the turntable.
+
+        """
+         Use the turntable.
+        """
         def __init__(self, value: bool, default: bool):
             self.value = value
             self.default = default

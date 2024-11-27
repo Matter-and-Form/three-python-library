@@ -2,9 +2,15 @@ from enum import Enum
 
 
 class Remesh:
-    # Field aligned remesh settings.
-    # Types of remesh output.
+
+    """
+     Field aligned remesh settings.
+    """
     class Type(Enum):
+
+        """
+         Types of remesh output.
+        """
         triangle = "triangle"  # Triangle mesh output.
         quad = "quad"  # Quad mesh output.
         quadDominant = "quadDominant"  # Quad-dominant mesh output.

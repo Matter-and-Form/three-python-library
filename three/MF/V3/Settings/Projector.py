@@ -5,14 +5,23 @@ from typing import List
 
 
 class Projector:
-    # Projector settings.
-    # Pattern orientation.
+
+    """
+     Projector settings.
+    """
     class Orientation(Enum):
+
+        """
+         Pattern orientation.
+        """
         Horizontal = "Horizontal"  # Horizontal pattern.  Image columns are identical.
         Vertical = "Vertical"  # Vertical pattern.  Image rows are identical.
 
     class Pattern:
-        # Structured light pattern.
+
+        """
+         Structured light pattern.
+        """
         def __init__(self, orientation: 'Projector.Orientation', frequency: int, phase: int):
             # Pattern orientation.
             self.orientation = orientation
@@ -22,9 +31,15 @@ class Projector:
             self.phase = phase
 
     class Image:
-        # Projector image settings
+
+        """
+         Projector image settings
+        """
         class Source:
-            # Image source.
+
+            """
+             Image source.
+            """
             def __init__(self, format: MF_V3_Settings_Video_Video.Format, width: int, height: int, step: int, fixAspectRatio: bool):
                 # Source image format
                 self.format = format

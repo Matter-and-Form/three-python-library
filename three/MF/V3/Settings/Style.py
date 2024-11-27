@@ -2,9 +2,15 @@ from enum import Enum
 
 
 class Style:
-    # Style settings.
-    # Themes.
+
+    """
+     Style settings.
+    """
     class Theme(Enum):
+
+        """
+         Themes.
+        """
         Light = "Light"  # Light mode.
         Dark = "Dark"  # Dark mode.
 

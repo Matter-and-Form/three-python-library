@@ -2,9 +2,15 @@ from typing import List
 
 
 class Merge:
-    # Merge descriptor.
+
+    """
+     Merge descriptor.
+    """
     class Mesh:
-        # Mesh descriptor.
+
+        """
+         Mesh descriptor.
+        """
         def __init__(self, name: str, triangles: int, quads: int, positions: int, normals: int, uvs: int, size: int):
             # The mesh name.
             self.name = name

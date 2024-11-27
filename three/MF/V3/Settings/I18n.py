@@ -2,9 +2,15 @@ from enum import Enum
 
 
 class I18n:
-    # I18n language settings.
-    # Available languages.
+
+    """
+     I18n language settings.
+    """
     class Language(Enum):
+
+        """
+         Available languages.
+        """
         en = "en"
         fr = "fr"
         de = "de"

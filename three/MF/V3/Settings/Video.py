@@ -2,16 +2,25 @@ from enum import Enum
 
 
 class Video:
-    # Video settings.
-    # Video codecs.
+
+    """
+     Video settings.
+    """
     class Codec(Enum):
+
+        """
+         Video codecs.
+        """
         NoCodec = "NoCodec"  # No codec specified.
         RAW = "RAW"  # Raw encoding.
         JPEG = "JPEG"  # JPEG encoding.
         H264 = "H264"  # H264 encoding.
 
-    # Pixel formats.
     class Format(Enum):
+
+        """
+         Pixel formats.
+        """
         NoFormat = "NoFormat"  # No format specified.
         RGB565 = "RGB565"  # RGB565 16-bit
         RGB888 = "RGB888"  # RGB888 24-bit.

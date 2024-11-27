@@ -3,7 +3,10 @@ from typing import List
 
 
 class Capture:
-    # Capture settings.
+
+    """
+     Capture settings.
+    """
     def __init__(self, quality: MF_V3_Settings_Quality_Quality = None, texture: bool = None, calibrationCard: bool = None, horizontalFrequencies: List[int] = None, verticalFrequencies: List[int] = None, blendCount: int = None, horizontalBlendFrequency: int = None, verticalBlendFrequency: int = None):
         # Capture quality preset.
         self.quality = quality

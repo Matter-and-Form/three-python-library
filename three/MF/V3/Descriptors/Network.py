@@ -1,5 +1,8 @@
 class Interface:
-    # Network interface descriptor.
+
+    """
+     Network interface descriptor.
+    """
     def __init__(self, name: str, ip: str, ssid: str):
         # The name of the interface.
         self.name = name

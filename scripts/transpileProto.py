@@ -256,7 +256,7 @@ def get_tree(proto_objects: List)-> Tree:
                 elif message.type == "message":
                     node.type = NodeType.Class
                 node.imports = importDescs
-                node.comment = parseComment(message.comment)
+                node.comment = parseComment(message.comment, False)
                 for nested in message.nested_messages:
                     get_nested_messages(nested, nested_name_space)
             get_nested_messages(msg, namespace)
@@ -266,7 +266,7 @@ def get_tree(proto_objects: List)-> Tree:
             node = tree.add_path(service_path, filespace)
             node.type = NodeType.Service
             node.imports = importDescs
-            node.comment = parseComment(service.comment)
+            node.comment = parseComment(service.comment, False)
 
     # Then Loop again to to add the properties to the objects in the tree (self referencing)     
     for obj in proto_objects:
@@ -312,20 +312,26 @@ def get_tree(proto_objects: List)-> Tree:
                 assert response_node, f"Response node not found for {procedure.response}"
 
                 # Add the procedure
-                node.add_procedure(procedure.name, request_node, response_node, parseComment(procedure.comment), import_descriptor_request, import_descriptor_response)
+                node.add_procedure(procedure.name, request_node, response_node, parseComment(procedure.comment, False), import_descriptor_request, import_descriptor_response)
     return tree
 
-def parseComment(comment: str) -> str:
+def parseComment(comment: str, property: bool) -> str:
     """
     Simply parse the comment and return it, wrapping multi lines or single lines appropriately
     """
     if comment != "":
         if len(comment.split('\n')) > 1:
+            comment_lines = comment.split('\n')
+            comment_lines = [line.lstrip() for line in comment_lines]
+            comment = '\n'.join(comment_lines)
             comment_code = f'"""{comment}"""\n'
         else:
-            # remove initial whitespace in comment
-            comment = comment.strip()
-            comment_code = f'# {comment}\n'
+            if property:
+                # remove initial whitespace in comment
+                comment = comment.strip()
+                comment_code = f'# {comment}\n'
+            else:
+                comment_code = f'\n"""\n{comment}\n"""\n'
     else:
         return ""
     return comment_code
@@ -341,7 +347,7 @@ def get_property(property, tree: Tree, node:TreeNode, message_namespace:str) -> 
     """
     Get the property from the property object. This is complicated as the property could be self referencing, part of the parent class, or from an external import
     """
-    tree_property = TreeProperty(property.type, property.name, property.optional, parseComment(property.comment), property.repeated, None)
+    tree_property = TreeProperty(property.type, property.name, property.optional, parseComment(property.comment, True), property.repeated, None)
 
     # 1 Check to see if property is a python type
     if property.type in type_mapping:
@@ -466,8 +472,8 @@ def generate_enum_code(enum:TreeNode) -> str:
     """
     Generate the enum code for a node in the tree.
     """
-    enum_code = enum.comment
-    enum_code += f"class {enum.name}(Enum):\n"
+    enum_code = f"class {enum.name}(Enum):\n"
+    enum_code += add_indents(enum.comment,1)
     for value in enum.properties:
         name = name_mapping.get(value.name, value.name)
         enum_code += f"    {name} = \"{value.name}\""

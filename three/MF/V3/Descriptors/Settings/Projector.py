@@ -1,7 +1,13 @@
 class Projector:
-    # Projector settings descriptor.
+
+    """
+     Projector settings descriptor.
+    """
     class Brightness:
-        # Projector brightness.
+
+        """
+         Projector brightness.
+        """
         def __init__(self, value: float, default: float, min: float, max: float):
             self.value = value
             self.default = default
@@ -9,7 +15,10 @@ class Projector:
             self.max = max
 
     class On:
-        # Projector on/off.
+
+        """
+         Projector on/off.
+        """
         def __init__(self, value: bool, default: bool):
             self.value = value
             self.default = default

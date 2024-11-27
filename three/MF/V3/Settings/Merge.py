@@ -4,18 +4,30 @@ from enum import Enum
 
 
 class Merge:
-    # Scan merge settings.
+
+    """
+     Scan merge settings.
+    """
     class Remesh:
-        # Remesh settings.
-        # Remesh method.
+
+        """
+         Remesh settings.
+        """
         class Method(Enum):
+
+            """
+             Remesh method.
+            """
             FlowTriangles = "FlowTriangles"  # Flow remesh as triangles.
             FlowQuads = "FlowQuads"  # Flow remesh as quads.
             FlowQuadDominant = "FlowQuadDominant"  # Flow remesh as quad-dominant mesh.
             PoissonTriangles = "PoissonTriangles"  # Poisson remesh as triangles.
 
         class Flow:
-            # Flow remesh settings
+
+            """
+             Flow remesh settings
+            """
             def __init__(self, scale: float = None, faceCount: int = None, vertexCount: int = None, creaseAngleThreshold: float = None, extrinsicSmoothness: bool = None, alignToBoundaries: bool = None, smoothIterations: int = None, knnPoints: int = None, deterministic: bool = None):
                 # Output resolution scale.  Smaller means more faces.
                 self.scale = scale
@@ -56,8 +68,8 @@ class Merge:
             self.flow = flow
             # Poisson remesh options (Ignored if method is not 'Poisson').
             self.poisson = poisson
-            """ Temporary for backwards compatibility
-             Voxel size."""
+            """Temporary for backwards compatibility
+            Voxel size."""
             self.voxelSize = voxelSize
             # Depth.
             self.depth = depth
@@ -67,7 +79,10 @@ class Merge:
             self.linearInterpolation = linearInterpolation
 
     class Simplify:
-        # Simplify settings.
+
+        """
+         Simplify settings.
+        """
         def __init__(self, triangleCount: int):
             # Target triangle count.
             self.triangleCount = triangleCount

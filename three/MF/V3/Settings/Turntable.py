@@ -1,5 +1,8 @@
 class Turntable:
-    # Turntable settings.
+
+    """
+     Turntable settings.
+    """
     def __init__(self, scans: int, sweep: int, use: bool = None):
         # The number of turntable scans.
         self.scans = scans

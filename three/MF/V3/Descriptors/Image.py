@@ -1,5 +1,8 @@
 class Image:
-    # Image descriptor.
+
+    """
+     Image descriptor.
+    """
     def __init__(self, width: int, height: int, step: int, type: int):
         # Image width.
         self.width = width

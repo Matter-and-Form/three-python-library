@@ -41,6 +41,10 @@ jobs:
     - name: Build the package
       run: python -m build
 
+    - name: Build Documentation
+      run: |
+        python3 ./scripts/build_doc.py
+
     - name: Publish to TestPyPI
       env:
         TWINE_USERNAME: __token__

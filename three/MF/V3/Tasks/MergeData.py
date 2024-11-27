@@ -5,199 +5,202 @@ from MF.V3.Task import TaskState as MF_V3_Task_TaskState, Task as MF_V3_Task_Tas
 
 class MergeData:
     """*
-     Download the raw scan data for the current merge process.
+    Download the raw scan data for the current merge process.
 
-     > Request example:
+    > Request example:
 
-     ```
-     {
-         "Task":{
-             "Index":1,
-             "Type":"MergeData",
-             "Input":{
-                 "index":-1,
-                 "buffers":["All"]
-             }
-         }
-     }
-     ```
+    ```
+    {
+    "Task":{
+    "Index":1,
+    "Type":"MergeData",
+    "Input":{
+    "index":-1,
+    "buffers":["All"]
+    }
+    }
+    }
+    ```
 
-     > Vertex position buffer message from server.
+    > Vertex position buffer message from server.
 
-     ```json
-     {
-         "Buffer":{
-             "Index":0,
-             "Size":1558188,
-             "Descriptor":{
-                 "components":[{
-                     "type":"Position"
-                     "size":3,
-                     "offset":0,
-                     "normalized":false,
-                 }],
-                 "stride":3
-             },
-             "Task":{
-                 "Index":1,
-                 "Type":"MergeData",
-                 "Input":{
-                     "index":1,
-                     "buffers":["All"]
-                 }
-             }
-         }
-     }
-     ```
+    ```json
+    {
+    "Buffer":{
+    "Index":0,
+    "Size":1558188,
+    "Descriptor":{
+    "components":[{
+    "type":"Position"
+    "size":3,
+    "offset":0,
+    "normalized":false,
+    }],
+    "stride":3
+    },
+    "Task":{
+    "Index":1,
+    "Type":"MergeData",
+    "Input":{
+    "index":1,
+    "buffers":["All"]
+    }
+    }
+    }
+    }
+    ```
 
-     > Vertex position binary data transfer from server [1558188 bytes].
+    > Vertex position binary data transfer from server [1558188 bytes].
 
-     > Vertex normal buffer message from server.
+    > Vertex normal buffer message from server.
 
-     ```json
-     {
-         "Buffer":{
-             "Index":1,
-             "Size":1558188,
-             "Descriptor":{
-                 "components":[{
-                     "type":"Normal"
-                     "size":3,
-                     "offset":0,
-                     "normalized":false,
-                 }],
-                 "stride":3
-             },
-             "Task":{
-                 "Index":1,
-                 "Type":"MergeData",
-                 "Input":{
-                     "index":1,
-                     "buffers":["All"]
-                 }
-             }
-         }
-     }
-     ```
+    ```json
+    {
+    "Buffer":{
+    "Index":1,
+    "Size":1558188,
+    "Descriptor":{
+    "components":[{
+    "type":"Normal"
+    "size":3,
+    "offset":0,
+    "normalized":false,
+    }],
+    "stride":3
+    },
+    "Task":{
+    "Index":1,
+    "Type":"MergeData",
+    "Input":{
+    "index":1,
+    "buffers":["All"]
+    }
+    }
+    }
+    }
+    ```
 
-     > Vertex normal binary data transfer from server [1558188 bytes].
+    > Vertex normal binary data transfer from server [1558188 bytes].
 
-     > Vertex texture coordinate buffer message from server.
+    > Vertex texture coordinate buffer message from server.
 
-     ```json
-     {
-         "Buffer":{
-             "Index":2,
-             "Size":1038792,
-             "Descriptor":{
-                 "components":[{
-                     "type":"UV"
-                     "size":2,
-                     "offset":0,
-                     "normalized":false,
-                 }],
-                 "stride":2
-             },
-             "Task":{
-                 "Index":1,
-                 "Type":"MergeData",
-                 "Input":{
-                     "index":1,
-                     "buffers":["All"]
-                 }
-             }
-         }
-     }
-     ```
+    ```json
+    {
+    "Buffer":{
+    "Index":2,
+    "Size":1038792,
+    "Descriptor":{
+    "components":[{
+    "type":"UV"
+    "size":2,
+    "offset":0,
+    "normalized":false,
+    }],
+    "stride":2
+    },
+    "Task":{
+    "Index":1,
+    "Type":"MergeData",
+    "Input":{
+    "index":1,
+    "buffers":["All"]
+    }
+    }
+    }
+    }
+    ```
 
-     > Vertex texture coordinate binary data transfer from server [1038792 bytes].
+    > Vertex texture coordinate binary data transfer from server [1038792 bytes].
 
-     > Texture image buffer message from server.
+    > Texture image buffer message from server.
 
-     ```json
-     {
-         "Buffer":{
-             "Index":3,
-             "Size":3504494,
-             "Descriptor":{
-                 "components":[{
-                     "type":"Texture"
-                     "size":0,
-                     "offset":0,
-                     "normalized":false,
-                 }],
-                 "stride":0
-             },
-             "Task":{
-                 "Index":1,
-                 "Type":"MergeData",
-                 "Input":{
-                     "index":1,
-                     "buffers":["All"]
-                 }
-             }
-         }
-     }
-     ```
+    ```json
+    {
+    "Buffer":{
+    "Index":3,
+    "Size":3504494,
+    "Descriptor":{
+    "components":[{
+    "type":"Texture"
+    "size":0,
+    "offset":0,
+    "normalized":false,
+    }],
+    "stride":0
+    },
+    "Task":{
+    "Index":1,
+    "Type":"MergeData",
+    "Input":{
+    "index":1,
+    "buffers":["All"]
+    }
+    }
+    }
+    }
+    ```
 
-     > Texture binary data transfer from server [3504494 bytes].
+    > Texture binary data transfer from server [3504494 bytes].
 
-     > Triangle index buffer message from server.
+    > Triangle index buffer message from server.
 
-     ```json
-     {
-         "Buffer":{
-             "Index":4,
-             "Size":1996356,
-             "Descriptor":{
-                 "components":[{
-                     "type":"Triangle"
-                     "size":1,
-                     "offset":0,
-                     "normalized":false,
-                 }],
-                 "stride":1
-             },
-             "Task":{
-                 "Index":1,
-                 "Type":"MergeData",
-                 "Input":{
-                     "index":1,
-                     "buffers":["All"]
-                 }
-             }
-         }
-     }
-     ```
+    ```json
+    {
+    "Buffer":{
+    "Index":4,
+    "Size":1996356,
+    "Descriptor":{
+    "components":[{
+    "type":"Triangle"
+    "size":1,
+    "offset":0,
+    "normalized":false,
+    }],
+    "stride":1
+    },
+    "Task":{
+    "Index":1,
+    "Type":"MergeData",
+    "Input":{
+    "index":1,
+    "buffers":["All"]
+    }
+    }
+    }
+    }
+    ```
 
-     > Triangle index binary data transfer from server [1996356 bytes].
+    > Triangle index binary data transfer from server [1996356 bytes].
 
-     > Response example:
+    > Response example:
 
-     ```json
-     {
-         "Task":{
-             "Index":1,
-             "Type":"MergeData"
-             "Input":{"index":-1,"buffers":["All"]},
-             "Output":{
-                 "buffers":[
-                     {"components":[{"normalized":false,"offset":0,"size":3,"type":"Position"}],"stride":3},
-                     {"components":[{"normalized":false,"offset":0,"size":3,"type":"Normal"}],"stride":3},
-                     {"components":[{"normalized":false,"offset":0,"size":2,"type":"UV"}],"stride":2},
-                     {"components":[{"normalized":false,"offset":0,"size":0,"type":"Texture"}],"stride":0},
-                     {"components":[{"normalized":false,"offset":0,"size":1,"type":"Triangle"}],"stride":1}
-                 ],
-                 "index":1,
-                 "name":"Scan-1"
-             },
-             "State":"Completed"
-         }
-     }
-     ```
+    ```json
+    {
+    "Task":{
+    "Index":1,
+    "Type":"MergeData"
+    "Input":{"index":-1,"buffers":["All"]},
+    "Output":{
+    "buffers":[
+    {"components":[{"normalized":false,"offset":0,"size":3,"type":"Position"}],"stride":3},
+    {"components":[{"normalized":false,"offset":0,"size":3,"type":"Normal"}],"stride":3},
+    {"components":[{"normalized":false,"offset":0,"size":2,"type":"UV"}],"stride":2},
+    {"components":[{"normalized":false,"offset":0,"size":0,"type":"Texture"}],"stride":0},
+    {"components":[{"normalized":false,"offset":0,"size":1,"type":"Triangle"}],"stride":1}
+    ],
+    "index":1,
+    "name":"Scan-1"
+    },
+    "State":"Completed"
+    }
+    }
+    ```
     """
     class Request:
-        # Client request for the `MergeData` task.
+
+        """
+         Client request for the `MergeData` task.
+        """
         def __init__(self, Index: int, Type: str, Input: MF_V3_Settings_ScanData_ScanData):
             # A unique identifier generated by the client.
             self.Index = Index
@@ -207,7 +210,10 @@ class MergeData:
             self.Input = Input
 
     class Response:
-        # Server response for the `MergeData` task.
+
+        """
+         Server response for the `MergeData` task.
+        """
         def __init__(self, Index: int, Type: str, Input: MF_V3_Settings_ScanData_ScanData, Output: MF_V3_Descriptors_ScanData_ScanData, State: MF_V3_Task_TaskState = None, Error: str = None):
             # The unique identifier generated by the client.
             self.Index = Index
@@ -223,7 +229,10 @@ class MergeData:
             self.Error = Error
 
     class Buffer:
-        # Server buffer message for the `MergeData` task.
+
+        """
+         Server buffer message for the `MergeData` task.
+        """
         def __init__(self, Index: int, Size: int, Task: MF_V3_Task_Task, Descriptor: MF_V3_Descriptors_ScanData_ScanData.Buffer):
             # The zero-based index identifying the data buffer.
             self.Index = Index
