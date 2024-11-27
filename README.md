@@ -60,7 +60,7 @@ At the moment there are no unit tests
 To build the documentation, run:
 
 ```sh
-TODO
+python ./scripts/build_doc.py
 ```
 
 ## How to Use the Library
@@ -113,7 +113,7 @@ python three/examples/<example_name>.py
 ```
 
 ## Documentation
-For detailed documentation, visit the TODO -> [official documentation](TODO).
+For detailed documentation, visit the [official documentation](https://matter-and-form.github.io/three-python-library/three/scanner.html).
 
 ## Contributing
 We welcome contributions! Please follow the standard GitHub workflow:
