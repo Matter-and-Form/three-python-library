@@ -24,7 +24,7 @@ dependencies = [
 # URLs
 [project.urls]
 Homepage = "https://github.com/Matter-and-Form/three-python-library"
-Documentation = "https://github.com/Matter-and-Form/three-python-library/wiki"
+Documentation = "https://matter-and-form.github.io/three-python-library/three/scanner.html"
 
 # Package source
 [tool.setuptools.package-dir]
