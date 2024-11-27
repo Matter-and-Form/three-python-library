@@ -11,7 +11,7 @@ Welcome to the official documentation of the Matter and Form THREE library. This
 The THREE library allows developers to build custom integrations, automate tasks, and create new front-end systems for 3D scanning. Using the WebSocket server, you can build your own integrations with automation systems. Whether you want to take stereo images with the dual cameras, project graphics through the built-in projector, or even design a completely new front-end 3D scanning system, our API provides the flexibility for all these activities and more.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Contents:
 
-   three
+   three.scanner

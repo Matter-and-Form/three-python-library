@@ -27,9 +27,9 @@ class Scanner:
     Main class to manage and communicate with the Matter and Form THREE 3D Scanner via websocket.
 
     Attributes:
-        * OnTask (Callable[[Task], None]): Function to handle tasks.
-        * OnMessage (Callable[[str], None]): Function to handle messages.
-        * OnBuffer (Callable[[Any, bytes], None]): Function to handle buffer data.
+        * OnTask (Optional[Callable[[Task], None]]): Callback for any task related messages, default is None. Will fire for task complete, progress, and error.
+        * OnMessage (Optional[Callable[[str], None]]): Callback function to handle messages, default is None. Messages are any calls related to the system that are not tasks or buffers. Eg. {"Message":{"HasTurntable":true}}
+        * OnBuffer (Optional[Callable[[Any, bytes], None]]): Callback Function to handle buffer data, default is None. Buffers can be image or scan data. These are binary formats that are sent separately from tasks. Buffers will contain a header that describes the buffer data size. Please note that websocket buffers are limited in size and need to be sent in chunks.
     """
     
     __bufferDescriptor = None
@@ -48,9 +48,9 @@ class Scanner:
         Initializes the Scanner object.
 
         Args:
-            * OnTask (Optional[Callable[[Task], None]]): Function to handle tasks, default is None.
-            * OnMessage (Optional[Callable[[str], None]]): Function to handle messages, default is None.
-            * OnBuffer (Optional[Callable[[Any, bytes], None]]): Function to handle buffer data, default is None.
+            * OnTask (Optional[Callable[[Task], None]]): Callback for any task related messages, default is None. Will fire for task complete, progress, and error.
+            * OnMessage (Optional[Callable[[str], None]]): Callback function to handle messages, default is None. Messages are any calls related to the system that are not tasks or buffers. Eg. {"Message":{"HasTurntable":true}}
+            * OnBuffer (Optional[Callable[[Any, bytes], None]]): Callback Function to handle buffer data, default is None. Buffers can be image or scan data. These are binary formats that are sent separately from tasks. Buffers will contain a header that describes the buffer data size. Please note that websocket buffers are limited in size and need to be sent in chunks.
         """
         self.__isConnected = False
 

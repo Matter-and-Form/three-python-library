@@ -30,4 +30,3 @@ else:
     print('Doc failed')
     print(GREEN + result.stdout.decode('utf-8') + ENDC)
     print(RED + result.stderr.decode('utf-8') + ENDC)
-
