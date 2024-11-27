@@ -1,5 +1,8 @@
 class CopyProject:
-    # Copy project settings.
+
+    """
+     Copy project settings.
+    """
     def __init__(self, index: int, copyName: str = None):
         # The index of the project to copy.
         self.index = index

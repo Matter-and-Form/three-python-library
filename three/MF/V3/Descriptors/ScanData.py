@@ -3,13 +3,25 @@ from typing import List
 
 
 class ScanData:
-    # Scan data descriptor.
+
+    """
+     Scan data descriptor.
+    """
     class Buffer:
-        # Scan buffer descriptor.
+
+        """
+         Scan buffer descriptor.
+        """
         class Component:
-            # Scan buffer component descriptor.
-            # Scan buffer component types.
+
+            """
+             Scan buffer component descriptor.
+            """
             class Type(Enum):
+
+                """
+                 Scan buffer component types.
+                """
                 Position = "Position"  # Vertex position.
                 Normal = "Normal"  # Vertex normal.
                 Color = "Color"  # Vertex color.
@@ -23,8 +35,8 @@ class ScanData:
                 # Scan buffer component size (ie. the number of elements).
                 self.size = size
                 """
-                 Scan buffer component offset.
-                 This is the starting element for this component at every stride of the buffer.
+                Scan buffer component offset.
+                This is the starting element for this component at every stride of the buffer.
                 """
                 self.offset = offset
                 # Indicates if the data is normalized.

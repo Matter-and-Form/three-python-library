@@ -3,9 +3,15 @@ from typing import List
 
 
 class ScanData:
-    # Scan data request.
-    # Scan buffer type.
+
+    """
+     Scan data request.
+    """
     class Buffer(Enum):
+
+        """
+         Scan buffer type.
+        """
         Position = "Position"  # Vertex position.
         Normal = "Normal"  # Vertex normal.
         Color = "Color"  # Vertex color.
@@ -14,14 +20,20 @@ class ScanData:
         Texture = "Texture"  # Texture.
         All = "All"  # All buffer types.
 
-    # Scan metadata type.
     class Metadata(Enum):
+
+        """
+         Scan metadata type.
+        """
         Mean = "Mean"  # The mean (centroid) of the vertex positions.
         StdDev = "StdDev"  # The standard deviation of the vertex positions.
         AxisAlignedBoundingBox = "AxisAlignedBoundingBox"  # The axis-aligned bounding box of the vertex positions.
 
-    # The merge processing step.
     class MergeStep(Enum):
+
+        """
+         The merge processing step.
+        """
         Combined = "Combined"  # The scan meshes are simply combined into a single mesh.
         Remeshed = "Remeshed"  # The combined mesh is remeshed to give a single geometric surface.
         Simplified = "Simplified"  # The combined or remeshed mesh is simplified to a reduced number of triangles.

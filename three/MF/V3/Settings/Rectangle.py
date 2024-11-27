@@ -1,5 +1,8 @@
 class Rectangle:
-    # Rectangle settings.
+
+    """
+     Rectangle settings.
+    """
     def __init__(self, x: int, y: int, width: int, height: int):
         # Rectangle x offset.
         self.x = x

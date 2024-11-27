@@ -11,7 +11,10 @@ from MF.V3.Settings.Viewer import Viewer as MF_V3_Settings_Viewer_Viewer
 
 
 class Scanner:
-    # Scanner settings.
+
+    """
+     Scanner settings.
+    """
     def __init__(self, advanced: MF_V3_Settings_Advanced_Advanced = None, camera: MF_V3_Settings_Camera_Camera = None, capture: MF_V3_Settings_Capture_Capture = None, i18n: MF_V3_Settings_I18n_I18n = None, projector: MF_V3_Settings_Projector_Projector = None, style: MF_V3_Settings_Style_Style = None, turntable: MF_V3_Settings_Turntable_Turntable = None, tutorials: MF_V3_Settings_Tutorials_Tutorials = None, viewer: MF_V3_Settings_Viewer_Viewer = None, software: MF_V3_Settings_Software_Software = None):
         # Advanced settings.
         self.advanced = advanced

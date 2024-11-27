@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # Install the package in editable mode 
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-e', '.'])
 
-    # Generate the proto files
-    subprocess.check_call([sys.executable, f'{scripts_folder}/generatePyi.py'])
+    # Generate the Scanner File
+    subprocess.check_call([sys.executable, f'{scripts_folder}/generateScannerPy.py'])
     
     exit(0)

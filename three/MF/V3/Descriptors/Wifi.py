@@ -2,9 +2,15 @@ from typing import List
 
 
 class Wifi:
-    # The wifi descriptor.
+
+    """
+     The wifi descriptor.
+    """
     class Network:
-        # The wifi network descriptor.
+
+        """
+         The wifi network descriptor.
+        """
         def __init__(self, ssid: str, isPublic: bool, isActive: bool, password: str = None, quality: int = None):
             # The service set identifier.
             self.ssid = ssid

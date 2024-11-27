@@ -1,8 +1,11 @@
 from enum import Enum
 
 
-# Quality settings.
 class Quality(Enum):
+
+    """
+     Quality settings.
+    """
     Low = "Low"  # Low quality.
     Medium = "Medium"  # Medium quality.
     High = "High"  # High quality.

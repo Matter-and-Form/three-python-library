@@ -3,9 +3,15 @@ from typing import List
 
 
 class ProjectAction:
-    # Descriptor for a project undo/redo action.
+
+    """
+     Descriptor for a project undo/redo action.
+    """
     class Scan:
-        # Scan vertices removal/insertion metadata.
+
+        """
+         Scan vertices removal/insertion metadata.
+        """
         def __init__(self, index: int, vertices: int, triangles: int):
             # The scan index.
             self.index = index
@@ -18,8 +24,8 @@ class ProjectAction:
         # The original websocket task that the action is undoing or redoing.
         self.task = task
         """
-         The updated project data after undo or redo.
-         If undefined, then there was no change to the project.
+        The updated project data after undo or redo.
+        If undefined, then there was no change to the project.
         """
         self.project = project
         # The list of scans whose vertex/triangle elements were changed by the undo/redo action.
@@ -27,7 +33,10 @@ class ProjectAction:
 
 
 class ProjectActions:
-    # Project undo and redo action descriptors.
+
+    """
+     Project undo and redo action descriptors.
+    """
     def __init__(self, undo: List[str] = None, redo: List[str] = None):
         # Project undo action descriptors.
         self.undo = undo

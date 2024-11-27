@@ -2,9 +2,15 @@ from typing import List
 
 
 class Project:
-    # V3 project descriptor.
+
+    """
+     V3 project descriptor.
+    """
     class Brief:
-        # V3 project brief descriptor.
+
+        """
+         V3 project brief descriptor.
+        """
         def __init__(self, index: int, name: str, size: int, modified: List[int] = None):
             # Project index.
             self.index = index
@@ -16,7 +22,10 @@ class Project:
             self.modified = modified
 
     class Group:
-        # V3 project scan group tree descriptor.
+
+        """
+         V3 project scan group tree descriptor.
+        """
         def __init__(self, index: int, name: str, visible: bool, collapsed: bool, color: List[float] = None, rotation: List[float] = None, translation: List[float] = None, scan: int = None, groups: List['Project.Group'] = None):
             # Group index.
             self.index = index

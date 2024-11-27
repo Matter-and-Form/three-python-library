@@ -1,7 +1,13 @@
 class Software:
-    # Software descriptor.
+
+    """
+     Software descriptor.
+    """
     class Package:
-        # Software package descriptor.
+
+        """
+         Software package descriptor.
+        """
         def __init__(self, installed: str, update: str, changelog: str):
             # The package installed version.
             self.installed = installed

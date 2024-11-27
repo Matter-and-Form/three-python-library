@@ -3,9 +3,15 @@ from typing import List
 
 
 class Align:
-    # Alignment settings.
+
+    """
+     Alignment settings.
+    """
     class Points:
-        # Point pair alignment settings.
+
+        """
+         Point pair alignment settings.
+        """
         def __init__(self, points: List[float] = None, absoluteError: float = None, relativeError: float = None, useAllPoints: bool = None):
             # The set of corresponding point pairs.
             self.points = points
@@ -17,7 +23,10 @@ class Align:
             self.useAllPoints = useAllPoints
 
     class Ransac:
-        # Ransac alignment settings.
+
+        """
+         Ransac alignment settings.
+        """
         def __init__(self, downsampleVoxelSize: float = None, maximumFeatureRadius: float = None, maximumFeaturePointCount: int = None, maximumMatchDistance: float = None, minimumMatchSimilarity: float = None, mutualFilter: bool = None):
             self.downsampleVoxelSize = downsampleVoxelSize
             self.maximumFeatureRadius = maximumFeatureRadius
@@ -27,15 +36,24 @@ class Align:
             self.mutualFilter = mutualFilter
 
     class ICP:
-        # Iterative closest point alignment settings.
+
+        """
+         Iterative closest point alignment settings.
+        """
         def __init__(self, matchDistance: float):
             # The maximum distance for two points to be considered a match.
             self.matchDistance = matchDistance
 
     class Rough:
-        # Rough alignment settings.
-        # Rough alignment methods.
+
+        """
+         Rough alignment settings.
+        """
         class Method(Enum):
+
+            """
+             Rough alignment methods.
+            """
             Empty = "None"  # No rough alignment.
             FastGlobal = "FastGlobal"  # Fast global alignment.
             Ransac = "Ransac"  # Ransac alignment.
@@ -50,9 +68,15 @@ class Align:
             self.points = points
 
     class Fine:
-        # Fine alignment settings.
-        # Fine alignment methods.
+
+        """
+         Fine alignment settings.
+        """
         class Method(Enum):
+
+            """
+             Fine alignment methods.
+            """
             Empty = "None"  # No fine alignment.
             ICP = "ICP"  # Iterative closest point alignment.
 

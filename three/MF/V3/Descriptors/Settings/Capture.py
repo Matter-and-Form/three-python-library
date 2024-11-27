@@ -2,21 +2,33 @@ from MF.V3.Settings.Quality import Quality as MF_V3_Settings_Quality_Quality
 
 
 class Capture:
-    # Capture settings descriptor.
+
+    """
+     Capture settings descriptor.
+    """
     class Quality:
-        # Capture quality preset.
+
+        """
+         Capture quality preset.
+        """
         def __init__(self, value: MF_V3_Settings_Quality_Quality, default: MF_V3_Settings_Quality_Quality):
             self.value = value
             self.default = default
 
     class Texture:
-        # Capture texture.
+
+        """
+         Capture texture.
+        """
         def __init__(self, value: bool, default: bool):
             self.value = value
             self.default = default
 
     class BlendCount:
-        # Capture image blend count for noise reduction.
+
+        """
+         Capture image blend count for noise reduction.
+        """
         def __init__(self, value: int, default: int, min: int, max: int):
             self.value = value
             self.default = default
@@ -24,7 +36,10 @@ class Capture:
             self.max = max
 
     class BlendFrequency:
-        # The starting frequency for which multiple capture images are blended.
+
+        """
+         The starting frequency for which multiple capture images are blended.
+        """
         def __init__(self, value: int, default: int, min: int, max: int):
             self.value = value
             self.default = default
