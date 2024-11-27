@@ -46,7 +46,6 @@
                     <li><a href="Settings/Projector.html">Projector</a></li>
                     <li><a href="Settings/Quality.html">Quality</a></li>
                     <li><a href="Settings/Rectangle.html">Rectangle</a></li>
-                    <li><a href="Settings/Remesh.html">Remesh</a></li>
                     <li><a href="Settings/RemoveVertices.html">RemoveVertices</a></li>
                     <li><a href="Settings/Scan.html">Scan</a></li>
                     <li><a href="Settings/ScanData.html">ScanData</a></li>
@@ -97,19 +96,18 @@
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Projector</span> <span class="kn">import</span> <span class="o">*</span> 
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Quality</span> <span class="kn">import</span> <span class="o">*</span> 
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Rectangle</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Remesh</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.RemoveVertices</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Scan</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.ScanData</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.ScanSelection</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Scanner</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Software</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Style</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Turntable</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Tutorials</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Video</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Viewer</span> <span class="kn">import</span> <span class="o">*</span> 
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Wifi</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.RemoveVertices</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Scan</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.ScanData</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.ScanSelection</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Scanner</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Software</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Style</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Turntable</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Tutorials</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Video</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Viewer</span> <span class="kn">import</span> <span class="o">*</span> 
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="kn">from</span> <span class="nn">MF.V3.Settings.Wifi</span> <span class="kn">import</span> <span class="o">*</span> 
 </span></pre></div>
 
 
