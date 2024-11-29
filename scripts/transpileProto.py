@@ -288,8 +288,8 @@ def get_tree(proto_objects: List)-> Tree:
             for procedure in service.procedures:
 
                 # Remove only the last word from procedure.request and procedure.response
-                request_base = procedure.request.rsplit('.', 1)[0]
-                response_base = procedure.response.rsplit('.', 1)[0]
+                request_base = procedure.request.rsplit('.', 2)[-2]
+                response_base = procedure.response.rsplit('.', 2)[-2]
 
                 import_descriptor_request = get_descriptor_by_partial_filename(request_base, node.imports)
                 import_descriptor_response = get_descriptor_by_partial_filename(response_base, node.imports)
