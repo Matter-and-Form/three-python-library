@@ -70,24 +70,6 @@
                                 <a class="function" href="#Task.__init__">Task</a>
                         </li>
                         <li>
-                                <a class="class" href="#Task.Progress">Task.Progress</a>
-                                        <ul class="memberlist">
-                                    <li>
-                                            <a class="function" href="#Task.Progress.__init__">Progress</a>
-                                    </li>
-                                    <li>
-                                            <a class="variable" href="#Task.Progress.current">current</a>
-                                    </li>
-                                    <li>
-                                            <a class="variable" href="#Task.Progress.step">step</a>
-                                    </li>
-                                    <li>
-                                            <a class="variable" href="#Task.Progress.total">total</a>
-                                    </li>
-                            </ul>
-
-                        </li>
-                        <li>
                                 <a class="variable" href="#Task.Index">Index</a>
                         </li>
                         <li>
@@ -104,6 +86,9 @@
                         </li>
                         <li>
                                 <a class="variable" href="#Task.Error">Error</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Task.Progress">Progress</a>
                         </li>
                 </ul>
 
@@ -191,34 +176,21 @@
 </span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">    }</span>
 </span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">    ```</span>
 </span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>    <span class="k">class</span> <span class="nc">Progress</span><span class="p">:</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a><span class="sd">         V3 Task Progress Descriptor</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">total</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>            <span class="c1"># The current step of the scan.</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">current</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>            <span class="c1"># The string description of the current step.</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">step</span>
-</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>            <span class="c1"># The total steps in the progress.</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">=</span> <span class="n">total</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a>
-</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Input</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Output</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">State</span><span class="p">:</span> <span class="s1">&#39;TaskState&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Progress</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>        <span class="c1"># A unique identifier generated by the client.  This identifier associates all incoming and outgoing task messages with a specific task requested by the client.</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Index</span> <span class="o">=</span> <span class="n">Index</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a>        <span class="c1"># The string identifying the task type. See task definitions for the list of valid task strings.</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">Type</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>        <span class="c1"># Optional input message.  See each task definition for details.</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a>        <span class="c1"># Optional output message.  See each task definition for details.</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Output</span> <span class="o">=</span> <span class="n">Output</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a>        <span class="c1"># The current state of the task.</span>
-</span><span id="L-86"><a href="#L-86"><span class="linenos">86</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="n">State</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos">87</span></a>        <span class="c1"># A string describing the error if the task has failed.</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos">88</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Error</span> <span class="o">=</span> <span class="n">Error</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a>        <span class="c1"># A Progress object for tasks that give updates on long running tasks</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos">90</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Progress</span> <span class="o">=</span> <span class="n">Progress</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Input</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Output</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">State</span><span class="p">:</span> <span class="s1">&#39;TaskState&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Progress</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>        <span class="c1"># A unique identifier generated by the client.  This identifier associates all incoming and outgoing task messages with a specific task requested by the client.</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Index</span> <span class="o">=</span> <span class="n">Index</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="c1"># The string identifying the task type. See task definitions for the list of valid task strings.</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">Type</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>        <span class="c1"># Optional input message.  See each task definition for details.</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>        <span class="c1"># Optional output message.  See each task definition for details.</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Output</span> <span class="o">=</span> <span class="n">Output</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>        <span class="c1"># The current state of the task.</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="n">State</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a>        <span class="c1"># A string describing the error if the task has failed.</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Error</span> <span class="o">=</span> <span class="n">Error</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>        <span class="c1"># A Progress object for tasks that give updates on long running tasks</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Progress</span> <span class="o">=</span> <span class="n">Progress</span>
 </span></pre></div>
 
 
@@ -415,34 +387,21 @@
 </span><span id="Task-61"><a href="#Task-61"><span class="linenos">61</span></a><span class="sd">    }</span>
 </span><span id="Task-62"><a href="#Task-62"><span class="linenos">62</span></a><span class="sd">    ```</span>
 </span><span id="Task-63"><a href="#Task-63"><span class="linenos">63</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Task-64"><a href="#Task-64"><span class="linenos">64</span></a>    <span class="k">class</span> <span class="nc">Progress</span><span class="p">:</span>
-</span><span id="Task-65"><a href="#Task-65"><span class="linenos">65</span></a>
-</span><span id="Task-66"><a href="#Task-66"><span class="linenos">66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Task-67"><a href="#Task-67"><span class="linenos">67</span></a><span class="sd">         V3 Task Progress Descriptor</span>
-</span><span id="Task-68"><a href="#Task-68"><span class="linenos">68</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Task-69"><a href="#Task-69"><span class="linenos">69</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">total</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="Task-70"><a href="#Task-70"><span class="linenos">70</span></a>            <span class="c1"># The current step of the scan.</span>
-</span><span id="Task-71"><a href="#Task-71"><span class="linenos">71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">current</span>
-</span><span id="Task-72"><a href="#Task-72"><span class="linenos">72</span></a>            <span class="c1"># The string description of the current step.</span>
-</span><span id="Task-73"><a href="#Task-73"><span class="linenos">73</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">step</span>
-</span><span id="Task-74"><a href="#Task-74"><span class="linenos">74</span></a>            <span class="c1"># The total steps in the progress.</span>
-</span><span id="Task-75"><a href="#Task-75"><span class="linenos">75</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">=</span> <span class="n">total</span>
-</span><span id="Task-76"><a href="#Task-76"><span class="linenos">76</span></a>
-</span><span id="Task-77"><a href="#Task-77"><span class="linenos">77</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Input</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Output</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">State</span><span class="p">:</span> <span class="s1">&#39;TaskState&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Progress</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Task-78"><a href="#Task-78"><span class="linenos">78</span></a>        <span class="c1"># A unique identifier generated by the client.  This identifier associates all incoming and outgoing task messages with a specific task requested by the client.</span>
-</span><span id="Task-79"><a href="#Task-79"><span class="linenos">79</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Index</span> <span class="o">=</span> <span class="n">Index</span>
-</span><span id="Task-80"><a href="#Task-80"><span class="linenos">80</span></a>        <span class="c1"># The string identifying the task type. See task definitions for the list of valid task strings.</span>
-</span><span id="Task-81"><a href="#Task-81"><span class="linenos">81</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">Type</span>
-</span><span id="Task-82"><a href="#Task-82"><span class="linenos">82</span></a>        <span class="c1"># Optional input message.  See each task definition for details.</span>
-</span><span id="Task-83"><a href="#Task-83"><span class="linenos">83</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span>
-</span><span id="Task-84"><a href="#Task-84"><span class="linenos">84</span></a>        <span class="c1"># Optional output message.  See each task definition for details.</span>
-</span><span id="Task-85"><a href="#Task-85"><span class="linenos">85</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Output</span> <span class="o">=</span> <span class="n">Output</span>
-</span><span id="Task-86"><a href="#Task-86"><span class="linenos">86</span></a>        <span class="c1"># The current state of the task.</span>
-</span><span id="Task-87"><a href="#Task-87"><span class="linenos">87</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="n">State</span>
-</span><span id="Task-88"><a href="#Task-88"><span class="linenos">88</span></a>        <span class="c1"># A string describing the error if the task has failed.</span>
-</span><span id="Task-89"><a href="#Task-89"><span class="linenos">89</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Error</span> <span class="o">=</span> <span class="n">Error</span>
-</span><span id="Task-90"><a href="#Task-90"><span class="linenos">90</span></a>        <span class="c1"># A Progress object for tasks that give updates on long running tasks</span>
-</span><span id="Task-91"><a href="#Task-91"><span class="linenos">91</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Progress</span> <span class="o">=</span> <span class="n">Progress</span>
+</span><span id="Task-64"><a href="#Task-64"><span class="linenos">64</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Input</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Output</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">State</span><span class="p">:</span> <span class="s1">&#39;TaskState&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Progress</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Task-65"><a href="#Task-65"><span class="linenos">65</span></a>        <span class="c1"># A unique identifier generated by the client.  This identifier associates all incoming and outgoing task messages with a specific task requested by the client.</span>
+</span><span id="Task-66"><a href="#Task-66"><span class="linenos">66</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Index</span> <span class="o">=</span> <span class="n">Index</span>
+</span><span id="Task-67"><a href="#Task-67"><span class="linenos">67</span></a>        <span class="c1"># The string identifying the task type. See task definitions for the list of valid task strings.</span>
+</span><span id="Task-68"><a href="#Task-68"><span class="linenos">68</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">Type</span>
+</span><span id="Task-69"><a href="#Task-69"><span class="linenos">69</span></a>        <span class="c1"># Optional input message.  See each task definition for details.</span>
+</span><span id="Task-70"><a href="#Task-70"><span class="linenos">70</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span>
+</span><span id="Task-71"><a href="#Task-71"><span class="linenos">71</span></a>        <span class="c1"># Optional output message.  See each task definition for details.</span>
+</span><span id="Task-72"><a href="#Task-72"><span class="linenos">72</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Output</span> <span class="o">=</span> <span class="n">Output</span>
+</span><span id="Task-73"><a href="#Task-73"><span class="linenos">73</span></a>        <span class="c1"># The current state of the task.</span>
+</span><span id="Task-74"><a href="#Task-74"><span class="linenos">74</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="n">State</span>
+</span><span id="Task-75"><a href="#Task-75"><span class="linenos">75</span></a>        <span class="c1"># A string describing the error if the task has failed.</span>
+</span><span id="Task-76"><a href="#Task-76"><span class="linenos">76</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Error</span> <span class="o">=</span> <span class="n">Error</span>
+</span><span id="Task-77"><a href="#Task-77"><span class="linenos">77</span></a>        <span class="c1"># A Progress object for tasks that give updates on long running tasks</span>
+</span><span id="Task-78"><a href="#Task-78"><span class="linenos">78</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Progress</span> <span class="o">=</span> <span class="n">Progress</span>
 </span></pre></div>
 
 
@@ -509,21 +468,21 @@ Generic task message for the Three Scanner.</p>
 
     </div>
     <a class="headerlink" href="#Task.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Task.__init__-77"><a href="#Task.__init__-77"><span class="linenos">77</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Input</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Output</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">State</span><span class="p">:</span> <span class="s1">&#39;TaskState&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Progress</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Task.__init__-78"><a href="#Task.__init__-78"><span class="linenos">78</span></a>        <span class="c1"># A unique identifier generated by the client.  This identifier associates all incoming and outgoing task messages with a specific task requested by the client.</span>
-</span><span id="Task.__init__-79"><a href="#Task.__init__-79"><span class="linenos">79</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Index</span> <span class="o">=</span> <span class="n">Index</span>
-</span><span id="Task.__init__-80"><a href="#Task.__init__-80"><span class="linenos">80</span></a>        <span class="c1"># The string identifying the task type. See task definitions for the list of valid task strings.</span>
-</span><span id="Task.__init__-81"><a href="#Task.__init__-81"><span class="linenos">81</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">Type</span>
-</span><span id="Task.__init__-82"><a href="#Task.__init__-82"><span class="linenos">82</span></a>        <span class="c1"># Optional input message.  See each task definition for details.</span>
-</span><span id="Task.__init__-83"><a href="#Task.__init__-83"><span class="linenos">83</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span>
-</span><span id="Task.__init__-84"><a href="#Task.__init__-84"><span class="linenos">84</span></a>        <span class="c1"># Optional output message.  See each task definition for details.</span>
-</span><span id="Task.__init__-85"><a href="#Task.__init__-85"><span class="linenos">85</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Output</span> <span class="o">=</span> <span class="n">Output</span>
-</span><span id="Task.__init__-86"><a href="#Task.__init__-86"><span class="linenos">86</span></a>        <span class="c1"># The current state of the task.</span>
-</span><span id="Task.__init__-87"><a href="#Task.__init__-87"><span class="linenos">87</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="n">State</span>
-</span><span id="Task.__init__-88"><a href="#Task.__init__-88"><span class="linenos">88</span></a>        <span class="c1"># A string describing the error if the task has failed.</span>
-</span><span id="Task.__init__-89"><a href="#Task.__init__-89"><span class="linenos">89</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Error</span> <span class="o">=</span> <span class="n">Error</span>
-</span><span id="Task.__init__-90"><a href="#Task.__init__-90"><span class="linenos">90</span></a>        <span class="c1"># A Progress object for tasks that give updates on long running tasks</span>
-</span><span id="Task.__init__-91"><a href="#Task.__init__-91"><span class="linenos">91</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Progress</span> <span class="o">=</span> <span class="n">Progress</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Task.__init__-64"><a href="#Task.__init__-64"><span class="linenos">64</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Input</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Output</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">State</span><span class="p">:</span> <span class="s1">&#39;TaskState&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Progress</span><span class="p">:</span> <span class="n">_any_pb2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Task.__init__-65"><a href="#Task.__init__-65"><span class="linenos">65</span></a>        <span class="c1"># A unique identifier generated by the client.  This identifier associates all incoming and outgoing task messages with a specific task requested by the client.</span>
+</span><span id="Task.__init__-66"><a href="#Task.__init__-66"><span class="linenos">66</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Index</span> <span class="o">=</span> <span class="n">Index</span>
+</span><span id="Task.__init__-67"><a href="#Task.__init__-67"><span class="linenos">67</span></a>        <span class="c1"># The string identifying the task type. See task definitions for the list of valid task strings.</span>
+</span><span id="Task.__init__-68"><a href="#Task.__init__-68"><span class="linenos">68</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">Type</span>
+</span><span id="Task.__init__-69"><a href="#Task.__init__-69"><span class="linenos">69</span></a>        <span class="c1"># Optional input message.  See each task definition for details.</span>
+</span><span id="Task.__init__-70"><a href="#Task.__init__-70"><span class="linenos">70</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Input</span> <span class="o">=</span> <span class="n">Input</span>
+</span><span id="Task.__init__-71"><a href="#Task.__init__-71"><span class="linenos">71</span></a>        <span class="c1"># Optional output message.  See each task definition for details.</span>
+</span><span id="Task.__init__-72"><a href="#Task.__init__-72"><span class="linenos">72</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Output</span> <span class="o">=</span> <span class="n">Output</span>
+</span><span id="Task.__init__-73"><a href="#Task.__init__-73"><span class="linenos">73</span></a>        <span class="c1"># The current state of the task.</span>
+</span><span id="Task.__init__-74"><a href="#Task.__init__-74"><span class="linenos">74</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">State</span> <span class="o">=</span> <span class="n">State</span>
+</span><span id="Task.__init__-75"><a href="#Task.__init__-75"><span class="linenos">75</span></a>        <span class="c1"># A string describing the error if the task has failed.</span>
+</span><span id="Task.__init__-76"><a href="#Task.__init__-76"><span class="linenos">76</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Error</span> <span class="o">=</span> <span class="n">Error</span>
+</span><span id="Task.__init__-77"><a href="#Task.__init__-77"><span class="linenos">77</span></a>        <span class="c1"># A Progress object for tasks that give updates on long running tasks</span>
+</span><span id="Task.__init__-78"><a href="#Task.__init__-78"><span class="linenos">78</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">Progress</span> <span class="o">=</span> <span class="n">Progress</span>
 </span></pre></div>
 
 
@@ -596,89 +555,13 @@ Generic task message for the Three Scanner.</p>
     
 
                             </div>
-                </section>
-                <section id="Task.Progress">
-                            <input id="Task.Progress-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-            
-    <span class="def">class</span>
-    <span class="name">Task.Progress</span>:
+                            <div id="Task.Progress" class="classattr">
+                                <div class="attr variable">
+            <span class="name">Progress</span>
 
-                <label class="view-source-button" for="Task.Progress-view-source"><span>View Source</span></label>
-
+        
     </div>
     <a class="headerlink" href="#Task.Progress"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Task.Progress-64"><a href="#Task.Progress-64"><span class="linenos">64</span></a>    <span class="k">class</span> <span class="nc">Progress</span><span class="p">:</span>
-</span><span id="Task.Progress-65"><a href="#Task.Progress-65"><span class="linenos">65</span></a>
-</span><span id="Task.Progress-66"><a href="#Task.Progress-66"><span class="linenos">66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Task.Progress-67"><a href="#Task.Progress-67"><span class="linenos">67</span></a><span class="sd">         V3 Task Progress Descriptor</span>
-</span><span id="Task.Progress-68"><a href="#Task.Progress-68"><span class="linenos">68</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Task.Progress-69"><a href="#Task.Progress-69"><span class="linenos">69</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">total</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="Task.Progress-70"><a href="#Task.Progress-70"><span class="linenos">70</span></a>            <span class="c1"># The current step of the scan.</span>
-</span><span id="Task.Progress-71"><a href="#Task.Progress-71"><span class="linenos">71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">current</span>
-</span><span id="Task.Progress-72"><a href="#Task.Progress-72"><span class="linenos">72</span></a>            <span class="c1"># The string description of the current step.</span>
-</span><span id="Task.Progress-73"><a href="#Task.Progress-73"><span class="linenos">73</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">step</span>
-</span><span id="Task.Progress-74"><a href="#Task.Progress-74"><span class="linenos">74</span></a>            <span class="c1"># The total steps in the progress.</span>
-</span><span id="Task.Progress-75"><a href="#Task.Progress-75"><span class="linenos">75</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">=</span> <span class="n">total</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>V3 Task Progress Descriptor</p>
-</div>
-
-
-                            <div id="Task.Progress.__init__" class="classattr">
-                                        <input id="Task.Progress.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="name">Task.Progress</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">current</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">step</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">total</span><span class="p">:</span> <span class="nb">int</span></span>)</span>
-
-                <label class="view-source-button" for="Task.Progress.__init__-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#Task.Progress.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Task.Progress.__init__-69"><a href="#Task.Progress.__init__-69"><span class="linenos">69</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">total</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="Task.Progress.__init__-70"><a href="#Task.Progress.__init__-70"><span class="linenos">70</span></a>            <span class="c1"># The current step of the scan.</span>
-</span><span id="Task.Progress.__init__-71"><a href="#Task.Progress.__init__-71"><span class="linenos">71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">current</span>
-</span><span id="Task.Progress.__init__-72"><a href="#Task.Progress.__init__-72"><span class="linenos">72</span></a>            <span class="c1"># The string description of the current step.</span>
-</span><span id="Task.Progress.__init__-73"><a href="#Task.Progress.__init__-73"><span class="linenos">73</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">step</span>
-</span><span id="Task.Progress.__init__-74"><a href="#Task.Progress.__init__-74"><span class="linenos">74</span></a>            <span class="c1"># The total steps in the progress.</span>
-</span><span id="Task.Progress.__init__-75"><a href="#Task.Progress.__init__-75"><span class="linenos">75</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">=</span> <span class="n">total</span>
-</span></pre></div>
-
-
-    
-
-                            </div>
-                            <div id="Task.Progress.current" class="classattr">
-                                <div class="attr variable">
-            <span class="name">current</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Task.Progress.current"></a>
-    
-    
-
-                            </div>
-                            <div id="Task.Progress.step" class="classattr">
-                                <div class="attr variable">
-            <span class="name">step</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Task.Progress.step"></a>
-    
-    
-
-                            </div>
-                            <div id="Task.Progress.total" class="classattr">
-                                <div class="attr variable">
-            <span class="name">total</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Task.Progress.total"></a>
     
     
 
