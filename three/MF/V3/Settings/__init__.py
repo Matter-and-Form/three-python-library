@@ -4,6 +4,7 @@ from MF.V3.Settings.AutoFocus import *
 from MF.V3.Settings.BoundingBox import * 
 from MF.V3.Settings.Camera import * 
 from MF.V3.Settings.Capture import * 
+from MF.V3.Settings.CaptureImage import * 
 from MF.V3.Settings.CopyGroup import * 
 from MF.V3.Settings.CopyProject import * 
 from MF.V3.Settings.Export import * 

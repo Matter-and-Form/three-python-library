@@ -1,4 +1,5 @@
 from MF.V3.Descriptors.BoundingBox import * 
+from MF.V3.Descriptors.CaptureImage import * 
 from MF.V3.Descriptors.Export import * 
 from MF.V3.Descriptors.Image import * 
 from MF.V3.Descriptors.Merge import * 

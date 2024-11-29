@@ -6,6 +6,7 @@ from MF.V3.Tasks.CalibrateCameras import *
 from MF.V3.Tasks.CalibrateTurntable import * 
 from MF.V3.Tasks.CalibrationCaptureTargets import * 
 from MF.V3.Tasks.CameraCalibration import * 
+from MF.V3.Tasks.CaptureImage import * 
 from MF.V3.Tasks.CloseProject import * 
 from MF.V3.Tasks.ConnectWifi import * 
 from MF.V3.Tasks.DepthMap import * 
