@@ -5,6 +5,7 @@ from MF.V3.Settings.AutoFocus import AutoFocus as MF_V3_Settings_AutoFocus_AutoF
 from MF.V3.Settings.BoundingBox import BoundingBox as MF_V3_Settings_BoundingBox_BoundingBox
 from MF.V3.Settings.Camera import Camera as MF_V3_Settings_Camera_Camera
 from MF.V3.Settings.Capture import Capture as MF_V3_Settings_Capture_Capture
+from MF.V3.Settings.CaptureImage import CaptureImage as MF_V3_Settings_CaptureImage_CaptureImage
 from MF.V3.Settings.Export import Export as MF_V3_Settings_Export_Export
 from MF.V3.Settings.Group import Group as MF_V3_Settings_Group_Group
 from MF.V3.Settings.I18n import I18n as MF_V3_Settings_I18n_I18n
@@ -30,6 +31,7 @@ from MF.V3.Tasks.CalibrateCameras import CalibrateCameras as MF_V3_Tasks_Calibra
 from MF.V3.Tasks.CalibrateTurntable import CalibrateTurntable as MF_V3_Tasks_CalibrateTurntable
 from MF.V3.Tasks.CalibrationCaptureTargets import CalibrationCaptureTargets as MF_V3_Tasks_CalibrationCaptureTargets
 from MF.V3.Tasks.CameraCalibration import CameraCalibration as MF_V3_Tasks_CameraCalibration
+from MF.V3.Tasks.CaptureImage import CaptureImage as MF_V3_Tasks_CaptureImage
 from MF.V3.Tasks.CloseProject import CloseProject as MF_V3_Tasks_CloseProject
 from MF.V3.Tasks.ConnectWifi import ConnectWifi as MF_V3_Tasks_ConnectWifi
 from MF.V3.Tasks.DepthMap import DepthMap as MF_V3_Tasks_DepthMap
@@ -1259,6 +1261,34 @@ def new_scan(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3
         Type="NewScan"
     )
     task = Task(Index=0, Type="NewScan", Input=new_scan_request, Output=new_scan_response)
+    self.SendTask(task)
+    return task
+
+
+def capture_image(self, selection: List[int] = None, codec: MF_V3_Settings_CaptureImage_CaptureImage.Codec = None, grayscale: bool = None) -> Task:
+
+    """
+     Capture a single Image.
+    """
+    capture_image_request = MF_V3_Tasks_CaptureImage.Request(
+        Index=0,
+        Type="CaptureImage",
+        Input=MF_V3_Settings_CaptureImage_CaptureImage(
+            selection=selection,
+            codec=codec,
+            grayscale=grayscale,
+        )
+    )
+    capture_image_response = MF_V3_Tasks_CaptureImage.Response(
+        Index=0,
+        Type="CaptureImage",
+        Input=MF_V3_Settings_CaptureImage_CaptureImage(
+            selection=selection,
+            codec=codec,
+            grayscale=grayscale,
+        )
+    )
+    task = Task(Index=0, Type="CaptureImage", Input=capture_image_request, Output=capture_image_response)
     self.SendTask(task)
     return task
 
