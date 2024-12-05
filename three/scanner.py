@@ -14,6 +14,7 @@ from MF.V3.Task import Task
 from MF.V3.Settings.Align import Align
 from MF.V3.Settings.AutoFocus import AutoFocus
 from MF.V3.Settings.ScanSelection import ScanSelection
+from MF.V3.Settings.CaptureImage import CaptureImage
 from MF.V3.Settings.Camera import Camera
 from MF.V3.Settings.Projector import Projector
 from MF.V3.Settings.Turntable import Turntable
@@ -409,6 +410,10 @@ class Scanner:
     def camera_calibration(self) -> 'Task':
         """Get the camera calibration descriptor."""
         return Three.camera_calibration(self)
+
+    def capture_image(self, selection: 'list[int]' = None, codec: 'CaptureImage.Codec' = None, grayscale: 'bool' = None) -> 'Task':
+        """Capture a single Image."""
+        return Three.capture_image(self, selection, codec, grayscale)
 
     def close_project(self) -> 'Task':
         """Close the current open project."""
