@@ -748,7 +748,82 @@
 
                                     </li>
                                     <li>
+                                            <a class="class" href="#Advanced.Turntable.PointClippingRadius">Advanced.Turntable.PointClippingRadius</a>
+                                                    <ul class="memberlist">
+                                                <li>
+                                                        <a class="function" href="#Advanced.Turntable.PointClippingRadius.__init__">PointClippingRadius</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingRadius.value">value</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingRadius.default">default</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingRadius.min">min</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingRadius.max">max</a>
+                                                </li>
+                                        </ul>
+
+                                    </li>
+                                    <li>
+                                            <a class="class" href="#Advanced.Turntable.PointClippingMinHeight">Advanced.Turntable.PointClippingMinHeight</a>
+                                                    <ul class="memberlist">
+                                                <li>
+                                                        <a class="function" href="#Advanced.Turntable.PointClippingMinHeight.__init__">PointClippingMinHeight</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingMinHeight.value">value</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingMinHeight.default">default</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingMinHeight.min">min</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingMinHeight.max">max</a>
+                                                </li>
+                                        </ul>
+
+                                    </li>
+                                    <li>
+                                            <a class="class" href="#Advanced.Turntable.PointClippingMaxHeight">Advanced.Turntable.PointClippingMaxHeight</a>
+                                                    <ul class="memberlist">
+                                                <li>
+                                                        <a class="function" href="#Advanced.Turntable.PointClippingMaxHeight.__init__">PointClippingMaxHeight</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingMaxHeight.value">value</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingMaxHeight.default">default</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingMaxHeight.min">min</a>
+                                                </li>
+                                                <li>
+                                                        <a class="variable" href="#Advanced.Turntable.PointClippingMaxHeight.max">max</a>
+                                                </li>
+                                        </ul>
+
+                                    </li>
+                                    <li>
+                                            <a class="variable" href="#Advanced.Turntable.use">use</a>
+                                    </li>
+                                    <li>
                                             <a class="variable" href="#Advanced.Turntable.rampAngle">rampAngle</a>
+                                    </li>
+                                    <li>
+                                            <a class="variable" href="#Advanced.Turntable.pointClippingRadius">pointClippingRadius</a>
+                                    </li>
+                                    <li>
+                                            <a class="variable" href="#Advanced.Turntable.pointClippingMinHeight">pointClippingMinHeight</a>
+                                    </li>
+                                    <li>
+                                            <a class="variable" href="#Advanced.Turntable.pointClippingMaxHeight">pointClippingMaxHeight</a>
                                     </li>
                             </ul>
 
@@ -1106,31 +1181,60 @@
 </span><span id="L-297"><a href="#L-297"><span class="linenos">297</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
 </span><span id="L-298"><a href="#L-298"><span class="linenos">298</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
 </span><span id="L-299"><a href="#L-299"><span class="linenos">299</span></a>
-</span><span id="L-300"><a href="#L-300"><span class="linenos">300</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rampAngle</span><span class="p">:</span> <span class="s1">&#39;RampAngle&#39;</span><span class="p">):</span>
-</span><span id="L-301"><a href="#L-301"><span class="linenos">301</span></a>            <span class="c1"># The angle in degrees to slow down the turntable at the end of a rotation.</span>
-</span><span id="L-302"><a href="#L-302"><span class="linenos">302</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">rampAngle</span> <span class="o">=</span> <span class="n">rampAngle</span>
-</span><span id="L-303"><a href="#L-303"><span class="linenos">303</span></a>
-</span><span id="L-304"><a href="#L-304"><span class="linenos">304</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture</span><span class="p">:</span> <span class="s1">&#39;Capture&#39;</span><span class="p">,</span> <span class="n">sampling</span><span class="p">:</span> <span class="s1">&#39;Sampling&#39;</span><span class="p">,</span> <span class="n">edgeDetection</span><span class="p">:</span> <span class="s1">&#39;EdgeDetection&#39;</span><span class="p">,</span> <span class="n">phaseFilter</span><span class="p">:</span> <span class="s1">&#39;PhaseFilter&#39;</span><span class="p">,</span> <span class="n">adaptiveSampling</span><span class="p">:</span> <span class="s1">&#39;AdaptiveSampling&#39;</span><span class="p">,</span> <span class="n">normalEstimation</span><span class="p">:</span> <span class="s1">&#39;NormalEstimation&#39;</span><span class="p">,</span> <span class="n">outlierRemoval</span><span class="p">:</span> <span class="s1">&#39;OutlierRemoval&#39;</span><span class="p">,</span> <span class="n">remesh</span><span class="p">:</span> <span class="s1">&#39;Remesh&#39;</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="s1">&#39;Camera&#39;</span><span class="p">,</span> <span class="n">turntable</span><span class="p">:</span> <span class="s1">&#39;Turntable&#39;</span><span class="p">):</span>
-</span><span id="L-305"><a href="#L-305"><span class="linenos">305</span></a>        <span class="c1"># Capture settings descriptor.</span>
-</span><span id="L-306"><a href="#L-306"><span class="linenos">306</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture</span> <span class="o">=</span> <span class="n">capture</span>
-</span><span id="L-307"><a href="#L-307"><span class="linenos">307</span></a>        <span class="c1"># Sampling settings descriptor.</span>
-</span><span id="L-308"><a href="#L-308"><span class="linenos">308</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sampling</span> <span class="o">=</span> <span class="n">sampling</span>
-</span><span id="L-309"><a href="#L-309"><span class="linenos">309</span></a>        <span class="c1"># Edge detection settings descriptor.</span>
-</span><span id="L-310"><a href="#L-310"><span class="linenos">310</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">edgeDetection</span> <span class="o">=</span> <span class="n">edgeDetection</span>
-</span><span id="L-311"><a href="#L-311"><span class="linenos">311</span></a>        <span class="c1"># Phase filter settings descriptor.</span>
-</span><span id="L-312"><a href="#L-312"><span class="linenos">312</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">phaseFilter</span> <span class="o">=</span> <span class="n">phaseFilter</span>
-</span><span id="L-313"><a href="#L-313"><span class="linenos">313</span></a>        <span class="c1"># Adaptive sampling settings descriptor.</span>
-</span><span id="L-314"><a href="#L-314"><span class="linenos">314</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">adaptiveSampling</span> <span class="o">=</span> <span class="n">adaptiveSampling</span>
-</span><span id="L-315"><a href="#L-315"><span class="linenos">315</span></a>        <span class="c1"># Normal estimation settings descriptor.</span>
-</span><span id="L-316"><a href="#L-316"><span class="linenos">316</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">normalEstimation</span> <span class="o">=</span> <span class="n">normalEstimation</span>
-</span><span id="L-317"><a href="#L-317"><span class="linenos">317</span></a>        <span class="c1"># Outlier removal settings descriptor.</span>
-</span><span id="L-318"><a href="#L-318"><span class="linenos">318</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">outlierRemoval</span> <span class="o">=</span> <span class="n">outlierRemoval</span>
-</span><span id="L-319"><a href="#L-319"><span class="linenos">319</span></a>        <span class="c1"># Remesh settings descriptor.</span>
-</span><span id="L-320"><a href="#L-320"><span class="linenos">320</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">remesh</span> <span class="o">=</span> <span class="n">remesh</span>
-</span><span id="L-321"><a href="#L-321"><span class="linenos">321</span></a>        <span class="c1"># Camera settings descriptor.</span>
-</span><span id="L-322"><a href="#L-322"><span class="linenos">322</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span>
-</span><span id="L-323"><a href="#L-323"><span class="linenos">323</span></a>        <span class="c1"># Turntable settings descriptor.</span>
-</span><span id="L-324"><a href="#L-324"><span class="linenos">324</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">turntable</span> <span class="o">=</span> <span class="n">turntable</span>
+</span><span id="L-300"><a href="#L-300"><span class="linenos">300</span></a>        <span class="k">class</span> <span class="nc">PointClippingRadius</span><span class="p">:</span>
+</span><span id="L-301"><a href="#L-301"><span class="linenos">301</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="L-302"><a href="#L-302"><span class="linenos">302</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="L-303"><a href="#L-303"><span class="linenos">303</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="L-304"><a href="#L-304"><span class="linenos">304</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="L-305"><a href="#L-305"><span class="linenos">305</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="L-306"><a href="#L-306"><span class="linenos">306</span></a>
+</span><span id="L-307"><a href="#L-307"><span class="linenos">307</span></a>        <span class="k">class</span> <span class="nc">PointClippingMinHeight</span><span class="p">:</span>
+</span><span id="L-308"><a href="#L-308"><span class="linenos">308</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="L-309"><a href="#L-309"><span class="linenos">309</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="L-310"><a href="#L-310"><span class="linenos">310</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="L-311"><a href="#L-311"><span class="linenos">311</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="L-312"><a href="#L-312"><span class="linenos">312</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="L-313"><a href="#L-313"><span class="linenos">313</span></a>
+</span><span id="L-314"><a href="#L-314"><span class="linenos">314</span></a>        <span class="k">class</span> <span class="nc">PointClippingMaxHeight</span><span class="p">:</span>
+</span><span id="L-315"><a href="#L-315"><span class="linenos">315</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="L-316"><a href="#L-316"><span class="linenos">316</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="L-317"><a href="#L-317"><span class="linenos">317</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="L-318"><a href="#L-318"><span class="linenos">318</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="L-319"><a href="#L-319"><span class="linenos">319</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="L-320"><a href="#L-320"><span class="linenos">320</span></a>
+</span><span id="L-321"><a href="#L-321"><span class="linenos">321</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="s1">&#39;Advanced.Use&#39;</span><span class="p">,</span> <span class="n">rampAngle</span><span class="p">:</span> <span class="s1">&#39;RampAngle&#39;</span><span class="p">,</span> <span class="n">pointClippingRadius</span><span class="p">:</span> <span class="s1">&#39;PointClippingRadius&#39;</span><span class="p">,</span> <span class="n">pointClippingMinHeight</span><span class="p">:</span> <span class="s1">&#39;PointClippingMinHeight&#39;</span><span class="p">,</span> <span class="n">pointClippingMaxHeight</span><span class="p">:</span> <span class="s1">&#39;PointClippingMaxHeight&#39;</span><span class="p">):</span>
+</span><span id="L-322"><a href="#L-322"><span class="linenos">322</span></a>            <span class="c1"># Use the advanced turntable settings.</span>
+</span><span id="L-323"><a href="#L-323"><span class="linenos">323</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">use</span> <span class="o">=</span> <span class="n">use</span>
+</span><span id="L-324"><a href="#L-324"><span class="linenos">324</span></a>            <span class="c1"># The angle in degrees to slow down the turntable at the end of a rotation.</span>
+</span><span id="L-325"><a href="#L-325"><span class="linenos">325</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">rampAngle</span> <span class="o">=</span> <span class="n">rampAngle</span>
+</span><span id="L-326"><a href="#L-326"><span class="linenos">326</span></a>            <span class="c1"># The radius of the point clipping cylinder.</span>
+</span><span id="L-327"><a href="#L-327"><span class="linenos">327</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingRadius</span> <span class="o">=</span> <span class="n">pointClippingRadius</span>
+</span><span id="L-328"><a href="#L-328"><span class="linenos">328</span></a>            <span class="c1"># The minimum height of the point clipping cylinder.</span>
+</span><span id="L-329"><a href="#L-329"><span class="linenos">329</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMinHeight</span> <span class="o">=</span> <span class="n">pointClippingMinHeight</span>
+</span><span id="L-330"><a href="#L-330"><span class="linenos">330</span></a>            <span class="c1"># The maximum height of the point clipping cylinder.</span>
+</span><span id="L-331"><a href="#L-331"><span class="linenos">331</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMaxHeight</span> <span class="o">=</span> <span class="n">pointClippingMaxHeight</span>
+</span><span id="L-332"><a href="#L-332"><span class="linenos">332</span></a>
+</span><span id="L-333"><a href="#L-333"><span class="linenos">333</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture</span><span class="p">:</span> <span class="s1">&#39;Capture&#39;</span><span class="p">,</span> <span class="n">sampling</span><span class="p">:</span> <span class="s1">&#39;Sampling&#39;</span><span class="p">,</span> <span class="n">edgeDetection</span><span class="p">:</span> <span class="s1">&#39;EdgeDetection&#39;</span><span class="p">,</span> <span class="n">phaseFilter</span><span class="p">:</span> <span class="s1">&#39;PhaseFilter&#39;</span><span class="p">,</span> <span class="n">adaptiveSampling</span><span class="p">:</span> <span class="s1">&#39;AdaptiveSampling&#39;</span><span class="p">,</span> <span class="n">normalEstimation</span><span class="p">:</span> <span class="s1">&#39;NormalEstimation&#39;</span><span class="p">,</span> <span class="n">outlierRemoval</span><span class="p">:</span> <span class="s1">&#39;OutlierRemoval&#39;</span><span class="p">,</span> <span class="n">remesh</span><span class="p">:</span> <span class="s1">&#39;Remesh&#39;</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="s1">&#39;Camera&#39;</span><span class="p">,</span> <span class="n">turntable</span><span class="p">:</span> <span class="s1">&#39;Turntable&#39;</span><span class="p">):</span>
+</span><span id="L-334"><a href="#L-334"><span class="linenos">334</span></a>        <span class="c1"># Capture settings descriptor.</span>
+</span><span id="L-335"><a href="#L-335"><span class="linenos">335</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture</span> <span class="o">=</span> <span class="n">capture</span>
+</span><span id="L-336"><a href="#L-336"><span class="linenos">336</span></a>        <span class="c1"># Sampling settings descriptor.</span>
+</span><span id="L-337"><a href="#L-337"><span class="linenos">337</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sampling</span> <span class="o">=</span> <span class="n">sampling</span>
+</span><span id="L-338"><a href="#L-338"><span class="linenos">338</span></a>        <span class="c1"># Edge detection settings descriptor.</span>
+</span><span id="L-339"><a href="#L-339"><span class="linenos">339</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">edgeDetection</span> <span class="o">=</span> <span class="n">edgeDetection</span>
+</span><span id="L-340"><a href="#L-340"><span class="linenos">340</span></a>        <span class="c1"># Phase filter settings descriptor.</span>
+</span><span id="L-341"><a href="#L-341"><span class="linenos">341</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">phaseFilter</span> <span class="o">=</span> <span class="n">phaseFilter</span>
+</span><span id="L-342"><a href="#L-342"><span class="linenos">342</span></a>        <span class="c1"># Adaptive sampling settings descriptor.</span>
+</span><span id="L-343"><a href="#L-343"><span class="linenos">343</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">adaptiveSampling</span> <span class="o">=</span> <span class="n">adaptiveSampling</span>
+</span><span id="L-344"><a href="#L-344"><span class="linenos">344</span></a>        <span class="c1"># Normal estimation settings descriptor.</span>
+</span><span id="L-345"><a href="#L-345"><span class="linenos">345</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">normalEstimation</span> <span class="o">=</span> <span class="n">normalEstimation</span>
+</span><span id="L-346"><a href="#L-346"><span class="linenos">346</span></a>        <span class="c1"># Outlier removal settings descriptor.</span>
+</span><span id="L-347"><a href="#L-347"><span class="linenos">347</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">outlierRemoval</span> <span class="o">=</span> <span class="n">outlierRemoval</span>
+</span><span id="L-348"><a href="#L-348"><span class="linenos">348</span></a>        <span class="c1"># Remesh settings descriptor.</span>
+</span><span id="L-349"><a href="#L-349"><span class="linenos">349</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">remesh</span> <span class="o">=</span> <span class="n">remesh</span>
+</span><span id="L-350"><a href="#L-350"><span class="linenos">350</span></a>        <span class="c1"># Camera settings descriptor.</span>
+</span><span id="L-351"><a href="#L-351"><span class="linenos">351</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span>
+</span><span id="L-352"><a href="#L-352"><span class="linenos">352</span></a>        <span class="c1"># Turntable settings descriptor.</span>
+</span><span id="L-353"><a href="#L-353"><span class="linenos">353</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">turntable</span> <span class="o">=</span> <span class="n">turntable</span>
 </span></pre></div>
 
 
@@ -1441,31 +1545,60 @@
 </span><span id="Advanced-298"><a href="#Advanced-298"><span class="linenos">298</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
 </span><span id="Advanced-299"><a href="#Advanced-299"><span class="linenos">299</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
 </span><span id="Advanced-300"><a href="#Advanced-300"><span class="linenos">300</span></a>
-</span><span id="Advanced-301"><a href="#Advanced-301"><span class="linenos">301</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rampAngle</span><span class="p">:</span> <span class="s1">&#39;RampAngle&#39;</span><span class="p">):</span>
-</span><span id="Advanced-302"><a href="#Advanced-302"><span class="linenos">302</span></a>            <span class="c1"># The angle in degrees to slow down the turntable at the end of a rotation.</span>
-</span><span id="Advanced-303"><a href="#Advanced-303"><span class="linenos">303</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">rampAngle</span> <span class="o">=</span> <span class="n">rampAngle</span>
-</span><span id="Advanced-304"><a href="#Advanced-304"><span class="linenos">304</span></a>
-</span><span id="Advanced-305"><a href="#Advanced-305"><span class="linenos">305</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture</span><span class="p">:</span> <span class="s1">&#39;Capture&#39;</span><span class="p">,</span> <span class="n">sampling</span><span class="p">:</span> <span class="s1">&#39;Sampling&#39;</span><span class="p">,</span> <span class="n">edgeDetection</span><span class="p">:</span> <span class="s1">&#39;EdgeDetection&#39;</span><span class="p">,</span> <span class="n">phaseFilter</span><span class="p">:</span> <span class="s1">&#39;PhaseFilter&#39;</span><span class="p">,</span> <span class="n">adaptiveSampling</span><span class="p">:</span> <span class="s1">&#39;AdaptiveSampling&#39;</span><span class="p">,</span> <span class="n">normalEstimation</span><span class="p">:</span> <span class="s1">&#39;NormalEstimation&#39;</span><span class="p">,</span> <span class="n">outlierRemoval</span><span class="p">:</span> <span class="s1">&#39;OutlierRemoval&#39;</span><span class="p">,</span> <span class="n">remesh</span><span class="p">:</span> <span class="s1">&#39;Remesh&#39;</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="s1">&#39;Camera&#39;</span><span class="p">,</span> <span class="n">turntable</span><span class="p">:</span> <span class="s1">&#39;Turntable&#39;</span><span class="p">):</span>
-</span><span id="Advanced-306"><a href="#Advanced-306"><span class="linenos">306</span></a>        <span class="c1"># Capture settings descriptor.</span>
-</span><span id="Advanced-307"><a href="#Advanced-307"><span class="linenos">307</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture</span> <span class="o">=</span> <span class="n">capture</span>
-</span><span id="Advanced-308"><a href="#Advanced-308"><span class="linenos">308</span></a>        <span class="c1"># Sampling settings descriptor.</span>
-</span><span id="Advanced-309"><a href="#Advanced-309"><span class="linenos">309</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sampling</span> <span class="o">=</span> <span class="n">sampling</span>
-</span><span id="Advanced-310"><a href="#Advanced-310"><span class="linenos">310</span></a>        <span class="c1"># Edge detection settings descriptor.</span>
-</span><span id="Advanced-311"><a href="#Advanced-311"><span class="linenos">311</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">edgeDetection</span> <span class="o">=</span> <span class="n">edgeDetection</span>
-</span><span id="Advanced-312"><a href="#Advanced-312"><span class="linenos">312</span></a>        <span class="c1"># Phase filter settings descriptor.</span>
-</span><span id="Advanced-313"><a href="#Advanced-313"><span class="linenos">313</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">phaseFilter</span> <span class="o">=</span> <span class="n">phaseFilter</span>
-</span><span id="Advanced-314"><a href="#Advanced-314"><span class="linenos">314</span></a>        <span class="c1"># Adaptive sampling settings descriptor.</span>
-</span><span id="Advanced-315"><a href="#Advanced-315"><span class="linenos">315</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">adaptiveSampling</span> <span class="o">=</span> <span class="n">adaptiveSampling</span>
-</span><span id="Advanced-316"><a href="#Advanced-316"><span class="linenos">316</span></a>        <span class="c1"># Normal estimation settings descriptor.</span>
-</span><span id="Advanced-317"><a href="#Advanced-317"><span class="linenos">317</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">normalEstimation</span> <span class="o">=</span> <span class="n">normalEstimation</span>
-</span><span id="Advanced-318"><a href="#Advanced-318"><span class="linenos">318</span></a>        <span class="c1"># Outlier removal settings descriptor.</span>
-</span><span id="Advanced-319"><a href="#Advanced-319"><span class="linenos">319</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">outlierRemoval</span> <span class="o">=</span> <span class="n">outlierRemoval</span>
-</span><span id="Advanced-320"><a href="#Advanced-320"><span class="linenos">320</span></a>        <span class="c1"># Remesh settings descriptor.</span>
-</span><span id="Advanced-321"><a href="#Advanced-321"><span class="linenos">321</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">remesh</span> <span class="o">=</span> <span class="n">remesh</span>
-</span><span id="Advanced-322"><a href="#Advanced-322"><span class="linenos">322</span></a>        <span class="c1"># Camera settings descriptor.</span>
-</span><span id="Advanced-323"><a href="#Advanced-323"><span class="linenos">323</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span>
-</span><span id="Advanced-324"><a href="#Advanced-324"><span class="linenos">324</span></a>        <span class="c1"># Turntable settings descriptor.</span>
-</span><span id="Advanced-325"><a href="#Advanced-325"><span class="linenos">325</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">turntable</span> <span class="o">=</span> <span class="n">turntable</span>
+</span><span id="Advanced-301"><a href="#Advanced-301"><span class="linenos">301</span></a>        <span class="k">class</span> <span class="nc">PointClippingRadius</span><span class="p">:</span>
+</span><span id="Advanced-302"><a href="#Advanced-302"><span class="linenos">302</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced-303"><a href="#Advanced-303"><span class="linenos">303</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced-304"><a href="#Advanced-304"><span class="linenos">304</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced-305"><a href="#Advanced-305"><span class="linenos">305</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced-306"><a href="#Advanced-306"><span class="linenos">306</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="Advanced-307"><a href="#Advanced-307"><span class="linenos">307</span></a>
+</span><span id="Advanced-308"><a href="#Advanced-308"><span class="linenos">308</span></a>        <span class="k">class</span> <span class="nc">PointClippingMinHeight</span><span class="p">:</span>
+</span><span id="Advanced-309"><a href="#Advanced-309"><span class="linenos">309</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced-310"><a href="#Advanced-310"><span class="linenos">310</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced-311"><a href="#Advanced-311"><span class="linenos">311</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced-312"><a href="#Advanced-312"><span class="linenos">312</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced-313"><a href="#Advanced-313"><span class="linenos">313</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="Advanced-314"><a href="#Advanced-314"><span class="linenos">314</span></a>
+</span><span id="Advanced-315"><a href="#Advanced-315"><span class="linenos">315</span></a>        <span class="k">class</span> <span class="nc">PointClippingMaxHeight</span><span class="p">:</span>
+</span><span id="Advanced-316"><a href="#Advanced-316"><span class="linenos">316</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced-317"><a href="#Advanced-317"><span class="linenos">317</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced-318"><a href="#Advanced-318"><span class="linenos">318</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced-319"><a href="#Advanced-319"><span class="linenos">319</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced-320"><a href="#Advanced-320"><span class="linenos">320</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="Advanced-321"><a href="#Advanced-321"><span class="linenos">321</span></a>
+</span><span id="Advanced-322"><a href="#Advanced-322"><span class="linenos">322</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="s1">&#39;Advanced.Use&#39;</span><span class="p">,</span> <span class="n">rampAngle</span><span class="p">:</span> <span class="s1">&#39;RampAngle&#39;</span><span class="p">,</span> <span class="n">pointClippingRadius</span><span class="p">:</span> <span class="s1">&#39;PointClippingRadius&#39;</span><span class="p">,</span> <span class="n">pointClippingMinHeight</span><span class="p">:</span> <span class="s1">&#39;PointClippingMinHeight&#39;</span><span class="p">,</span> <span class="n">pointClippingMaxHeight</span><span class="p">:</span> <span class="s1">&#39;PointClippingMaxHeight&#39;</span><span class="p">):</span>
+</span><span id="Advanced-323"><a href="#Advanced-323"><span class="linenos">323</span></a>            <span class="c1"># Use the advanced turntable settings.</span>
+</span><span id="Advanced-324"><a href="#Advanced-324"><span class="linenos">324</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">use</span> <span class="o">=</span> <span class="n">use</span>
+</span><span id="Advanced-325"><a href="#Advanced-325"><span class="linenos">325</span></a>            <span class="c1"># The angle in degrees to slow down the turntable at the end of a rotation.</span>
+</span><span id="Advanced-326"><a href="#Advanced-326"><span class="linenos">326</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">rampAngle</span> <span class="o">=</span> <span class="n">rampAngle</span>
+</span><span id="Advanced-327"><a href="#Advanced-327"><span class="linenos">327</span></a>            <span class="c1"># The radius of the point clipping cylinder.</span>
+</span><span id="Advanced-328"><a href="#Advanced-328"><span class="linenos">328</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingRadius</span> <span class="o">=</span> <span class="n">pointClippingRadius</span>
+</span><span id="Advanced-329"><a href="#Advanced-329"><span class="linenos">329</span></a>            <span class="c1"># The minimum height of the point clipping cylinder.</span>
+</span><span id="Advanced-330"><a href="#Advanced-330"><span class="linenos">330</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMinHeight</span> <span class="o">=</span> <span class="n">pointClippingMinHeight</span>
+</span><span id="Advanced-331"><a href="#Advanced-331"><span class="linenos">331</span></a>            <span class="c1"># The maximum height of the point clipping cylinder.</span>
+</span><span id="Advanced-332"><a href="#Advanced-332"><span class="linenos">332</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMaxHeight</span> <span class="o">=</span> <span class="n">pointClippingMaxHeight</span>
+</span><span id="Advanced-333"><a href="#Advanced-333"><span class="linenos">333</span></a>
+</span><span id="Advanced-334"><a href="#Advanced-334"><span class="linenos">334</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture</span><span class="p">:</span> <span class="s1">&#39;Capture&#39;</span><span class="p">,</span> <span class="n">sampling</span><span class="p">:</span> <span class="s1">&#39;Sampling&#39;</span><span class="p">,</span> <span class="n">edgeDetection</span><span class="p">:</span> <span class="s1">&#39;EdgeDetection&#39;</span><span class="p">,</span> <span class="n">phaseFilter</span><span class="p">:</span> <span class="s1">&#39;PhaseFilter&#39;</span><span class="p">,</span> <span class="n">adaptiveSampling</span><span class="p">:</span> <span class="s1">&#39;AdaptiveSampling&#39;</span><span class="p">,</span> <span class="n">normalEstimation</span><span class="p">:</span> <span class="s1">&#39;NormalEstimation&#39;</span><span class="p">,</span> <span class="n">outlierRemoval</span><span class="p">:</span> <span class="s1">&#39;OutlierRemoval&#39;</span><span class="p">,</span> <span class="n">remesh</span><span class="p">:</span> <span class="s1">&#39;Remesh&#39;</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="s1">&#39;Camera&#39;</span><span class="p">,</span> <span class="n">turntable</span><span class="p">:</span> <span class="s1">&#39;Turntable&#39;</span><span class="p">):</span>
+</span><span id="Advanced-335"><a href="#Advanced-335"><span class="linenos">335</span></a>        <span class="c1"># Capture settings descriptor.</span>
+</span><span id="Advanced-336"><a href="#Advanced-336"><span class="linenos">336</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture</span> <span class="o">=</span> <span class="n">capture</span>
+</span><span id="Advanced-337"><a href="#Advanced-337"><span class="linenos">337</span></a>        <span class="c1"># Sampling settings descriptor.</span>
+</span><span id="Advanced-338"><a href="#Advanced-338"><span class="linenos">338</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sampling</span> <span class="o">=</span> <span class="n">sampling</span>
+</span><span id="Advanced-339"><a href="#Advanced-339"><span class="linenos">339</span></a>        <span class="c1"># Edge detection settings descriptor.</span>
+</span><span id="Advanced-340"><a href="#Advanced-340"><span class="linenos">340</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">edgeDetection</span> <span class="o">=</span> <span class="n">edgeDetection</span>
+</span><span id="Advanced-341"><a href="#Advanced-341"><span class="linenos">341</span></a>        <span class="c1"># Phase filter settings descriptor.</span>
+</span><span id="Advanced-342"><a href="#Advanced-342"><span class="linenos">342</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">phaseFilter</span> <span class="o">=</span> <span class="n">phaseFilter</span>
+</span><span id="Advanced-343"><a href="#Advanced-343"><span class="linenos">343</span></a>        <span class="c1"># Adaptive sampling settings descriptor.</span>
+</span><span id="Advanced-344"><a href="#Advanced-344"><span class="linenos">344</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">adaptiveSampling</span> <span class="o">=</span> <span class="n">adaptiveSampling</span>
+</span><span id="Advanced-345"><a href="#Advanced-345"><span class="linenos">345</span></a>        <span class="c1"># Normal estimation settings descriptor.</span>
+</span><span id="Advanced-346"><a href="#Advanced-346"><span class="linenos">346</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">normalEstimation</span> <span class="o">=</span> <span class="n">normalEstimation</span>
+</span><span id="Advanced-347"><a href="#Advanced-347"><span class="linenos">347</span></a>        <span class="c1"># Outlier removal settings descriptor.</span>
+</span><span id="Advanced-348"><a href="#Advanced-348"><span class="linenos">348</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">outlierRemoval</span> <span class="o">=</span> <span class="n">outlierRemoval</span>
+</span><span id="Advanced-349"><a href="#Advanced-349"><span class="linenos">349</span></a>        <span class="c1"># Remesh settings descriptor.</span>
+</span><span id="Advanced-350"><a href="#Advanced-350"><span class="linenos">350</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">remesh</span> <span class="o">=</span> <span class="n">remesh</span>
+</span><span id="Advanced-351"><a href="#Advanced-351"><span class="linenos">351</span></a>        <span class="c1"># Camera settings descriptor.</span>
+</span><span id="Advanced-352"><a href="#Advanced-352"><span class="linenos">352</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span>
+</span><span id="Advanced-353"><a href="#Advanced-353"><span class="linenos">353</span></a>        <span class="c1"># Turntable settings descriptor.</span>
+</span><span id="Advanced-354"><a href="#Advanced-354"><span class="linenos">354</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">turntable</span> <span class="o">=</span> <span class="n">turntable</span>
 </span></pre></div>
 
 
@@ -1483,27 +1616,27 @@
 
     </div>
     <a class="headerlink" href="#Advanced.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.__init__-305"><a href="#Advanced.__init__-305"><span class="linenos">305</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture</span><span class="p">:</span> <span class="s1">&#39;Capture&#39;</span><span class="p">,</span> <span class="n">sampling</span><span class="p">:</span> <span class="s1">&#39;Sampling&#39;</span><span class="p">,</span> <span class="n">edgeDetection</span><span class="p">:</span> <span class="s1">&#39;EdgeDetection&#39;</span><span class="p">,</span> <span class="n">phaseFilter</span><span class="p">:</span> <span class="s1">&#39;PhaseFilter&#39;</span><span class="p">,</span> <span class="n">adaptiveSampling</span><span class="p">:</span> <span class="s1">&#39;AdaptiveSampling&#39;</span><span class="p">,</span> <span class="n">normalEstimation</span><span class="p">:</span> <span class="s1">&#39;NormalEstimation&#39;</span><span class="p">,</span> <span class="n">outlierRemoval</span><span class="p">:</span> <span class="s1">&#39;OutlierRemoval&#39;</span><span class="p">,</span> <span class="n">remesh</span><span class="p">:</span> <span class="s1">&#39;Remesh&#39;</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="s1">&#39;Camera&#39;</span><span class="p">,</span> <span class="n">turntable</span><span class="p">:</span> <span class="s1">&#39;Turntable&#39;</span><span class="p">):</span>
-</span><span id="Advanced.__init__-306"><a href="#Advanced.__init__-306"><span class="linenos">306</span></a>        <span class="c1"># Capture settings descriptor.</span>
-</span><span id="Advanced.__init__-307"><a href="#Advanced.__init__-307"><span class="linenos">307</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture</span> <span class="o">=</span> <span class="n">capture</span>
-</span><span id="Advanced.__init__-308"><a href="#Advanced.__init__-308"><span class="linenos">308</span></a>        <span class="c1"># Sampling settings descriptor.</span>
-</span><span id="Advanced.__init__-309"><a href="#Advanced.__init__-309"><span class="linenos">309</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sampling</span> <span class="o">=</span> <span class="n">sampling</span>
-</span><span id="Advanced.__init__-310"><a href="#Advanced.__init__-310"><span class="linenos">310</span></a>        <span class="c1"># Edge detection settings descriptor.</span>
-</span><span id="Advanced.__init__-311"><a href="#Advanced.__init__-311"><span class="linenos">311</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">edgeDetection</span> <span class="o">=</span> <span class="n">edgeDetection</span>
-</span><span id="Advanced.__init__-312"><a href="#Advanced.__init__-312"><span class="linenos">312</span></a>        <span class="c1"># Phase filter settings descriptor.</span>
-</span><span id="Advanced.__init__-313"><a href="#Advanced.__init__-313"><span class="linenos">313</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">phaseFilter</span> <span class="o">=</span> <span class="n">phaseFilter</span>
-</span><span id="Advanced.__init__-314"><a href="#Advanced.__init__-314"><span class="linenos">314</span></a>        <span class="c1"># Adaptive sampling settings descriptor.</span>
-</span><span id="Advanced.__init__-315"><a href="#Advanced.__init__-315"><span class="linenos">315</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">adaptiveSampling</span> <span class="o">=</span> <span class="n">adaptiveSampling</span>
-</span><span id="Advanced.__init__-316"><a href="#Advanced.__init__-316"><span class="linenos">316</span></a>        <span class="c1"># Normal estimation settings descriptor.</span>
-</span><span id="Advanced.__init__-317"><a href="#Advanced.__init__-317"><span class="linenos">317</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">normalEstimation</span> <span class="o">=</span> <span class="n">normalEstimation</span>
-</span><span id="Advanced.__init__-318"><a href="#Advanced.__init__-318"><span class="linenos">318</span></a>        <span class="c1"># Outlier removal settings descriptor.</span>
-</span><span id="Advanced.__init__-319"><a href="#Advanced.__init__-319"><span class="linenos">319</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">outlierRemoval</span> <span class="o">=</span> <span class="n">outlierRemoval</span>
-</span><span id="Advanced.__init__-320"><a href="#Advanced.__init__-320"><span class="linenos">320</span></a>        <span class="c1"># Remesh settings descriptor.</span>
-</span><span id="Advanced.__init__-321"><a href="#Advanced.__init__-321"><span class="linenos">321</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">remesh</span> <span class="o">=</span> <span class="n">remesh</span>
-</span><span id="Advanced.__init__-322"><a href="#Advanced.__init__-322"><span class="linenos">322</span></a>        <span class="c1"># Camera settings descriptor.</span>
-</span><span id="Advanced.__init__-323"><a href="#Advanced.__init__-323"><span class="linenos">323</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span>
-</span><span id="Advanced.__init__-324"><a href="#Advanced.__init__-324"><span class="linenos">324</span></a>        <span class="c1"># Turntable settings descriptor.</span>
-</span><span id="Advanced.__init__-325"><a href="#Advanced.__init__-325"><span class="linenos">325</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">turntable</span> <span class="o">=</span> <span class="n">turntable</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.__init__-334"><a href="#Advanced.__init__-334"><span class="linenos">334</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture</span><span class="p">:</span> <span class="s1">&#39;Capture&#39;</span><span class="p">,</span> <span class="n">sampling</span><span class="p">:</span> <span class="s1">&#39;Sampling&#39;</span><span class="p">,</span> <span class="n">edgeDetection</span><span class="p">:</span> <span class="s1">&#39;EdgeDetection&#39;</span><span class="p">,</span> <span class="n">phaseFilter</span><span class="p">:</span> <span class="s1">&#39;PhaseFilter&#39;</span><span class="p">,</span> <span class="n">adaptiveSampling</span><span class="p">:</span> <span class="s1">&#39;AdaptiveSampling&#39;</span><span class="p">,</span> <span class="n">normalEstimation</span><span class="p">:</span> <span class="s1">&#39;NormalEstimation&#39;</span><span class="p">,</span> <span class="n">outlierRemoval</span><span class="p">:</span> <span class="s1">&#39;OutlierRemoval&#39;</span><span class="p">,</span> <span class="n">remesh</span><span class="p">:</span> <span class="s1">&#39;Remesh&#39;</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="s1">&#39;Camera&#39;</span><span class="p">,</span> <span class="n">turntable</span><span class="p">:</span> <span class="s1">&#39;Turntable&#39;</span><span class="p">):</span>
+</span><span id="Advanced.__init__-335"><a href="#Advanced.__init__-335"><span class="linenos">335</span></a>        <span class="c1"># Capture settings descriptor.</span>
+</span><span id="Advanced.__init__-336"><a href="#Advanced.__init__-336"><span class="linenos">336</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture</span> <span class="o">=</span> <span class="n">capture</span>
+</span><span id="Advanced.__init__-337"><a href="#Advanced.__init__-337"><span class="linenos">337</span></a>        <span class="c1"># Sampling settings descriptor.</span>
+</span><span id="Advanced.__init__-338"><a href="#Advanced.__init__-338"><span class="linenos">338</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sampling</span> <span class="o">=</span> <span class="n">sampling</span>
+</span><span id="Advanced.__init__-339"><a href="#Advanced.__init__-339"><span class="linenos">339</span></a>        <span class="c1"># Edge detection settings descriptor.</span>
+</span><span id="Advanced.__init__-340"><a href="#Advanced.__init__-340"><span class="linenos">340</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">edgeDetection</span> <span class="o">=</span> <span class="n">edgeDetection</span>
+</span><span id="Advanced.__init__-341"><a href="#Advanced.__init__-341"><span class="linenos">341</span></a>        <span class="c1"># Phase filter settings descriptor.</span>
+</span><span id="Advanced.__init__-342"><a href="#Advanced.__init__-342"><span class="linenos">342</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">phaseFilter</span> <span class="o">=</span> <span class="n">phaseFilter</span>
+</span><span id="Advanced.__init__-343"><a href="#Advanced.__init__-343"><span class="linenos">343</span></a>        <span class="c1"># Adaptive sampling settings descriptor.</span>
+</span><span id="Advanced.__init__-344"><a href="#Advanced.__init__-344"><span class="linenos">344</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">adaptiveSampling</span> <span class="o">=</span> <span class="n">adaptiveSampling</span>
+</span><span id="Advanced.__init__-345"><a href="#Advanced.__init__-345"><span class="linenos">345</span></a>        <span class="c1"># Normal estimation settings descriptor.</span>
+</span><span id="Advanced.__init__-346"><a href="#Advanced.__init__-346"><span class="linenos">346</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">normalEstimation</span> <span class="o">=</span> <span class="n">normalEstimation</span>
+</span><span id="Advanced.__init__-347"><a href="#Advanced.__init__-347"><span class="linenos">347</span></a>        <span class="c1"># Outlier removal settings descriptor.</span>
+</span><span id="Advanced.__init__-348"><a href="#Advanced.__init__-348"><span class="linenos">348</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">outlierRemoval</span> <span class="o">=</span> <span class="n">outlierRemoval</span>
+</span><span id="Advanced.__init__-349"><a href="#Advanced.__init__-349"><span class="linenos">349</span></a>        <span class="c1"># Remesh settings descriptor.</span>
+</span><span id="Advanced.__init__-350"><a href="#Advanced.__init__-350"><span class="linenos">350</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">remesh</span> <span class="o">=</span> <span class="n">remesh</span>
+</span><span id="Advanced.__init__-351"><a href="#Advanced.__init__-351"><span class="linenos">351</span></a>        <span class="c1"># Camera settings descriptor.</span>
+</span><span id="Advanced.__init__-352"><a href="#Advanced.__init__-352"><span class="linenos">352</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">camera</span>
+</span><span id="Advanced.__init__-353"><a href="#Advanced.__init__-353"><span class="linenos">353</span></a>        <span class="c1"># Turntable settings descriptor.</span>
+</span><span id="Advanced.__init__-354"><a href="#Advanced.__init__-354"><span class="linenos">354</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">turntable</span> <span class="o">=</span> <span class="n">turntable</span>
 </span></pre></div>
 
 
@@ -4744,9 +4877,38 @@
 </span><span id="Advanced.Turntable-298"><a href="#Advanced.Turntable-298"><span class="linenos">298</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
 </span><span id="Advanced.Turntable-299"><a href="#Advanced.Turntable-299"><span class="linenos">299</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
 </span><span id="Advanced.Turntable-300"><a href="#Advanced.Turntable-300"><span class="linenos">300</span></a>
-</span><span id="Advanced.Turntable-301"><a href="#Advanced.Turntable-301"><span class="linenos">301</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rampAngle</span><span class="p">:</span> <span class="s1">&#39;RampAngle&#39;</span><span class="p">):</span>
-</span><span id="Advanced.Turntable-302"><a href="#Advanced.Turntable-302"><span class="linenos">302</span></a>            <span class="c1"># The angle in degrees to slow down the turntable at the end of a rotation.</span>
-</span><span id="Advanced.Turntable-303"><a href="#Advanced.Turntable-303"><span class="linenos">303</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">rampAngle</span> <span class="o">=</span> <span class="n">rampAngle</span>
+</span><span id="Advanced.Turntable-301"><a href="#Advanced.Turntable-301"><span class="linenos">301</span></a>        <span class="k">class</span> <span class="nc">PointClippingRadius</span><span class="p">:</span>
+</span><span id="Advanced.Turntable-302"><a href="#Advanced.Turntable-302"><span class="linenos">302</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced.Turntable-303"><a href="#Advanced.Turntable-303"><span class="linenos">303</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced.Turntable-304"><a href="#Advanced.Turntable-304"><span class="linenos">304</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced.Turntable-305"><a href="#Advanced.Turntable-305"><span class="linenos">305</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced.Turntable-306"><a href="#Advanced.Turntable-306"><span class="linenos">306</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="Advanced.Turntable-307"><a href="#Advanced.Turntable-307"><span class="linenos">307</span></a>
+</span><span id="Advanced.Turntable-308"><a href="#Advanced.Turntable-308"><span class="linenos">308</span></a>        <span class="k">class</span> <span class="nc">PointClippingMinHeight</span><span class="p">:</span>
+</span><span id="Advanced.Turntable-309"><a href="#Advanced.Turntable-309"><span class="linenos">309</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced.Turntable-310"><a href="#Advanced.Turntable-310"><span class="linenos">310</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced.Turntable-311"><a href="#Advanced.Turntable-311"><span class="linenos">311</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced.Turntable-312"><a href="#Advanced.Turntable-312"><span class="linenos">312</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced.Turntable-313"><a href="#Advanced.Turntable-313"><span class="linenos">313</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="Advanced.Turntable-314"><a href="#Advanced.Turntable-314"><span class="linenos">314</span></a>
+</span><span id="Advanced.Turntable-315"><a href="#Advanced.Turntable-315"><span class="linenos">315</span></a>        <span class="k">class</span> <span class="nc">PointClippingMaxHeight</span><span class="p">:</span>
+</span><span id="Advanced.Turntable-316"><a href="#Advanced.Turntable-316"><span class="linenos">316</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced.Turntable-317"><a href="#Advanced.Turntable-317"><span class="linenos">317</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced.Turntable-318"><a href="#Advanced.Turntable-318"><span class="linenos">318</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced.Turntable-319"><a href="#Advanced.Turntable-319"><span class="linenos">319</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced.Turntable-320"><a href="#Advanced.Turntable-320"><span class="linenos">320</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="Advanced.Turntable-321"><a href="#Advanced.Turntable-321"><span class="linenos">321</span></a>
+</span><span id="Advanced.Turntable-322"><a href="#Advanced.Turntable-322"><span class="linenos">322</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="s1">&#39;Advanced.Use&#39;</span><span class="p">,</span> <span class="n">rampAngle</span><span class="p">:</span> <span class="s1">&#39;RampAngle&#39;</span><span class="p">,</span> <span class="n">pointClippingRadius</span><span class="p">:</span> <span class="s1">&#39;PointClippingRadius&#39;</span><span class="p">,</span> <span class="n">pointClippingMinHeight</span><span class="p">:</span> <span class="s1">&#39;PointClippingMinHeight&#39;</span><span class="p">,</span> <span class="n">pointClippingMaxHeight</span><span class="p">:</span> <span class="s1">&#39;PointClippingMaxHeight&#39;</span><span class="p">):</span>
+</span><span id="Advanced.Turntable-323"><a href="#Advanced.Turntable-323"><span class="linenos">323</span></a>            <span class="c1"># Use the advanced turntable settings.</span>
+</span><span id="Advanced.Turntable-324"><a href="#Advanced.Turntable-324"><span class="linenos">324</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">use</span> <span class="o">=</span> <span class="n">use</span>
+</span><span id="Advanced.Turntable-325"><a href="#Advanced.Turntable-325"><span class="linenos">325</span></a>            <span class="c1"># The angle in degrees to slow down the turntable at the end of a rotation.</span>
+</span><span id="Advanced.Turntable-326"><a href="#Advanced.Turntable-326"><span class="linenos">326</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">rampAngle</span> <span class="o">=</span> <span class="n">rampAngle</span>
+</span><span id="Advanced.Turntable-327"><a href="#Advanced.Turntable-327"><span class="linenos">327</span></a>            <span class="c1"># The radius of the point clipping cylinder.</span>
+</span><span id="Advanced.Turntable-328"><a href="#Advanced.Turntable-328"><span class="linenos">328</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingRadius</span> <span class="o">=</span> <span class="n">pointClippingRadius</span>
+</span><span id="Advanced.Turntable-329"><a href="#Advanced.Turntable-329"><span class="linenos">329</span></a>            <span class="c1"># The minimum height of the point clipping cylinder.</span>
+</span><span id="Advanced.Turntable-330"><a href="#Advanced.Turntable-330"><span class="linenos">330</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMinHeight</span> <span class="o">=</span> <span class="n">pointClippingMinHeight</span>
+</span><span id="Advanced.Turntable-331"><a href="#Advanced.Turntable-331"><span class="linenos">331</span></a>            <span class="c1"># The maximum height of the point clipping cylinder.</span>
+</span><span id="Advanced.Turntable-332"><a href="#Advanced.Turntable-332"><span class="linenos">332</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMaxHeight</span> <span class="o">=</span> <span class="n">pointClippingMaxHeight</span>
 </span></pre></div>
 
 
@@ -4758,18 +4920,37 @@
                                         <input id="Advanced.Turntable.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">Advanced.Turntable</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">rampAngle</span><span class="p">:</span> <span class="n"><a href="#Advanced.Turntable.RampAngle">Advanced.Turntable.RampAngle</a></span></span>)</span>
+        <span class="name">Advanced.Turntable</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">use</span><span class="p">:</span> <span class="n"><a href="#Advanced.Use">Advanced.Use</a></span>,</span><span class="param">	<span class="n">rampAngle</span><span class="p">:</span> <span class="n"><a href="#Advanced.Turntable.RampAngle">Advanced.Turntable.RampAngle</a></span>,</span><span class="param">	<span class="n">pointClippingRadius</span><span class="p">:</span> <span class="n"><a href="#Advanced.Turntable.PointClippingRadius">Advanced.Turntable.PointClippingRadius</a></span>,</span><span class="param">	<span class="n">pointClippingMinHeight</span><span class="p">:</span> <span class="n"><a href="#Advanced.Turntable.PointClippingMinHeight">Advanced.Turntable.PointClippingMinHeight</a></span>,</span><span class="param">	<span class="n">pointClippingMaxHeight</span><span class="p">:</span> <span class="n"><a href="#Advanced.Turntable.PointClippingMaxHeight">Advanced.Turntable.PointClippingMaxHeight</a></span></span>)</span>
 
                 <label class="view-source-button" for="Advanced.Turntable.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Advanced.Turntable.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.Turntable.__init__-301"><a href="#Advanced.Turntable.__init__-301"><span class="linenos">301</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rampAngle</span><span class="p">:</span> <span class="s1">&#39;RampAngle&#39;</span><span class="p">):</span>
-</span><span id="Advanced.Turntable.__init__-302"><a href="#Advanced.Turntable.__init__-302"><span class="linenos">302</span></a>            <span class="c1"># The angle in degrees to slow down the turntable at the end of a rotation.</span>
-</span><span id="Advanced.Turntable.__init__-303"><a href="#Advanced.Turntable.__init__-303"><span class="linenos">303</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">rampAngle</span> <span class="o">=</span> <span class="n">rampAngle</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.Turntable.__init__-322"><a href="#Advanced.Turntable.__init__-322"><span class="linenos">322</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="s1">&#39;Advanced.Use&#39;</span><span class="p">,</span> <span class="n">rampAngle</span><span class="p">:</span> <span class="s1">&#39;RampAngle&#39;</span><span class="p">,</span> <span class="n">pointClippingRadius</span><span class="p">:</span> <span class="s1">&#39;PointClippingRadius&#39;</span><span class="p">,</span> <span class="n">pointClippingMinHeight</span><span class="p">:</span> <span class="s1">&#39;PointClippingMinHeight&#39;</span><span class="p">,</span> <span class="n">pointClippingMaxHeight</span><span class="p">:</span> <span class="s1">&#39;PointClippingMaxHeight&#39;</span><span class="p">):</span>
+</span><span id="Advanced.Turntable.__init__-323"><a href="#Advanced.Turntable.__init__-323"><span class="linenos">323</span></a>            <span class="c1"># Use the advanced turntable settings.</span>
+</span><span id="Advanced.Turntable.__init__-324"><a href="#Advanced.Turntable.__init__-324"><span class="linenos">324</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">use</span> <span class="o">=</span> <span class="n">use</span>
+</span><span id="Advanced.Turntable.__init__-325"><a href="#Advanced.Turntable.__init__-325"><span class="linenos">325</span></a>            <span class="c1"># The angle in degrees to slow down the turntable at the end of a rotation.</span>
+</span><span id="Advanced.Turntable.__init__-326"><a href="#Advanced.Turntable.__init__-326"><span class="linenos">326</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">rampAngle</span> <span class="o">=</span> <span class="n">rampAngle</span>
+</span><span id="Advanced.Turntable.__init__-327"><a href="#Advanced.Turntable.__init__-327"><span class="linenos">327</span></a>            <span class="c1"># The radius of the point clipping cylinder.</span>
+</span><span id="Advanced.Turntable.__init__-328"><a href="#Advanced.Turntable.__init__-328"><span class="linenos">328</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingRadius</span> <span class="o">=</span> <span class="n">pointClippingRadius</span>
+</span><span id="Advanced.Turntable.__init__-329"><a href="#Advanced.Turntable.__init__-329"><span class="linenos">329</span></a>            <span class="c1"># The minimum height of the point clipping cylinder.</span>
+</span><span id="Advanced.Turntable.__init__-330"><a href="#Advanced.Turntable.__init__-330"><span class="linenos">330</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMinHeight</span> <span class="o">=</span> <span class="n">pointClippingMinHeight</span>
+</span><span id="Advanced.Turntable.__init__-331"><a href="#Advanced.Turntable.__init__-331"><span class="linenos">331</span></a>            <span class="c1"># The maximum height of the point clipping cylinder.</span>
+</span><span id="Advanced.Turntable.__init__-332"><a href="#Advanced.Turntable.__init__-332"><span class="linenos">332</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMaxHeight</span> <span class="o">=</span> <span class="n">pointClippingMaxHeight</span>
 </span></pre></div>
 
 
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.use" class="classattr">
+                                <div class="attr variable">
+            <span class="name">use</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.use"></a>
+    
     
 
                             </div>
@@ -4780,6 +4961,39 @@
         
     </div>
     <a class="headerlink" href="#Advanced.Turntable.rampAngle"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.pointClippingRadius" class="classattr">
+                                <div class="attr variable">
+            <span class="name">pointClippingRadius</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.pointClippingRadius"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.pointClippingMinHeight" class="classattr">
+                                <div class="attr variable">
+            <span class="name">pointClippingMinHeight</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.pointClippingMinHeight"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.pointClippingMaxHeight" class="classattr">
+                                <div class="attr variable">
+            <span class="name">pointClippingMaxHeight</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.pointClippingMaxHeight"></a>
     
     
 
@@ -4874,6 +5088,270 @@
         
     </div>
     <a class="headerlink" href="#Advanced.Turntable.RampAngle.max"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="Advanced.Turntable.PointClippingRadius">
+                            <input id="Advanced.Turntable.PointClippingRadius-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Advanced.Turntable.PointClippingRadius</span>:
+
+                <label class="view-source-button" for="Advanced.Turntable.PointClippingRadius-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingRadius"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.Turntable.PointClippingRadius-301"><a href="#Advanced.Turntable.PointClippingRadius-301"><span class="linenos">301</span></a>        <span class="k">class</span> <span class="nc">PointClippingRadius</span><span class="p">:</span>
+</span><span id="Advanced.Turntable.PointClippingRadius-302"><a href="#Advanced.Turntable.PointClippingRadius-302"><span class="linenos">302</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced.Turntable.PointClippingRadius-303"><a href="#Advanced.Turntable.PointClippingRadius-303"><span class="linenos">303</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced.Turntable.PointClippingRadius-304"><a href="#Advanced.Turntable.PointClippingRadius-304"><span class="linenos">304</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced.Turntable.PointClippingRadius-305"><a href="#Advanced.Turntable.PointClippingRadius-305"><span class="linenos">305</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced.Turntable.PointClippingRadius-306"><a href="#Advanced.Turntable.PointClippingRadius-306"><span class="linenos">306</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span></pre></div>
+
+
+    
+
+                            <div id="Advanced.Turntable.PointClippingRadius.__init__" class="classattr">
+                                        <input id="Advanced.Turntable.PointClippingRadius.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Advanced.Turntable.PointClippingRadius</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">value</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">default</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="nb">min</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="nb">max</span><span class="p">:</span> <span class="nb">float</span></span>)</span>
+
+                <label class="view-source-button" for="Advanced.Turntable.PointClippingRadius.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingRadius.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.Turntable.PointClippingRadius.__init__-302"><a href="#Advanced.Turntable.PointClippingRadius.__init__-302"><span class="linenos">302</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced.Turntable.PointClippingRadius.__init__-303"><a href="#Advanced.Turntable.PointClippingRadius.__init__-303"><span class="linenos">303</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced.Turntable.PointClippingRadius.__init__-304"><a href="#Advanced.Turntable.PointClippingRadius.__init__-304"><span class="linenos">304</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced.Turntable.PointClippingRadius.__init__-305"><a href="#Advanced.Turntable.PointClippingRadius.__init__-305"><span class="linenos">305</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced.Turntable.PointClippingRadius.__init__-306"><a href="#Advanced.Turntable.PointClippingRadius.__init__-306"><span class="linenos">306</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingRadius.value" class="classattr">
+                                <div class="attr variable">
+            <span class="name">value</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingRadius.value"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingRadius.default" class="classattr">
+                                <div class="attr variable">
+            <span class="name">default</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingRadius.default"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingRadius.min" class="classattr">
+                                <div class="attr variable">
+            <span class="name">min</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingRadius.min"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingRadius.max" class="classattr">
+                                <div class="attr variable">
+            <span class="name">max</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingRadius.max"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="Advanced.Turntable.PointClippingMinHeight">
+                            <input id="Advanced.Turntable.PointClippingMinHeight-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Advanced.Turntable.PointClippingMinHeight</span>:
+
+                <label class="view-source-button" for="Advanced.Turntable.PointClippingMinHeight-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMinHeight"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.Turntable.PointClippingMinHeight-308"><a href="#Advanced.Turntable.PointClippingMinHeight-308"><span class="linenos">308</span></a>        <span class="k">class</span> <span class="nc">PointClippingMinHeight</span><span class="p">:</span>
+</span><span id="Advanced.Turntable.PointClippingMinHeight-309"><a href="#Advanced.Turntable.PointClippingMinHeight-309"><span class="linenos">309</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced.Turntable.PointClippingMinHeight-310"><a href="#Advanced.Turntable.PointClippingMinHeight-310"><span class="linenos">310</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced.Turntable.PointClippingMinHeight-311"><a href="#Advanced.Turntable.PointClippingMinHeight-311"><span class="linenos">311</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced.Turntable.PointClippingMinHeight-312"><a href="#Advanced.Turntable.PointClippingMinHeight-312"><span class="linenos">312</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced.Turntable.PointClippingMinHeight-313"><a href="#Advanced.Turntable.PointClippingMinHeight-313"><span class="linenos">313</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span></pre></div>
+
+
+    
+
+                            <div id="Advanced.Turntable.PointClippingMinHeight.__init__" class="classattr">
+                                        <input id="Advanced.Turntable.PointClippingMinHeight.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Advanced.Turntable.PointClippingMinHeight</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">value</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">default</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="nb">min</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="nb">max</span><span class="p">:</span> <span class="nb">float</span></span>)</span>
+
+                <label class="view-source-button" for="Advanced.Turntable.PointClippingMinHeight.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMinHeight.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.Turntable.PointClippingMinHeight.__init__-309"><a href="#Advanced.Turntable.PointClippingMinHeight.__init__-309"><span class="linenos">309</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced.Turntable.PointClippingMinHeight.__init__-310"><a href="#Advanced.Turntable.PointClippingMinHeight.__init__-310"><span class="linenos">310</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced.Turntable.PointClippingMinHeight.__init__-311"><a href="#Advanced.Turntable.PointClippingMinHeight.__init__-311"><span class="linenos">311</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced.Turntable.PointClippingMinHeight.__init__-312"><a href="#Advanced.Turntable.PointClippingMinHeight.__init__-312"><span class="linenos">312</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced.Turntable.PointClippingMinHeight.__init__-313"><a href="#Advanced.Turntable.PointClippingMinHeight.__init__-313"><span class="linenos">313</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingMinHeight.value" class="classattr">
+                                <div class="attr variable">
+            <span class="name">value</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMinHeight.value"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingMinHeight.default" class="classattr">
+                                <div class="attr variable">
+            <span class="name">default</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMinHeight.default"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingMinHeight.min" class="classattr">
+                                <div class="attr variable">
+            <span class="name">min</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMinHeight.min"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingMinHeight.max" class="classattr">
+                                <div class="attr variable">
+            <span class="name">max</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMinHeight.max"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="Advanced.Turntable.PointClippingMaxHeight">
+                            <input id="Advanced.Turntable.PointClippingMaxHeight-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Advanced.Turntable.PointClippingMaxHeight</span>:
+
+                <label class="view-source-button" for="Advanced.Turntable.PointClippingMaxHeight-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMaxHeight"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.Turntable.PointClippingMaxHeight-315"><a href="#Advanced.Turntable.PointClippingMaxHeight-315"><span class="linenos">315</span></a>        <span class="k">class</span> <span class="nc">PointClippingMaxHeight</span><span class="p">:</span>
+</span><span id="Advanced.Turntable.PointClippingMaxHeight-316"><a href="#Advanced.Turntable.PointClippingMaxHeight-316"><span class="linenos">316</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced.Turntable.PointClippingMaxHeight-317"><a href="#Advanced.Turntable.PointClippingMaxHeight-317"><span class="linenos">317</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced.Turntable.PointClippingMaxHeight-318"><a href="#Advanced.Turntable.PointClippingMaxHeight-318"><span class="linenos">318</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced.Turntable.PointClippingMaxHeight-319"><a href="#Advanced.Turntable.PointClippingMaxHeight-319"><span class="linenos">319</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced.Turntable.PointClippingMaxHeight-320"><a href="#Advanced.Turntable.PointClippingMaxHeight-320"><span class="linenos">320</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span></pre></div>
+
+
+    
+
+                            <div id="Advanced.Turntable.PointClippingMaxHeight.__init__" class="classattr">
+                                        <input id="Advanced.Turntable.PointClippingMaxHeight.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Advanced.Turntable.PointClippingMaxHeight</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">value</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="n">default</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="nb">min</span><span class="p">:</span> <span class="nb">float</span>, </span><span class="param"><span class="nb">max</span><span class="p">:</span> <span class="nb">float</span></span>)</span>
+
+                <label class="view-source-button" for="Advanced.Turntable.PointClippingMaxHeight.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMaxHeight.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Advanced.Turntable.PointClippingMaxHeight.__init__-316"><a href="#Advanced.Turntable.PointClippingMaxHeight.__init__-316"><span class="linenos">316</span></a>            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="Advanced.Turntable.PointClippingMaxHeight.__init__-317"><a href="#Advanced.Turntable.PointClippingMaxHeight.__init__-317"><span class="linenos">317</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="Advanced.Turntable.PointClippingMaxHeight.__init__-318"><a href="#Advanced.Turntable.PointClippingMaxHeight.__init__-318"><span class="linenos">318</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+</span><span id="Advanced.Turntable.PointClippingMaxHeight.__init__-319"><a href="#Advanced.Turntable.PointClippingMaxHeight.__init__-319"><span class="linenos">319</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Advanced.Turntable.PointClippingMaxHeight.__init__-320"><a href="#Advanced.Turntable.PointClippingMaxHeight.__init__-320"><span class="linenos">320</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingMaxHeight.value" class="classattr">
+                                <div class="attr variable">
+            <span class="name">value</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMaxHeight.value"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingMaxHeight.default" class="classattr">
+                                <div class="attr variable">
+            <span class="name">default</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMaxHeight.default"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingMaxHeight.min" class="classattr">
+                                <div class="attr variable">
+            <span class="name">min</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMaxHeight.min"></a>
+    
+    
+
+                            </div>
+                            <div id="Advanced.Turntable.PointClippingMaxHeight.max" class="classattr">
+                                <div class="attr variable">
+            <span class="name">max</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Advanced.Turntable.PointClippingMaxHeight.max"></a>
     
     
 

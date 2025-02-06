@@ -45,6 +45,18 @@
                         <li>
                                 <a class="variable" href="#Turntable.use">use</a>
                         </li>
+                        <li>
+                                <a class="variable" href="#Turntable.pointClippingRadius">pointClippingRadius</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Turntable.pointClippingMinHeight">pointClippingMinHeight</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Turntable.pointClippingMaxHeight">pointClippingMaxHeight</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Turntable.offsetAngle">offsetAngle</a>
+                        </li>
                 </ul>
 
             </li>
@@ -74,13 +86,21 @@
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="sd">     Turntable settings.</span>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scans</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scans</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pointClippingRadius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pointClippingMinHeight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pointClippingMaxHeight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offsetAngle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>        <span class="c1"># The number of turntable scans.</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scans</span> <span class="o">=</span> <span class="n">scans</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="c1"># Turntable angle sweep in degrees.</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span> <span class="o">=</span> <span class="n">sweep</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>        <span class="c1"># Use the turntable.</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">use</span> <span class="o">=</span> <span class="n">use</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>        <span class="c1"># The radius of the point clipping cylinder.</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingRadius</span> <span class="o">=</span> <span class="n">pointClippingRadius</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>        <span class="c1"># The minimum height of the point clipping cylinder.</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMinHeight</span> <span class="o">=</span> <span class="n">pointClippingMinHeight</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>        <span class="c1"># The maximum height of the point clipping cylinder.</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMaxHeight</span> <span class="o">=</span> <span class="n">pointClippingMaxHeight</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="c1"># The offset Angle of the turntable for starting position</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">offsetAngle</span> <span class="o">=</span> <span class="n">offsetAngle</span>
 </span></pre></div>
 
 
@@ -101,13 +121,21 @@
 </span><span id="Turntable-4"><a href="#Turntable-4"><span class="linenos"> 4</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="Turntable-5"><a href="#Turntable-5"><span class="linenos"> 5</span></a><span class="sd">     Turntable settings.</span>
 </span><span id="Turntable-6"><a href="#Turntable-6"><span class="linenos"> 6</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Turntable-7"><a href="#Turntable-7"><span class="linenos"> 7</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scans</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Turntable-7"><a href="#Turntable-7"><span class="linenos"> 7</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scans</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pointClippingRadius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pointClippingMinHeight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pointClippingMaxHeight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offsetAngle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 </span><span id="Turntable-8"><a href="#Turntable-8"><span class="linenos"> 8</span></a>        <span class="c1"># The number of turntable scans.</span>
 </span><span id="Turntable-9"><a href="#Turntable-9"><span class="linenos"> 9</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scans</span> <span class="o">=</span> <span class="n">scans</span>
 </span><span id="Turntable-10"><a href="#Turntable-10"><span class="linenos">10</span></a>        <span class="c1"># Turntable angle sweep in degrees.</span>
 </span><span id="Turntable-11"><a href="#Turntable-11"><span class="linenos">11</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span> <span class="o">=</span> <span class="n">sweep</span>
 </span><span id="Turntable-12"><a href="#Turntable-12"><span class="linenos">12</span></a>        <span class="c1"># Use the turntable.</span>
 </span><span id="Turntable-13"><a href="#Turntable-13"><span class="linenos">13</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">use</span> <span class="o">=</span> <span class="n">use</span>
+</span><span id="Turntable-14"><a href="#Turntable-14"><span class="linenos">14</span></a>        <span class="c1"># The radius of the point clipping cylinder.</span>
+</span><span id="Turntable-15"><a href="#Turntable-15"><span class="linenos">15</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingRadius</span> <span class="o">=</span> <span class="n">pointClippingRadius</span>
+</span><span id="Turntable-16"><a href="#Turntable-16"><span class="linenos">16</span></a>        <span class="c1"># The minimum height of the point clipping cylinder.</span>
+</span><span id="Turntable-17"><a href="#Turntable-17"><span class="linenos">17</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMinHeight</span> <span class="o">=</span> <span class="n">pointClippingMinHeight</span>
+</span><span id="Turntable-18"><a href="#Turntable-18"><span class="linenos">18</span></a>        <span class="c1"># The maximum height of the point clipping cylinder.</span>
+</span><span id="Turntable-19"><a href="#Turntable-19"><span class="linenos">19</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMaxHeight</span> <span class="o">=</span> <span class="n">pointClippingMaxHeight</span>
+</span><span id="Turntable-20"><a href="#Turntable-20"><span class="linenos">20</span></a>        <span class="c1"># The offset Angle of the turntable for starting position</span>
+</span><span id="Turntable-21"><a href="#Turntable-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">offsetAngle</span> <span class="o">=</span> <span class="n">offsetAngle</span>
 </span></pre></div>
 
 
@@ -119,19 +147,27 @@
                                         <input id="Turntable.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">Turntable</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">scans</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">sweep</span><span class="p">:</span> <span class="nb">int</span>, </span><span class="param"><span class="n">use</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+        <span class="name">Turntable</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">scans</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">sweep</span><span class="p">:</span> <span class="nb">int</span>,</span><span class="param">	<span class="n">use</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">pointClippingRadius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">pointClippingMinHeight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">pointClippingMaxHeight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">offsetAngle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
                 <label class="view-source-button" for="Turntable.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Turntable.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Turntable.__init__-7"><a href="#Turntable.__init__-7"><span class="linenos"> 7</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scans</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Turntable.__init__-7"><a href="#Turntable.__init__-7"><span class="linenos"> 7</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scans</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sweep</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">use</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pointClippingRadius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pointClippingMinHeight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pointClippingMaxHeight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offsetAngle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 </span><span id="Turntable.__init__-8"><a href="#Turntable.__init__-8"><span class="linenos"> 8</span></a>        <span class="c1"># The number of turntable scans.</span>
 </span><span id="Turntable.__init__-9"><a href="#Turntable.__init__-9"><span class="linenos"> 9</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scans</span> <span class="o">=</span> <span class="n">scans</span>
 </span><span id="Turntable.__init__-10"><a href="#Turntable.__init__-10"><span class="linenos">10</span></a>        <span class="c1"># Turntable angle sweep in degrees.</span>
 </span><span id="Turntable.__init__-11"><a href="#Turntable.__init__-11"><span class="linenos">11</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span> <span class="o">=</span> <span class="n">sweep</span>
 </span><span id="Turntable.__init__-12"><a href="#Turntable.__init__-12"><span class="linenos">12</span></a>        <span class="c1"># Use the turntable.</span>
 </span><span id="Turntable.__init__-13"><a href="#Turntable.__init__-13"><span class="linenos">13</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">use</span> <span class="o">=</span> <span class="n">use</span>
+</span><span id="Turntable.__init__-14"><a href="#Turntable.__init__-14"><span class="linenos">14</span></a>        <span class="c1"># The radius of the point clipping cylinder.</span>
+</span><span id="Turntable.__init__-15"><a href="#Turntable.__init__-15"><span class="linenos">15</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingRadius</span> <span class="o">=</span> <span class="n">pointClippingRadius</span>
+</span><span id="Turntable.__init__-16"><a href="#Turntable.__init__-16"><span class="linenos">16</span></a>        <span class="c1"># The minimum height of the point clipping cylinder.</span>
+</span><span id="Turntable.__init__-17"><a href="#Turntable.__init__-17"><span class="linenos">17</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMinHeight</span> <span class="o">=</span> <span class="n">pointClippingMinHeight</span>
+</span><span id="Turntable.__init__-18"><a href="#Turntable.__init__-18"><span class="linenos">18</span></a>        <span class="c1"># The maximum height of the point clipping cylinder.</span>
+</span><span id="Turntable.__init__-19"><a href="#Turntable.__init__-19"><span class="linenos">19</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pointClippingMaxHeight</span> <span class="o">=</span> <span class="n">pointClippingMaxHeight</span>
+</span><span id="Turntable.__init__-20"><a href="#Turntable.__init__-20"><span class="linenos">20</span></a>        <span class="c1"># The offset Angle of the turntable for starting position</span>
+</span><span id="Turntable.__init__-21"><a href="#Turntable.__init__-21"><span class="linenos">21</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">offsetAngle</span> <span class="o">=</span> <span class="n">offsetAngle</span>
 </span></pre></div>
 
 
@@ -167,6 +203,50 @@
         
     </div>
     <a class="headerlink" href="#Turntable.use"></a>
+    
+    
+
+                            </div>
+                            <div id="Turntable.pointClippingRadius" class="classattr">
+                                <div class="attr variable">
+            <span class="name">pointClippingRadius</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Turntable.pointClippingRadius"></a>
+    
+    
+
+                            </div>
+                            <div id="Turntable.pointClippingMinHeight" class="classattr">
+                                <div class="attr variable">
+            <span class="name">pointClippingMinHeight</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Turntable.pointClippingMinHeight"></a>
+    
+    
+
+                            </div>
+                            <div id="Turntable.pointClippingMaxHeight" class="classattr">
+                                <div class="attr variable">
+            <span class="name">pointClippingMaxHeight</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Turntable.pointClippingMaxHeight"></a>
+    
+    
+
+                            </div>
+                            <div id="Turntable.offsetAngle" class="classattr">
+                                <div class="attr variable">
+            <span class="name">offsetAngle</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Turntable.offsetAngle"></a>
     
     
 

@@ -64,6 +64,27 @@
 
                         </li>
                         <li>
+                                <a class="class" href="#Export.Color">Export.Color</a>
+                                        <ul class="memberlist">
+                                    <li>
+                                            <a class="function" href="#Export.Color.__init__">Color</a>
+                                    </li>
+                                    <li>
+                                            <a class="variable" href="#Export.Color.scale">scale</a>
+                                    </li>
+                                    <li>
+                                            <a class="variable" href="#Export.Color.offset">offset</a>
+                                    </li>
+                                    <li>
+                                            <a class="variable" href="#Export.Color.min">min</a>
+                                    </li>
+                                    <li>
+                                            <a class="variable" href="#Export.Color.max">max</a>
+                                    </li>
+                            </ul>
+
+                        </li>
+                        <li>
                                 <a class="variable" href="#Export.selection">selection</a>
                         </li>
                         <li>
@@ -77,6 +98,9 @@
                         </li>
                         <li>
                                 <a class="variable" href="#Export.scale">scale</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Export.color">color</a>
                         </li>
                 </ul>
 
@@ -124,17 +148,32 @@
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="n">stl</span> <span class="o">=</span> <span class="s2">&quot;stl&quot;</span>  <span class="c1"># Stereolithography format.</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>        <span class="n">xyz</span> <span class="o">=</span> <span class="s2">&quot;xyz&quot;</span>  <span class="c1"># Chemical format.</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n">MF_V3_Settings_ScanSelection_ScanSelection</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">texture</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">merge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="s1">&#39;Format&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>        <span class="c1"># The scan selection.</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">selection</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>        <span class="c1"># Export textures.</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="n">texture</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>        <span class="c1"># Merge the scans into a single file.</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>        <span class="c1"># The export format.</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>        <span class="c1"># Scale factor of the exported geometry.</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="k">class</span> <span class="nc">Color</span><span class="p">:</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Settings for mapping the vertex quality to a vertex color.</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">        The specific meaning of &#39;quality&#39; depends on the broader context.</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">        In the case heat maps, the quality is the point-to-mesh distance of the vertex.&quot;&quot;&quot;</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>            <span class="c1"># The scale in `normalizedQuality = quality * scale + offset` that normalizes the quality value to the range [0, 1] which maps to the color range [blue, red] .  `offset` must also be specified.</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>            <span class="c1"># The offset in `normalizedQuality = quality * scale + offset` that normalizes the quality value to the range [0, 1] which maps to the color range [blue, red] .  `scale` must also be specified.</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>            <span class="c1"># The quality value that is mapped to the minimum color (blue).  `max` must also be specified.</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>            <span class="c1"># The quality value that is mapped to the maximum color (red).   `min` must also be specified.</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n">MF_V3_Settings_ScanSelection_ScanSelection</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">texture</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">merge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="s1">&#39;Format&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="s1">&#39;Color&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>        <span class="c1"># The scan selection.</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">selection</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>        <span class="c1"># Export textures.</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="n">texture</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>        <span class="c1"># Merge the scans into a single file.</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>        <span class="c1"># The export format.</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>        <span class="c1"># Scale factor of the exported geometry.</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
 </span></pre></div>
 
 
@@ -168,17 +207,32 @@
 </span><span id="Export-21"><a href="#Export-21"><span class="linenos">21</span></a>        <span class="n">stl</span> <span class="o">=</span> <span class="s2">&quot;stl&quot;</span>  <span class="c1"># Stereolithography format.</span>
 </span><span id="Export-22"><a href="#Export-22"><span class="linenos">22</span></a>        <span class="n">xyz</span> <span class="o">=</span> <span class="s2">&quot;xyz&quot;</span>  <span class="c1"># Chemical format.</span>
 </span><span id="Export-23"><a href="#Export-23"><span class="linenos">23</span></a>
-</span><span id="Export-24"><a href="#Export-24"><span class="linenos">24</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n">MF_V3_Settings_ScanSelection_ScanSelection</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">texture</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">merge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="s1">&#39;Format&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Export-25"><a href="#Export-25"><span class="linenos">25</span></a>        <span class="c1"># The scan selection.</span>
-</span><span id="Export-26"><a href="#Export-26"><span class="linenos">26</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">selection</span>
-</span><span id="Export-27"><a href="#Export-27"><span class="linenos">27</span></a>        <span class="c1"># Export textures.</span>
-</span><span id="Export-28"><a href="#Export-28"><span class="linenos">28</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="n">texture</span>
-</span><span id="Export-29"><a href="#Export-29"><span class="linenos">29</span></a>        <span class="c1"># Merge the scans into a single file.</span>
-</span><span id="Export-30"><a href="#Export-30"><span class="linenos">30</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span>
-</span><span id="Export-31"><a href="#Export-31"><span class="linenos">31</span></a>        <span class="c1"># The export format.</span>
-</span><span id="Export-32"><a href="#Export-32"><span class="linenos">32</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
-</span><span id="Export-33"><a href="#Export-33"><span class="linenos">33</span></a>        <span class="c1"># Scale factor of the exported geometry.</span>
-</span><span id="Export-34"><a href="#Export-34"><span class="linenos">34</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+</span><span id="Export-24"><a href="#Export-24"><span class="linenos">24</span></a>    <span class="k">class</span> <span class="nc">Color</span><span class="p">:</span>
+</span><span id="Export-25"><a href="#Export-25"><span class="linenos">25</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Settings for mapping the vertex quality to a vertex color.</span>
+</span><span id="Export-26"><a href="#Export-26"><span class="linenos">26</span></a><span class="sd">        The specific meaning of &#39;quality&#39; depends on the broader context.</span>
+</span><span id="Export-27"><a href="#Export-27"><span class="linenos">27</span></a><span class="sd">        In the case heat maps, the quality is the point-to-mesh distance of the vertex.&quot;&quot;&quot;</span>
+</span><span id="Export-28"><a href="#Export-28"><span class="linenos">28</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Export-29"><a href="#Export-29"><span class="linenos">29</span></a>            <span class="c1"># The scale in `normalizedQuality = quality * scale + offset` that normalizes the quality value to the range [0, 1] which maps to the color range [blue, red] .  `offset` must also be specified.</span>
+</span><span id="Export-30"><a href="#Export-30"><span class="linenos">30</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+</span><span id="Export-31"><a href="#Export-31"><span class="linenos">31</span></a>            <span class="c1"># The offset in `normalizedQuality = quality * scale + offset` that normalizes the quality value to the range [0, 1] which maps to the color range [blue, red] .  `scale` must also be specified.</span>
+</span><span id="Export-32"><a href="#Export-32"><span class="linenos">32</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+</span><span id="Export-33"><a href="#Export-33"><span class="linenos">33</span></a>            <span class="c1"># The quality value that is mapped to the minimum color (blue).  `max` must also be specified.</span>
+</span><span id="Export-34"><a href="#Export-34"><span class="linenos">34</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Export-35"><a href="#Export-35"><span class="linenos">35</span></a>            <span class="c1"># The quality value that is mapped to the maximum color (red).   `min` must also be specified.</span>
+</span><span id="Export-36"><a href="#Export-36"><span class="linenos">36</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span><span id="Export-37"><a href="#Export-37"><span class="linenos">37</span></a>
+</span><span id="Export-38"><a href="#Export-38"><span class="linenos">38</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n">MF_V3_Settings_ScanSelection_ScanSelection</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">texture</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">merge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="s1">&#39;Format&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="s1">&#39;Color&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Export-39"><a href="#Export-39"><span class="linenos">39</span></a>        <span class="c1"># The scan selection.</span>
+</span><span id="Export-40"><a href="#Export-40"><span class="linenos">40</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">selection</span>
+</span><span id="Export-41"><a href="#Export-41"><span class="linenos">41</span></a>        <span class="c1"># Export textures.</span>
+</span><span id="Export-42"><a href="#Export-42"><span class="linenos">42</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="n">texture</span>
+</span><span id="Export-43"><a href="#Export-43"><span class="linenos">43</span></a>        <span class="c1"># Merge the scans into a single file.</span>
+</span><span id="Export-44"><a href="#Export-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span>
+</span><span id="Export-45"><a href="#Export-45"><span class="linenos">45</span></a>        <span class="c1"># The export format.</span>
+</span><span id="Export-46"><a href="#Export-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
+</span><span id="Export-47"><a href="#Export-47"><span class="linenos">47</span></a>        <span class="c1"># Scale factor of the exported geometry.</span>
+</span><span id="Export-48"><a href="#Export-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+</span><span id="Export-49"><a href="#Export-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
 </span></pre></div>
 
 
@@ -190,23 +244,24 @@
                                         <input id="Export.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">Export</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">selection</span><span class="p">:</span> <span class="n">MF</span><span class="o">.</span><span class="n">V3</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">ScanSelection</span><span class="o">.</span><span class="n">ScanSelection</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">texture</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">merge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="nb">format</span><span class="p">:</span> <span class="n"><a href="#Export.Format">Export.Format</a></span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+        <span class="name">Export</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">selection</span><span class="p">:</span> <span class="n">MF</span><span class="o">.</span><span class="n">V3</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">ScanSelection</span><span class="o">.</span><span class="n">ScanSelection</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">texture</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">merge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="nb">format</span><span class="p">:</span> <span class="n"><a href="#Export.Format">Export.Format</a></span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">color</span><span class="p">:</span> <span class="n"><a href="#Export.Color">Export.Color</a></span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
                 <label class="view-source-button" for="Export.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#Export.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Export.__init__-24"><a href="#Export.__init__-24"><span class="linenos">24</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n">MF_V3_Settings_ScanSelection_ScanSelection</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">texture</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">merge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="s1">&#39;Format&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="Export.__init__-25"><a href="#Export.__init__-25"><span class="linenos">25</span></a>        <span class="c1"># The scan selection.</span>
-</span><span id="Export.__init__-26"><a href="#Export.__init__-26"><span class="linenos">26</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">selection</span>
-</span><span id="Export.__init__-27"><a href="#Export.__init__-27"><span class="linenos">27</span></a>        <span class="c1"># Export textures.</span>
-</span><span id="Export.__init__-28"><a href="#Export.__init__-28"><span class="linenos">28</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="n">texture</span>
-</span><span id="Export.__init__-29"><a href="#Export.__init__-29"><span class="linenos">29</span></a>        <span class="c1"># Merge the scans into a single file.</span>
-</span><span id="Export.__init__-30"><a href="#Export.__init__-30"><span class="linenos">30</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span>
-</span><span id="Export.__init__-31"><a href="#Export.__init__-31"><span class="linenos">31</span></a>        <span class="c1"># The export format.</span>
-</span><span id="Export.__init__-32"><a href="#Export.__init__-32"><span class="linenos">32</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
-</span><span id="Export.__init__-33"><a href="#Export.__init__-33"><span class="linenos">33</span></a>        <span class="c1"># Scale factor of the exported geometry.</span>
-</span><span id="Export.__init__-34"><a href="#Export.__init__-34"><span class="linenos">34</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Export.__init__-38"><a href="#Export.__init__-38"><span class="linenos">38</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="n">MF_V3_Settings_ScanSelection_ScanSelection</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">texture</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">merge</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="s1">&#39;Format&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="s1">&#39;Color&#39;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Export.__init__-39"><a href="#Export.__init__-39"><span class="linenos">39</span></a>        <span class="c1"># The scan selection.</span>
+</span><span id="Export.__init__-40"><a href="#Export.__init__-40"><span class="linenos">40</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">selection</span>
+</span><span id="Export.__init__-41"><a href="#Export.__init__-41"><span class="linenos">41</span></a>        <span class="c1"># Export textures.</span>
+</span><span id="Export.__init__-42"><a href="#Export.__init__-42"><span class="linenos">42</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">texture</span> <span class="o">=</span> <span class="n">texture</span>
+</span><span id="Export.__init__-43"><a href="#Export.__init__-43"><span class="linenos">43</span></a>        <span class="c1"># Merge the scans into a single file.</span>
+</span><span id="Export.__init__-44"><a href="#Export.__init__-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span>
+</span><span id="Export.__init__-45"><a href="#Export.__init__-45"><span class="linenos">45</span></a>        <span class="c1"># The export format.</span>
+</span><span id="Export.__init__-46"><a href="#Export.__init__-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
+</span><span id="Export.__init__-47"><a href="#Export.__init__-47"><span class="linenos">47</span></a>        <span class="c1"># Scale factor of the exported geometry.</span>
+</span><span id="Export.__init__-48"><a href="#Export.__init__-48"><span class="linenos">48</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+</span><span id="Export.__init__-49"><a href="#Export.__init__-49"><span class="linenos">49</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
 </span></pre></div>
 
 
@@ -264,6 +319,17 @@
         
     </div>
     <a class="headerlink" href="#Export.scale"></a>
+    
+    
+
+                            </div>
+                            <div id="Export.color" class="classattr">
+                                <div class="attr variable">
+            <span class="name">color</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Export.color"></a>
     
     
 
@@ -379,6 +445,109 @@
         
     </div>
     <a class="headerlink" href="#Export.Format.xyz"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="Export.Color">
+                            <input id="Export.Color-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Export.Color</span>:
+
+                <label class="view-source-button" for="Export.Color-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Export.Color"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Export.Color-24"><a href="#Export.Color-24"><span class="linenos">24</span></a>    <span class="k">class</span> <span class="nc">Color</span><span class="p">:</span>
+</span><span id="Export.Color-25"><a href="#Export.Color-25"><span class="linenos">25</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Settings for mapping the vertex quality to a vertex color.</span>
+</span><span id="Export.Color-26"><a href="#Export.Color-26"><span class="linenos">26</span></a><span class="sd">        The specific meaning of &#39;quality&#39; depends on the broader context.</span>
+</span><span id="Export.Color-27"><a href="#Export.Color-27"><span class="linenos">27</span></a><span class="sd">        In the case heat maps, the quality is the point-to-mesh distance of the vertex.&quot;&quot;&quot;</span>
+</span><span id="Export.Color-28"><a href="#Export.Color-28"><span class="linenos">28</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Export.Color-29"><a href="#Export.Color-29"><span class="linenos">29</span></a>            <span class="c1"># The scale in `normalizedQuality = quality * scale + offset` that normalizes the quality value to the range [0, 1] which maps to the color range [blue, red] .  `offset` must also be specified.</span>
+</span><span id="Export.Color-30"><a href="#Export.Color-30"><span class="linenos">30</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+</span><span id="Export.Color-31"><a href="#Export.Color-31"><span class="linenos">31</span></a>            <span class="c1"># The offset in `normalizedQuality = quality * scale + offset` that normalizes the quality value to the range [0, 1] which maps to the color range [blue, red] .  `scale` must also be specified.</span>
+</span><span id="Export.Color-32"><a href="#Export.Color-32"><span class="linenos">32</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+</span><span id="Export.Color-33"><a href="#Export.Color-33"><span class="linenos">33</span></a>            <span class="c1"># The quality value that is mapped to the minimum color (blue).  `max` must also be specified.</span>
+</span><span id="Export.Color-34"><a href="#Export.Color-34"><span class="linenos">34</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Export.Color-35"><a href="#Export.Color-35"><span class="linenos">35</span></a>            <span class="c1"># The quality value that is mapped to the maximum color (red).   `min` must also be specified.</span>
+</span><span id="Export.Color-36"><a href="#Export.Color-36"><span class="linenos">36</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Settings for mapping the vertex quality to a vertex color.
+The specific meaning of 'quality' depends on the broader context.
+In the case heat maps, the quality is the point-to-mesh distance of the vertex.</p>
+</div>
+
+
+                            <div id="Export.Color.__init__" class="classattr">
+                                        <input id="Export.Color.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Export.Color</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="nb">min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="nb">max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+
+                <label class="view-source-button" for="Export.Color.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Export.Color.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Export.Color.__init__-28"><a href="#Export.Color.__init__-28"><span class="linenos">28</span></a>        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="Export.Color.__init__-29"><a href="#Export.Color.__init__-29"><span class="linenos">29</span></a>            <span class="c1"># The scale in `normalizedQuality = quality * scale + offset` that normalizes the quality value to the range [0, 1] which maps to the color range [blue, red] .  `offset` must also be specified.</span>
+</span><span id="Export.Color.__init__-30"><a href="#Export.Color.__init__-30"><span class="linenos">30</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+</span><span id="Export.Color.__init__-31"><a href="#Export.Color.__init__-31"><span class="linenos">31</span></a>            <span class="c1"># The offset in `normalizedQuality = quality * scale + offset` that normalizes the quality value to the range [0, 1] which maps to the color range [blue, red] .  `scale` must also be specified.</span>
+</span><span id="Export.Color.__init__-32"><a href="#Export.Color.__init__-32"><span class="linenos">32</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+</span><span id="Export.Color.__init__-33"><a href="#Export.Color.__init__-33"><span class="linenos">33</span></a>            <span class="c1"># The quality value that is mapped to the minimum color (blue).  `max` must also be specified.</span>
+</span><span id="Export.Color.__init__-34"><a href="#Export.Color.__init__-34"><span class="linenos">34</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+</span><span id="Export.Color.__init__-35"><a href="#Export.Color.__init__-35"><span class="linenos">35</span></a>            <span class="c1"># The quality value that is mapped to the maximum color (red).   `min` must also be specified.</span>
+</span><span id="Export.Color.__init__-36"><a href="#Export.Color.__init__-36"><span class="linenos">36</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Export.Color.scale" class="classattr">
+                                <div class="attr variable">
+            <span class="name">scale</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Export.Color.scale"></a>
+    
+    
+
+                            </div>
+                            <div id="Export.Color.offset" class="classattr">
+                                <div class="attr variable">
+            <span class="name">offset</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Export.Color.offset"></a>
+    
+    
+
+                            </div>
+                            <div id="Export.Color.min" class="classattr">
+                                <div class="attr variable">
+            <span class="name">min</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Export.Color.min"></a>
+    
+    
+
+                            </div>
+                            <div id="Export.Color.max" class="classattr">
+                                <div class="attr variable">
+            <span class="name">max</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Export.Color.max"></a>
     
     
 
