@@ -83,27 +83,27 @@ def main():
         scanner = Scanner(OnTask=OnTask, OnMessage=None, OnBuffer=OnBuffer)
         scanner.Connect("ws://matterandform.local:8081")
 
-        # # Start the video
-        # scanner.start_video()
+        # Start the video
+        scanner.start_video()
 
-        # # Detect the calibration card
-        # print('******* Detecting the calibration card')
-        # scanner.detect_calibration_card(3) # left camera only, 2 = Right camera only, 3 = Both cameras
+        # Detect the calibration card
+        print('******* Detecting the calibration card')
+        scanner.detect_calibration_card(3) # left camera only, 2 = Right camera only, 3 = Both cameras
 
-        # # Wait for the calibration card to be detected
-        # print('Waiting for the calibration card to be detected')
-        # timeout = time.time() + 10  # 10 seconds from now
-        # while cornersTotal == 0 and time.time() < timeout:
-        #     time.sleep(0.1)
-        # if cornersTotal == 0:
-        #     print("Timeout: Calibration card not detected within 10 seconds")
+        # Wait for the calibration card to be detected
+        print('Waiting for the calibration card to be detected')
+        timeout = time.time() + 10  # 10 seconds from now
+        while cornersTotal == 0 and time.time() < timeout:
+            time.sleep(0.1)
+        if cornersTotal == 0:
+            print("Timeout: Calibration card not detected within 10 seconds")
 
-        # # Detect the calibration card for 5sec
-        # time.sleep(5)
+        # Detect the calibration card for 5sec
+        time.sleep(5)
 
-        # # Stop the video
-        # scanner.detect_calibration_card(0) # Stop the detection
-        # scanner.stop_video()
+        # Stop the video
+        scanner.detect_calibration_card(0) # Stop the detection
+        scanner.stop_video()
 
         # Calibration the turntable
         print('\n******* Calibrating the turntable')
