@@ -16,6 +16,7 @@ class ScanData:
         Normal = "Normal"  # Vertex normal.
         Color = "Color"  # Vertex color.
         UV = "UV"  # Vertex UVs
+        Quality = "Quality"  # Vertex quality.
         Triangle = "Triangle"  # Triangle index.
         Texture = "Texture"  # Texture.
         All = "All"  # All buffer types.

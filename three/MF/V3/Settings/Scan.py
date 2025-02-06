@@ -163,7 +163,7 @@ class Scan:
             # Outlier removal settings.
             self.outlierRemoval = outlierRemoval
 
-    def __init__(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: 'Processing' = None):
+    def __init__(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: 'Processing' = None, alignWithScanner: bool = None, centerAtOrigin: bool = None):
         # Camera settings.
         self.camera = camera
         # Projector settings.
@@ -174,5 +174,9 @@ class Scan:
         self.capture = capture
         # Processing settings.
         self.processing = processing
+        # Align the scan with the scanner.
+        self.alignWithScanner = alignWithScanner
+        # Center the scan at the origin.
+        self.centerAtOrigin = centerAtOrigin
 
 

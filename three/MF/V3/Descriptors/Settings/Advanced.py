@@ -297,9 +297,38 @@ class Advanced:
                 self.min = min
                 self.max = max
 
-        def __init__(self, rampAngle: 'RampAngle'):
+        class PointClippingRadius:
+            def __init__(self, value: float, default: float, min: float, max: float):
+                self.value = value
+                self.default = default
+                self.min = min
+                self.max = max
+
+        class PointClippingMinHeight:
+            def __init__(self, value: float, default: float, min: float, max: float):
+                self.value = value
+                self.default = default
+                self.min = min
+                self.max = max
+
+        class PointClippingMaxHeight:
+            def __init__(self, value: float, default: float, min: float, max: float):
+                self.value = value
+                self.default = default
+                self.min = min
+                self.max = max
+
+        def __init__(self, use: 'Advanced.Use', rampAngle: 'RampAngle', pointClippingRadius: 'PointClippingRadius', pointClippingMinHeight: 'PointClippingMinHeight', pointClippingMaxHeight: 'PointClippingMaxHeight'):
+            # Use the advanced turntable settings.
+            self.use = use
             # The angle in degrees to slow down the turntable at the end of a rotation.
             self.rampAngle = rampAngle
+            # The radius of the point clipping cylinder.
+            self.pointClippingRadius = pointClippingRadius
+            # The minimum height of the point clipping cylinder.
+            self.pointClippingMinHeight = pointClippingMinHeight
+            # The maximum height of the point clipping cylinder.
+            self.pointClippingMaxHeight = pointClippingMaxHeight
 
     def __init__(self, capture: 'Capture', sampling: 'Sampling', edgeDetection: 'EdgeDetection', phaseFilter: 'PhaseFilter', adaptiveSampling: 'AdaptiveSampling', normalEstimation: 'NormalEstimation', outlierRemoval: 'OutlierRemoval', remesh: 'Remesh', camera: 'Camera', turntable: 'Turntable'):
         # Capture settings descriptor.

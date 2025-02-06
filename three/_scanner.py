@@ -217,11 +217,11 @@ class Scanner:
                     # Extract the first (and only) item from the task.Progress dictionary
                     # TODO Duct tape fix due to schema weirdness for progress
                     key, process = next(iter(task.Progress.items()))
-                    task.Progress = Task.Progress(
-                        current=process["current"],
-                        step=process["step"],
-                        total=process["total"]
-                    )
+                    task.Progress = type('Progress', (object,), {
+                        'current': process["current"],
+                        'step': process["step"],
+                        'total': process["total"]
+                    })()
 
                 # Find the original task for reference
                 inputTask = self.__FindTaskWithIndex(task.Index)

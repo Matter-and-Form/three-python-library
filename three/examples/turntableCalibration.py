@@ -32,7 +32,7 @@ def main():
                 done = True
             elif task.Type == "DetectCalibrationCard":
                 if task.State == "Completed":
-                    print('Calibration Card Detected')
+                    print('Calibration Card Detection Started')
                 elif task.State == "Failed":
                     print('Calibration Card Detection Failed:', task.Error)
                 done = True
@@ -51,15 +51,24 @@ def main():
                 if cornersTotal == 0:
                     cardWidth = calibrationCard.size[0]
                     cardHeight = calibrationCard.size[1]
-                    cornersTotal = (cardWidth - 1) * (cardHeight - 1)
+                    if cardWidth == 0 or cardHeight == 0:
+                        return;
+                    cornersTotal = int((cardWidth - 1) * (cardHeight - 1))
                 
-                detectedCorners = int(len(calibrationCard.corners) / 2)
-                # Camera 0
-                if bufferObject.Index == 0:
-                    cornersDetected_0 = detectedCorners
-                # Camera 1
+                if calibrationCard.corners is not None:
+                    detectedCorners = calibrationCard.corners
+                    detectedCorners = int(len(detectedCorners) / 2)
+                    # Camera 0
+                    if bufferObject.Index == 0:
+                        cornersDetected_0 = detectedCorners
+                    # Camera 1
+                    else:
+                        cornersDetected_1 = detectedCorners
                 else:
-                    cornersDetected_1 = detectedCorners              
+                    if bufferObject.Index == 0:
+                        cornersDetected_0 = 0
+                    else:
+                        cornersDetected_1 = 0
             
             # No calibration card in the descriptor
             else:
@@ -82,8 +91,12 @@ def main():
         scanner.detect_calibration_card(3) # left camera only, 2 = Right camera only, 3 = Both cameras
 
         # Wait for the calibration card to be detected
-        while cornersTotal == 0:
+        print('Waiting for the calibration card to be detected')
+        timeout = time.time() + 10  # 10 seconds from now
+        while cornersTotal == 0 and time.time() < timeout:
             time.sleep(0.1)
+        if cornersTotal == 0:
+            print("Timeout: Calibration card not detected within 10 seconds")
 
         # Detect the calibration card for 5sec
         time.sleep(5)

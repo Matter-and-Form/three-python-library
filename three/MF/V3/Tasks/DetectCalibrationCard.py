@@ -3,7 +3,8 @@ from MF.V3.Task import TaskState as MF_V3_Task_TaskState
 
 class DetectCalibrationCard:
     """*
-    Detect the calibration card on one or both cameras.
+    Turns on the detection the calibration card on one or both cameras.
+    Use the Video Frame Descriptor to get the results of the detection.
 
     > Request example:
 
@@ -41,7 +42,7 @@ class DetectCalibrationCard:
             # "DetectCalibrationCard"
             self.Type = Type
             """
-            Flag specifying on which camera(s) to detect the calibration card.
+            Flag specifying on which camera(s) to start the detection the calibration card.
             [0: neither camera (disable), 1: left camera, 2: right camera, 3: both cameras]
             """
             self.Input = Input
@@ -57,7 +58,7 @@ class DetectCalibrationCard:
             # "DetectCalibrationCard"
             self.Type = Type
             """
-            Flag sent in the request specifying on which camera(s) to detect the calibration card.
+            Flag sent in the request specifying on which camera(s) to start the detection the calibration card.
             [0: neither camera (disable), 1: left camera, 2: right camera, 3: both cameras]
             """
             self.Input = Input

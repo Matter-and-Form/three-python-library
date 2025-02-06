@@ -46,6 +46,15 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true
+        },
+        {
+            "name": "Python: Build Proto Script",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/build_proto.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true
         }
     ]
 }
