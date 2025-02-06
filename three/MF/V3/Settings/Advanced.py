@@ -189,9 +189,17 @@ class Advanced:
         """
          Turntable settings.
         """
-        def __init__(self, rampAngle: int = None):
+        def __init__(self, rampAngle: int = None, pointClippingRadius: float = None, pointClippingMinHeight: float = None, pointClippingMaxHeight: float = None, use: bool = None):
             # The angle in degrees to slow down the turntable at the end of a rotation.
             self.rampAngle = rampAngle
+            # The radius of the point clipping cylinder.
+            self.pointClippingRadius = pointClippingRadius
+            # The minimum height of the point clipping cylinder.
+            self.pointClippingMinHeight = pointClippingMinHeight
+            # The maximum height of the point clipping cylinder.
+            self.pointClippingMaxHeight = pointClippingMaxHeight
+            # Use the turntable settings.
+            self.use = use
 
     def __init__(self, capture: 'Capture' = None, sampling: 'Sampling' = None, edgeDetection: 'EdgeDetection' = None, phaseFilter: 'PhaseFilter' = None, adaptiveSampling: 'AdaptiveSampling' = None, normalEstimation: 'NormalEstimation' = None, outlierRemoval: 'OutlierRemoval' = None, remesh: 'Remesh' = None, camera: 'Camera' = None, turntable: 'Turntable' = None):
         # Capture settings.

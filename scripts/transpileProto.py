@@ -29,6 +29,10 @@ type_mapping = {
     "google.protobuf.Any": "_any_pb2"
 }
 
+methods_rename = {
+    "import" : "import_file"
+}
+
 python_types = [
     "int", 
     "float", 
@@ -512,7 +516,9 @@ def generate_service_code( current_node:TreeNode, tree:Tree) -> str:
             if c.isupper() and i != 0:
                method_name += "_"
             method_name += c.lower()
-       
+        # Replace method_name if it matches any key in defenitions_rename
+        method_name = methods_rename.get(method_name, method_name)
+
         # loop over all the properties from the request node to get the input node
         
         method_properties = []

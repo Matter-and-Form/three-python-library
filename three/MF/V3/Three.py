@@ -6,9 +6,12 @@ from MF.V3.Settings.BoundingBox import BoundingBox as MF_V3_Settings_BoundingBox
 from MF.V3.Settings.Camera import Camera as MF_V3_Settings_Camera_Camera
 from MF.V3.Settings.Capture import Capture as MF_V3_Settings_Capture_Capture
 from MF.V3.Settings.CaptureImage import CaptureImage as MF_V3_Settings_CaptureImage_CaptureImage
+from MF.V3.Settings.CopyGroups import CopyGroups as MF_V3_Settings_CopyGroups_CopyGroups
 from MF.V3.Settings.Export import Export as MF_V3_Settings_Export_Export
 from MF.V3.Settings.Group import Group as MF_V3_Settings_Group_Group
+from MF.V3.Settings.HeatMap import HeatMap as MF_V3_Settings_HeatMap_HeatMap
 from MF.V3.Settings.I18n import I18n as MF_V3_Settings_I18n_I18n
+from MF.V3.Settings.Import import Import as MF_V3_Settings_Import_Import
 from MF.V3.Settings.Merge import Merge as MF_V3_Settings_Merge_Merge
 from MF.V3.Settings.NewGroup import NewGroup as MF_V3_Settings_NewGroup_NewGroup
 from MF.V3.Settings.Project import Project as MF_V3_Settings_Project_Project
@@ -34,10 +37,12 @@ from MF.V3.Tasks.CameraCalibration import CameraCalibration as MF_V3_Tasks_Camer
 from MF.V3.Tasks.CaptureImage import CaptureImage as MF_V3_Tasks_CaptureImage
 from MF.V3.Tasks.CloseProject import CloseProject as MF_V3_Tasks_CloseProject
 from MF.V3.Tasks.ConnectWifi import ConnectWifi as MF_V3_Tasks_ConnectWifi
+from MF.V3.Tasks.CopyGroups import CopyGroups as MF_V3_Tasks_CopyGroups
 from MF.V3.Tasks.DepthMap import DepthMap as MF_V3_Tasks_DepthMap
 from MF.V3.Tasks.DetectCalibrationCard import DetectCalibrationCard as MF_V3_Tasks_DetectCalibrationCard
 from MF.V3.Tasks.DownloadProject import DownloadProject as MF_V3_Tasks_DownloadProject
 from MF.V3.Tasks.Export import Export as MF_V3_Tasks_Export
+from MF.V3.Tasks.ExportHeatMap import ExportHeatMap as MF_V3_Tasks_ExportHeatMap
 from MF.V3.Tasks.ExportLogs import ExportLogs as MF_V3_Tasks_ExportLogs
 from MF.V3.Tasks.ExportMerge import ExportMerge as MF_V3_Tasks_ExportMerge
 from MF.V3.Tasks.FlattenGroup import FlattenGroup as MF_V3_Tasks_FlattenGroup
@@ -45,6 +50,8 @@ from MF.V3.Tasks.ForgetWifi import ForgetWifi as MF_V3_Tasks_ForgetWifi
 from MF.V3.Tasks.HasCameras import HasCameras as MF_V3_Tasks_HasCameras
 from MF.V3.Tasks.HasProjector import HasProjector as MF_V3_Tasks_HasProjector
 from MF.V3.Tasks.HasTurntable import HasTurntable as MF_V3_Tasks_HasTurntable
+from MF.V3.Tasks.HeatMap import HeatMap as MF_V3_Tasks_HeatMap
+from MF.V3.Tasks.Import import Import as MF_V3_Tasks_Import
 from MF.V3.Tasks.ListExportFormats import ListExportFormats as MF_V3_Tasks_ListExportFormats
 from MF.V3.Tasks.ListGroups import ListGroups as MF_V3_Tasks_ListGroups
 from MF.V3.Tasks.ListNetworkInterfaces import ListNetworkInterfaces as MF_V3_Tasks_ListNetworkInterfaces
@@ -369,6 +376,39 @@ def close_project(self) -> Task:
         Type="CloseProject"
     )
     task = Task(Index=0, Type="CloseProject", Input=close_project_request, Output=close_project_response)
+    self.SendTask(task)
+    return task
+
+
+def copy_groups(self, sourceIndexes: List[int] = None, targetIndex: int = None, childPosition: int = None, nameSuffix: str = None, enumerate: bool = None) -> Task:
+
+    """
+     Copy a set of scan groups in the current open project.
+    """
+    copy_groups_request = MF_V3_Tasks_CopyGroups.Request(
+        Index=0,
+        Type="CopyGroups",
+        Input=MF_V3_Settings_CopyGroups_CopyGroups(
+            sourceIndexes=sourceIndexes,
+            targetIndex=targetIndex,
+            childPosition=childPosition,
+            nameSuffix=nameSuffix,
+            enumerate=enumerate,
+        )
+    )
+    copy_groups_response = MF_V3_Tasks_CopyGroups.Response(
+        Index=0,
+        Type="CopyGroups",
+        Input=MF_V3_Settings_CopyGroups_CopyGroups(
+            sourceIndexes=sourceIndexes,
+            targetIndex=targetIndex,
+            childPosition=childPosition,
+            nameSuffix=nameSuffix,
+            enumerate=enumerate,
+        ),
+        Output=None
+    )
+    task = Task(Index=0, Type="CopyGroups", Input=copy_groups_request, Output=copy_groups_response)
     self.SendTask(task)
     return task
 
@@ -724,6 +764,35 @@ def align(self, source: int, target: int, rough: MF_V3_Settings_Align_Align.Roug
     return task
 
 
+def heat_map(self, sources: List[int] = None, targets: List[int] = None, outlierDistance: float = None) -> Task:
+
+    """
+     Compute the point-to-mesh distances of a source mesh to a target mesh and visualize as a heat map.
+    """
+    heat_map_request = MF_V3_Tasks_HeatMap.Request(
+        Index=0,
+        Type="HeatMap",
+        Input=MF_V3_Settings_HeatMap_HeatMap(
+            sources=sources,
+            targets=targets,
+            outlierDistance=outlierDistance,
+        )
+    )
+    heat_map_response = MF_V3_Tasks_HeatMap.Response(
+        Index=0,
+        Type="HeatMap",
+        Input=MF_V3_Settings_HeatMap_HeatMap(
+            sources=sources,
+            targets=targets,
+            outlierDistance=outlierDistance,
+        ),
+        Output=None
+    )
+    task = Task(Index=0, Type="HeatMap", Input=heat_map_request, Output=heat_map_response)
+    self.SendTask(task)
+    return task
+
+
 def merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, remesh: MF_V3_Settings_Merge_Merge.Remesh = None, simplify: MF_V3_Settings_Merge_Merge.Simplify = None, texturize: bool = None) -> Task:
 
     """
@@ -805,6 +874,31 @@ def add_merge_to_project(self) -> Task:
     return task
 
 
+def import_file(self, name: str = None, scale: float = None, unit: MF_V3_Settings_Import_Import.Unit = None, center: bool = None, groupIndex: int = None) -> Task:
+
+    """
+     Import a set of 3D meshes to the current open project.  The meshes must be archived in a ZIP file.
+    """
+    import_file_request = MF_V3_Tasks_Import.Request(
+        Index=0,
+        Type="Import",
+        Input=MF_V3_Settings_Import_Import(
+            name=name,
+            scale=scale,
+            unit=unit,
+            center=center,
+            groupIndex=groupIndex,
+        )
+    )
+    import_file_response = MF_V3_Tasks_Import.Response(
+        Index=0,
+        Type="Import"
+    )
+    task = Task(Index=0, Type="Import", Input=import_file_request, Output=import_file_response)
+    self.SendTask(task)
+    return task
+
+
 def list_export_formats(self) -> Task:
 
     """
@@ -823,7 +917,7 @@ def list_export_formats(self) -> Task:
     return task
 
 
-def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None, scale: float = None) -> Task:
+def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None, scale: float = None, color: MF_V3_Settings_Export_Export.Color = None) -> Task:
 
     """
      Export a group of scans.
@@ -837,6 +931,7 @@ def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, t
             merge=merge,
             format=format,
             scale=scale,
+            color=color,
         )
     )
     export_response = MF_V3_Tasks_Export.Response(
@@ -848,6 +943,7 @@ def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, t
             merge=merge,
             format=format,
             scale=scale,
+            color=color,
         )
     )
     task = Task(Index=0, Type="Export", Input=export_request, Output=export_response)
@@ -855,7 +951,41 @@ def export(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, t
     return task
 
 
-def export_merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None, scale: float = None) -> Task:
+def export_heat_map(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None, scale: float = None, color: MF_V3_Settings_Export_Export.Color = None) -> Task:
+
+    """
+     Export a mesh with vertex colors generated by the 'HeatMap' task.
+    """
+    export_heat_map_request = MF_V3_Tasks_ExportHeatMap.Request(
+        Index=0,
+        Type="ExportHeatMap",
+        Input=MF_V3_Settings_Export_Export(
+            selection=selection,
+            texture=texture,
+            merge=merge,
+            format=format,
+            scale=scale,
+            color=color,
+        )
+    )
+    export_heat_map_response = MF_V3_Tasks_ExportHeatMap.Response(
+        Index=0,
+        Type="ExportHeatMap",
+        Input=MF_V3_Settings_Export_Export(
+            selection=selection,
+            texture=texture,
+            merge=merge,
+            format=format,
+            scale=scale,
+            color=color,
+        )
+    )
+    task = Task(Index=0, Type="ExportHeatMap", Input=export_heat_map_request, Output=export_heat_map_response)
+    self.SendTask(task)
+    return task
+
+
+def export_merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, texture: bool = None, merge: bool = None, format: MF_V3_Settings_Export_Export.Format = None, scale: float = None, color: MF_V3_Settings_Export_Export.Color = None) -> Task:
 
     """
      Export a merged scan.
@@ -869,6 +999,7 @@ def export_merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = N
             merge=merge,
             format=format,
             scale=scale,
+            color=color,
         )
     )
     export_merge_response = MF_V3_Tasks_ExportMerge.Response(
@@ -880,6 +1011,7 @@ def export_merge(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = N
             merge=merge,
             format=format,
             scale=scale,
+            color=color,
         )
     )
     task = Task(Index=0, Type="ExportMerge", Input=export_merge_request, Output=export_merge_response)
@@ -1240,7 +1372,7 @@ def rotate_turntable(self, Input: int) -> Task:
     return task
 
 
-def new_scan(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: MF_V3_Settings_Scan_Scan.Processing = None) -> Task:
+def new_scan(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: MF_V3_Settings_Scan_Scan.Processing = None, alignWithScanner: bool = None, centerAtOrigin: bool = None) -> Task:
 
     """
      Capture a new scan.
@@ -1254,6 +1386,8 @@ def new_scan(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3
             turntable=turntable,
             capture=capture,
             processing=processing,
+            alignWithScanner=alignWithScanner,
+            centerAtOrigin=centerAtOrigin,
         )
     )
     new_scan_response = MF_V3_Tasks_NewScan.Response(
@@ -1293,7 +1427,7 @@ def capture_image(self, selection: List[int] = None, codec: MF_V3_Settings_Captu
     return task
 
 
-def depth_map(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: MF_V3_Settings_Scan_Scan.Processing = None) -> Task:
+def depth_map(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V3_Settings_Projector_Projector = None, turntable: MF_V3_Settings_Turntable_Turntable = None, capture: MF_V3_Settings_Capture_Capture = None, processing: MF_V3_Settings_Scan_Scan.Processing = None, alignWithScanner: bool = None, centerAtOrigin: bool = None) -> Task:
 
     """
      Capture a depth map.
@@ -1307,6 +1441,8 @@ def depth_map(self, camera: MF_V3_Settings_Camera_Camera = None, projector: MF_V
             turntable=turntable,
             capture=capture,
             processing=processing,
+            alignWithScanner=alignWithScanner,
+            centerAtOrigin=centerAtOrigin,
         )
     )
     depth_map_response = MF_V3_Tasks_DepthMap.Response(
