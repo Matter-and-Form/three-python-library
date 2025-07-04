@@ -43,8 +43,7 @@ python3 ./scripts/build_proto.py
 To build the package, run:
 
 ```sh
-python setup.py sdist bdist_wheel
-```
+python -m build```
 
 #### Install the Package Locally in Editable Mode
 To install the package locally in editable mode, run:

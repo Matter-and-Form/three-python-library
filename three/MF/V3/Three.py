@@ -20,6 +20,7 @@ from MF.V3.Settings.Scan import Scan as MF_V3_Settings_Scan_Scan
 from MF.V3.Settings.ScanData import ScanData as MF_V3_Settings_ScanData_ScanData
 from MF.V3.Settings.ScanSelection import ScanSelection as MF_V3_Settings_ScanSelection_ScanSelection
 from MF.V3.Settings.Scanner import Scanner as MF_V3_Settings_Scanner_Scanner
+from MF.V3.Settings.Smooth import Smooth as MF_V3_Settings_Smooth_Smooth
 from MF.V3.Settings.Software import Software as MF_V3_Settings_Software_Software
 from MF.V3.Settings.Style import Style as MF_V3_Settings_Style_Style
 from MF.V3.Settings.Turntable import Turntable as MF_V3_Settings_Turntable_Turntable
@@ -35,6 +36,7 @@ from MF.V3.Tasks.CalibrateTurntable import CalibrateTurntable as MF_V3_Tasks_Cal
 from MF.V3.Tasks.CalibrationCaptureTargets import CalibrationCaptureTargets as MF_V3_Tasks_CalibrationCaptureTargets
 from MF.V3.Tasks.CameraCalibration import CameraCalibration as MF_V3_Tasks_CameraCalibration
 from MF.V3.Tasks.CaptureImage import CaptureImage as MF_V3_Tasks_CaptureImage
+from MF.V3.Tasks.ClearSettings import ClearSettings as MF_V3_Tasks_ClearSettings
 from MF.V3.Tasks.CloseProject import CloseProject as MF_V3_Tasks_CloseProject
 from MF.V3.Tasks.ConnectWifi import ConnectWifi as MF_V3_Tasks_ConnectWifi
 from MF.V3.Tasks.CopyGroups import CopyGroups as MF_V3_Tasks_CopyGroups
@@ -42,9 +44,11 @@ from MF.V3.Tasks.DepthMap import DepthMap as MF_V3_Tasks_DepthMap
 from MF.V3.Tasks.DetectCalibrationCard import DetectCalibrationCard as MF_V3_Tasks_DetectCalibrationCard
 from MF.V3.Tasks.DownloadProject import DownloadProject as MF_V3_Tasks_DownloadProject
 from MF.V3.Tasks.Export import Export as MF_V3_Tasks_Export
+from MF.V3.Tasks.ExportFactoryCalibrationLogs import ExportFactoryCalibrationLogs as MF_V3_Tasks_ExportFactoryCalibrationLogs
 from MF.V3.Tasks.ExportHeatMap import ExportHeatMap as MF_V3_Tasks_ExportHeatMap
 from MF.V3.Tasks.ExportLogs import ExportLogs as MF_V3_Tasks_ExportLogs
 from MF.V3.Tasks.ExportMerge import ExportMerge as MF_V3_Tasks_ExportMerge
+from MF.V3.Tasks.FactoryReset import FactoryReset as MF_V3_Tasks_FactoryReset
 from MF.V3.Tasks.FlattenGroup import FlattenGroup as MF_V3_Tasks_FlattenGroup
 from MF.V3.Tasks.ForgetWifi import ForgetWifi as MF_V3_Tasks_ForgetWifi
 from MF.V3.Tasks.HasCameras import HasCameras as MF_V3_Tasks_HasCameras
@@ -79,6 +83,7 @@ from MF.V3.Tasks.SetGroup import SetGroup as MF_V3_Tasks_SetGroup
 from MF.V3.Tasks.SetProject import SetProject as MF_V3_Tasks_SetProject
 from MF.V3.Tasks.SetProjector import SetProjector as MF_V3_Tasks_SetProjector
 from MF.V3.Tasks.Shutdown import Shutdown as MF_V3_Tasks_Shutdown
+from MF.V3.Tasks.Smooth import Smooth as MF_V3_Tasks_Smooth
 from MF.V3.Tasks.SplitGroup import SplitGroup as MF_V3_Tasks_SplitGroup
 from MF.V3.Tasks.StartVideo import StartVideo as MF_V3_Tasks_StartVideo
 from MF.V3.Tasks.StopVideo import StopVideo as MF_V3_Tasks_StopVideo
@@ -362,6 +367,24 @@ def open_project(self, Input: int) -> Task:
     return task
 
 
+def clear_settings(self) -> Task:
+
+    """
+     Clear scanner settings and restore the default values.
+    """
+    clear_settings_request = MF_V3_Tasks_ClearSettings.Request(
+        Index=0,
+        Type="ClearSettings"
+    )
+    clear_settings_response = MF_V3_Tasks_ClearSettings.Response(
+        Index=0,
+        Type="ClearSettings"
+    )
+    task = Task(Index=0, Type="ClearSettings", Input=clear_settings_request, Output=clear_settings_response)
+    self.SendTask(task)
+    return task
+
+
 def close_project(self) -> Task:
 
     """
@@ -607,6 +630,24 @@ def move_group(self, Input: List[int] = None) -> Task:
     return task
 
 
+def factory_reset(self) -> Task:
+
+    """
+     Reset the scanner to factory settings.
+    """
+    factory_reset_request = MF_V3_Tasks_FactoryReset.Request(
+        Index=0,
+        Type="FactoryReset"
+    )
+    factory_reset_response = MF_V3_Tasks_FactoryReset.Response(
+        Index=0,
+        Type="FactoryReset"
+    )
+    task = Task(Index=0, Type="FactoryReset", Input=factory_reset_request, Output=factory_reset_response)
+    self.SendTask(task)
+    return task
+
+
 def flatten_group(self, Input: int) -> Task:
 
     """
@@ -760,6 +801,32 @@ def align(self, source: int, target: int, rough: MF_V3_Settings_Align_Align.Roug
         Output=None
     )
     task = Task(Index=0, Type="Align", Input=align_request, Output=align_response)
+    self.SendTask(task)
+    return task
+
+
+def smooth(self, selection: MF_V3_Settings_ScanSelection_ScanSelection = None, taubin: MF_V3_Settings_Smooth_Smooth.Taubin = None) -> Task:
+
+    """
+     Smooth a set of scans.
+    """
+    smooth_request = MF_V3_Tasks_Smooth.Request(
+        Index=0,
+        Type="Smooth",
+        Input=MF_V3_Settings_Smooth_Smooth(
+            selection=selection,
+            taubin=taubin,
+        )
+    )
+    smooth_response = MF_V3_Tasks_Smooth.Response(
+        Index=0,
+        Type="Smooth",
+        Input=MF_V3_Settings_Smooth_Smooth(
+            selection=selection,
+            taubin=taubin,
+        )
+    )
+    task = Task(Index=0, Type="Smooth", Input=smooth_request, Output=smooth_response)
     self.SendTask(task)
     return task
 
@@ -1034,6 +1101,24 @@ def export_logs(self, Input: bool = None) -> Task:
         Type="ExportLogs"
     )
     task = Task(Index=0, Type="ExportLogs", Input=export_logs_request, Output=export_logs_response)
+    self.SendTask(task)
+    return task
+
+
+def export_factory_calibration_logs(self) -> Task:
+
+    """
+     Export factory calibration logs.
+    """
+    export_factory_calibration_logs_request = MF_V3_Tasks_ExportFactoryCalibrationLogs.Request(
+        Index=0,
+        Type="ExportFactoryCalibrationLogs"
+    )
+    export_factory_calibration_logs_response = MF_V3_Tasks_ExportFactoryCalibrationLogs.Response(
+        Index=0,
+        Type="ExportFactoryCalibrationLogs"
+    )
+    task = Task(Index=0, Type="ExportFactoryCalibrationLogs", Input=export_factory_calibration_logs_request, Output=export_factory_calibration_logs_response)
     self.SendTask(task)
     return task
 

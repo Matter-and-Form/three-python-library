@@ -29,6 +29,10 @@ type_mapping = {
     "google.protobuf.Any": "_any_pb2"
 }
 
+reserve_names = {
+    "lambda": "lambda_"
+}
+
 methods_rename = {
     "import" : "import_file"
 }
@@ -281,6 +285,9 @@ def get_tree(proto_objects: List)-> Tree:
                 node = tree.search(message.path)
                 for prop in message.properties:
                     property = get_property(prop, tree, node, namespace)
+                    for key, value in reserve_names.items():
+                        if property.name == key:
+                            property.name = value
                     node.properties.append(property)
                 for nested in message.nested_messages:
                     parse_message_props(nested)

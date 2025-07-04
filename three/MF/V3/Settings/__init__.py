@@ -23,6 +23,7 @@ from MF.V3.Settings.Scan import *
 from MF.V3.Settings.ScanData import * 
 from MF.V3.Settings.ScanSelection import * 
 from MF.V3.Settings.Scanner import * 
+from MF.V3.Settings.Smooth import * 
 from MF.V3.Settings.Software import * 
 from MF.V3.Settings.Style import * 
 from MF.V3.Settings.Turntable import * 

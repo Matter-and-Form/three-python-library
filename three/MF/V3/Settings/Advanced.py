@@ -1,4 +1,4 @@
-from MF.V3.Settings.Quality import Quality as MF_V3_Settings_Quality_Quality
+from MF.V3.Settings.Merge import Merge as MF_V3_Settings_Merge_Merge
 from MF.V3.Settings.Scan import Scan as MF_V3_Settings_Scan_Scan
 from typing import List
 
@@ -53,7 +53,7 @@ class Advanced:
             self.gaussianBlurRadius = gaussianBlurRadius
             """
             Gaussian blur kernel standard deviation.  This parameter is ignored if
-            \p gaussianBlurSize is zero.
+            gaussianBlurSize is zero.
             """
             self.gaussianBlurStdDev = gaussianBlurStdDev
             """
@@ -162,7 +162,7 @@ class Advanced:
         """
          Remesh settings.
         """
-        def __init__(self, quality: MF_V3_Settings_Quality_Quality = None, voxelSize: float = None, depth: int = None, scale: float = None, linearInterpolation: bool = None, use: bool = None):
+        def __init__(self, quality: MF_V3_Settings_Merge_Merge.Quality = None, voxelSize: float = None, depth: int = None, scale: float = None, linearInterpolation: bool = None, use: bool = None):
             # Remesh quality preset.
             self.quality = quality
             # Voxel size.

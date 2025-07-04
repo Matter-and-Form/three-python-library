@@ -4,7 +4,7 @@ from enum import Enum
 class Quality(Enum):
 
     """
-     Quality settings.
+     Capture quality settings.
     """
     Low = "Low"  # Low quality.
     Medium = "Medium"  # Medium quality.
