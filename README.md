@@ -43,8 +43,7 @@ python3 ./scripts/build_proto.py
 To build the package, run:
 
 ```sh
-python setup.py sdist bdist_wheel
-```
+python -m build```
 
 #### Install the Package Locally in Editable Mode
 To install the package locally in editable mode, run:
@@ -69,7 +68,7 @@ python ./scripts/build_doc.py
 To install the library from PyPI, run:
 
 ```sh
-pip install matter-and-form-three
+pip install mfthree
 ```
 
 ### Connect to the Scanner
@@ -83,7 +82,7 @@ python examples/connect.py
 Here is an example of how to use the library to connect to the scanner and control the projector:
 
 ```python
-from matter_and_form_three import Scanner
+from three.scanner import Scanner
 
 # Create and connect to the scanner
 scanner = Scanner(OnTask=None, OnMessage=None, OnBuffer=None)

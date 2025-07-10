@@ -1,4 +1,3 @@
-from MF.V3.Settings.Quality import Quality as MF_V3_Settings_Quality_Quality
 from MF.V3.Settings.ScanSelection import ScanSelection as MF_V3_Settings_ScanSelection_ScanSelection
 from enum import Enum
 
@@ -8,12 +7,23 @@ class Merge:
     """
      Scan merge settings.
     """
+    class Quality(Enum):
+
+        """
+         Remesh quality settings.
+        """
+        VeryLow = "VeryLow"  # Very low remesh quality.
+        Low = "Low"  # Low remesh quality.
+        Medium = "Medium"  # Medium remesh quality.
+        High = "High"  # High remesh quality.
+        VeryHigh = "VeryHigh"  # Very high remesh quality.
+
     class Remesh:
 
         """
          Remesh settings.
         """
-        def __init__(self, quality: MF_V3_Settings_Quality_Quality = None, voxelSize: float = None, depth: int = None, scale: float = None, linearInterpolation: bool = None):
+        def __init__(self, quality: 'Merge.Quality' = None, voxelSize: float = None, depth: int = None, scale: float = None, linearInterpolation: bool = None):
             # Remesh quality.
             self.quality = quality
             # Voxel size.

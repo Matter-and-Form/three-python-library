@@ -7,6 +7,7 @@ from MF.V3.Tasks.CalibrateTurntable import *
 from MF.V3.Tasks.CalibrationCaptureTargets import * 
 from MF.V3.Tasks.CameraCalibration import * 
 from MF.V3.Tasks.CaptureImage import * 
+from MF.V3.Tasks.ClearSettings import * 
 from MF.V3.Tasks.CloseProject import * 
 from MF.V3.Tasks.ConnectWifi import * 
 from MF.V3.Tasks.CopyGroups import * 
@@ -14,9 +15,11 @@ from MF.V3.Tasks.DepthMap import *
 from MF.V3.Tasks.DetectCalibrationCard import * 
 from MF.V3.Tasks.DownloadProject import * 
 from MF.V3.Tasks.Export import * 
+from MF.V3.Tasks.ExportFactoryCalibrationLogs import * 
 from MF.V3.Tasks.ExportHeatMap import * 
 from MF.V3.Tasks.ExportLogs import * 
 from MF.V3.Tasks.ExportMerge import * 
+from MF.V3.Tasks.FactoryReset import * 
 from MF.V3.Tasks.FlattenGroup import * 
 from MF.V3.Tasks.ForgetWifi import * 
 from MF.V3.Tasks.HasCameras import * 
@@ -51,6 +54,7 @@ from MF.V3.Tasks.SetGroup import *
 from MF.V3.Tasks.SetProject import * 
 from MF.V3.Tasks.SetProjector import * 
 from MF.V3.Tasks.Shutdown import * 
+from MF.V3.Tasks.Smooth import * 
 from MF.V3.Tasks.SplitGroup import * 
 from MF.V3.Tasks.StartVideo import * 
 from MF.V3.Tasks.StopVideo import * 
