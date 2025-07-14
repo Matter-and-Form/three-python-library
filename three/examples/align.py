@@ -87,7 +87,15 @@ def main():
         if align_task.Error:
             print(f"Error running alignment: {align_task.Error}")
             return
+        
+        print (align_task.Output);
+        transform_task = scanner.transform_group(19, translation=align_task.Output['translation'], rotation=align_task.Output['rotation'])
 
+        if transform_task.Error:
+            print(f"Error transforming group: {transform_task.Error}")
+            return
+
+        print (transform_task.Output);
         print("Alignment completed successfully!")
 
     except Exception as e:
