@@ -230,7 +230,7 @@ class Scanner:
                 else:
                     self.__buffer = message
                 if self.__bufferDescriptor.Size == len(self.__buffer):
-                    self.OnBuffer(self.__bufferDescriptor, message)
+                    self.OnBuffer(self.__bufferDescriptor, self.__buffer)
                     self.__bufferDescriptor = None 
                     self.__buffer = None
         else:
