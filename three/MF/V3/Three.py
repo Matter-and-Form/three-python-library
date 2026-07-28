@@ -38,11 +38,15 @@ from MF.V3.Tasks.CameraCalibration import CameraCalibration as MF_V3_Tasks_Camer
 from MF.V3.Tasks.CaptureImage import CaptureImage as MF_V3_Tasks_CaptureImage
 from MF.V3.Tasks.ClearSettings import ClearSettings as MF_V3_Tasks_ClearSettings
 from MF.V3.Tasks.CloseProject import CloseProject as MF_V3_Tasks_CloseProject
+from MF.V3.Tasks.ConnectScanner import ConnectScanner as MF_V3_Tasks_ConnectScanner
 from MF.V3.Tasks.ConnectWifi import ConnectWifi as MF_V3_Tasks_ConnectWifi
 from MF.V3.Tasks.CopyGroups import CopyGroups as MF_V3_Tasks_CopyGroups
 from MF.V3.Tasks.DepthMap import DepthMap as MF_V3_Tasks_DepthMap
 from MF.V3.Tasks.DetectCalibrationCard import DetectCalibrationCard as MF_V3_Tasks_DetectCalibrationCard
+from MF.V3.Tasks.DisconnectScanner import DisconnectScanner as MF_V3_Tasks_DisconnectScanner
+from MF.V3.Tasks.DiscoverScanners import DiscoverScanners as MF_V3_Tasks_DiscoverScanners
 from MF.V3.Tasks.DownloadProject import DownloadProject as MF_V3_Tasks_DownloadProject
+from MF.V3.Tasks.DownloadScannerProject import DownloadScannerProject as MF_V3_Tasks_DownloadScannerProject
 from MF.V3.Tasks.Export import Export as MF_V3_Tasks_Export
 from MF.V3.Tasks.ExportFactoryCalibrationLogs import ExportFactoryCalibrationLogs as MF_V3_Tasks_ExportFactoryCalibrationLogs
 from MF.V3.Tasks.ExportHeatMap import ExportHeatMap as MF_V3_Tasks_ExportHeatMap
@@ -51,6 +55,8 @@ from MF.V3.Tasks.ExportMerge import ExportMerge as MF_V3_Tasks_ExportMerge
 from MF.V3.Tasks.FactoryReset import FactoryReset as MF_V3_Tasks_FactoryReset
 from MF.V3.Tasks.FlattenGroup import FlattenGroup as MF_V3_Tasks_FlattenGroup
 from MF.V3.Tasks.ForgetWifi import ForgetWifi as MF_V3_Tasks_ForgetWifi
+from MF.V3.Tasks.GetProtocolInfo import GetProtocolInfo as MF_V3_Tasks_GetProtocolInfo
+from MF.V3.Tasks.GetScannerStatus import GetScannerStatus as MF_V3_Tasks_GetScannerStatus
 from MF.V3.Tasks.HasCameras import HasCameras as MF_V3_Tasks_HasCameras
 from MF.V3.Tasks.HasProjector import HasProjector as MF_V3_Tasks_HasProjector
 from MF.V3.Tasks.HasTurntable import HasTurntable as MF_V3_Tasks_HasTurntable
@@ -60,6 +66,7 @@ from MF.V3.Tasks.ListExportFormats import ListExportFormats as MF_V3_Tasks_ListE
 from MF.V3.Tasks.ListGroups import ListGroups as MF_V3_Tasks_ListGroups
 from MF.V3.Tasks.ListNetworkInterfaces import ListNetworkInterfaces as MF_V3_Tasks_ListNetworkInterfaces
 from MF.V3.Tasks.ListProjects import ListProjects as MF_V3_Tasks_ListProjects
+from MF.V3.Tasks.ListScannerProjects import ListScannerProjects as MF_V3_Tasks_ListScannerProjects
 from MF.V3.Tasks.ListScans import ListScans as MF_V3_Tasks_ListScans
 from MF.V3.Tasks.ListSettings import ListSettings as MF_V3_Tasks_ListSettings
 from MF.V3.Tasks.ListWifi import ListWifi as MF_V3_Tasks_ListWifi
@@ -71,15 +78,19 @@ from MF.V3.Tasks.NewProject import NewProject as MF_V3_Tasks_NewProject
 from MF.V3.Tasks.NewScan import NewScan as MF_V3_Tasks_NewScan
 from MF.V3.Tasks.OpenProject import OpenProject as MF_V3_Tasks_OpenProject
 from MF.V3.Tasks.PopSettings import PopSettings as MF_V3_Tasks_PopSettings
+from MF.V3.Tasks.PullProject import PullProject as MF_V3_Tasks_PullProject
+from MF.V3.Tasks.PushProject import PushProject as MF_V3_Tasks_PushProject
 from MF.V3.Tasks.PushSettings import PushSettings as MF_V3_Tasks_PushSettings
 from MF.V3.Tasks.Reboot import Reboot as MF_V3_Tasks_Reboot
 from MF.V3.Tasks.RemoveGroups import RemoveGroups as MF_V3_Tasks_RemoveGroups
 from MF.V3.Tasks.RemoveProjects import RemoveProjects as MF_V3_Tasks_RemoveProjects
+from MF.V3.Tasks.RemoveScannerProjects import RemoveScannerProjects as MF_V3_Tasks_RemoveScannerProjects
 from MF.V3.Tasks.RestoreFactoryCalibration import RestoreFactoryCalibration as MF_V3_Tasks_RestoreFactoryCalibration
 from MF.V3.Tasks.RotateTurntable import RotateTurntable as MF_V3_Tasks_RotateTurntable
 from MF.V3.Tasks.ScanData import ScanData as MF_V3_Tasks_ScanData
 from MF.V3.Tasks.SetCameras import SetCameras as MF_V3_Tasks_SetCameras
 from MF.V3.Tasks.SetGroup import SetGroup as MF_V3_Tasks_SetGroup
+from MF.V3.Tasks.SetProcessingDevices import SetProcessingDevices as MF_V3_Tasks_SetProcessingDevices
 from MF.V3.Tasks.SetProject import SetProject as MF_V3_Tasks_SetProject
 from MF.V3.Tasks.SetProjector import SetProjector as MF_V3_Tasks_SetProjector
 from MF.V3.Tasks.Shutdown import Shutdown as MF_V3_Tasks_Shutdown
@@ -87,6 +98,7 @@ from MF.V3.Tasks.Smooth import Smooth as MF_V3_Tasks_Smooth
 from MF.V3.Tasks.SplitGroup import SplitGroup as MF_V3_Tasks_SplitGroup
 from MF.V3.Tasks.StartVideo import StartVideo as MF_V3_Tasks_StartVideo
 from MF.V3.Tasks.StopVideo import StopVideo as MF_V3_Tasks_StopVideo
+from MF.V3.Tasks.StorageInfo import StorageInfo as MF_V3_Tasks_StorageInfo
 from MF.V3.Tasks.SystemInfo import SystemInfo as MF_V3_Tasks_SystemInfo
 from MF.V3.Tasks.TransformGroup import TransformGroup as MF_V3_Tasks_TransformGroup
 from MF.V3.Tasks.TurntableCalibration import TurntableCalibration as MF_V3_Tasks_TurntableCalibration
@@ -1571,6 +1583,228 @@ def shutdown(self) -> Task:
         Type="Shutdown"
     )
     task = Task(Index=0, Type="Shutdown", Input=shutdown_request, Output=shutdown_response)
+    self.SendTask(task)
+    return task
+
+
+def get_protocol_info(self) -> Task:
+
+    """
+     Get the desktop-processing protocol version and capabilities.
+    """
+    get_protocol_info_request = MF_V3_Tasks_GetProtocolInfo.Request(
+        Index=0,
+        Type="GetProtocolInfo"
+    )
+    get_protocol_info_response = MF_V3_Tasks_GetProtocolInfo.Response(
+        Index=0,
+        Type="GetProtocolInfo"
+    )
+    task = Task(Index=0, Type="GetProtocolInfo", Input=get_protocol_info_request, Output=get_protocol_info_response)
+    self.SendTask(task)
+    return task
+
+
+def set_processing_devices(self, Input: List[bool] = None) -> Task:
+
+    """
+     Select the scan processing devices (server and/or client processing).
+    """
+    set_processing_devices_request = MF_V3_Tasks_SetProcessingDevices.Request(
+        Index=0,
+        Type="SetProcessingDevices",
+        Input=Input
+    )
+    set_processing_devices_response = MF_V3_Tasks_SetProcessingDevices.Response(
+        Index=0,
+        Type="SetProcessingDevices"
+    )
+    task = Task(Index=0, Type="SetProcessingDevices", Input=set_processing_devices_request, Output=set_processing_devices_response)
+    self.SendTask(task)
+    return task
+
+
+def connect_scanner(self, Input: str) -> Task:
+
+    """
+     Connect the desktop engine to a scanner (desktop engine only).
+    """
+    connect_scanner_request = MF_V3_Tasks_ConnectScanner.Request(
+        Index=0,
+        Type="ConnectScanner",
+        Input=Input
+    )
+    connect_scanner_response = MF_V3_Tasks_ConnectScanner.Response(
+        Index=0,
+        Type="ConnectScanner"
+    )
+    task = Task(Index=0, Type="ConnectScanner", Input=connect_scanner_request, Output=connect_scanner_response)
+    self.SendTask(task)
+    return task
+
+
+def disconnect_scanner(self) -> Task:
+
+    """
+     Disconnect the desktop engine from its scanner (desktop engine only).
+    """
+    disconnect_scanner_request = MF_V3_Tasks_DisconnectScanner.Request(
+        Index=0,
+        Type="DisconnectScanner"
+    )
+    disconnect_scanner_response = MF_V3_Tasks_DisconnectScanner.Response(
+        Index=0,
+        Type="DisconnectScanner"
+    )
+    task = Task(Index=0, Type="DisconnectScanner", Input=disconnect_scanner_request, Output=disconnect_scanner_response)
+    self.SendTask(task)
+    return task
+
+
+def get_scanner_status(self) -> Task:
+
+    """
+     Get the desktop engine's scanner connection status (desktop engine only).
+    """
+    get_scanner_status_request = MF_V3_Tasks_GetScannerStatus.Request(
+        Index=0,
+        Type="GetScannerStatus"
+    )
+    get_scanner_status_response = MF_V3_Tasks_GetScannerStatus.Response(
+        Index=0,
+        Type="GetScannerStatus"
+    )
+    task = Task(Index=0, Type="GetScannerStatus", Input=get_scanner_status_request, Output=get_scanner_status_response)
+    self.SendTask(task)
+    return task
+
+
+def list_scanner_projects(self) -> Task:
+
+    """
+     List the projects on the connected scanner (desktop engine only).
+    """
+    list_scanner_projects_request = MF_V3_Tasks_ListScannerProjects.Request(
+        Index=0,
+        Type="ListScannerProjects"
+    )
+    list_scanner_projects_response = MF_V3_Tasks_ListScannerProjects.Response(
+        Index=0,
+        Type="ListScannerProjects"
+    )
+    task = Task(Index=0, Type="ListScannerProjects", Input=list_scanner_projects_request, Output=list_scanner_projects_response)
+    self.SendTask(task)
+    return task
+
+
+def push_project(self, Input: int) -> Task:
+
+    """
+     Copy a local project to the connected scanner (desktop engine only).
+    """
+    push_project_request = MF_V3_Tasks_PushProject.Request(
+        Index=0,
+        Type="PushProject",
+        Input=Input
+    )
+    push_project_response = MF_V3_Tasks_PushProject.Response(
+        Index=0,
+        Type="PushProject"
+    )
+    task = Task(Index=0, Type="PushProject", Input=push_project_request, Output=push_project_response)
+    self.SendTask(task)
+    return task
+
+
+def pull_project(self, Input: int) -> Task:
+
+    """
+     Copy a project from the connected scanner into the local workspace (desktop engine only).
+    """
+    pull_project_request = MF_V3_Tasks_PullProject.Request(
+        Index=0,
+        Type="PullProject",
+        Input=Input
+    )
+    pull_project_response = MF_V3_Tasks_PullProject.Response(
+        Index=0,
+        Type="PullProject"
+    )
+    task = Task(Index=0, Type="PullProject", Input=pull_project_request, Output=pull_project_response)
+    self.SendTask(task)
+    return task
+
+
+def remove_scanner_projects(self, Input: List[int] = None) -> Task:
+
+    """
+     Remove projects on the connected scanner (desktop engine only).
+    """
+    remove_scanner_projects_request = MF_V3_Tasks_RemoveScannerProjects.Request(
+        Index=0,
+        Type="RemoveScannerProjects",
+        Input=Input
+    )
+    remove_scanner_projects_response = MF_V3_Tasks_RemoveScannerProjects.Response(
+        Index=0,
+        Type="RemoveScannerProjects"
+    )
+    task = Task(Index=0, Type="RemoveScannerProjects", Input=remove_scanner_projects_request, Output=remove_scanner_projects_response)
+    self.SendTask(task)
+    return task
+
+
+def download_scanner_project(self, Input: int) -> Task:
+
+    """
+     Download a project archive from the connected scanner (desktop engine only).
+    """
+    download_scanner_project_request = MF_V3_Tasks_DownloadScannerProject.Request(
+        Index=0,
+        Type="DownloadScannerProject",
+        Input=Input
+    )
+    download_scanner_project_response = MF_V3_Tasks_DownloadScannerProject.Response(
+        Index=0,
+        Type="DownloadScannerProject"
+    )
+    task = Task(Index=0, Type="DownloadScannerProject", Input=download_scanner_project_request, Output=download_scanner_project_response)
+    self.SendTask(task)
+    return task
+
+
+def storage_info(self) -> Task:
+
+    """
+     Get the local and scanner storage space (desktop engine only).
+    """
+    storage_info_request = MF_V3_Tasks_StorageInfo.Request(
+        Index=0,
+        Type="StorageInfo"
+    )
+    storage_info_response = MF_V3_Tasks_StorageInfo.Response(
+        Index=0,
+        Type="StorageInfo"
+    )
+    task = Task(Index=0, Type="StorageInfo", Input=storage_info_request, Output=storage_info_response)
+    self.SendTask(task)
+    return task
+
+
+def discover_scanners(self) -> Task:
+
+    """
+     Discover scanners on the local network (desktop engine only).
+    """
+    discover_scanners_request = MF_V3_Tasks_DiscoverScanners.Request(
+        Index=0,
+        Type="DiscoverScanners"
+    )
+    discover_scanners_response = MF_V3_Tasks_DiscoverScanners.Response(
+        Index=0,
+        Type="DiscoverScanners"
+    )
+    task = Task(Index=0, Type="DiscoverScanners", Input=discover_scanners_request, Output=discover_scanners_response)
     self.SendTask(task)
     return task
 

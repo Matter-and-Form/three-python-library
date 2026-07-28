@@ -165,6 +165,9 @@ class Scanner:
     def close_project(self) -> MF.V3.Task.Task:
         """Close the current open project."""
         ...
+    def connect_scanner(self, Input: str) -> MF.V3.Task.Task:
+        """Connect the desktop engine to a scanner (desktop engine only)."""
+        ...
     def connect_wifi(self, ssid: str, password: str) -> MF.V3.Task.Task:
         """Connect to a wifi network."""
         ...
@@ -174,8 +177,17 @@ class Scanner:
     def detect_calibration_card(self, Input: int) -> MF.V3.Task.Task:
         """Detect the calibration card on one or both cameras."""
         ...
+    def disconnect_scanner(self) -> MF.V3.Task.Task:
+        """Disconnect the desktop engine from its scanner (desktop engine only)."""
+        ...
+    def discover_scanners(self) -> MF.V3.Task.Task:
+        """Discover scanners on the local network (desktop engine only)."""
+        ...
     def download_project(self, Input: int) -> MF.V3.Task.Task:
         """Download a project from the scanner."""
+        ...
+    def download_scanner_project(self, Input: int) -> MF.V3.Task.Task:
+        """Download a project archive from the connected scanner (desktop engine only)."""
         ...
     def export(self, selection: MF.V3.Settings.ScanSelection.ScanSelection = None, texture: bool = None, merge: bool = None, format: MF.V3.Settings.Export.Export.Format = None, scale: float = None) -> MF.V3.Task.Task:
         """Export a group of scans."""
@@ -191,6 +203,12 @@ class Scanner:
         ...
     def forget_wifi(self) -> MF.V3.Task.Task:
         """Forget all wifi connections."""
+        ...
+    def get_protocol_info(self) -> MF.V3.Task.Task:
+        """Get the desktop-processing protocol version and capabilities."""
+        ...
+    def get_scanner_status(self) -> MF.V3.Task.Task:
+        """Get the desktop engine's scanner connection status (desktop engine only)."""
         ...
     def has_cameras(self) -> MF.V3.Task.Task:
         """Check if the scanner has working cameras."""
@@ -212,6 +230,9 @@ class Scanner:
         ...
     def list_projects(self) -> MF.V3.Task.Task:
         """List all projects."""
+        ...
+    def list_scanner_projects(self) -> MF.V3.Task.Task:
+        """List the projects on the connected scanner (desktop engine only)."""
         ...
     def list_scans(self) -> MF.V3.Task.Task:
         """List the scans in the current open project."""
@@ -246,6 +267,12 @@ class Scanner:
     def pop_settings(self, Input: bool = None) -> MF.V3.Task.Task:
         """Pop and restore scanner settings from the settings stack."""
         ...
+    def pull_project(self, Input: int) -> MF.V3.Task.Task:
+        """Copy a project from the connected scanner into the local workspace (desktop engine only)."""
+        ...
+    def push_project(self, Input: int) -> MF.V3.Task.Task:
+        """Copy a local project to the connected scanner (desktop engine only)."""
+        ...
     def push_settings(self) -> MF.V3.Task.Task:
         """Push the current scanner settings to the settings stack."""
         ...
@@ -257,6 +284,9 @@ class Scanner:
         ...
     def remove_projects(self, Input: List[int] = None) -> MF.V3.Task.Task:
         """Remove selected projects."""
+        ...
+    def remove_scanner_projects(self, Input: List[int] = None) -> MF.V3.Task.Task:
+        """Remove projects on the connected scanner (desktop engine only)."""
         ...
     def restore_factory_calibration(self) -> MF.V3.Task.Task:
         """Restore factory calibration."""
@@ -272,6 +302,9 @@ class Scanner:
         ...
     def set_group(self, index: int, name: str = None, color: List[float] = None, visible: bool = None, collapsed: bool = None, rotation: List[float] = None, translation: List[float] = None) -> MF.V3.Task.Task:
         """Set scan group properties."""
+        ...
+    def set_processing_devices(self, Input: List[bool] = None) -> MF.V3.Task.Task:
+        """Select the scan processing devices (server and/or client processing)."""
         ...
     def set_project(self, index: int = None, name: str = None) -> MF.V3.Task.Task:
         """Apply settings to the current open project."""
@@ -290,6 +323,9 @@ class Scanner:
         ...
     def stop_video(self) -> MF.V3.Task.Task:
         """Stop the video stream."""
+        ...
+    def storage_info(self) -> MF.V3.Task.Task:
+        """Get the local and scanner storage space (desktop engine only)."""
         ...
     def system_info(self, updateMajor: bool = None, updateNightly: bool = None) -> MF.V3.Task.Task:
         """Get system information."""

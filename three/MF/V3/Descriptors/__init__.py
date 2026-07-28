@@ -7,9 +7,14 @@ from MF.V3.Descriptors.Import import *
 from MF.V3.Descriptors.Merge import * 
 from MF.V3.Descriptors.Project import * 
 from MF.V3.Descriptors.ProjectActions import * 
+from MF.V3.Descriptors.ProtocolInfo import * 
 from MF.V3.Descriptors.RemoveVertices import * 
+from MF.V3.Descriptors.ScanCapture import * 
 from MF.V3.Descriptors.ScanData import * 
+from MF.V3.Descriptors.ScannerList import * 
+from MF.V3.Descriptors.ScannerStatus import * 
 from MF.V3.Descriptors.Software import * 
+from MF.V3.Descriptors.StorageInfo import * 
 from MF.V3.Descriptors.System import * 
 from MF.V3.Descriptors.Transform import * 
 from MF.V3.Descriptors.VideoFrame import * 
