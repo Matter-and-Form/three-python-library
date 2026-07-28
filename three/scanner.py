@@ -425,6 +425,10 @@ class Scanner:
         """Close the current open project."""
         return Three.close_project(self)
 
+    def connect_scanner(self, Input: 'str') -> 'Task':
+        """Connect the desktop engine to a scanner (desktop engine only)."""
+        return Three.connect_scanner(self, Input)
+
     def connect_wifi(self, ssid: 'str', password: 'str') -> 'Task':
         """Connect to a wifi network."""
         return Three.connect_wifi(self, ssid, password)
@@ -441,9 +445,21 @@ class Scanner:
         """Detect the calibration card on one or both cameras."""
         return Three.detect_calibration_card(self, Input)
 
+    def disconnect_scanner(self) -> 'Task':
+        """Disconnect the desktop engine from its scanner (desktop engine only)."""
+        return Three.disconnect_scanner(self)
+
+    def discover_scanners(self) -> 'Task':
+        """Discover scanners on the local network (desktop engine only)."""
+        return Three.discover_scanners(self)
+
     def download_project(self, Input: 'int') -> 'Task':
         """Download a project from the scanner."""
         return Three.download_project(self, Input)
+
+    def download_scanner_project(self, Input: 'int') -> 'Task':
+        """Download a project archive from the connected scanner (desktop engine only)."""
+        return Three.download_scanner_project(self, Input)
 
     def export(self, selection: 'ScanSelection' = None, texture: 'bool' = None, merge: 'bool' = None, format: 'Export.Format' = None, scale: 'float' = None, color: 'Export.Color' = None) -> 'Task':
         """Export a group of scans."""
@@ -476,6 +492,14 @@ class Scanner:
     def forget_wifi(self) -> 'Task':
         """Forget all wifi connections."""
         return Three.forget_wifi(self)
+
+    def get_protocol_info(self) -> 'Task':
+        """Get the desktop-processing protocol version and capabilities."""
+        return Three.get_protocol_info(self)
+
+    def get_scanner_status(self) -> 'Task':
+        """Get the desktop engine's scanner connection status (desktop engine only)."""
+        return Three.get_scanner_status(self)
 
     def has_cameras(self) -> 'Task':
         """Check if the scanner has working cameras."""
@@ -512,6 +536,10 @@ class Scanner:
     def list_projects(self) -> 'Task':
         """List all projects."""
         return Three.list_projects(self)
+
+    def list_scanner_projects(self) -> 'Task':
+        """List the projects on the connected scanner (desktop engine only)."""
+        return Three.list_scanner_projects(self)
 
     def list_scans(self) -> 'Task':
         """List the scans in the current open project."""
@@ -557,6 +585,14 @@ class Scanner:
         """Pop and restore scanner settings from the settings stack."""
         return Three.pop_settings(self, Input)
 
+    def pull_project(self, Input: 'int') -> 'Task':
+        """Copy a project from the connected scanner into the local workspace (desktop engine only)."""
+        return Three.pull_project(self, Input)
+
+    def push_project(self, Input: 'int') -> 'Task':
+        """Copy a local project to the connected scanner (desktop engine only)."""
+        return Three.push_project(self, Input)
+
     def push_settings(self) -> 'Task':
         """Push the current scanner settings to the settings stack."""
         return Three.push_settings(self)
@@ -572,6 +608,10 @@ class Scanner:
     def remove_projects(self, Input: 'list[int]' = None) -> 'Task':
         """Remove selected projects."""
         return Three.remove_projects(self, Input)
+
+    def remove_scanner_projects(self, Input: 'list[int]' = None) -> 'Task':
+        """Remove projects on the connected scanner (desktop engine only)."""
+        return Three.remove_scanner_projects(self, Input)
 
     def restore_factory_calibration(self) -> 'Task':
         """Restore factory calibration."""
@@ -592,6 +632,10 @@ class Scanner:
     def set_group(self, index: 'int', name: 'str' = None, color: 'list[float]' = None, visible: 'bool' = None, collapsed: 'bool' = None, rotation: 'list[float]' = None, translation: 'list[float]' = None) -> 'Task':
         """Set scan group properties."""
         return Three.set_group(self, index, name, color, visible, collapsed, rotation, translation)
+
+    def set_processing_devices(self, Input: 'list[bool]' = None) -> 'Task':
+        """Select the scan processing devices (server and/or client processing)."""
+        return Three.set_processing_devices(self, Input)
 
     def set_project(self, index: 'int' = None, name: 'str' = None) -> 'Task':
         """Apply settings to the current open project."""
@@ -620,6 +664,10 @@ class Scanner:
     def stop_video(self) -> 'Task':
         """Stop the video stream."""
         return Three.stop_video(self)
+
+    def storage_info(self) -> 'Task':
+        """Get the local and scanner storage space (desktop engine only)."""
+        return Three.storage_info(self)
 
     def system_info(self, updateMajor: 'bool' = None, updateNightly: 'bool' = None) -> 'Task':
         """Get system information."""
